@@ -217,12 +217,6 @@ $^1$: Because we assume isotropic friction, we can say $\epsilon(\zetab^+_{t,i})
 
 %% New chapter %%
 \cleartooddpage
-\chapter{Assumptions on Guard-Activations}
-\section{Transversality}
-\section{Superfluous Contacts}
-
-%% New chapter %%
-\cleartooddpage
 \chapter{Sensitivity Analysis for Input-Dependent Guards}
 \section{Linearization for single jumps}
 The perturbed state is defined as
@@ -577,10 +571,10 @@ If we now look at the solution for $\zb_4(t_0) = \alpha\zb_1(t_0)$ with $\vb_4(t
 \section{Friction in Mechanical Systems with Unilateral Constraints}
 \subsection{Frictional impacts}
 \begin{itemize}
-    \item How is the post-impact behavior? Is it possible that the system will enter a post-impact stick state and immediately after will start slipping. If so, is that a problem? How does transversality wrt $\Gamma$ translate to the behaviour in flow?
+    \item It is possible for a contact point when it goes from open to stick to immediately go to slip, through input or for example gravity. Is this a simultaneous event? Also, write proof that there exists a range of epsilon such that an impact away from this event will not cause it to happen.
+	\item How does transversality wrt $\Gamma$ translate to the behaviour in flow?
     \item Are the contacts non-superfluous?
 	\item Are the reset maps associative?
-    \item When we go from open to stick, a guard on velocity level is triggered. This means that the acceleration can be anything. This could lead to an immediate jump from stick to slip after the open to stick event. How to deal with this?
 \end{itemize}
 
 \subsection{Impacts away from slip-stick border}
@@ -589,14 +583,14 @@ Now we look at the case where a contact point goes from open to closed, away fro
 \begin{align}
 \xb_\epsilon(t_\epsilon) = \alphab(\tau) +\epsilon\dot{\alphab}(\tau)\frac{\partial t_\epsilon}{\partial \epsilon} + \epsilon\zb(\tau) + o(\epsilon),\label{eq:appxpert}
 \end{align}
-for sufficiently small $\epsilon$. The shortest distance between $\Gammab = \Gammab(\alphab(\tau))$ and $\Gammab = 0$ on the plane where $\gammab = 0$ is defined as the constant $\delta_{\Gammab}$, which is also illustrated in Figure~\ref{fig:impactfromborder}. Since we are analyzing impacts away from $\Gammab = 0$, we can say $\delta_{\Gammab}>0$. 
+for sufficiently small $\epsilon$. The shortest distance between $\Gammab = \Gammab(\alphab(\tau))$ and $\Gammab = 0$ on the plane where $\gammab = 0$ is defined as the constant $\delta_{\Gammab}$, which is also illustrated in Figure~\ref{fig:impactfromborder}.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=.5\textwidth,trim={0cm 2.5cm 2cm 2.4cm},clip]{impactfromborder.eps}\caption{The guard functions $\gammab$ and $\Gammab$ in the state space of $\qb$. A transition from open to closed is made away from $\Gammab$. $\alphab(t)$ is the nominal trajectory and $\xb_\epsilon(t)$ a perturbed trajectory of the contact point up to the transition.} \label{fig:impactfromborder}
 \end{figure}
 
-We want to compare $\delta_{\Gammab}$ with the function value difference at impact as a result from the perturbation $\Gammab(\alphab(\tau)) - \Gammab(\xb_\epsilon(t_\epsilon))$. From Section~\ref{app:guards} we know that $\Gammab$ is continuously differentiable, which implies that it is Lipschitz-continuous and therefore satisfies the Lipschitz-continuity condition
+Let's define a point in the state $\xb_{\gammab=0,\Gammab=0}$ where $\gammab(\xb_{\gammab=0,\Gammab=0})=0$ and $\Gammab(\xb_{\gammab=0,\Gammab=0})=0$. We are evaluating nominal trajectories which impact away from $\Gammab = 0$, i.e. $\Gammab(\alphab(\tau))\neq \Gammab(\xb_{\gammab=0,\Gammab=0})$. From Section~\ref{app:guards} we know that $\Gammab$ is continuously differentiable, which implies that it is Lipschitz-continuous and therefore satisfies the Lipschitz-continuity condition
 
 \begin{align}
 ||\fb(\xb)-\fb(\yb)|| \leq \kappa||\xb-\yb||,\quad \forall \xb,\yb\in\Rbb^n,\label{eq:appLipschitz}
@@ -623,6 +617,15 @@ After substituting \eqref{eq:appxpert} into \eqref{eq:appLipschitz2}, this can b
 
 \subsection{Slip-stick transition in closed-contact}
 
+%% New chapter %%
+\cleartooddpage
+\chapter{Assumptions on Guard-Activations}
+\section{Transversality}
+\section{Superfluous Contacts}
+\section{Nominal Guard-Activations}
+For impacts, the theory is valid for impacts away from a simultaneous impacts and for simultaneous impacts, but not for impacts very close to simultaneous impacts. In this case the nominal impact is not a simultaneous impact, but a perturbation can cause the order of impacts to change. I believe the jump gain is not conewise constant anymore in this case.
+
+The same is true for impacts close to the border of stick and slip.
 
 %% New chapter %%
 \cleartooddpage
