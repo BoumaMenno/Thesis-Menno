@@ -1,0 +1,827 @@
+\documentclass[DC2017114Bouma.tex]{subfiles}
+\begin{document}
+\graphicspath{{06_Appendices/img/}}
+\appendix
+
+%% New chapter %%
+\cleartooddpage
+\chapter{Mathematical Preliminaries}
+\section{Sensitivity analysis for smooth systems}
+\section{(Non-)linear complementarity problems}
+\section{Convex analysis}
+\section{Hybrid system theory}
+
+%% New chapter %%
+\cleartooddpage
+\chapter{Modeling of Mechanical Systems with Unilateral Constraints with Spatial Friction}
+\section{Complementarity condition formulation}
+\subsection*{Flow Dynamics}
+$\Ic_a$ is the set of all possible contacts, $\Ic_c$ the set of closed contacts, $\Ic_{sl}$ the set of contacts in slip, and $\Ic_{st}$ the set of contacts in stick with $\Ic_c\subseteq \Ic_a$, $\Ic_c = \Ic_{sl}\cup \Ic_{st}$ and $\Ic_{sl}\cap \Ic_{st} = \emptyset$. When considering the expression $x\ \bot\ y$, he symbol $\bot$ is used to express the orthogonality between $x$ and $y$. We define $\xib=\dot{\qb}$, except at jump-times $\tau_i$. $h_n$ is the normal contact distance and $\zeta_{n}$ and $\zeta_{t}$ represent the relative velocities in normal and tangential direction,  respectively. The function $\epsilon(x)$ is defined as 
+\begin{equation}
+\epsilon(x) = \left\lbrace\begin{array}{rr}
+\frac{x}{||x||}, & \text{if } x \neq 0\\
+0, & \text{if } x = 0\\
+\end{array}\right. .\label{eq:epsilon}
+\end{equation}
+Then
+\begin{align}
+&\Mb(\qb)\dot{\xib} + \Hb(\qb,\xib) = \Sb(\qb)\ub + \sum_{i\in\Ic_c}\left(\wb_{n,i}(\qb)\lambda_{n,i} + \Wb_{t,i}(\qb)\lambdab_{t,i} \right), \label{eq:ncpcontact1}\\
+&0\leq h_{n,i}\ \bot\ \lambda_{n,i} \geq 0, \qquad \forall i\in\Ic_a\label{eq:ncpcontact2}\\
+&0\leq \mu\lambda_{n,i} - ||\lambdab_{t,i}||\ \bot\ \kappa_i \geq 0, \qquad \forall i\in\Ic_c\label{eq:ncpcontact3}\\
+&\zetab_{t,i} = \kappa_i\lambdab_{t,i} \qquad \forall i \in \Ic_c,\label{eq:ncpcontact4}
+\end{align}
+with 
+\begin{align}
+&\zeta_{n,i}(\qb) = \wb^T_{n,i}(\qb) \xib,  \label{eq:zetan}\\
+&\zetab_{t,i}(\qb) = \Wb^T_{t,i}(\qb) \xib. \label{eq:zetab}
+\end{align}
+\subsection*{Impact Dynamics}
+\begin{align}
+&\Mb(\qb)(\xib^+ - \xib^-) = \sum_{i\in\Ic_c}\left( \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i}\right), \label{eq:ncpimpact1}\\
+&0\leq \zeta_{n,i}^+\ \bot\ \Lambda_{n,i} \geq 0, \qquad \forall i\in\Ic_c\label{eq:ncpimpact2}\\
+&0 \leq \mu\Lambda_{n,i} - ||\Lambdab_{t,i}||\ \bot\ \kappa_i \geq 0. \qquad \forall i\in\Ic_c\label{eq:ncpimpact3}\\
+&\zetab_{t,i}^+ = \kappa_i\Lambdab_{t,i}\qquad \forall i\in\Ic_c\label{eq:ncpimpact4}
+\end{align}
+with 
+\begin{align}
+&\zeta^+_{n,i}(\qb) = \wb^T_{n,i}(\qb) \xib^+,\\
+&\zetab^+_{t,i}(\qb) = \Wb^T_{t,i}(\qb) \xib^+.\label{eq:ncpimpactend}
+\end{align}
+
+\section{Proximal point formulation}
+\subsection{Proximal point formulation of contact law}
+
+
+\subsection{Proximal point formulation of friction law}
+In Figure~\ref{fig:convex} a convex set $C$ is illustrated. The normal cone $N_C(\xb)$ of a point $\xb$ is $N_C(\xb)=0$ if $\xb\in \text{int}(C)$, where $\text{int}(.)$ is the interior of a set. An example of this is point $\xb_3$ in Figure~\ref{fig:convex}. Defining $\text{bd}(.)$ as the boundary of the set, when $\xb\in \text{bd}(C)$ there are two options. When $\xb$ is on a smooth part of $\text{bd}(C)$, then $N_C(\xb)$ is a ray normal to $\text{bd}(C)$ at point $\xb$ as depicted in at point $\xb_1$. When $\xb$ is on a non-smooth part of $\text{bd}(C)$, then $N_C(\xb)$ is a cone starting on the point $\xb$ whose sides are normal to the left and right approximation of the point $\xb$ on $\text{bd}(C)$. This is illustrated at point $\xb_2$. The proximal point $\prox_C(\zb)$ of a point $\zb$, is the point in $C$ closest to the point $\zb$. The point $\xb$ is the proximal point to all points  $\zb\in N_C(\xb)$. For a point $\zb\in C$, $\prox_C(\zb) = \zb$ i.e. $\xb_3$ in Figure~\ref{fig:convex}.
+\begin{figure}[h]
+\centering
+\includegraphics[width=.7\textwidth]{convex.PNG}\caption{}\label{fig:convex}
+\end{figure}
+
+Now we define the normal cone formulation
+\begin{align}
+-\dot{\hb}_{t,i} \in N_{C_{t,i}}(\lambdab_{t,i})\quad \forall i\in\Ic_a,\quad \text{with }C_{t,i} = \{\lambdab_{t,i}\ |\ ||\lambdab_{t,i}|| \leq \mu\lambda_{n,i}\},
+\end{align}
+which is illustrated in Figure~\ref{fig:frictiondisk}. $C_t$ is the set of all admitted friction forces. The tangential velocity $\dot{\hb}_{t,i}$ is directed opposite to the friction force $\lambdab_{t,i}$ for isotropic friction.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.5\textwidth]{frictiondisk.eps}\caption{The friction disk with two seperate friction forces $\lambdab_{t,1}$ and $\lambdab_{t,2}$. $\lambdab_{t,1} = \mu\lambda_{n,1}$, resulting in a tangential velocity $\dot{\hb}_{t,i}>0$. $\lambdab_{t,2}<\mu\lambda_{n,2}$, leading to a tangential velocity $\dot{\hb}_{t,i}=0$.}\label{fig:frictiondisk}
+\end{figure}
+
+Now using the fact that
+\begin{align}
+\xb = \prox_C(\xb -r\yb), r > 0\ \iff\ -\yb\in N_C(\xb),
+\end{align}
+we can rewrite the normal cone to a proximal point formulation
+\begin{align}
+\lambdab_{t,i} = \prox_{C_{t,i}}(\lambdab_{t,i} - r\dot{\hb}_{t,i})\,\quad \forall i\in\Ic_a\quad\text{with }C_{t,i} = \{\lambdab_{t,i}\ |\ ||\lambdab_{t,i}|| \leq \mu\lambda_{n,i}\}\text{ and }r>0.
+\end{align}
+Similarly, for the impact dynamics we can formulate
+\begin{align}
+\Lambdab_{t,i} = \prox_{C_{t,i}}(\Lambdab_{t,i} - r\dot{\hb}^+_{t,i})\,\quad \forall i\in\Ic_a\quad\text{with }C_{t,i} = \{\Lambdab_{t,i}\ |\ ||\Lambdab_{t,i}|| \leq \mu\Lambda_{n,i}\}\text{ and }r>0.
+\end{align}
+
+\section{Hybrid system formulation for mechanical system with unilateral constraints and spatial friction}
+In this section the dynamics of the complementarity system defined in the section above is written to a hybrid formulation. This formulation is less formal than the complementarity formulation, which is entirely mathematically correct. The hybrid formulation is used to give a more intuitive approach to simulating a system with impacts. 
+
+\subsection{Jump map formulation}\label{sec:derivation}
+The impact dynamics related to the jump sets are given by
+\begin{align}
+&0\leftarrow \ast:\nonumber\\
+&(\dot{\qb}^+ - \dot{\qb}^-) = 0,\label{eq:appjump1}\\
+&1\leftarrow\ast:\nonumber\\
+&\Mb(\qb)(\dot{\qb}^+ - \dot{\qb}^-) = \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i},\label{eq:appjump2}\\
+&\zeta_{n,i}^+=0,\label{eq:appjump3}\\
+&\Lambdab_{t,i} = -\epsilon(\zetab^-_{t,i})\mu\Lambda_{n,i},\label{eq:appjump4}\\
+&2\leftarrow \ast:\nonumber\\
+&\Mb(\qb)(\dot{\qb}^+ - \dot{\qb}^-) = \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i},\label{eq:appjump5}\\
+&\zeta_{n,i}^+=0,\label{eq:appjump6}\\
+&\zeta_{t,i}^+= 0,\label{eq:appjump7}
+\end{align}
+with $0\leftarrow\ast$,$1\leftarrow\ast$ and $2\leftarrow\ast$ representing the impact dynamics to open contact, slip and stick respectively and $\epsilon(x)$ as defined in \eqref{eq:epsilon}. 
+
+When we go from any mode to open, there is no jump in the velocity and the reaction impulses are 0. Therefore $0\leftarrow \ast$ is correct.
+
+When we go from open to slip, there will be a jump in velocity, and $||\Lambdab_{t,i}|| = \mu\Lambda_{n,i}$. The reaction impulses will be larger than zero. When we go from stick to slip, there will be no jump in velocity. In stick, $\zetab_{t,i} =0$, so $\epsilon(\zetab^-_{t,i}) = 0$. Also we know $\wb_{n,i}^T\dot{\qb}^- = \wb_{n,i}^T\dot{\qb}^+ = 0 $. This leads to $\dot{\qb}^- = \dot{\qb}^+$, meaning there is no jump in velocity and no impulsive reaction force. Therefore $1\leftarrow \ast$ is correct.
+
+When we go from open to stick, there will be a jump in velocity and impulsive reaction forces.
+\textbf{NOT FINISHED, WE HAVE TO HAVE SOME KIND OF PROOF THESE JUMP MAPS ARE CORRECT}
+\subsection{Guard-function formulation}\label{app:guards}
+\textbf{Open to stick/slip}\\
+When a contact point is "open", it can trigger a guard function $\gamma$ to go from open to closed. The plane that spans $\gamma = 0$ is divided in two regions: a region where the post-impact state is in slip and a region where the post-impact state is in stick. This region is defined by $\Gamma$, where $\Gamma<0$ in the region where the contact point goes to slip and $\Gamma > 0$ in the region where the contact point goes to stick. When $\Gamma = 0$ the system is right at the border between a slip post-impact state and a stick post-impact state. This is illustrated in Figure~\ref{fig:guardopcl}. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.7\textwidth]{guardopcl.eps}\caption{The functions $\gammab(\qb,\dot{\qb})$ and $\Gammab(\qb,\dot{\qb})$ illustrated in the state space of $\qb\in\mathbb{R}^{2}$. The light blue area is the state space where the contact is open, and goes the closed when it triggers $\gamma = 0$. If it triggers $\gamma = 0$ in the area where $\Gamma<0$ (orange), then the contact will go to slip. If it triggers $\gamma=0$ in the area where $\Gamma\geq 0$ (green), then the contact will go to stick.}\label{fig:guardopcl}
+\end{figure}
+
+For slip, we know that $\mu\Lambda_{n,i} - ||\Lambdab_{t,i}|| = 0$ and for stick, we know that  $\mu\Lambda_{n,i} - ||\Lambdab_{t,i}|| \geq 0$. From this we can derive the guard function
+\begin{align}
+\Gamma = \mu^2 \Lambda_{n,i}^2(\qb,\dot{\qb}^-) - \Lambdab_{t,i}(\qb,\dot{\qb}^-)\Lambdab_{t,i}^T(\qb,\dot{\qb}^-). \label{eq:slipset}
+\end{align}
+This guard function $\Gamma$ satisfies the requirements that $\Gamma<0$ in the region where the contact point goes to slip, $\Gamma > 0$ in the region where the contact point goes to stick and $\Gamma = 0$ at the border. Even though it is not physically realistic that $\Gamma < 0$, it can still be used as a guard-function.
+We now find expressions for $\Lambda_{n,i}$ and $\Lambdab_{t,i}$ by looking at the jump map to stick, given in \eqref{eq:appjump5} to \eqref{eq:appjump7}.
+
+We can rewrite \eqref{eq:appjump5} to
+\begin{align}
+\dot{\qb}^+ = \Mb^{-1}\wb_{n,i}\Lambda_{n,i} + \Mb^{-1}\Wb_{t,i}\Lambdab_{t,i} + \dot{\qb}^-,
+\end{align}
+which after substituting into \eqref{eq:appjump6} and \eqref{eq:appjump7} lead to
+
+\begin{align}
+\wb_{n,i}^T\Mb^{-1}\wb_{n,i}\Lambda_{n,i} + \wb_{n,i}^T\Mb^{-1}\Wb_{t,i}\Lambdab_{t,i} + \zeta_{n,i}^- = 0\\
+\Wb_{t,i}^T\Mb^{-1}\wb_{n,i}\Lambda_{n,i} + \Wb_{t,i}^T\Mb^{-1}\Wb_{t,i}\Lambdab_{t,i} + \zetab_{t,i}^- = 0,
+\end{align}
+respectively, with $\zeta_{n,i}^- = \wb_{n,i}^T\dot{\qb}^-$ and $\zetab_{t,i}^- = \Wb_{t,i}^T\dot{\qb}^-$. This is now rewritten to
+
+\begin{align}
+\begin{bmatrix}
+\wb_{n,i}^T\Mb^{-1}\wb_{n,i} & \wb_{n,i}^T\Mb^{-1}\Wb_{t,i} \\
+\Wb_{t,i}^T\Mb^{-1}\wb_{n,i} & \Wb_{t,i}^T\Mb^{-1}\Wb_{t,i}
+\end{bmatrix}
+\begin{bmatrix}
+\Lambda_{n,i}\\
+\Lambdab_{t,i}
+\end{bmatrix} + \begin{bmatrix}
+\zeta_{n,i}^-\\
+\zetab_{t,i}^-
+\end{bmatrix}
+= 0,
+\end{align}
+which is in turn rewritten to
+\begin{align}
+\begin{bmatrix}
+\Lambda_{n,i}\\
+\Lambdab_{t,i}
+\end{bmatrix} = - \Db^{-1}\begin{bmatrix}
+\zeta_{n,i}^-\\
+\zetab_{t,i}^-
+\end{bmatrix},\quad \text{with } \Db = \begin{bmatrix}
+\wb_{n,i}^T\Mb^{-1}\wb_{n,i} & \wb_{n,i}^T\Mb^{-1}\Wb_{t,i} \\
+\Wb_{t,i}^T\Mb^{-1}\wb_{n,i} & \Wb_{t,i}^T\Mb^{-1}\Wb_{t,i}
+\end{bmatrix}.
+\end{align}
+
+The matrix $\Db$ is often called the Delassus-matrix. We now have expressions for $\Lambda_{n,i}$ and $\Lambdab_{t,i}$ which are continuous and differentiable in $(\qb,\dot{\qb})$. It is straightforward that $\Gamma(\qb,\dot{\qb})$ is continuous and differentiable as well. From the continuity of $\Gammab_i$ we can say that if we trigger $\gamma$ away from $\Gammab_i = 0$, an infinitesimally small perturbation can not cause us to trigger $\gamma$ on the other side of $\Gammab_i$. This is proven in \textbf{SECTION TO BE WRITTEN}\\
+\textbf{Stick/slip to open}\\
+
+\textbf{Stick to slip and slip to stick}
+
+\subsection{Hybrid system formulation}
+
+\begin{align}
+&\Mb(\qb)\ddot{\qb} + \Hb(\qb,\dot{\qb}) = \Sb(\qb)\ub + \sum_{i\in\Ic_c}\left(\wb_{n,i}(\qb)\lambda_{n,i} + \Wb_{t,i}(\qb)\lambdab_{t,i} \right), \label{eq:hybriddyn}
+\end{align}
+where every contact point in the set $\Ic_a$ is subjected to some set of constraints $c_i$, depending on the mode the contact point is in. These constraints are defined below:\\
+\textbf{Open $(0)$:}
+\begin{align}
+&c_{0,i}:\nonumber\\
+&\lambda_{n,i} = 0\\
+&\lambdab_{t,i} = 0
+\end{align}
+with the jump sets
+\begin{align}
+&^{1\leftarrow 0}\mathcal{D} = \{\qb,\ub\in\Rbb^n\ |\ h_{n,i} = 0,\ \Lambda_{n,i}^2 - \Lambdab_{t,i}\Lambdab_{t,i}^T = 0\},\label{eq:D0to1}\\
+&^{2\leftarrow 0}\mathcal{D} = \{\qb,\ub\in\Rbb^n\ |\ h_{n,i} = 0,\ \Lambda_{n,i}^2 - \Lambdab_{t,i}\Lambdab_{t,i}^T > 0\}.\label{eq:D0to2}
+\end{align}
+The derivation of these jump sets is given in Section~\ref{sec:derivation}.\\
+\textbf{Slip $(1)$:}
+\begin{align}
+&c_{1,i}:\nonumber\\
+&\wb^T_{n,i}(\qb)\ddot{\qb} + \dot{\wb}^T_{n,i}(\qb)\dot{\qb} = 0,\\
+&\lambdab_{t,i} = -\epsilon(\zetab^-_{t,i})\mu\lambda_{n,i},\footnote{}
+\end{align}
+with the jump sets
+\begin{align}
+&^{0\leftarrow 1}\mathcal{D} = \{\qb,\ub\in\Rbb^n\ |\ h_{n,i} = 0,\ \lambda_{n,i} = 0\},\\
+&^{2\leftarrow 1}\mathcal{D} = \{\qb,\ub\in\Rbb^n\ |\ h_{n,i} = 0,\ ||\zetab_{t,i}|| = 0\}.
+\end{align}
+\textbf{Stick $(2)$:}
+\begin{align}
+&c_{2,i}:\nonumber\\
+&\wb^T_{n,i}(\qb)\ddot{\qb} + \dot{\wb}^T_{n,i}(\qb)\dot{\qb} = 0,\\
+&\Wb^T_{t,i}(\qb)\ddot{\qb} + \dot{\Wb}^T_{t,i}(\qb)\dot{\qb} = 0,
+\end{align}
+with the jump sets
+\begin{align}
+&^{0\leftarrow 2}\mathcal{D}= \{\qb,\ub\in\Rbb^n\ |\ h_{n,i} = 0,\ \lambda_{n,i} = 0\},\\
+&^{1\leftarrow 2}\mathcal{D} = \{\qb,\ub\in\Rbb^n\ |\ ||\lambdab_{t,i}||=\lambda_{n,i}\}.
+\end{align}
+$^1$: Because we assume isotropic friction, we can say $\epsilon(\zetab^+_{t,i}) = \epsilon(\zetab^-_{t,i})$.
+\begin{figure}[H]
+\centering
+\includegraphics[width=.85\textwidth]{nodehybrid.eps}\caption{The hybrid system representation of one contact point of a system experiencing impact and spatial friction.}\label{fig:nodehybrid}
+\end{figure}
+
+%% New chapter %%
+\cleartooddpage
+\chapter{Assumptions on Guard-Activations}
+\section{Transversality}
+\section{Superfluous Contacts}
+
+%% New chapter %%
+\cleartooddpage
+\chapter{Sensitivity Analysis for Input-Dependent Guards}
+\section{Linearization for single jumps}
+The perturbed state is defined as
+\begin{align}
+\xb(t,\epsilon) = \xb(t_0,\epsilon) + \int_{t_0}^{t}\fb(\xb(s,\epsilon),\ub(s,\epsilon),s)ds.
+\end{align}
+Then
+\begin{align}
+\frac{\partial\xb(t,\epsilon)}{\partial\epsilon} &= \frac{\partial\xb_0}{\partial\epsilon} + \int_{t_0}^{t}\left(\frac{\partial\fb}{\partial\xb}\frac{\partial\xb}{\partial\epsilon} + \frac{\partial\fb}{\partial\ub}\frac{\partial\ub}{\partial\epsilon}\right)ds,\\
+\frac{\partial^2\xb}{\partial t\partial\epsilon} &= \frac{\partial\fb}{\partial\xb}\frac{\partial\xb}{\partial\epsilon} + \frac{\partial\fb}{\partial\ub}\frac{\partial\ub}{\partial\epsilon},
+\end{align}
+which we can write as
+\begin{align}
+\frac{\partial^2\xb}{\partial t\partial\epsilon} = D_1\fb(\xb(t,\epsilon),\ub(t,\epsilon),t)\cdot \frac{\partial\xb}{\partial\epsilon} + D_2\fb(\xb(t,\epsilon),\ub(t,\epsilon),t)\cdot \frac{\partial\ub}{\partial\epsilon}, \label{eq:dxdtde}
+\end{align}
+with $D_i\fb$ the derivative of $\fb$ wrt the $i$th term of $\fb$. Evaluating \eqref{eq:dxdtde} at $\epsilon = 0$ results in the flow dynamics of the positive homogenization
+\begin{align}
+\dot{\zb} = D_1\fb(\alphab(t),\mub(t),t)\cdot \zb(t) + D_2\fb(\alphab(t),\mub(t),t)\cdot \vb(t),
+\end{align}
+where 
+\begin{align}
+\zb(t) = \left.\frac{\partial\xb(t,\epsilon)}{\partial\epsilon}\right|_{\epsilon=0},\text{ and } \vb(t) = \left.\frac{\partial\ub(t,\epsilon)}{\partial\epsilon}\right|_{\epsilon=0} .
+\end{align}
+When we consider a single jump
+\begin{align}
+\xb^{+}_\epsilon(t_\epsilon,\epsilon) = \gb(\xb^{-}_\epsilon(t_\epsilon,\epsilon),t_\epsilon),\label{eq:g}
+\end{align}
+using a Taylor approximation (\textbf{Under what conditions is this approximation valid? $\gammab$ continuous, $\alpha$ continuous, $\fb$ continuous?} with respect to $\epsilon$ and around $\epsilon = 0$, we can write
+\begin{align}
+\xb^{+}_\epsilon(t_\epsilon,\epsilon) &= \alphab^{+}(t_\epsilon) + \epsilon \zb^{+}(t_\epsilon) + o(\epsilon),\label{eq:xe}\\
+\ub^{+}_\epsilon(t_\epsilon,\epsilon) &= \mub^{+}(t_\epsilon) + \epsilon \vb^{+}(t_\epsilon) + o(\epsilon),\label{eq:ue}
+\end{align}
+where $\alphab(t)$ is a nominal reference trajectory that satisfies the dynamics of the system and $\mub(t)$ an input that achieves this reference trajectory. Now we expand this in terms of $\epsilon$, so with
+\begin{align}
+\Delta = \left.\frac{\partial t_\epsilon}{\partial\epsilon}\right|_{\epsilon=0},
+\end{align} 
+we get
+\begin{align}
+\alphab^{+}(t_\epsilon) &= \alphab^{+}(\tau) + \epsilon \dot{\alphab}^{+}(\tau)\Delta + o(\epsilon),\\
+\mub^{+}(t_\epsilon) &= \mub^{+}(\tau) + \epsilon \dot{\mub}^{+}(\tau)\Delta + o(\epsilon),\\
+\zb^{+}(t_\epsilon) &= \zb^{+}(\tau) + \epsilon \dot{\zb}^{+}(\tau)\Delta + o(\epsilon),\\
+\vb^{+}(t_\epsilon) &= \vb^{+}(\tau) + \epsilon \dot{\vb}^{+}(\tau)\Delta + o(\epsilon),
+\end{align}
+which when substituted into \eqref{eq:xe} and \eqref{eq:ue} gives,
+\begin{align}
+\xb^{+}_\epsilon(t_\epsilon,\epsilon) &= \alphab^{+}(\tau) + \epsilon \dot{\alphab}^{+}(\tau)\Delta + \epsilon \zb^{+}(\tau) + o(\epsilon). \label{eq:xeexp}\\
+\ub^{+}_\epsilon(t_\epsilon,\epsilon) &= \mub^{+}(\tau) + \epsilon \dot{\mub}^{+}(\tau)\Delta + \epsilon \vb^{+}(\tau) + o(\epsilon). \label{eq:ueexp}
+\end{align}
+ To find $\Delta$, we evaluate the ante impact guard function
+\begin{align}
+\gamma^{-}( \xb^{-}_\epsilon(t_\epsilon),\ub^{-}_\epsilon(t_\epsilon),t_\epsilon) = 0.
+\end{align}
+In previous work, the guard function $\gamma$ was not dependent on $\ub_\epsilon(t_\epsilon)$ because friction and release was not considered. We now expand $\gamma(\xb_\epsilon(t_\epsilon),\ub_\epsilon(t_\epsilon),t_\epsilon)$ wrt $\epsilon$, giving
+\begin{align}
+\gamma&(\xb_\epsilon(t_\epsilon),\ub_\epsilon(t_\epsilon),t_\epsilon) = \gamma( \alphab(\tau), \mub(\tau),\tau) + \epsilon\left[\frac{\partial \gamma}{\partial\epsilon}(\alphab(\tau),\mub(\tau),\tau)\right]_{\epsilon=0} + o(\epsilon),\\
+&= \gamma( \alphab(\tau), \mub(\tau),\tau) + \epsilon\left[ \frac{\partial\gamma}{\partial\xb}\left(\frac{\partial\xb}{\partial\epsilon} + \frac{\partial\xb}{\partial t_\epsilon}\frac{d t_\epsilon}{d\epsilon}\right) + \frac{\partial\gamma}{\partial\ub}\left(\frac{\partial\ub}{\partial\epsilon} + \frac{\partial\ub}{\partial t_\epsilon}\frac{d t_\epsilon}{d\epsilon}\right) + \frac{\partial\gamma}{\partial t_\epsilon}\frac{d t_\epsilon}{d\epsilon}  \right]_{\epsilon=0} + o(\epsilon). \label{eq:gamma}
+\end{align}
+By definition $\gamma(\tau) = 0$, so we can rewrite \eqref{eq:gamma} to
+\begin{align}
+\gamma&(\xb_\epsilon(t_\epsilon),\ub_\epsilon(t_\epsilon),t_\epsilon) = \epsilon\left[ D_1 \gamma\cdot \left( \overline{\zb}(\tau) + \dot{\alphab}(\tau)\Delta\right) + D_2 \gamma\cdot  \left( \overline{\vb}(\tau) + \dot{\mub}(\tau) \Delta\right) + D_3\cdot  \gamma \Delta \right]\label{eq:gamma2}
+\end{align}
+
+Now we can evaluate \eqref{eq:gamma} using \eqref{eq:gamma2}, which gives
+\begin{align}
+\epsilon\left[ D_1 \gamma^{-}\cdot \left(\zb^{-}(\tau) + \dot{\alphab}^{-}(\tau)\Delta\right) + D_2 \gamma^{-}\cdot  \left(\vb^{-}(\tau) + \dot{\mub}^{-}(\tau) \Delta\right) + D_3 \gamma^{-}\cdot  \Delta \right] = 0. \label{eq:gamma3}
+\end{align}
+From \eqref{eq:gamma3} we can determine the expression for $\Delta$,
+\begin{align}
+\Delta = -\frac{D_1 \gamma^{-} \cdot \zb^{-}(\tau) + D_2 \gamma^{-}\cdot \vb^{-}(\tau)}{\dot{\gamma}^{-}}, \label{eq:Delta}
+\end{align}
+with
+\begin{align}
+\gamma^{-} &= \gamma^{-}(\alphab^{-}(\tau),\mub^{-}(\tau),\tau),\\
+\dot{\gamma}^{-} &= D_1 \gamma^{-} \cdot \dot{\alphab}^{-} + D_2 \gamma^{-}\cdot  \dot{\mub}^{-} + D_3 \gamma^{-}.
+\end{align}
+
+To find the expression for the right hand side of \eqref{eq:g}, we now expand $\gb(\xb^{-}_\epsilon(t_\epsilon,\epsilon),\ub^{-}_\epsilon(t_\epsilon,\epsilon),t_\epsilon)$ with respect to $\epsilon$ as
+
+\begin{align}
+\gb(\xb^{-}_\epsilon,\ub^{-}_\epsilon,t_\epsilon) &= \gb(\alphab^-(\tau),\tau) + \epsilon\left[\frac{\partial\gb}{\partial\epsilon}\right] + o(\epsilon),\\
+&= \alphab^+(\tau) + \epsilon\left[\frac{\partial\gb}{\partial\xb}\left(\frac{\partial\xb}{\partial\epsilon} + \frac{\partial\xb}{\partial t_\epsilon}\frac{dt_\epsilon}{d\epsilon} \right) + \frac{\partial\gb}{\partial\ub}\left(\frac{\partial\ub}{\partial\epsilon} + \frac{\partial\ub}{\partial t_\epsilon}\frac{d t_\epsilon}{d\epsilon}\right) + \frac{\partial\gb}{\partial t_\epsilon}\frac{d t_\epsilon}{d\epsilon} \right]_{\epsilon = 0} + o(\epsilon),\\
+&= \alphab^+(\tau) + \epsilon\left[D_1\gb\cdot \left(\zb^- + \dot{\alphab}^-\Delta\right) + D_2\gb\cdot \left(\vb^- + \dot{\mub}(\tau) \Delta\right) + D_3\gb\cdot \Delta\right] + o(\epsilon).\label{eq:gexp}
+\end{align}
+
+Note that $\gb$ does not depend on the input $\ub$. Jump maps are impulsive by definition, and since impulsive inputs do not exist it is impossible for the jump map to be dependent on $\ub$. For small $\epsilon$, we can rewrite \eqref{eq:g}, \eqref{eq:Delta} and \eqref{eq:gexp} to a general jump map with counter $k$ as
+\begin{align}
+\xb^{k}_\epsilon(t_\epsilon,\epsilon) &= \gb^k(\xb^{k-1}_\epsilon,\ub^{k-1}_\epsilon,t_\epsilon),\label{eq:gmulti}\\
+\Delta^{k} &= -\frac{D_1 \gamma^{k}\cdot \zb^{k-1}(\tau) + D_2 \gamma^{k}\cdot \vb^{k-1}(\tau)}{\dot{\gamma}^{k}}, \label{eq:Deltamulti}\\
+\gb^k(\xb^{k-1}_\epsilon,\ub^{k-1}_\epsilon,t_\epsilon) &= \alphab^k(\tau) + \epsilon\left[D_1\gb^k\cdot \left(\zb^{k-1} (\tau) + \dot{\alphab}^{k-1}\Delta^k \right) + D_2\gb^k\cdot \left(\vb^{k-1} (\tau) + \dot{\mub}^{k-1}\Delta^k \right) + D_3\gb^k\cdot \Delta^k \right].\label{eq:gexpmulti}
+\end{align}
+
+From \eqref{eq:xeexp} we get
+\begin{align}
+\zb^k(\tau) = \frac{1}{\epsilon}\left(\xb^{k}_\epsilon(t_\epsilon) - \alphab^k(\tau)\right) -\dot{\alphab}^k(\tau)\Delta^k,\label{eq:zmulti}
+\end{align}
+and by equating \eqref{eq:gmulti} and \eqref{eq:gexpmulti} we find an expression for $\overline{\xb}^{k}_\epsilon(t_\epsilon,\epsilon)$ which we can substitute into \eqref{eq:zmulti} resulting in
+\begin{align}
+\zb^k(\tau) = D_1\gb^k\cdot\left(\zb^{k-1} (\tau) + \dot{\alphab}^{k-1}\Delta^k \right) + D_2\gb^k\cdot \left(\vb^{k-1} (\tau) + \dot{\mub}^{k-1}\Delta^k \right) + D_3\gb^k\cdot\Delta^k -\dot{\alphab}^k(\tau)\Delta^k. \label{eq:zmulti2}
+\end{align}
+
+Now, by substituting \eqref{eq:Deltamulti} into \eqref{eq:zmulti2}, we get
+\begin{multline}
+\zb^k(\tau) = D_1\gb^k\cdot\zb^{k-1} + D_2\gb^k\cdot\vb^{k-1} \\- \left(D_1\gb^k\cdot \fb^{k-1} + D_2\gb^k\cdot \dot{\mub}^{k-1} + D_3\gb^k\cdot 1 - \fb^k\right)\frac{D_1\gamma^k\cdot\zb^{k-1} + D_2\gamma^k\cdot\vb^{k-1}}{\dot{\gamma}^k},
+\end{multline}
+\begin{align}
+\zb^k(\tau) = \left(\frac{\fb^k - \dot{\gb}^k}{\dot{\gamma}^k}D_1\gamma^k + D_1\gb^k \right)\cdot\zb^{k-1} + \left(\frac{\fb^k - \dot{\gb}^k}{\dot{\gamma}^k}D_2\gamma^k + D_2\gb^k \right)\cdot\vb^{k-1},\label{eq:zmulti3}
+\end{align}
+
+with
+
+\begin{align}
+\dot{\gb}^k &= D_1\gb^k\cdot \fb^{k-1} + D_2\gb^k\cdot \dot{\mub}^{k-1} + D_3\gb^k\cdot 1,\\
+\fb^k &=\ ^{s^k}\fb(\alphab^k(\tau),\mub^k(\tau),\tau).
+\end{align}
+Now, using
+\begin{align}
+\Gb_\zb^k(\tau) &= \frac{\fb^k - \dot{\gb}^k}{\dot{\gamma}^k}D_1\gamma^k\cdot 1 + D_1\gb^k \cdot 1,\\
+\Gb_\vb^k(\tau) &= \frac{\fb^k - \dot{\gb}^k}{\dot{\gamma}^k}D_2\gamma^k\cdot 1 + D_2\gb^k \cdot 1,
+\end{align}
+
+we can write 
+
+\begin{align}
+\zb^k(\tau) &= \Gb_\zb^k\zb^{k-1} + \Gb_\vb^k\vb^{k-1}.
+\end{align}
+
+\section{Linearization for multiple jumps}\label{sec:multjumps}
+With $k+1 = k^+$ and $k-1 = k^-$, we now assume that we find the first order approximation of the perturbed post-impact state of two simultaneous jumps, by considering these jumps after each other as
+\begin{align}
+\zb^{k^+}(\tau) &= \Gb_\zb^{k^+}\zb^{k} + \Gb_\vb^{k^+}\vb^{k}
+\end{align}
+\begin{align}
+\zb^{k^+}(\tau) &= \Gb_\zb^{k^+}\left(\Gb_\zb^k\zb^{k^-} + \Gb_\vb^k\vb^{k^-}\right) + \Gb_\zb^{k^+}\vb^{k},\\
+&= \Gb_\zb^{k^+}\Gb_\zb^k\zb^{k^-} + \Gb_\zb^{k^+}\Gb_\vb^k\vb^{k^-} + \Gb_\vb^{k^+}\vb^{k}.\label{eq:zkplus}
+\end{align}
+
+We prove that this is true by deriving an expression for the post-impact state of two simultaneous jumps, and comparing it with \eqref{eq:zkplus}. Now we evaluate the jump map of two jumps at the same time instant $\tau$,
+\begin{align}
+\ ^{s^{k^+}\leftarrow s^{k}\leftarrow s^{k^-}}\xb_\epsilon(t_\epsilon^{k^+}) = \gb^{k^+}(\xb^{k}_\epsilon(t_\epsilon^{k^+}),\ub^{k}_\epsilon(t_\epsilon^{k^+}),t_\epsilon^{k^+}),\label{eq:xe012}
+\end{align}
+with
+\begin{align}
+\xb^{k}_\epsilon(t_\epsilon^{k^+}) = \int_{t_\epsilon^{k}}^{t_\epsilon^{k^+}}\left[\ ^{s^{k}}\fb\left(\xb^{k}_\epsilon(t),\ub^{k}_\epsilon(t)\right)\right]dt + \gb^{k}(\xb^{k^-}_\epsilon(t_\epsilon^{k}),\ub^{k^-}_\epsilon(t_\epsilon^{k}),t_\epsilon^{k}).\label{eq:xe01}
+\end{align}
+We rewrite the integral in \eqref{eq:xe01} to
+\begin{align}
+\int_{t_\epsilon^{k}}^{t_\epsilon^{k^+}}\ ^{s^{k}}\fb(t,\epsilon)dt = \Fb(t_\epsilon^{k^+},\epsilon) - \Fb(t_\epsilon^{k},\epsilon) = \Phib(t_\epsilon^{k},t_\epsilon^{k^+},\epsilon),
+\end{align}
+where $^{s^{k}}\fb\left(\xb^{k}_\epsilon(t),\ub^{k}_\epsilon(t)\right)$ can be written as $^{s^{k}}\fb(t,\epsilon)$, because $\xb_\epsilon$ and $\ub$ depend solely on $t$ and $\epsilon$.
+
+We now expand $\Phib$ with respect to $\epsilon$, which results in
+\begin{align}
+\Phib(t_\epsilon^{k},t_\epsilon^{k^+},\epsilon) &= \Phib(t_0^{k},t_0^{k^+},\epsilon) + \epsilon\left.\frac{\partial\Phib}{\partial\epsilon}\right|_{\epsilon = 0} + o(\epsilon),\\
+&= \Fb(\tau,0) - \Fb(\tau,0) + \left[\ ^{s^{k}}\fb(t^{k^+}_\epsilon,\epsilon)\frac{dt^{k^+}_\epsilon}{d\epsilon} - \ ^{s^{k}}\fb(t^{k^+}_\epsilon,\epsilon)\frac{dt^{k}_\epsilon}{d\epsilon} + \int_{t^{k}_\epsilon}^{t^{k^+}_\epsilon}\frac{\partial\ ^{s^{k}}\fb(t,\epsilon)}{\partial\epsilon}dt\right]_{\epsilon=0},\\
+&= \fb^{k}(\Delta^{k^+}-\Delta^{k}), 
+\end{align}
+since $\int_{t^{k}_\epsilon}^{t^{k^+}_\epsilon}\frac{\partial\ ^{s^{k}}\fb(t,\epsilon)}{\partial\epsilon}dt_{\epsilon = 0} = 0$.
+Note that $\epsilon$ is assumed sufficiently small, such that we can write $t$ as a function of $\epsilon$.
+
+By expanding \eqref{eq:xe012} with respect to $\epsilon$, we find
+\begin{align}
+\ ^{s^{k^+}\leftarrow s^{k}\leftarrow s^{k^-}}\xb_\epsilon(t_\epsilon^{k^+}) = \alphab^{k^+}(\tau) + \epsilon\left.\frac{\partial\gb^{k^+}(\xb^{k}_\epsilon(t_\epsilon^{k^+}),\ub^{k}_\epsilon(t_\epsilon^{k^+}),t_\epsilon^{k^+})}{\partial\epsilon}\right|_{\epsilon=0} + o(\epsilon),\label{eq:xe012exp}
+\end{align}
+where
+\begin{multline}
+\left.\frac{\partial\gb^{k^+}(\xb^{k}_\epsilon(t_\epsilon^{k^+}),\ub^{k}_\epsilon(t_\epsilon^{k^+}),t_\epsilon^{k^+})}{\partial\epsilon}\right|_{\epsilon=0} = \left[\frac{\partial\gb^{k^+}}{\partial\xb}\left(\frac{\partial\Phib}{\partial\epsilon} + \frac{\partial\gb^{k}}{\partial\xb}\left(\frac{\partial\xb^{k^-}}{\partial\epsilon} + \frac{\partial\xb^{k^-}}{\partial t}\frac{d t_\epsilon^{k}}{d \epsilon}\right)\right.\right. +\\ \left.\left.\frac{\partial\gb^{k}}{\partial\ub}\left(\frac{\partial\ub^{k^-}}{\partial\epsilon} + \frac{\partial\ub^{k^-}}{\partial t}\frac{d t_\epsilon^{k}}{d \epsilon}\right) + \frac{\partial\gb^{k}}{\partial t}\frac{d t_\epsilon^{k}}{d\epsilon}\right) + \frac{\partial \gb^{k^+}}{\partial t}\frac{dt^{k^+}_\epsilon}{d\epsilon}\right]_{\epsilon=0},
+\end{multline}
+\begin{multline}
+\left.\frac{\partial\gb^{k^+}(\xb^{k}_\epsilon(t_\epsilon^{k^+}),\ub^{k}_\epsilon(t_\epsilon^{k^+}),t_\epsilon^{k^+})}{\partial\epsilon}\right|_{\epsilon=0} = D_1\gb^{k^+}\cdot\left(\fb^{k}(\Delta^{k^+}-\Delta^{k}) + D_1\gb^{k}\cdot\left(\zb^{k^-}+\fb^{k^-}\Delta^{k}\right)\right. \\ \left.+ D_2\gb^{k}\cdot\left(\vb^{k^-}+\dot{\mub}^{k^-}\Delta^{k}\right) + D_3\gb^{k}\cdot\Delta^{k}\right)+D_3\gb^{k^+}\cdot\Delta^{k^+}. \label{eq:dg1de}
+\end{multline}
+We now substitute \eqref{eq:dg1de} into \eqref{eq:xe012exp}, which we in turn substitute into \eqref{eq:zmulti} to get
+
+\begin{multline}
+\zb^{k^+}(\tau) = D_1\gb^{k^+}\cdot\fb^{k}\Delta^{k^+} - D_1\gb^{k^+}\cdot\fb^{k^+}\Delta^{k} + D_1\gb^{k^+}\cdot\left(D_1\gb^{k}\cdot\left(\zb^{k^-}+\fb^{k^-}\Delta^{k}\right)\right.\\
+\left.+D_2\gb^{k}\cdot\left(\vb^{k^-}+\dot{\mub}^{k^-}\Delta^{k}\right)+D_3\gb^{k}\cdot\Delta^{k}\right) + \left(D_3\gb^{k^+}\cdot 1 - \fb^{k^+}\right)\Delta^{k^+},\label{eq:z2}
+\end{multline}
+under the assumption that $\epsilon$ is small. The four terms in \eqref{eq:z2} can be rewritten into
+
+\begin{align}
+&D_1\gb^{k^+}\cdot\fb^{k}\Delta^{k^+} = \frac{-D_1\gb^{k^+}\cdot\fb^{k^+}}{\dot{\gamma}^{k^+}}\left(D_1\gamma^{k^+}\cdot\left(\Gb_\zb^{k}\zb^{k^-}+\Gb_\vb^{k}\vb^{k^-}\right) +D_2\gamma^{k^+}\cdot\vb^{k}\right),\\
+&D_1\gb^{k^+}\cdot\left(-\fb^{k}\Delta^{k}\right) = \frac{D_1\gb^{k^+}\cdot\fb^{k}}{\dot{\gamma}^{k}}\left(D_1\gamma^{k}\cdot\zb^{k^-} + D_2\gamma^{k}\cdot\vb^{k^-}\right),
+\end{align}
+\begin{multline}
+D_1\gb^{k^+}\cdot\left(D_1\gb^{k}\cdot\left(\zb^{k^-} + \fb^{k^-}\Delta^{k}\right) + D_2\gb^{k}\cdot\left(\vb^{k^-}+\dot{\mub}^{k^-}\Delta^{k}\right) + D_3\gb^{k}\cdot\Delta^{k}\right) = \\
+D_1\gb^{k^+}\cdot\left(\frac{-D_1\gb^{k}\cdot\fb^{k^-}}{\dot{\gamma}^{k}}D_1\gamma^{k} + \frac{-D_2\gb^{k}\cdot\dot{\mub}^{k^-}}{\dot{\gamma}^{k}}D_1\gamma^{k} + \frac{-D_3\gb^{k}\cdot 1}{\dot{\gamma}^{k}}D_1\gamma^{k} + D_1\gb^{k}\right)\cdot\zb^{k^-} \\
++ D_1\gb^{k^+}\cdot\left(\frac{-D_1\gb^{k}\cdot\fb^{k^-}}{\dot{\gamma}^{k}}D_2\gamma^{k} + \frac{-D_2\gb^{k}\cdot\dot{\mub}^{k^-}}{\dot{\gamma}^{k}}D_2\gamma^{k} + \frac{-D_3\gb^{k}\cdot 1}{\dot{\gamma}^{k}}D_2\gamma^{k} + D_2\gb^{k} \right)\cdot \vb^{k^-},
+\end{multline}
+\begin{align}
+&\left(D_3\gb^{k^+}\cdot 1 - \fb^{k^+}\right)\Delta^{k^+} = \frac{-D_3\gb^{k^+}\cdot 1+\fb^{k^+}}{\dot{\gamma}^{k^+}}\left(D_1\gamma^{k^+}\cdot\left(\Gb_\zb^{k}\zb^{k^-} + \Gb_\vb^{k}\vb^{k^-}\right) + D_2\gamma^{k^+}\cdot\vb^{k}\right).
+\end{align}
+% * <m.bouma@student.tue.nl> 2018-07-30T09:07:29.262Z:
+%
+% ^.
+When we substitute the equations above into \eqref{eq:z2}, after reordering the expression we get
+
+\begin{multline}
+\zb^{k^+}(\tau) = \left(\frac{\fb^{k^+} - D_1\gb^{k^+}\cdot\fb^{k} - D_2\gb^{k^+}\cdot\dot{\mub}^{k} - D_3\gb^{k^+}\cdot 1}{\dot{\gamma}^{k^+}}D_1\gamma^{k^+}\cdot\Gb_\zb^{k}\right.\\
+\left. + D_1\gb^{k^+}\cdot\frac{\fb^{k} - D_1\gb^{k}\cdot\fb^{k^-} - D_2\gb^{k}\cdot\dot{\mub}^{k^-} - D_3\gb^{k}\cdot 1}{\dot{\gamma}^{k}}D_1\gamma^{k^+} + D_1\gb^{k^+} D_1\gb^{k}\cdot 1\right)\zb^{k^-}\\
++ \left(\frac{\fb^{k^+}-D_1\gb^{k^+}\cdot\fb^{k} -D_2\gb^{k^+}\cdot\dot{\mub}^{k} - D_3\gb^{k^+}\cdot 1}{\dot{\gamma}^{k^+}}D_1\gamma^{k^+}\cdot\Gb_\vb^{k}\right.\\
+\left. + D_1\gb^{k^+}\cdot\frac{\fb^{k}-D_1\gb^{k}\cdot\fb^{k^-}-D_2\gb^{k}\cdot\dot{\mub}^{k^-}-D_3\gb^{k}\cdot 1}{\dot{\gamma}^{k}}D_2\gamma^{k^+} + D_1\gb^{k^+} D_2\gb^{k}\cdot 1 \right)\vb^{k^-}\\
++ \left(\frac{\fb^{k^+}-D_1\gb^{k^+}\cdot\fb^{k} - D_2\gb^{k^+}\cdot\dot{\mub}^{k} - D_3\gb^{k^+}\cdot 1}{\dot{\gamma}^{k^+}}D_2\gamma^{k^+}\right)\vb^{k},
+\end{multline}
+from which we can isolate $\Gb_\zb^{k}$, and $\Gb_\vb^{k}$ resulting in
+\begin{multline}
+\zb^{k^+}(\tau) = \left(\frac{\fb^{k^+} - D_1\gb^{k^+}\cdot\fb^{k}  - D_2\gb^{k^+}\cdot\dot{\mub}^{k} - D_3\gb^{k^+}\cdot 1}{\dot{\gamma}^{k^+}}D_1\gamma^{k^+} + D_1\gb^{k^+}\cdot 1\right)\Gb_\zb^{k}\zb^{k^-}\\
++ \left(\frac{\fb^{k^+} - D_1\gb^{k^+}\cdot\fb^{k} - D_2\gb^{k^+}\cdot\dot{\mub}^{k} - D_3\gb^{k^+}\cdot 1}{\dot{\gamma}^{k^+}}D_1\gamma^{k^+} + D_1\gb^{k^+}\cdot 1\right)\Gb_\vb^{k}\vb^{k^-} \\
++ \left(\frac{\fb^{k^+}-D_1\gb^{k^+}\cdot\fb^{k} - D_2\gb^{k^+}\cdot\dot{\mub}^{k} - D_3\gb^{k^+}\cdot 1}{\dot{\gamma}^{k^+}}D_2\gamma^{k^+}\right)\vb^{k},
+\end{multline}
+which is equal to
+\begin{align}
+&\zb^{k^+}(\tau) = \Gb_\zb^{k^+}\Gb_\zb^k\zb^{k^-} + \Gb_\zb^{k^+}\Gb_\vb^k\vb^{k^-} + \Gb_\vb^{k^+}\vb^{k}.\label{eq:zkplusfinal}
+\end{align}
+
+Here we see that \eqref{eq:zkplusfinal} is equal to \eqref{eq:zkplus}. This proves that for any $k$, the first-order approximation of the post-impact state of two simultaneous jumps at $\tau$ can be found by evaluating the two jumps separately. Since $k$ is a variable in this proof, using an induction-like proof, this holds for any amount of jumps as well. This is illustrated in Figure~\ref{fig:kjumps}. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.08\textwidth]{kjumps.eps}\caption{}\label{fig:kjumps}
+\end{figure}
+
+When we take $k = 1$, we show that the jumps from $0$ to $2$ can be described by evaluating the jump from $0$ to $1$ and the jump $1$ to $2$ in succession. This also holds for $k = 2$. The jump from $0$ to $3$ can be described by evaluating the jump from $0$ to $2$ and the jump from $2$ to $3$ in succession. This way we proved that we can use \eqref{eq:zkplusfinal} to find an expression for the first-order approximation of the post-impact state for $l$ simultaneous jumps, with $l\in \mathbb{Z}$. Also, we show that multiple constant jump gains will result in a total jump which can also be described by a constant jump gain.
+
+For $l$ simultaneous jumps, we can find the first-order approximation of the post-impact state using
+
+\begin{align}
+\ ^{l\leftarrow 0}\zb(\tau) = \ ^{l \leftarrow 0}\Gb(\zb^{0}(\tau),\vb(\tau),\tau) = \ ^{l\leftarrow 0}\Gb_\zb\zb^{0}(\tau) + \sum_{i=0}^{l-1}\left(\ ^{l\leftarrow i+1}\Gb_\zb\ ^{i+1 \leftarrow i}\Gb_\vb\vb^{i}(\tau)\right),\label{eq:ljumps}
+\end{align}
+
+where the superscript
+\begin{align}
+b\leftarrow a =b\leftarrow (b-1) \leftarrow \cdots \leftarrow (a+1) \leftarrow a,
+\end{align}
+
+and
+\begin{align}
+^{b\leftarrow a}\Gb_\zb &=\ ^{b\leftarrow (b-1)}\Gb_\zb\cdots\ ^{(a+2)\leftarrow (a+1)}\Gb_\zb^{(a+1)\leftarrow a}\Gb_\zb,\\
+^{b\leftarrow a}\Gb_\vb &=\ ^{b\leftarrow (b-1)}\Gb_\vb\cdots\ ^{(a+2)\leftarrow (a+1)}\Gb_\vb^{(a+1)\leftarrow a}\Gb_\vb.
+\end{align}
+
+%% New chapter %%
+\cleartooddpage
+\chapter{Positive Homogenization for Input-Dependent Guards}
+\section{Conewise constant jump gain}
+This section is written under the assumption that in one macro event, only two modes are possible per contact point. The general form of a jump map for simultaneous impacts with is 
+\begin{align}
+\ ^{s^l\leftarrow s^0}\zb(\tau)= \ ^{s^l \leftarrow s^0}\Hb(\zb^{0}(\tau),\vb(\tau),\tau) = \left\lbrace\begin{array}{ll}
+\Gb^1(\zb^0,\vb^0,\tau), & \text{if condition 1 is true},\\
+\Gb^2(\zb^0,\vb^0,\tau), & \text{if condition 1 is true},\\
+\vdots & \vdots\\
+\Gb^{p^{c_i}}(\zb^0,\vb^0,\tau), & \text{if condition }p^{c_i}\text{ is true},
+\end{array}\right.\label{eq:Hgeneral}
+\end{align}
+where $\Gb$ is in the form of \eqref{eq:ljumps}. We will now derive the jump maps and associated conditions in \eqref{eq:Hgeneral} to make the expression explicit.
+
+During a macro event for a certain perturbation, only a single order of micro events is feasible. This order can be found by determining the perturbed jump time of all possible micro events, and selecting the micro event with the earliest impact time as the next event. Mathematically, this is written as
+\begin{align}
+s^{k+1} = \underset{s^{k+1}}{\argmin}\left(\ ^{s^{k+1} \leftarrow S^{k}}t_\epsilon\right).\label{eq:argmin1}
+\end{align}
+The impact time of the next micro event $\ ^{s^{k+1} \leftarrow S^{k}}t_\epsilon$ can be approximated using the first order approximation
+\begin{align}
+\ ^{s^{k+1} \leftarrow S^{k}}t_\epsilon = \tau + \epsilon\Delta^{k+1}.
+\end{align}
+
+Now, since $\tau$ and $\epsilon$ are equal for each impact time, we can rewrite \eqref{eq:argmin1} to
+
+\begin{align}
+s^{k+1} = \underset{s^{k+1}}{\argmin}\left(\Delta^{k+1}\right),
+\end{align}
+which can be written as
+\begin{align}
+s^{k+1} = s^k + \underset{\eta^*\in\chi}{\argmin}\left(-\frac{D_1\gamma^{\eta^*}\left(^{s^k}\alpha,^{s^k}\mu,\tau\right)\ ^{S^k}\overline{\zb} + D_2\gamma^{\eta^*}\left(^{s^k}\alpha,^{s^k}\mu,\tau\right)\ ^{S^k}\overline{\vb}}{\dot{\gamma}^{\eta^*}}\right),
+\end{align}
+with $\chi$ the set of guard identifiers that are still open. Then
+\begin{align}
+\eta^{k+1} = \underset{\eta^*\in\chi}{\argmin}\left(-\frac{D_1\gamma^{\eta^*}\left(^{s^k}\alpha,^{s^k}\mu,\tau\right)\ ^{S^k}\overline{\zb} + D_2\gamma^{\eta^*}\left(^{s^k}\alpha,^{s^k}\mu,\tau\right)\ ^{S^k}\overline{\vb}}{\dot{\gamma}^{\eta^*}}\right),\label{eq:argmin2}
+\end{align}
+with $s^{k+1} = s^k + \eta^{k+1}$ and $\eta^{k+1}$ a guard function identifier. Finally, with
+\begin{align}
+^{S^k}\ab = -\frac{D_1\gamma^{\eta}\left(^{S^k}\alpha,^{s^k}\mu,\tau\right)}{\dot{\gamma}^{\eta}},
+\quad
+^{S^k}\bb = -\frac{D_2\gamma^{\eta}\left(^{S^k}\alpha,^{s^k}\mu,\tau\right)}{\dot{\gamma}^{\eta}},
+\end{align}
+\eqref{eq:argmin2} can be rewritten as
+\begin{align}
+\eta^{k+1} = \underset{\eta^*\in\chi}{\argmin}\left(^{S^k}\ab^T\ ^{S^k}\overline{\zb} +\  ^{s^k}\bb^T\ ^{S^k}\overline{\vb}\right).
+\end{align}
+Now, by checking \eqref{eq:argmin2} for every micro event, we know which jump gains we should take to substitute into \eqref{eq:ljumps}.
+For example a system with $c_i = 2$ and $p = 3$, with a macro event starting in $s_0 = 00$ and ending in $s_l = 22$, this gives 
+\begin{multline}
+\ ^{ S^{2\leftarrow 0}}\Hb(\ ^{s^0}\zb(\tau),\ ^{S^2}\vb(\tau),\tau) =\\ \left\lbrace\begin{array}{ll}
+\ ^{^{(12)} S^{2\leftarrow 0}}\Gb_\zb\ ^{s^0}\zb + \ ^{^{(12)} S^{2\leftarrow 0}}\Gb_\vb\ ^{s^0}\vb, & \text{if }(\text{I}),\\
+\ ^{^{12} S^{2\leftarrow 1}}\Gb_\zb\ ^{^{1} S^{1\leftarrow 0}}\Gb_\zb\ ^{s^0}\zb + \ ^{^{12} S^{2\leftarrow 1}}\Gb_\zb\ ^{^{1} S^{1\leftarrow 0}}\Gb_\vb\ ^{s^0}\vb + \ ^{^{12} S^{2\leftarrow 1}}\Gb_\vb\ ^{^1 S^1}\vb, & \text{if }(\text{II}),\\
+\ ^{^{21} S^{2\leftarrow 1}}\Gb_\zb\ ^{^{2} S^{1\leftarrow 0}}\Gb_\zb\ ^{s^0}\zb + \ ^{^{21} S^{2\leftarrow 1}}\Gb_\zb\ ^{^{2} S^{1\leftarrow 0}}\Gb_\vb\ ^{s^0}\vb + \ ^{^{21} S^{2\leftarrow 1}}\Gb_\vb\ ^{^{2} S^1}\vb, & \text{if }(\text{III}),
+\end{array}\right.\label{eq:H2200}
+\end{multline}
+
+with
+
+\begin{align}
+(\text{I})&:\ ^{^2 S^1}\ab^T\ ^{^2 S^1}\zb +\  ^{^2 S^1}\bb^T\ ^{^2 S^1}\vb = \ ^{^1 S^1}\ab^T\ ^{^1 S^1}\zb +\  ^{^1 S^1}\bb^T\ ^{^1 S^1}\vb,\\
+(\text{II})&:\ ^{^2 S^1}\ab^T\ ^{^2 S^1}\zb +\  ^{^2 S^1}\bb^T\ ^{^2 S^1}\vb > \ ^{^1 S^1}\ab^T\ ^{^1 S^1}\zb +\  ^{^1 S^1}\bb^T\ ^{^1 S^1}\vb,\\
+(\text{III})&:\ ^{^2 S^1}\ab^T\ ^{^2 S^1}\zb +\  ^{^2 S^1}\bb^T\ ^{^2 S^1}\vb < \ ^{^1 S^1}\ab^T\ ^{^1 S^1}\zb +\  ^{^1 S^1}\bb^T\ ^{^1 S^1}\vb .
+\end{align}
+
+These conditions are illustrated in Figure~\ref{fig:cone}. Since the conditions are linear in $\zb$ and $\vb$, they appear as lines in the state space of $\zb$ and $\vb$. When we introduce more conditions, we will find several cones that relate a certain jump gain to $\zb,\vb$ pair. When we look at the vector $r(\zb,\vb)$ in Figure~\ref{fig:cone}, we notice that when $r$ is multiplied with a constant $\alpha$ we will always stay in the same cone, i.e. use the same jump gain. Hence the name, conewise constant jump gain.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{cone.eps}\caption{}\label{fig:cone}
+\end{figure}
+
+\section{Positive homogeneity}
+The first order approximation of the perturbed trajectory $\xb_\epsilon$ can be found using $\alphab + \epsilon\zb$, with
+
+\begin{align}
+^{s^{k-1}}\dot{\zb} &=\ ^{s^{k-1}}\Ab(t)\ ^{s^{k-1}}\zb +\ ^{s^{k-1}}\Bb(t)\ ^{s^{k-1}}\vb,\nonumber\\
+^{s^{k}}\zb &= ^{s^{k}\leftarrow s_{k-1}}\Hb\left(^{s^{k-1}}\zb,t\right),\label{eq:PHdyn}\\
+^{s^{k}}\dot{\zb} &=\ ^{s^{k}}\Ab(t)\ ^{s^{k}}\zb +\ ^{s^{k}}\Bb(t)\ ^{s^{k-1}}\vb,\nonumber
+\end{align}
+where
+\begin{align}
+^{s^{k}}\Ab(t) &= D_1\ ^{s^{k}}\fb\left(\ ^{s^{k}}\alphab(t),\ ^{s^{k}}\mub(t)\right),\\
+^{s^{k}}\Bb(t) &= D_2\ ^{s^{k}}\fb\left(\ ^{s^{k}}\alphab(t),\ ^{s^{k}}\mub(t)\right).
+\end{align}
+
+When we look at \eqref{eq:PHdyn}, the continuous dynamics of the system are linear. Because of the conewise constant jump gain however, this linearity property is lost. We can see this by looking at the general solution of \eqref{eq:PHdyn}. A system $f(x,u)$ with state $x$ and input $u$ is linear if $f(x_1,v_1) + f(x_2,v_2) = f(x_1+x_2,v_1+v_2)$. Two solutions of \eqref{eq:PHdyn} before jump are
+
+\begin{align}
+^{s^{k-1}}\zb_1(\tau) &= \ ^{s^{k-1}}\phib(t,t_0)\ ^{s^{k-1}}\zb_1(t_0) + \int_{t_0}^\tau \left[\ ^{s^{k-1}}\phib(t,s)\ ^{s^{k-1}}\Bb(s)\vb_1(s)\right]ds,\\
+^{s^{k-1}}\zb_2(\tau) &= \ ^{s^{k-1}}\phib(t,t_0)\ ^{s^{k-1}}\zb_2(t_0) + \int_{t_0}^\tau \left[\ ^{s^{k-1}}\phib(t,s)\ ^{s^{k-1}}\Bb(s)\vb_2(s)\right]ds,
+\end{align}
+with $t_0$ the initial time and $\tau$ the jump time.
+When we add these solutions together we find
+\begin{multline}
+^{s^{k-1}}\zb_1(\tau) + \ ^{s^{k-1}}\zb_2(\tau) = \ ^{s^{k-1}}\phib(t,t_0)\left(\ ^{s^{k-1}}\zb_1(t_0) + \ ^{s^{k-1}}\zb_2(t_0)\right) \\+ \int_{t_0}^\tau \left[\ ^{s^{k-1}}\phib(t,s)\ ^{s^{k-1}}\Bb(s)\left(\vb_1(s) + \vb_2(s)\right)\right]ds,
+\end{multline}
+which is equal to the solution of $^{s^{k-1}}\zb_3(t_0) = ^{s^{k-1}}\zb_1(t_0) + ^{s^{k-1}}\zb_2(t_0)$ with $\vb_3(t) = \vb_1(t) + \vb_2(t)$. When $^{s^{k-1}}\zb_1$ jumps with $\Gb^1(\zb,\tau)$ and $^{s^{k-1}}\zb_1(\tau)$ jumps with $\Gb^2(\zb,\tau)$ we find the solutions post jump to be
+\begin{align}
+^{s^{k}}\zb_1(\tau) &= \ ^{s^{k}}\phib(t,t_0)\ \Gb^1(^{s^{k-1}}\zb_1(t_0),\tau) + \int_{t_0}^\tau \left[\ ^{s^{k}}\phib(t,s)\ ^{s^{k}}\Bb(s)\vb_1(s)\right]ds,\label{eq:z1sol}\\
+^{s^{k}}\zb_2(\tau) &= \ ^{s^{k}}\phib(t,t_0)\ \Gb^2(^{s^{k-1}}\zb_2(t_0),\tau) + \int_{t_0}^\tau \left[\ ^{s^{k}}\phib(t,s)\ ^{s^{k}}\Bb(s)\vb_2(s)\right]ds,
+\end{align}
+which when added together results in
+\begin{multline}
+^{s^{k}}\zb_1(\tau) + \ ^{s^{k}}\zb_2(\tau) = \ ^{s^{k}}\phib(t,t_0)\left(\Gb_\zb^1 \ ^{s^{k-1}}\zb_1 + \Gb_\vb^1\ ^{s^{k-1}}\vb_1 + \Gb_\zb^2 \ ^{s^{k-1}}\zb_2 + \Gb_\vb^2\ ^{s^{k-1}}\vb_2\right) \\+ \int_{t_0}^\tau \left[\ ^{s^{k}}\phib(t,s)\ ^{s^{k}}\Bb(s)\left(\vb_1(s) + \vb_2(s)\right)\right]ds.\label{eq:soladd}
+\end{multline}
+Here we see that the solution of $^{s^{k-1}}\zb_3(t_0) = ^{s^{k-1}}\zb_1(t_0) + ^{s^{k-1}}\zb_2(t_0)$ with $\vb_3(t) = \vb_1(t) + \vb_2(t)$, which jumps with $\Gb_3(\zb,\tau)$, is only the equal to \eqref{eq:soladd} if $\Gb_1(\zb,\tau) = \Gb_2(\zb,\tau) = \Gb_3(\zb,\tau)$. In other words, the system only maintains its linearity after jump if the jump maps are equal for each ante jump state. Because this is generally not true, we show that the system is positive homogeneous for any jump gains. A system $f(x,u)$ with state $x$ and input $u$ is called positive homogeneous, when $\alpha f(x,u) = f(\alpha x, \alpha u)$. If we multiply \eqref{eq:z1sol} with a constant $\alpha$, we find
+\begin{align}
+^{s^{k}}\zb_1(\tau) &= \alpha \ ^{s^{k}}\phib(t,t_0)\ \left(\Gb_\zb^1 \ ^{s^{k-1}}\zb_1 + \Gb_\vb^1\ ^{s^{k-1}}\vb_1\right) + \alpha\int_{t_0}^\tau \left[\ ^{s^{k}}\phib(t,s)\ ^{s^{k-1}}\Bb(s)\vb_1(s)\right]ds.\label{eq:alphaz1sol}
+\end{align}
+If we now look at the solution for $\zb_4(t_0) = \alpha\zb_1(t_0)$ with $\vb_4(t) = \alpha\vb_1(t)$ jumping with $\Gb^4(\tau)$, and using the fact that $\Gb^4(\tau) = \Gb^1(\tau)$ since the gains are conewise constant as illustrated in Figure~\ref{fig:cone}, we find the same solution as \eqref{eq:alphaz1sol}. This shows that \eqref{eq:PHdyn} is positive homogeneous for any conewise constant jump gain $^{s^{k}\leftarrow s^{k-1}}\Hb\left(^{s^{k-1}}\zb,t\right)$. Hence the name, positive homogenization. 
+
+\section{Friction in Mechanical Systems with Unilateral Constraints}
+\subsection{Frictional impacts}
+\begin{itemize}
+    \item How is the post-impact behavior? Is it possible that the system will enter a post-impact stick state and immediately after will start slipping. If so, is that a problem? How does transversality wrt $\Gamma$ translate to the behaviour in flow?
+    \item Are the contacts non-superfluous?
+	\item Are the reset maps associative?
+    \item When we go from open to stick, a guard on velocity level is triggered. This means that the acceleration can be anything. This could lead to an immediate jump from stick to slip after the open to stick event. How to deal with this?
+\end{itemize}
+
+\subsection{Impacts away from slip-stick border}
+Now we look at the case where a contact point goes from open to closed, away from $\Gammab = 0$. This is illustrated in Figure~\ref{fig:impactfromborder}. The goal is to proof that for an event away from $\Gammab$, an infinitesimally small perturbation can not cause the trajectory to hit $\gamma = 0$ at a perturbed ante-impact state $\xb_\epsilon^-(t_\epsilon)$ where $\Gammab$ changes sign in comparison with the unperturbed ante-impact state $\alphab^-(\tau)$. From \cite[p. 6]{Rijnen2018} we know that based on the continuity property of $\gammab$ and $\fb$, the perturbed impact state can be written as
+
+\begin{align}
+\xb_\epsilon(t_\epsilon) = \alphab(\tau) +\epsilon\dot{\alphab}(\tau)\frac{\partial t_\epsilon}{\partial \epsilon} + \epsilon\zb(\tau) + o(\epsilon),\label{eq:appxpert}
+\end{align}
+for sufficiently small $\epsilon$. The shortest distance between $\Gammab = \Gammab(\alphab(\tau))$ and $\Gammab = 0$ on the plane where $\gammab = 0$ is defined as the constant $\delta_{\Gammab}$, which is also illustrated in Figure~\ref{fig:impactfromborder}. Since we are analyzing impacts away from $\Gammab = 0$, we can say $\delta_{\Gammab}>0$. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.5\textwidth,trim={0cm 2.5cm 2cm 2.4cm},clip]{impactfromborder.eps}\caption{The guard functions $\gammab$ and $\Gammab$ in the state space of $\qb$. A transition from open to closed is made away from $\Gammab$. $\alphab(t)$ is the nominal trajectory and $\xb_\epsilon(t)$ a perturbed trajectory of the contact point up to the transition.} \label{fig:impactfromborder}
+\end{figure}
+
+We want to compare $\delta_{\Gammab}$ with the function value difference at impact as a result from the perturbation $\Gammab(\alphab(\tau)) - \Gammab(\xb_\epsilon(t_\epsilon))$. From Section~\ref{app:guards} we know that $\Gammab$ is continuously differentiable, which implies that it is Lipschitz-continuous and therefore satisfies the Lipschitz-continuity condition
+
+\begin{align}
+||\fb(\xb)-\fb(\yb)|| \leq \kappa||\xb-\yb||,\quad \forall \xb,\yb\in\Rbb^n,\label{eq:appLipschitz}
+\end{align}
+where $\kappa>0$ \cite{Leine2008}. By applying \eqref{eq:appLipschitz} to the function value of $\Gammab$ at impact for the nominal trajectory and the perturbed trajectory, we find
+
+\begin{align}
+||\Gammab(\alphab(\tau)) - \Gammab(\xb_\epsilon(t_\epsilon))||\leq \kappa||\alphab(\tau)-\xb_\epsilon(t_\epsilon))||.\label{eq:appLipschitz2}
+\end{align}
+After substituting \eqref{eq:appxpert} into \eqref{eq:appLipschitz2}, this can be written as
+
+\begin{align}
+||\Gammab(\alphab(\tau)) - \Gammab(\xb_\epsilon(t_\epsilon))||\leq \kappa||\epsilon\left(\dot{\alphab}(\tau)\frac{\partial t_\epsilon}{\partial \epsilon} + \zb(\tau)\right) + o(\epsilon).\label{eq:appLipschitz3}
+\end{align}
+\eqref{eq:appLipschitz3} shows that $\lim_{\epsilon\rightarrow 0}||\Gammab(\alphab(\tau)) - \Gammab(\xb_\epsilon(t_\epsilon))|| = 0$. Since $\delta_{\Gammab}>0$, this proves that for an infinitesimally small perturbation $\epsilon$, $||\Gammab(\alphab(\tau)) - \Gammab(\xb_\epsilon(t_\epsilon))||<\delta_{\Gammab}$. It also shows that there always exists a range of $\epsilon$ where $||\Gammab(\alphab(\tau)) - \Gammab(\xb_\epsilon(t_\epsilon))||<\delta_{\Gammab}$ holds, i.e., there always exists a range of $\epsilon$ such that the perturbation will not cause the contact point to switch stick-slip domain at impact in comparison to the unperturbed event.
+
+\subsection{Impacts close to slip-stick border}
+
+\begin{itemize}
+	\item Consider as simultaneous trigger of open-closed guard and slip-stick guard. However, it is not entirely the same, as the slip-stick guard can not be triggered before the open-closed guard.
+	\item The trigger should be transversal, in both closed-open guard and slip-stick guard.
+	\item If we can show continuity of post-impact state, then we can define a jump gain like $H$, which uses one jump map for the open to stick domain and another jump map for the open to slip domain.
+\end{itemize}
+
+\subsection{Slip-stick transition in closed-contact}
+
+
+%% New chapter %%
+\cleartooddpage
+\chapter{Plank-Box Model} 
+\section{Plank box dynamics}
+In Figure~\ref{fig:blockplank} the plank-box model is illustrated. The block is fully actuated and the plank is attached to the solid environment with a spring and damper. The line contact is for now modeled using two contact-points $C_L$ and $C_R$.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.6\textwidth,angle=-90]{blockplankmodel.PNG}\caption{Block-plank model}\label{fig:blockplank}
+\end{figure}
+
+\subsection*{Global unconstrained dynamics}
+The global generalized coordinates are defined as
+\begin{align}
+q_g &= \begin{bmatrix}
+x_g & y_g & \theta_g & \varphi
+\end{bmatrix},\\
+v_g &= \begin{bmatrix}
+\dot{x}_g & \dot{y}_g & \dot{\theta}_g & \dot{\varphi}
+\end{bmatrix}.
+\end{align}
+The equations of motion for the global unconstrained dynamics are then described by
+\begin{align}
+\Mb_g(\qb_g)\dot{\vb}_g - \Hb_g(\qb_g,\vb_g) = \Sb_g(\qb_g)\ub,
+\end{align}
+with
+\begin{align}
+\Mb_g(\qb_g) &= \begin{bmatrix}
+m_B & 0 & 0 & 0\\ 0 & m_B & 0 & 0\\ 0 & 0 & J_B & 0\\ 0 & 0 & 0 & \frac{m_P{L_p}^2}{4}+J_P
+\end{bmatrix} \\
+\Hb_g(\qb_g,\vb_g) &= \begin{bmatrix}
+0\\ -gm_B\\ 0\\ k_P\varphi -b_P\dot{\varphi}-\frac{L_pgm_P\cos\left(\varphi \right)}{2}
+\end{bmatrix} \\
+\Sb_g(\qb_g) &= \begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0 
+\end{bmatrix}.
+\end{align}
+\subsection*{Local unconstrained dynamics}
+The global generalized coordinates $\qb_g$ can be rewritten to a set of local coordinates $\qb_l$. In the plank box case they are related via
+\begin{equation}
+\qb_g(\qb_l) = \begin{bmatrix}
+\cos(\varphi)x_l-\sin(\varphi)y_l\\
+\sin(\varphi)x_l+\cos(\varphi)y_l\\
+\theta_l+\varphi\\
+\varphi
+\end{bmatrix}.
+\end{equation}
+The local unconstrained equations of motion are then defined as
+\begin{align}
+\Mb_l(\qb_l)\dot{\vb}_l - \Hb_l(\qb_l,\vb_l) = \Sb_l(\qb_l)\ub,
+\end{align}
+with
+\begin{align}
+\Mb_l(\qb_l) &= \begin{bmatrix}
+m_B & 0 & 0 & -m_By_l\\ 0 & m_B & 0 & m_Bx_l\\ 0 & 0 & J_B & J_B\\ -m_By_l & m_Bx_l & J_B & \frac{m_P{L_p}^2}{4}+m_B{x_l}^2+m_B{y_l}^2+J_B+J_P
+\end{bmatrix} \\
+\Hb_l(\qb_l,\vb_l) &= \begin{bmatrix}
+m_B\left(x_l{\dot{\varphi}}^2+2\dot{y}_l\dot{\varphi}-g\sin\left(\varphi \right)\right)\\ -m_B\left(-y_l{\dot{\varphi}}^2+2\dot{x}_l\dot{\varphi}+g\cos\left(\varphi \right)\right)\\ 0\\ k_P\varphi -b_P\dot{\varphi}-2m_B\dot{\varphi}x_l\dot{x}_l-2m_B\dot{\varphi}y_l\dot{y}_l-\frac{L_pgm_P\cos\left(\varphi \right)}{2}-gm_Bx_l\cos\left(\varphi \right)+gm_By_l\sin\left(\varphi \right)
+\end{bmatrix} \\
+\Sb_l(\qb_l) &= \begin{bmatrix}
+\cos\left(\varphi \right) & \sin\left(\varphi \right) & 0\\ -\sin\left(\varphi \right) & \cos\left(\varphi \right) & 0\\ 0 & 0 & 1\\ -y_l\cos\left(\varphi \right)-x_l\sin\left(\varphi \right) & x_l\cos\left(\varphi \right)-y_l\sin\left(\varphi \right) & 1
+\end{bmatrix}.
+\end{align}
+\subsection*{Local constrained dynamics}
+First we have to determine the position vectors of the points $C_L$ and $C_R$ using Figure~\ref{fig:plankboxgeo}. First we define the position vector of $C_R$,
+\begin{align}
+r_{C_R} &= r_B + r_{BC_R}\ \text{with},\\
+r_B &= \begin{bmatrix}
+x_l & y_l & 0
+\end{bmatrix} \evec^1,\\
+r_{BC_R} &= \begin{bmatrix}
+BH & HC_R & 0
+\end{bmatrix} \evec^1,
+\end{align}
+using the axis systems defined in the report of Hao. From Figure~\ref{fig:plankboxgeo} and that $\triangle BFG \cong \triangle C_RHG$ we can say
+\begin{align}
+HC_R &= \cos(\theta_l)C_RG,\\
+C_RG &= FG - FC_R,\\
+FG &= \tan(\theta_l)BF,
+\end{align}
+and with $FC_R = \frac{l_B}{2}$ and $BF = \frac{L_B}{2}$ we find
+\begin{align}
+HC_R &= \sin(\theta_l)\frac{L_B}{2} - \cos(\theta_l)\frac{l_B}{2}.
+\end{align}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{plankboxgeo.eps}\caption{Geometry of the box, used to determine the position vectors of contactpoints $C_L$ and $C_R$.}\label{fig:plankboxgeo}
+\end{figure}
+
+For $BH$ we say
+\begin{align}
+BH &= BG - HG,\\
+BG &= \frac{1}{\sin(\theta_l)}FG,\\
+HG &= \sin(\theta_l)C_RG,
+\end{align}
+which gives us 
+\begin{align}
+BH &= \cos(\theta_l)\frac{L_B}{2} - \sin(\theta_l)\frac{l_B}{2}.
+\end{align}
+With $HC_R$ and $BH$ known, the position vector of $C_R$ is
+\begin{align}
+r_{C_R} = \begin{bmatrix}
+x_l + \cos(\theta_l)\frac{L_B}{2} - \sin(\theta_l)\frac{l_B}{2}\\
+y_l + \sin(\theta_l)\frac{L_B}{2} - \cos(\theta_l)\frac{l_B}{2}\\
+0
+\end{bmatrix}^T\evec^1.\label{eq:rCR}
+\end{align}
+Using a similar approach for $C_L$ we find
+\begin{align}
+r_{C_L} = \begin{bmatrix}
+x_l + \cos(\theta_l)\frac{L_B}{2} + \sin(\theta_l)\frac{l_B}{2}\\
+y_l - \sin(\theta_l)\frac{L_B}{2} - \cos(\theta_l)\frac{l_B}{2}\\
+0
+\end{bmatrix}^T\evec^1. \label{eq:rCL}
+\end{align}
+
+The guard functions $g_{N1}$ and $g_{N2}$ are defined as
+\begin{align}
+g_{N1} &= \rvec_{C_L}^1\evec_2^1 - l_p = y_l - \frac{l_P}{2} - \sin(\theta_l)\frac{L_B}{2} - \cos(\theta_l)\frac{l_B}{2} = 0,\\
+g_{N2} &= \rvec_{C_R}^1\evec_2^1 - l_p = y_l - \frac{l_P}{2} + \sin(\theta_l)\frac{L_B}{2} - \cos(\theta_l)\frac{l_B}{2} = 0,
+\end{align}
+Since we are in a 2D-environment, the tangential reaction forces have the same dimensions as the normal reaction-forces. Therefore Equations~\eqref{eq:dim2}, \eqref{eq:dim4} and \eqref{eq:dim6} can now be considered as, respectively,
+
+\begin{align}
+\gb_T &= \begin{bmatrix}
+g_{Ti_1};g_{Ti_2};...;g_{Ti_c}
+\end{bmatrix}\in\R^{c}\\
+\Lambdab_T &= \begin{bmatrix}
+\Lambda_{Ti_1};\Lambda_{Ti_2};...;\Lambda_{Ti_c}
+\end{bmatrix}\in\R^{c}\\
+\Wb_T &= \begin{bmatrix}
+\wb_{Ti_1};\wb_{Ti_2};...;\wb_{Ti_c}
+\end{bmatrix}.\in\R^{n\times c}
+\end{align}
+The velocity vectors $\dot{r}_{C_L}$ and $\dot{r}_{C_R}$ are found by taking the time-derivative of $r_{C_L}$ and $r_{C_R}$, and can be written as
+\begin{align}
+\dot{r}_{C_L} &= \begin{bmatrix}
+\dot{x}_l -\dot{\theta}_l\sin(\theta_l)\frac{L_B}{2} + \dot{\theta}_l\cos(\theta_l)\frac{l_B}{2}\\
+\dot{y}_l -\dot{\theta}_l\cos(\theta_l)\frac{L_B}{2} + \dot{\theta}_l\sin(\theta_l)\frac{l_B}{2}\\
+0
+\end{bmatrix}=:\begin{bmatrix}
+\dot{g}_{T1}\\
+\dot{g}_{N1}\\
+0
+\end{bmatrix},\label{eq:dotrCL}\\
+\dot{r}_{C_R} &= \begin{bmatrix}
+\dot{x}_l -\dot{\theta}_l\sin(\theta_l)\frac{L_B}{2} - \dot{\theta}_l\cos(\theta_l)\frac{l_B}{2}\\
+\dot{y}_l +\dot{\theta}_l\cos(\theta_l)\frac{L_B}{2} + \dot{\theta}_l\sin(\theta_l)\frac{l_B}{2}\\
+0
+\end{bmatrix}=:\begin{bmatrix}
+\dot{g}_{T2}\\
+\dot{g}_{N2}\\
+0
+\end{bmatrix},\label{eq:dotrCR}
+\end{align}
+with $\dot{g}_{Ni}$ and $\dot{g}_{Ti}$ the normal and tangential relative velocities. From \eqref{eq:impdyn2} and \eqref{eq:impdyn3} we can write
+\begin{align}
+\dot{\gb}_N &= \Wb_N^T\vb = \begin{bmatrix}
+\dot{y}_l -\dot{\theta}_l\cos(\theta_l)\frac{L_B}{2} + \dot{\theta}_l\sin(\theta_l)\frac{l_B}{2}\\
+\dot{y}_l +\dot{\theta}_l\cos(\theta_l)\frac{L_B}{2} + \dot{\theta}_l\sin(\theta_l)\frac{l_B}{2}
+\end{bmatrix},\\
+\dot{\gb}_T &= \Wb_T^T\vb = \begin{bmatrix}
+\dot{x}_l -\dot{\theta}_l\sin(\theta_l)\frac{L_B}{2} + \dot{\theta}_l\cos(\theta_l)\frac{l_B}{2}\\
+\dot{x}_l -\dot{\theta}_l\sin(\theta_l)\frac{L_B}{2} - \dot{\theta}_l\cos(\theta_l)\frac{l_B}{2}
+\end{bmatrix},
+\end{align}
+from which we can deduce
+\begin{align}
+\Wb_N^T &= \begin{bmatrix}
+0 & 1 & -\cos(\theta_l)\frac{L_B}{2} + \sin(\theta_l)\frac{l_B}{2} & 0 \\
+0 & 1 & \cos(\theta_l)\frac{L_B}{2} + \sin(\theta_l)\frac{l_B}{2} & 0
+\end{bmatrix},\\
+\Wb_T^T &= \begin{bmatrix}
+0 & 1 & -\sin(\theta_l)\frac{L_B}{2} + \cos(\theta_l)\frac{l_B}{2} & 0 \\
+0 & 1 & -\sin(\theta_l)\frac{L_B}{2} - \cos(\theta_l)\frac{l_B}{2} & 0
+\end{bmatrix}.
+\end{align}
+
+Now we have all the information to write down the local constrained dynamics
+\begin{align}
+\Mb_l(\qb_l)\dot{\vb}_l - \Hb_l(\qb_l,\vb_l) = \Sb_l(\qb_l)\ub + \Wb(\qb_l)\Lambdab,\label{eq:localcontdyn}
+\end{align}
+with
+\begin{align}
+\Wb(\qb_l) := \begin{bmatrix}
+\Wb_N & \Wb_T
+\end{bmatrix}\text{ and }\Lambdab := \begin{bmatrix}
+\Lambdab_N\\
+\Lambdab_T
+\end{bmatrix}.
+\end{align}
+
+%% New chapter %%
+\cleartooddpage
+\chapter{Simulation Design}
+\section{Reference Trajectory Design}
+
+\end{document}

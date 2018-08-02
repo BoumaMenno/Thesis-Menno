@@ -1,0 +1,258 @@
+%% Package enlightening:
+%% a4wide       for make the vertical margins smaller
+%% europs       for typing the euro symbol
+%% graphicx     for inserting figures,graphs,photo's
+%% fancyhdr     for creating a prettier header/footer
+%% moreverb     for inserting source code better
+%% subfigure    for allowing multiple figures/tables in one enviroment
+%% float        Place figures HERE with the [H] option
+%% amsmath      for more math
+%% booktabs     for nicer tables (\toprule, etc)
+%% babel        for "english" hyphenation and other textual styles.
+%% hyperref     for creating clickable links and the bookmarksmenu
+%% ifpdf        for making the code latex and pdflatex compatible
+%% psfrag       for replacing text in eps graphics
+%% pdfrack      for replacing text in pdf graphics "bash needed!"
+%% caption      for changing the properties (font) of the caption
+%% setspace     reduce linespacing in the TOC or Bib \begin{spacing}{0.9} ...
+%% listings     for formatting Matlab code
+%% lipsum       for creating dummy text (Lorem ipsum dolor sit amet...)
+%% soul         for highlighting text \hl{}
+%% xspace       for putting or removing a space for \newcommand macro's
+%% caption      for changing font size and alignment of captions
+
+\documentclass[11pt,a4paper]{report}
+%%\usepackage{a4wide,moreverb,ifpdf}
+\usepackage{textcomp}
+\usepackage{subfiles}
+\usepackage{hyperref}
+\usepackage{amsmath,booktabs,cite,amssymb,bm,soul}
+\usepackage{esvect}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{url}
+\usepackage[right=2.2cm,left=2.2cm,top=3.2cm,bottom=3.0cm]{geometry}
+%\usepackage[FIGBOTCAP]{subfigure}
+%\usepackage[dutch]{babel}
+%\usepackage[scriptsize,sf,hang]{caption}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage[pdftex]{graphicx}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{chngpage}
+\usepackage{pdflscape}
+\usepackage[version=3]{mhchem}
+\usepackage{epstopdf}
+\usepackage{dsfont}
+\usepackage{appendix}
+\usepackage[textfont=it,figurewithin=section,tablewithin=section]{caption}
+%\sethlcolor{red}       % text highlight color red (soul package)
+\usepackage{rotating}  % rotate mechanical drawings with sidewaysfigure
+%\usepackage{fixltx2e} % for sub- and superscript
+%\usepackage{picins}    % be able to put picture next to text
+\usepackage{array}     % extended functions for tables
+\usepackage{wrapfig}   % be able to put picture next to text
+\usepackage{xspace}    % check if a space is needed after \newcommand
+\usepackage[absolute]{textpos}
+% textpos package arguments
+\setlength{\TPHorizModule}{1mm}
+\setlength{\TPVertModule}{\TPHorizModule}
+% use option [showboxes] to package textpos to draw the box
+
+\definecolor{myblue}{rgb}{0,0,0.4}
+
+
+
+%\usepackage[pdftex]{hyperref}
+     %options for hyperref (hypersetup)
+%    \hypersetup{bookmarksopen=true}
+%    \hypersetup{bookmarksopenlevel=3}
+%    \hypersetup{bookmarks=true}
+%    \hypersetup{colorlinks=true,citecolor=blue,filecolor=black,linkcolor=myblue,urlcolor=blue}
+%    \hypersetup{pdffitwindow=false}
+%    \hypersetup{pdftoolbar=true}
+%    \hypersetup{pdfmenubar=false}
+
+%% fixing the standard latex indentation style on new alinea.
+\setlength{\parskip}{1ex}
+\setlength{\parindent}{0mm}
+
+%% extra document related shortcuts
+\newcommand{\degree}{\ensuremath{^{\circ}}\xspace}
+\newcommand{\HRule}{\rule{--\linewidth}{0.5mm}}
+
+% Empty page when chapter starts at even page
+\newcommand\cleartooddpage{\clearpage\ifodd\value{page}\else\null\thispagestyle{empty}\clearpage\fi}
+
+% Enable equation, figure and table numbering per chapter
+\numberwithin{equation}{chapter}
+\numberwithin{figure}{chapter}
+\numberwithin{table}{chapter}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\usepackage{listings}
+\lstset{
+    language=Matlab,
+    basicstyle=\color{black}\ttfamily\footnotesize,
+    numbers=left,
+    numberstyle=\tiny\color{gray},    
+    stepnumber=1,                 
+    numbersep=5pt,               
+    commentstyle=\color{dkgreen}\itshape\ttfamily,
+    keywordstyle=\color{black}\ttfamily\footnotesize,
+    showstringspaces=false,
+    frame=single,
+    backgroundcolor=\color{white},
+    keywordstyle=\color{blue}
+}
+
+\usepackage{epsfig}   % To include Matlab figures
+%\usepackage{arydshln} % Dashed lines
+%\usepackage{wasysym}  % Diameter symbol
+\usepackage{graphicx} % To be able to edit graphics
+\usepackage{multirow} % to be able to use merged cells in tables
+\usepackage[latin1]{inputenc} % to be able to type things like é, ä, ù and ê.
+\usepackage{cite}
+
+% To include a PDF-file to Latex
+% \includegraphics{myfig.pdf}
+% \includegraphics[width=60mm]{myfig.png}
+% \includegraphics[height=60mm]{myfig.jpg}
+% \includegraphics[scale=0.75]{myfig.pdf}
+% \includegraphics[angle=45,width=52mm]{myfig.jpg}
+
+
+% Nicer lists
+\newenvironment{packed_item}{
+\begin{itemize}
+  \vspace*{0em}
+  \setlength{\itemsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{itemize}}
+
+%\newenvironment{packed_enumerate}{
+%\begin{enumerate}
+%  \vspace*{0em}
+%  \setlength{\itemsep}{0pt}
+%  \setlength{\parskip}{0pt}
+%  \setlength{\parsep}{0pt}
+%}{\end{enumerate}}
+
+%\newenvironment{packed_enumerate2}{
+%\renewcommand{\labelenumi}{\Alph{enumi}}
+%\begin{enumerate}
+%  \vspace*{0em}
+%  \setlength{\itemsep}{0pt}
+%  \setlength{\parskip}{0pt}
+%  \setlength{\parsep}{0pt}
+%}{\end{enumerate}}
+
+% creating the fancy header
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}{}}
+\fancypagestyle{fancyreport}{
+\fancyhf{} % remove everything
+\lhead{\small \leftmark}
+\rhead{\small }
+%\chead{\small }
+\lfoot{\small \rightmark}
+\rfoot{\small \thepage}
+\cfoot{\small}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+}
+
+\fancypagestyle{plain}{ %
+\fancyhf{} % remove everything
+%\chead{\small }
+\lfoot{\small }
+\rfoot{\small \thepage}
+\cfoot{\small}
+\renewcommand{\headrulewidth}{0pt} % remove lines as well
+\renewcommand{\footrulewidth}{1pt}
+}
+% Break rules in Matlab code
+\lstset{breaklines=true}
+
+\newcommand{\nocontentsline}[3]{}                                                   %Zorgt ervoor dat je met het command \tocless kunt zorgen dat bijv. een section
+\newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}  %niet in de TableOfContent wordt opgenomen, maar de nummerig wel doorloopt. 
+
+%\AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{plain}}} 
+
+\newcommand{\R}{\mathbb{R}}
+
+\newcommand{\ab}{{\boldsymbol{a}}}
+\newcommand{\bb}{{\boldsymbol{b}}}
+\newcommand{\eb}{{\boldsymbol{e}}}
+\newcommand{\fb}{{\boldsymbol{f}}}
+\newcommand{\zb}{{\boldsymbol{z}}}
+\newcommand{\gb}{{\boldsymbol{g}}}
+\newcommand{\hb}{{\boldsymbol{h}}}
+\newcommand{\qb}{{\boldsymbol{q}}} 
+\newcommand{\ub}{{\boldsymbol{u}}}
+\newcommand{\vb}{{\boldsymbol{v}}}
+\newcommand{\wb}{{\boldsymbol{w}}}
+\newcommand{\xb}{{\boldsymbol{x}}}
+\newcommand{\yb}{{\boldsymbol{y}}}
+\newcommand{\pb}{{\boldsymbol{p}}}
+
+\newcommand{\Ab}{{\boldsymbol{A}}}
+\newcommand{\Bb}{{\boldsymbol{B}}} 
+\newcommand{\Cb}{{\boldsymbol{C}}}
+\newcommand{\Db}{{\boldsymbol{D}}}
+\newcommand{\Gb}{{\boldsymbol{G}}} 
+\newcommand{\Hb}{{\boldsymbol{H}}} 
+\newcommand{\Eb}{{\boldsymbol{E}}} 
+\newcommand{\Kb}{{\boldsymbol{K}}}
+\newcommand{\Lb}{{\boldsymbol{L}}} 
+\newcommand{\Mb}{{\boldsymbol{M}}}  
+\newcommand{\Nb}{{\boldsymbol{N}}} 
+\newcommand{\Pb}{{\boldsymbol{P}}} 
+\newcommand{\Qb}{{\boldsymbol{Q}}}  
+\newcommand{\Sb}{{\boldsymbol{S}}}  
+\newcommand{\Tb}{{\boldsymbol{T}}} 
+\newcommand{\Wb}{{\boldsymbol{W}}}  
+\newcommand{\Jb}{{\boldsymbol{J}}} 
+\newcommand{\Fb}{{\boldsymbol{F}}}
+
+\newcommand{\Rbb}{\mathbb{R}}
+
+\newcommand{\kappab}{\boldsymbol{\kappa}}  
+\newcommand{\gammab}{\boldsymbol{\gamma}}  
+\newcommand{\xib}{\boldsymbol{\xi}}
+\newcommand{\phib}{\boldsymbol{\phi}}  
+\newcommand{\lambdab}{\boldsymbol{\lambda}}
+\newcommand{\rhob}{\boldsymbol{\rho}}  
+\newcommand{\zetab}{\boldsymbol{\zeta}}
+\newcommand{\alphab}{\boldsymbol{\alpha}}
+\newcommand{\mub}{\boldsymbol{\mu}}  
+
+\newcommand{\Lambdab}{\boldsymbol{\Lambda}}
+\newcommand{\Sigmab}{\boldsymbol{\Sigma}}
+\newcommand{\Gammab}{\boldsymbol{\Gamma}}
+
+\newcommand{\Phib}{\boldsymbol{\Phi}} % Constr. Config. set 
+
+\newcommand{\Ic}{\mathcal{I}} % closed contacts set
+\newcommand{\Qc}{\mathcal{Q}} % configuration manifold
+\newcommand{\Cc}{\mathcal{C}} % constrained manifold
+\newcommand{\cc}{\mathit{c}} % constrained manifold
+\newcommand{\Dc}{\mathcal{D}} % jump set
+\newcommand{\dc}{\mathit{d}} % jump set
+\newcommand{\Fc}{\mathcal{F}} % flow map
+\newcommand{\fc}{\mathit{f}} % flow map
+\newcommand{\Gc}{\mathcal{G}} % jump map
+\newcommand{\gc}{\mathit{g}} % jump map
+
+\newcommand{\Nc}{\mathcal{N}}
+\newcommand{\rvec}{\vv{\boldsymbol{r}}}
+\newcommand{\evec}{\vv{\boldsymbol{e}}}
+
+\DeclareMathOperator{\prox}{\text{prox}}
+\DeclareMathOperator{\argmax}{\text{argmax}}
+\DeclareMathOperator{\argmin}{\text{argmin}}
