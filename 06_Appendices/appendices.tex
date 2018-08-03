@@ -1,6 +1,6 @@
 \documentclass[DC2017114Bouma.tex]{subfiles}
 \begin{document}
-\graphicspath{{06_Appendices/img/}}
+\graphicspath{{../06_Appendices/img/}}
 \appendix
 
 %% New chapter %%
@@ -581,7 +581,7 @@ If we now look at the solution for $\zb_4(t_0) = \alpha\zb_1(t_0)$ with $\vb_4(t
 Now we look at the case where a contact point goes from open to closed, away from $\Gammab = 0$. This is illustrated in Figure~\ref{fig:impactfromborder}. The goal is to proof that for an event away from $\Gammab$, an infinitesimally small perturbation can not cause the trajectory to hit $\gamma = 0$ at a perturbed ante-impact state $\xb_\epsilon^-(t_\epsilon)$ where $\Gammab$ changes sign in comparison with the unperturbed ante-impact state $\alphab^-(\tau)$. From \cite[p. 6]{Rijnen2018} we know that based on the continuity property of $\gammab$ and $\fb$, the perturbed impact state can be written as
 
 \begin{align}
-\xb_\epsilon(t_\epsilon) = \alphab(\tau) +\epsilon\dot{\alphab}(\tau)\frac{\partial t_\epsilon}{\partial \epsilon} + \epsilon\zb(\tau) + o(\epsilon),\label{eq:appxpert}
+\xb_\epsilon(t_\epsilon) = \alphab(\tau) + \epsilon\dot{\alphab}(\tau)\frac{\partial t_\epsilon}{\partial \epsilon} + \epsilon\zb(\tau) + o(\epsilon),\label{eq:appxpert}
 \end{align}
 for sufficiently small $\epsilon$. The shortest distance between $\Gammab = \Gammab(\alphab(\tau))$ and $\Gammab = 0$ on the plane where $\gammab = 0$ is defined as the constant $\delta_{\Gammab}$, which is also illustrated in Figure~\ref{fig:impactfromborder}.
 
@@ -598,14 +598,17 @@ Let's define a point in the state $\xb_{\gammab=0,\Gammab=0}$ where $\gammab(\xb
 where $\kappa>0$ \cite{Leine2008}. By applying \eqref{eq:appLipschitz} to the function value of $\Gammab$ at impact for the nominal trajectory and the perturbed trajectory, we find
 
 \begin{align}
-||\Gammab(\alphab(\tau)) - \Gammab(\xb_\epsilon(t_\epsilon))||\leq \kappa||\alphab(\tau)-\xb_\epsilon(t_\epsilon))||.\label{eq:appLipschitz2}
+||\Gammab(\alphab(\tau)) - \Gammab(\xb_{\gammab=0,\Gammab=0})||\leq \kappa||\alphab(\tau)-\xb_{\gammab=0,\Gammab=0}||.\label{eq:appLipschitz2}
 \end{align}
-After substituting \eqref{eq:appxpert} into \eqref{eq:appLipschitz2}, this can be written as
+Now, since $\Gammab(\alphab(\tau))\neq \Gammab(\xb_{\gammab=0,\Gammab=0})$, we know that $||\Gammab(\alphab(\tau)) - \Gammab(\xb_{\gammab=0,\Gammab=0})||>0$ and therefore from \eqref{eq:appLipschitz2} that $||\alphab(\tau)-\xb_{\gammab=0,\Gammab=0}||>0$, i.e. $\delta_{\Gammab} >0$. Finally, from \eqref{eq:appxpert}, we find
 
 \begin{align}
-||\Gammab(\alphab(\tau)) - \Gammab(\xb_\epsilon(t_\epsilon))||\leq \kappa||\epsilon\left(\dot{\alphab}(\tau)\frac{\partial t_\epsilon}{\partial \epsilon} + \zb(\tau)\right) + o(\epsilon).\label{eq:appLipschitz3}
+||\xb_\epsilon(t_\epsilon) - \alphab(\tau)|| = ||\epsilon\dot{\alphab}(\tau)\frac{\partial t_\epsilon}{\partial \epsilon} + \epsilon\zb(\tau) + o(\epsilon)||.
 \end{align}
-\eqref{eq:appLipschitz3} shows that $\lim_{\epsilon\rightarrow 0}||\Gammab(\alphab(\tau)) - \Gammab(\xb_\epsilon(t_\epsilon))|| = 0$. Since $\delta_{\Gammab}>0$, this proves that for an infinitesimally small perturbation $\epsilon$, $||\Gammab(\alphab(\tau)) - \Gammab(\xb_\epsilon(t_\epsilon))||<\delta_{\Gammab}$. It also shows that there always exists a range of $\epsilon$ where $||\Gammab(\alphab(\tau)) - \Gammab(\xb_\epsilon(t_\epsilon))||<\delta_{\Gammab}$ holds, i.e., there always exists a range of $\epsilon$ such that the perturbation will not cause the contact point to switch stick-slip domain at impact in comparison to the unperturbed event.
+Since $\delta_{\Gammab} > 0$ and $\lim_{\epsilon\rightarrow 0}||\xb_\epsilon(t_\epsilon) - \alphab(\tau)||=0$, there always exists an $\epsilon$ such that $||\xb_\epsilon(t_\epsilon) - \alphab(\tau)||<\delta_{\Gammab}$. 
+
+In other words, this proves that if $\fb$, $\gammab$ and $\Gammab$ are continuous and the nominal trajectory makes impact away from the slip-stick post-impact mode border $\Gammab = 0$, then there always exists a range of $\epsilon$ such that the perturbed state will have the same post-impact mode as the nominal trajectory.
+
 
 \subsection{Impacts close to slip-stick border}
 
