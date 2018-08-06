@@ -215,6 +215,75 @@ $^1$: Because we assume isotropic friction, we can say $\epsilon(\zetab^+_{t,i})
 \includegraphics[width=.85\textwidth]{nodehybrid.eps}\caption{The hybrid system representation of one contact point of a system experiencing impact and spatial friction.}\label{fig:nodehybrid}
 \end{figure}
 
+\chapter{Friction in Mechanical Systems with Unilateral Constraints}
+\section{Frictional impacts}
+\begin{itemize}
+	\item How does transversality wrt $\Gamma$ translate to the behaviour in flow?
+    \item Are the contacts non-superfluous?
+	\item Are the reset maps associative?
+\end{itemize}
+
+\section{Reference trajectories with impact away from slip-stick border}
+Now we look at the case where a contact point goes from open to closed, away from $\Gammab = 0$. This is illustrated in Figure~\ref{fig:impactfromborder}. The goal is to proof that for an event away from $\Gammab$, an infinitesimally small perturbation can not cause the trajectory to hit $\gamma = 0$ at a perturbed ante-impact state $\xb_\epsilon^-(t_\epsilon)$ where $\Gammab$ changes sign in comparison with the unperturbed ante-impact state $\alphab^-(\tau)$. From \cite[p. 6]{Rijnen2018} we know that based on the continuity property of $\gammab$ and $\fb$, the perturbed impact state can be written as
+
+\begin{align}
+\xb_\epsilon(t_\epsilon) = \alphab(\tau) + \epsilon\dot{\alphab}(\tau)\frac{\partial t_\epsilon}{\partial \epsilon} + \epsilon\zb(\tau) + o(\epsilon),\label{eq:appxpert}
+\end{align}
+for sufficiently small $\epsilon$. The shortest distance between $\Gammab = \Gammab(\alphab(\tau))$ and $\Gammab = 0$ on the plane where $\gammab = 0$ is defined as the constant $\delta_{\Gammab}$, which is also illustrated in Figure~\ref{fig:impactfromborder}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.5\textwidth,trim={0cm 2.5cm 2cm 2.4cm},clip]{impactfromborder.eps}\caption{The guard functions $\gammab$ and $\Gammab$ in the state space of $\qb$. A transition from open to closed is made away from $\Gammab$. $\alphab(t)$ is the nominal trajectory and $\xb_\epsilon(t)$ a perturbed trajectory of the contact point up to the transition.} \label{fig:impactfromborder}
+\end{figure}
+
+Let's define a point in the state $\xb_{\gammab=0,\Gammab=0}$ where $\gammab(\xb_{\gammab=0,\Gammab=0})=0$ and $\Gammab(\xb_{\gammab=0,\Gammab=0})=0$. We are evaluating nominal trajectories which impact away from $\Gammab = 0$, i.e. $\Gammab(\alphab(\tau))\neq \Gammab(\xb_{\gammab=0,\Gammab=0})$. From Section~\ref{app:guards} we know that $\Gammab$ is continuously differentiable, which implies that it is Lipschitz-continuous and therefore satisfies the Lipschitz-continuity condition
+
+\begin{align}
+||\fb(\xb)-\fb(\yb)|| \leq \kappa||\xb-\yb||,\quad \forall \xb,\yb\in\Rbb^n,\label{eq:appLipschitz}
+\end{align}
+where $\kappa>0$ \cite{Leine2008}. By applying \eqref{eq:appLipschitz} to the function value of $\Gammab$ at impact for the nominal trajectory and the perturbed trajectory, we find
+
+\begin{align}
+||\Gammab(\alphab(\tau)) - \Gammab(\xb_{\gammab=0,\Gammab=0})||\leq \kappa||\alphab(\tau)-\xb_{\gammab=0,\Gammab=0}||.\label{eq:appLipschitz2}
+\end{align}
+Now, since $\Gammab(\alphab(\tau))\neq \Gammab(\xb_{\gammab=0,\Gammab=0})$, we know that $||\Gammab(\alphab(\tau)) - \Gammab(\xb_{\gammab=0,\Gammab=0})||>0$ and therefore from \eqref{eq:appLipschitz2} that $||\alphab(\tau)-\xb_{\gammab=0,\Gammab=0}||>0$, i.e. $\delta_{\Gammab} >0$. Finally, from \eqref{eq:appxpert}, we find
+
+\begin{align}
+||\xb_\epsilon(t_\epsilon) - \alphab(\tau)|| = ||\epsilon\dot{\alphab}(\tau)\frac{\partial t_\epsilon}{\partial \epsilon} + \epsilon\zb(\tau) + o(\epsilon)||.
+\end{align}
+Since $\delta_{\Gammab} > 0$ and $\lim_{\epsilon\rightarrow 0}||\xb_\epsilon(t_\epsilon) - \alphab(\tau)||=0$, there always exists an $\epsilon$ such that $||\xb_\epsilon(t_\epsilon) - \alphab(\tau)||<\delta_{\Gammab}$. 
+
+In other words, this proves that if $\fb$, $\gammab$ and $\Gammab$ are continuous and the nominal trajectory makes impact away from the slip-stick post-impact mode border $\Gammab = 0$, then there always exists a range of $\epsilon$ such that the perturbed state will have the same post-impact mode as the nominal trajectory.
+
+
+\section{Reference trajectories with impact at the slip-stick border}
+
+\begin{itemize}
+	\item Consider as simultaneous trigger of open-closed guard and slip-stick guard. However, it is not entirely the same, as the slip-stick guard can not be triggered before the open-closed guard.
+	\item The trigger should be transversal, in both closed-open guard and slip-stick guard.
+	\item If we can show continuity of post-impact state, then we can define a jump gain like $H$, which uses one jump map for the open to stick domain and another jump map for the open to slip domain.
+\end{itemize}
+
+\section{Post-impact accelerations in open-to-stick transitions}
+The mode transition from stick to slip happens when a guard is triggered at acceleration level, i.e., $^{\text{slip}\leftarrow\text{stick}}\gamma = \mu^2\lambda_{n,i}^2 - \lambdab_{t,i}\lambdab_{t,i}^T$. The jump from open to stick is described on velocity level by the jump map
+
+\begin{align}
+&\Mb(\qb)(\dot{\qb}^+ - \dot{\qb}^-) = \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i},\label{eq:appjump8}\\
+&\zeta_{n,i}^+ = 0,\label{eq:appjump9}\\
+&\zeta_{t,i}^+ = 0.\label{eq:appjump10}
+\end{align}
+
+This implies that it is possible for the post-impact state of an open-to-stick transition to be in the stick-to-slip jump set, causing an immediate transition to slip. The flow dynamics of the stick mode are described as
+
+\begin{align}
+&\Mb(\qb)\ddot{\qb} + \Hb(\qb,\dot{\qb}) = \Sb(\qb)\ub + \sum_{i\in\Ic_c}\left(\wb_{n,i}(\qb)\lambda_{n,i} + \Wb_{t,i}(\qb)\lambdab_{t,i} \right), \label{eq:appstickdyn1}\\
+&\wb^T_{n,i}(\qb)\ddot{\qb} + \dot{\wb}^T_{n,i}(\qb)\dot{\qb} = 0,\label{eq:appstickdyn2}\\
+&\Wb^T_{t,i}(\qb)\ddot{\qb} + \dot{\Wb}^T_{t,i}(\qb)\dot{\qb} = 0,\label{eq:appstickdyn3}
+\end{align}
+ \textbf{Show using dynamics above that the instant guard trigger is possible. Then create image of the state + input space with stick to slip guard and illustrate a post open-to-stick state. Say that both areas are viable options. Then make similar proof of how we can stay away from that border. Explain that we have to stay away from border because we do not know what the dynamics are at that point (so different to simultaneous event, where we do know the dynamics!!).}
+\section{Slip-stick transition in closed-contact}
+
+
 %% New chapter %%
 \cleartooddpage
 \chapter{Sensitivity Analysis for Input-Dependent Guards}
@@ -567,58 +636,6 @@ Here we see that the solution of $^{s^{k-1}}\zb_3(t_0) = ^{s^{k-1}}\zb_1(t_0) + 
 ^{s^{k}}\zb_1(\tau) &= \alpha \ ^{s^{k}}\phib(t,t_0)\ \left(\Gb_\zb^1 \ ^{s^{k-1}}\zb_1 + \Gb_\vb^1\ ^{s^{k-1}}\vb_1\right) + \alpha\int_{t_0}^\tau \left[\ ^{s^{k}}\phib(t,s)\ ^{s^{k-1}}\Bb(s)\vb_1(s)\right]ds.\label{eq:alphaz1sol}
 \end{align}
 If we now look at the solution for $\zb_4(t_0) = \alpha\zb_1(t_0)$ with $\vb_4(t) = \alpha\vb_1(t)$ jumping with $\Gb^4(\tau)$, and using the fact that $\Gb^4(\tau) = \Gb^1(\tau)$ since the gains are conewise constant as illustrated in Figure~\ref{fig:cone}, we find the same solution as \eqref{eq:alphaz1sol}. This shows that \eqref{eq:PHdyn} is positive homogeneous for any conewise constant jump gain $^{s^{k}\leftarrow s^{k-1}}\Hb\left(^{s^{k-1}}\zb,t\right)$. Hence the name, positive homogenization. 
-
-\section{Friction in Mechanical Systems with Unilateral Constraints}
-\subsection{Frictional impacts}
-\begin{itemize}
-    \item It is possible for a contact point when it goes from open to stick to immediately go to slip, through input or for example gravity. Is this a simultaneous event? Also, write proof that there exists a range of epsilon such that an impact away from this event will not cause it to happen.
-	\item How does transversality wrt $\Gamma$ translate to the behaviour in flow?
-    \item Are the contacts non-superfluous?
-	\item Are the reset maps associative?
-\end{itemize}
-
-\subsection{Impacts away from slip-stick border}
-Now we look at the case where a contact point goes from open to closed, away from $\Gammab = 0$. This is illustrated in Figure~\ref{fig:impactfromborder}. The goal is to proof that for an event away from $\Gammab$, an infinitesimally small perturbation can not cause the trajectory to hit $\gamma = 0$ at a perturbed ante-impact state $\xb_\epsilon^-(t_\epsilon)$ where $\Gammab$ changes sign in comparison with the unperturbed ante-impact state $\alphab^-(\tau)$. From \cite[p. 6]{Rijnen2018} we know that based on the continuity property of $\gammab$ and $\fb$, the perturbed impact state can be written as
-
-\begin{align}
-\xb_\epsilon(t_\epsilon) = \alphab(\tau) + \epsilon\dot{\alphab}(\tau)\frac{\partial t_\epsilon}{\partial \epsilon} + \epsilon\zb(\tau) + o(\epsilon),\label{eq:appxpert}
-\end{align}
-for sufficiently small $\epsilon$. The shortest distance between $\Gammab = \Gammab(\alphab(\tau))$ and $\Gammab = 0$ on the plane where $\gammab = 0$ is defined as the constant $\delta_{\Gammab}$, which is also illustrated in Figure~\ref{fig:impactfromborder}.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=.5\textwidth,trim={0cm 2.5cm 2cm 2.4cm},clip]{impactfromborder.eps}\caption{The guard functions $\gammab$ and $\Gammab$ in the state space of $\qb$. A transition from open to closed is made away from $\Gammab$. $\alphab(t)$ is the nominal trajectory and $\xb_\epsilon(t)$ a perturbed trajectory of the contact point up to the transition.} \label{fig:impactfromborder}
-\end{figure}
-
-Let's define a point in the state $\xb_{\gammab=0,\Gammab=0}$ where $\gammab(\xb_{\gammab=0,\Gammab=0})=0$ and $\Gammab(\xb_{\gammab=0,\Gammab=0})=0$. We are evaluating nominal trajectories which impact away from $\Gammab = 0$, i.e. $\Gammab(\alphab(\tau))\neq \Gammab(\xb_{\gammab=0,\Gammab=0})$. From Section~\ref{app:guards} we know that $\Gammab$ is continuously differentiable, which implies that it is Lipschitz-continuous and therefore satisfies the Lipschitz-continuity condition
-
-\begin{align}
-||\fb(\xb)-\fb(\yb)|| \leq \kappa||\xb-\yb||,\quad \forall \xb,\yb\in\Rbb^n,\label{eq:appLipschitz}
-\end{align}
-where $\kappa>0$ \cite{Leine2008}. By applying \eqref{eq:appLipschitz} to the function value of $\Gammab$ at impact for the nominal trajectory and the perturbed trajectory, we find
-
-\begin{align}
-||\Gammab(\alphab(\tau)) - \Gammab(\xb_{\gammab=0,\Gammab=0})||\leq \kappa||\alphab(\tau)-\xb_{\gammab=0,\Gammab=0}||.\label{eq:appLipschitz2}
-\end{align}
-Now, since $\Gammab(\alphab(\tau))\neq \Gammab(\xb_{\gammab=0,\Gammab=0})$, we know that $||\Gammab(\alphab(\tau)) - \Gammab(\xb_{\gammab=0,\Gammab=0})||>0$ and therefore from \eqref{eq:appLipschitz2} that $||\alphab(\tau)-\xb_{\gammab=0,\Gammab=0}||>0$, i.e. $\delta_{\Gammab} >0$. Finally, from \eqref{eq:appxpert}, we find
-
-\begin{align}
-||\xb_\epsilon(t_\epsilon) - \alphab(\tau)|| = ||\epsilon\dot{\alphab}(\tau)\frac{\partial t_\epsilon}{\partial \epsilon} + \epsilon\zb(\tau) + o(\epsilon)||.
-\end{align}
-Since $\delta_{\Gammab} > 0$ and $\lim_{\epsilon\rightarrow 0}||\xb_\epsilon(t_\epsilon) - \alphab(\tau)||=0$, there always exists an $\epsilon$ such that $||\xb_\epsilon(t_\epsilon) - \alphab(\tau)||<\delta_{\Gammab}$. 
-
-In other words, this proves that if $\fb$, $\gammab$ and $\Gammab$ are continuous and the nominal trajectory makes impact away from the slip-stick post-impact mode border $\Gammab = 0$, then there always exists a range of $\epsilon$ such that the perturbed state will have the same post-impact mode as the nominal trajectory.
-
-
-\subsection{Impacts close to slip-stick border}
-
-\begin{itemize}
-	\item Consider as simultaneous trigger of open-closed guard and slip-stick guard. However, it is not entirely the same, as the slip-stick guard can not be triggered before the open-closed guard.
-	\item The trigger should be transversal, in both closed-open guard and slip-stick guard.
-	\item If we can show continuity of post-impact state, then we can define a jump gain like $H$, which uses one jump map for the open to stick domain and another jump map for the open to slip domain.
-\end{itemize}
-
-\subsection{Slip-stick transition in closed-contact}
 
 %% New chapter %%
 \cleartooddpage
