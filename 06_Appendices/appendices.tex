@@ -13,40 +13,40 @@
 
 %% New chapter %%
 \cleartooddpage
-\chapter{Modeling of Mechanical Systems with Unilateral Constraints with Spatial Friction}
+\chapter{Modeling of Mechanical Systems with Unilateral Constraints and Spatial Friction}
 \section{Complementarity condition formulation}
-\subsection*{Flow Dynamics}
-$\Ic_a$ is the set of all possible contacts, $\Ic_c$ the set of closed contacts, $\Ic_{sl}$ the set of contacts in slip, and $\Ic_{st}$ the set of contacts in stick with $\Ic_c\subseteq \Ic_a$, $\Ic_c = \Ic_{sl}\cup \Ic_{st}$ and $\Ic_{sl}\cap \Ic_{st} = \emptyset$. When considering the expression $x\ \bot\ y$, he symbol $\bot$ is used to express the orthogonality between $x$ and $y$. We define $\xib=\dot{\qb}$, except at jump-times $\tau_i$. $h_n$ is the normal contact distance and $\zeta_{n}$ and $\zeta_{t}$ represent the relative velocities in normal and tangential direction,  respectively. The function $\epsilon(x)$ is defined as 
+When considering the expression $x\ \bot\ y$, he symbol $\bot$ is used to express the orthogonality between $x$ and $y$. We define $\xib=\dot{\qb}$, except at jump-times $\tau_i$. $h_n$ is the normal contact distance and $\zeta_{n}$ and $\zeta_{t}$ represent the relative velocities in normal and tangential direction,  respectively. The function $\epsilon(x)$ is defined as 
 \begin{equation}
 \epsilon(x) = \left\lbrace\begin{array}{rr}
 \frac{x}{||x||}, & \text{if } x \neq 0\\
 0, & \text{if } x = 0\\
 \end{array}\right. .\label{eq:epsilon}
 \end{equation}
-Then
+The flow dynamics can then be described as
 \begin{align}
 &\Mb(\qb)\dot{\xib} + \Hb(\qb,\xib) = \Sb(\qb)\ub + \sum_{i\in\Ic_c}\left(\wb_{n,i}(\qb)\lambda_{n,i} + \Wb_{t,i}(\qb)\lambdab_{t,i} \right), \label{eq:ncpcontact1}\\
-&0\leq h_{n,i}\ \bot\ \lambda_{n,i} \geq 0, \qquad \forall i\in\Ic_a\label{eq:ncpcontact2}\\
-&0\leq \mu\lambda_{n,i} - ||\lambdab_{t,i}||\ \bot\ \kappa_i \geq 0, \qquad \forall i\in\Ic_c\label{eq:ncpcontact3}\\
-&\zetab_{t,i} = \kappa_i\lambdab_{t,i} \qquad \forall i \in \Ic_c,\label{eq:ncpcontact4}
+&0\leq h_{n,i}\ \bot\ \lambda_{n,i} \geq 0,\label{eq:ncpcontact2}\\
+&0\leq \left(\mu\lambda_{n,i} - ||\lambdab_{t,i}||\right)\ \bot\ \kappa_i \geq 0,\label{eq:ncpcontact3}\\
+&\zetab_{t,i} = \kappa_i\epsilon(\lambdab_{t,i}),\label{eq:ncpcontact4}
 \end{align}
 with 
 \begin{align}
 &\zeta_{n,i}(\qb) = \wb^T_{n,i}(\qb) \xib,  \label{eq:zetan}\\
 &\zetab_{t,i}(\qb) = \Wb^T_{t,i}(\qb) \xib. \label{eq:zetab}
 \end{align}
-\subsection*{Impact Dynamics}
+Here \eqref{eq:ncpcontact2} is called the contact law and \eqref{eq:ncpcontact3} and \eqref{eq:ncpcontact4} the friction law, which are the complementarity conditions that describe the unilateral constraints and spatial friction. When the system activates a unilateral constraint, a jump in the state can take place. This jump in the state is described by the impact dynamics
 \begin{align}
 &\Mb(\qb)(\xib^+ - \xib^-) = \sum_{i\in\Ic_c}\left( \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i}\right), \label{eq:ncpimpact1}\\
 &0\leq \zeta_{n,i}^+\ \bot\ \Lambda_{n,i} \geq 0, \qquad \forall i\in\Ic_c\label{eq:ncpimpact2}\\
 &0 \leq \mu\Lambda_{n,i} - ||\Lambdab_{t,i}||\ \bot\ \kappa_i \geq 0. \qquad \forall i\in\Ic_c\label{eq:ncpimpact3}\\
-&\zetab_{t,i}^+ = \kappa_i\Lambdab_{t,i}\qquad \forall i\in\Ic_c\label{eq:ncpimpact4}
+&\zetab_{t,i}^+ = \kappa_i\Lambdab_{t,i},\qquad \forall i\in\Ic_c\label{eq:ncpimpact4}
 \end{align}
 with 
 \begin{align}
 &\zeta^+_{n,i}(\qb) = \wb^T_{n,i}(\qb) \xib^+,\\
 &\zetab^+_{t,i}(\qb) = \Wb^T_{t,i}(\qb) \xib^+.\label{eq:ncpimpactend}
 \end{align}
+These dynamics are impulsive, and happen at one instance in time. The $^-$ superscript indicates the ante-event state and the $^+$ superscript indicates the post-event state.
 
 \section{Proximal point formulation}
 \subsection{Proximal point formulation of contact law}
@@ -216,14 +216,7 @@ $^1$: Because we assume isotropic friction, we can say $\epsilon(\zetab^+_{t,i})
 \end{figure}
 
 \chapter{Friction in Mechanical Systems with Unilateral Constraints}
-\section{Frictional impacts}
-\begin{itemize}
-	\item How does transversality wrt $\Gamma$ translate to the behaviour in flow?
-    \item Are the contacts non-superfluous?
-	\item Are the reset maps associative?
-\end{itemize}
-
-\section{Reference trajectories with impact away from slip-stick border}
+\section{Reference trajectories with impact away from slip-stick border}\label{app:impactsaway}
 Now we look at the case where a contact point goes from open to closed, away from $\Gammab = 0$. This is illustrated in Figure~\ref{fig:impactfromborder}. The goal is to proof that for an event away from $\Gammab$, an infinitesimally small perturbation can not cause the trajectory to hit $\gamma = 0$ at a perturbed ante-impact state $\xb_\epsilon^-(t_\epsilon)$ where $\Gammab$ changes sign in comparison with the unperturbed ante-impact state $\alphab^-(\tau)$. From \cite[p. 6]{Rijnen2018} we know that based on the continuity property of $\gammab$ and $\fb$, the perturbed impact state can be written as
 
 \begin{align}
@@ -265,22 +258,36 @@ In other words, this proves that if $\fb$, $\gammab$ and $\Gammab$ are continuou
 \end{itemize}
 
 \section{Post-impact accelerations in open-to-stick transitions}
-The mode transition from stick to slip happens when a guard is triggered at acceleration level, i.e., $^{\text{slip}\leftarrow\text{stick}}\gamma = \mu^2\lambda_{n,i}^2 - \lambdab_{t,i}\lambdab_{t,i}^T$. The jump from open to stick is described on velocity level by the jump map
-
+The mode transition from stick to slip happens when a guard is triggered at acceleration level, 
+\begin{align}
+^{\text{slip}\leftarrow\text{stick}}\gamma = \mu^2\lambda_{n,i}^2 - \lambdab_{t,i}\lambdab_{t,i}^T,
+\end{align}
+and the mode transition from open to stick happens when a guard is triggered at velocity level
+\begin{align}
+\Gamma = \mu^2 \Lambda_{n,i}^2(\qb,\dot{\qb}^-) - \Lambdab_{t,i}(\qb,\dot{\qb}^-)\Lambdab_{t,i}^T(\qb,\dot{\qb}^-). \label{eq:appopentostick}
+\end{align}
+Since the jump map from open to stick is
 \begin{align}
 &\Mb(\qb)(\dot{\qb}^+ - \dot{\qb}^-) = \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i},\label{eq:appjump8}\\
 &\zeta_{n,i}^+ = 0,\label{eq:appjump9}\\
-&\zeta_{t,i}^+ = 0.\label{eq:appjump10}
+&\zeta_{t,i}^+ = 0,\label{eq:appjump10}
 \end{align}
-
-This implies that it is possible for the post-impact state of an open-to-stick transition to be in the stick-to-slip jump set, causing an immediate transition to slip. The flow dynamics of the stick mode are described as
-
+which is on velocity level, the post-impact reaction forces of the open-to-stick event can be in the stick-to-slip jump set, causing an immediate transition to slip. This is demonstrated using the flow dynamics of the stick mode at the time-instant of the transition,
 \begin{align}
-&\Mb(\qb)\ddot{\qb} + \Hb(\qb,\dot{\qb}) = \Sb(\qb)\ub + \sum_{i\in\Ic_c}\left(\wb_{n,i}(\qb)\lambda_{n,i} + \Wb_{t,i}(\qb)\lambdab_{t,i} \right), \label{eq:appstickdyn1}\\
-&\wb^T_{n,i}(\qb)\ddot{\qb} + \dot{\wb}^T_{n,i}(\qb)\dot{\qb} = 0,\label{eq:appstickdyn2}\\
-&\Wb^T_{t,i}(\qb)\ddot{\qb} + \dot{\Wb}^T_{t,i}(\qb)\dot{\qb} = 0,\label{eq:appstickdyn3}
+&\Mb(\qb^+)\ddot{\qb}^+ + \Hb(\qb^+,\dot{\qb}^+) = \Sb(\qb^+)\ub^+ + \sum_{i\in\Ic_c}\left(\wb_{n,i}(\qb^+)\lambda^+_{n,i} + \Wb_{t,i}(\qb^+)\lambdab^+_{t,i} \right), \label{eq:appstickdyn1}\\
+&\wb^T_{n,i}(\qb^+)\ddot{\qb}^+ + \dot{\wb}^T_{n,i}(\qb^+)\dot{\qb}^+ = 0,\label{eq:appstickdyn2}\\
+&\Wb^T_{t,i}(\qb^+)\ddot{\qb}^+ + \dot{\Wb}^T_{t,i}(\qb^+)\dot{\qb}^+ = 0.\label{eq:appstickdyn3}
 \end{align}
- \textbf{Show using dynamics above that the instant guard trigger is possible. Then create image of the state + input space with stick to slip guard and illustrate a post open-to-stick state. Say that both areas are viable options. Then make similar proof of how we can stay away from that border. Explain that we have to stay away from border because we do not know what the dynamics are at that point (so different to simultaneous event, where we do know the dynamics!!).}
+
+We can deduce from \eqref{eq:appjump9}-\eqref{eq:appjump10} and \eqref{eq:appstickdyn2}-\eqref{eq:appstickdyn2} that the normal acceleration of the transition contact point $\wb^T_{n,i}(\qb^+)\ddot{\qb}^+$ and the tangential acceleration of the transitioning contact point $\Wb^T_{t,i}(\qb^+)\ddot{\qb}^+$ are both equal to zero. From \eqref{eq:appstickdyn1} we then notice that $\lambda_{n,i}^+$ and $\lambdab_{t,i}^+$ depend continuously on $\ub^+$ and can therefore instantly lead to $\mu^2\lambda_{n,i}^2 - \lambdab_{t,i}\lambdab_{t,i}^T>0$ for certain $\ub^+$. For these inputs the contact point will immediately start slipping after the open-to-stick transition. These areas are illustrated in Figure~\ref{fig:stickimmedslip}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.55\textwidth]{stickimmedslip.eps}\caption{The border between an open-to-stick event that stays in stick and an open-to-stick event that immediately starts slipping is illustrated in this figure. The post event state and input indicated in the figure is in the $\mu^2(\lambda^+_{n,i})^2 - \lambdab^+_{t,i}(\lambdab^+_{t,i})^T > 0$ area, causing the contact point to immediately start slipping.} \label{fig:stickimmedslip}
+\end{figure}
+
+Using the continuity of the system's flow dynamics and the function $\mu^2(\lambda^+_{n,i})^2 - \lambdab^+_{t,i}(\lambdab^+_{t,i})^T$, we can show that if we choose $\mub^+$ such that $\alphab^+,\mub^+$ is not on $\mu^2(\lambda^+_{n,i})^2 - \lambdab^+_{t,i}(\lambdab^+_{t,i})^T = 0$ then there always exists a range of perturbations $\epsilon$ such that the perturbed post-impact is on the same side of $\mu^2(\lambda^+_{n,i})^2 - \lambdab^+_{t,i}(\lambdab^+_{t,i})^T = 0$ as the unperturbed trajectory similarly to Section~\ref{app:impactsaway}.
+
 \section{Slip-stick transition in closed-contact}
 
 
@@ -640,6 +647,7 @@ If we now look at the solution for $\zb_4(t_0) = \alpha\zb_1(t_0)$ with $\vb_4(t
 %% New chapter %%
 \cleartooddpage
 \chapter{Assumptions on Guard-Activations}
+\section{Associativity}
 \section{Transversality}
 \section{Superfluous Contacts}
 \section{Nominal Guard-Activations}
