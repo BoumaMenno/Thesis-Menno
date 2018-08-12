@@ -11,211 +11,7 @@
 \section{Convex analysis}
 \section{Hybrid system theory}
 
-%% New chapter %%
-\cleartooddpage
-\chapter{Modeling of Mechanical Systems with Unilateral Constraints and Spatial Friction}
-\section{Complementarity condition formulation}
-When considering the expression $x\ \bot\ y$, he symbol $\bot$ is used to express the orthogonality between $x$ and $y$. We define $\xib=\dot{\qb}$, except at jump-times $\tau_i$. $h_n$ is the normal contact distance and $\zeta_{n}$ and $\zeta_{t}$ represent the relative velocities in normal and tangential direction,  respectively. The function $\epsilon(x)$ is defined as 
-\begin{equation}
-\epsilon(x) = \left\lbrace\begin{array}{rr}
-\frac{x}{||x||}, & \text{if } x \neq 0\\
-0, & \text{if } x = 0\\
-\end{array}\right. .\label{eq:epsilon}
-\end{equation}
-The flow dynamics can then be described as
-\begin{align}
-&\Mb(\qb)\dot{\xib} + \Hb(\qb,\xib) = \Sb(\qb)\ub + \sum_{i\in\Ic_c}\left(\wb_{n,i}(\qb)\lambda_{n,i} + \Wb_{t,i}(\qb)\lambdab_{t,i} \right), \label{eq:ncpcontact1}\\
-&0\leq h_{n,i}\ \bot\ \lambda_{n,i} \geq 0,\label{eq:ncpcontact2}\\
-&0\leq \left(\mu\lambda_{n,i} - ||\lambdab_{t,i}||\right)\ \bot\ \kappa_i \geq 0,\label{eq:ncpcontact3}\\
-&\zetab_{t,i} = \kappa_i\epsilon(\lambdab_{t,i}),\label{eq:ncpcontact4}
-\end{align}
-with 
-\begin{align}
-&\zeta_{n,i}(\qb) = \wb^T_{n,i}(\qb) \xib,  \label{eq:zetan}\\
-&\zetab_{t,i}(\qb) = \Wb^T_{t,i}(\qb) \xib. \label{eq:zetab}
-\end{align}
-Here \eqref{eq:ncpcontact2} is called the contact law and \eqref{eq:ncpcontact3} and \eqref{eq:ncpcontact4} the friction law, which are the complementarity conditions that describe the unilateral constraints and spatial friction. When the system activates a unilateral constraint, a jump in the state can take place. This jump in the state is described by the impact dynamics
-\begin{align}
-&\Mb(\qb)(\xib^+ - \xib^-) = \sum_{i\in\Ic_c}\left( \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i}\right), \label{eq:ncpimpact1}\\
-&0\leq \zeta_{n,i}^+\ \bot\ \Lambda_{n,i} \geq 0, \qquad \forall i\in\Ic_c\label{eq:ncpimpact2}\\
-&0 \leq \mu\Lambda_{n,i} - ||\Lambdab_{t,i}||\ \bot\ \kappa_i \geq 0. \qquad \forall i\in\Ic_c\label{eq:ncpimpact3}\\
-&\zetab_{t,i}^+ = \kappa_i\Lambdab_{t,i},\qquad \forall i\in\Ic_c\label{eq:ncpimpact4}
-\end{align}
-with 
-\begin{align}
-&\zeta^+_{n,i}(\qb) = \wb^T_{n,i}(\qb) \xib^+,\\
-&\zetab^+_{t,i}(\qb) = \Wb^T_{t,i}(\qb) \xib^+.\label{eq:ncpimpactend}
-\end{align}
-These dynamics are impulsive, and happen at one instance in time. The $^-$ superscript indicates the ante-event state and the $^+$ superscript indicates the post-event state.
-
-\section{Proximal point formulation}
-\subsection{Proximal point formulation of contact law}
-
-
-\subsection{Proximal point formulation of friction law}
-In Figure~\ref{fig:convex} a convex set $C$ is illustrated. The normal cone $N_C(\xb)$ of a point $\xb$ is $N_C(\xb)=0$ if $\xb\in \text{int}(C)$, where $\text{int}(.)$ is the interior of a set. An example of this is point $\xb_3$ in Figure~\ref{fig:convex}. Defining $\text{bd}(.)$ as the boundary of the set, when $\xb\in \text{bd}(C)$ there are two options. When $\xb$ is on a smooth part of $\text{bd}(C)$, then $N_C(\xb)$ is a ray normal to $\text{bd}(C)$ at point $\xb$ as depicted in at point $\xb_1$. When $\xb$ is on a non-smooth part of $\text{bd}(C)$, then $N_C(\xb)$ is a cone starting on the point $\xb$ whose sides are normal to the left and right approximation of the point $\xb$ on $\text{bd}(C)$. This is illustrated at point $\xb_2$. The proximal point $\prox_C(\zb)$ of a point $\zb$, is the point in $C$ closest to the point $\zb$. The point $\xb$ is the proximal point to all points  $\zb\in N_C(\xb)$. For a point $\zb\in C$, $\prox_C(\zb) = \zb$ i.e. $\xb_3$ in Figure~\ref{fig:convex}.
-\begin{figure}[h]
-\centering
-\includegraphics[width=.7\textwidth]{convex.PNG}\caption{}\label{fig:convex}
-\end{figure}
-
-Now we define the normal cone formulation
-\begin{align}
--\dot{\hb}_{t,i} \in N_{C_{t,i}}(\lambdab_{t,i})\quad \forall i\in\Ic_a,\quad \text{with }C_{t,i} = \{\lambdab_{t,i}\ |\ ||\lambdab_{t,i}|| \leq \mu\lambda_{n,i}\},
-\end{align}
-which is illustrated in Figure~\ref{fig:frictiondisk}. $C_t$ is the set of all admitted friction forces. The tangential velocity $\dot{\hb}_{t,i}$ is directed opposite to the friction force $\lambdab_{t,i}$ for isotropic friction.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=.5\textwidth]{frictiondisk.eps}\caption{The friction disk with two seperate friction forces $\lambdab_{t,1}$ and $\lambdab_{t,2}$. $\lambdab_{t,1} = \mu\lambda_{n,1}$, resulting in a tangential velocity $\dot{\hb}_{t,i}>0$. $\lambdab_{t,2}<\mu\lambda_{n,2}$, leading to a tangential velocity $\dot{\hb}_{t,i}=0$.}\label{fig:frictiondisk}
-\end{figure}
-
-Now using the fact that
-\begin{align}
-\xb = \prox_C(\xb -r\yb), r > 0\ \iff\ -\yb\in N_C(\xb),
-\end{align}
-we can rewrite the normal cone to a proximal point formulation
-\begin{align}
-\lambdab_{t,i} = \prox_{C_{t,i}}(\lambdab_{t,i} - r\dot{\hb}_{t,i})\,\quad \forall i\in\Ic_a\quad\text{with }C_{t,i} = \{\lambdab_{t,i}\ |\ ||\lambdab_{t,i}|| \leq \mu\lambda_{n,i}\}\text{ and }r>0.
-\end{align}
-Similarly, for the impact dynamics we can formulate
-\begin{align}
-\Lambdab_{t,i} = \prox_{C_{t,i}}(\Lambdab_{t,i} - r\dot{\hb}^+_{t,i})\,\quad \forall i\in\Ic_a\quad\text{with }C_{t,i} = \{\Lambdab_{t,i}\ |\ ||\Lambdab_{t,i}|| \leq \mu\Lambda_{n,i}\}\text{ and }r>0.
-\end{align}
-
-\section{Hybrid system formulation for mechanical system with unilateral constraints and spatial friction}
-In this section the dynamics of the complementarity system defined in the section above is written to a hybrid formulation. This formulation is less formal than the complementarity formulation, which is entirely mathematically correct. The hybrid formulation is used to give a more intuitive approach to simulating a system with impacts. 
-
-\subsection{Jump map formulation}\label{sec:derivation}
-The impact dynamics related to the jump sets are given by
-\begin{align}
-&0\leftarrow \ast:\nonumber\\
-&(\dot{\qb}^+ - \dot{\qb}^-) = 0,\label{eq:appjump1}\\
-&1\leftarrow\ast:\nonumber\\
-&\Mb(\qb)(\dot{\qb}^+ - \dot{\qb}^-) = \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i},\label{eq:appjump2}\\
-&\zeta_{n,i}^+=0,\label{eq:appjump3}\\
-&\Lambdab_{t,i} = -\epsilon(\zetab^-_{t,i})\mu\Lambda_{n,i},\label{eq:appjump4}\\
-&2\leftarrow \ast:\nonumber\\
-&\Mb(\qb)(\dot{\qb}^+ - \dot{\qb}^-) = \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i},\label{eq:appjump5}\\
-&\zeta_{n,i}^+=0,\label{eq:appjump6}\\
-&\zeta_{t,i}^+= 0,\label{eq:appjump7}
-\end{align}
-with $0\leftarrow\ast$,$1\leftarrow\ast$ and $2\leftarrow\ast$ representing the impact dynamics to open contact, slip and stick respectively and $\epsilon(x)$ as defined in \eqref{eq:epsilon}. 
-
-When we go from any mode to open, there is no jump in the velocity and the reaction impulses are 0. Therefore $0\leftarrow \ast$ is correct.
-
-When we go from open to slip, there will be a jump in velocity, and $||\Lambdab_{t,i}|| = \mu\Lambda_{n,i}$. The reaction impulses will be larger than zero. When we go from stick to slip, there will be no jump in velocity. In stick, $\zetab_{t,i} =0$, so $\epsilon(\zetab^-_{t,i}) = 0$. Also we know $\wb_{n,i}^T\dot{\qb}^- = \wb_{n,i}^T\dot{\qb}^+ = 0 $. This leads to $\dot{\qb}^- = \dot{\qb}^+$, meaning there is no jump in velocity and no impulsive reaction force. Therefore $1\leftarrow \ast$ is correct.
-
-When we go from open to stick, there will be a jump in velocity and impulsive reaction forces.
-\textbf{NOT FINISHED, WE HAVE TO HAVE SOME KIND OF PROOF THESE JUMP MAPS ARE CORRECT}
-\subsection{Guard-function formulation}\label{app:guards}
-\textbf{Open to stick/slip}\\
-When a contact point is "open", it can trigger a guard function $\gamma$ to go from open to closed. The plane that spans $\gamma = 0$ is divided in two regions: a region where the post-impact state is in slip and a region where the post-impact state is in stick. This region is defined by $\Gamma$, where $\Gamma<0$ in the region where the contact point goes to slip and $\Gamma > 0$ in the region where the contact point goes to stick. When $\Gamma = 0$ the system is right at the border between a slip post-impact state and a stick post-impact state. This is illustrated in Figure~\ref{fig:guardopcl}. 
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=.7\textwidth]{guardopcl.eps}\caption{The functions $\gammab(\qb,\dot{\qb})$ and $\Gammab(\qb,\dot{\qb})$ illustrated in the state space of $\qb\in\mathbb{R}^{2}$. The light blue area is the state space where the contact is open, and goes the closed when it triggers $\gamma = 0$. If it triggers $\gamma = 0$ in the area where $\Gamma<0$ (orange), then the contact will go to slip. If it triggers $\gamma=0$ in the area where $\Gamma\geq 0$ (green), then the contact will go to stick.}\label{fig:guardopcl}
-\end{figure}
-
-For slip, we know that $\mu\Lambda_{n,i} - ||\Lambdab_{t,i}|| = 0$ and for stick, we know that  $\mu\Lambda_{n,i} - ||\Lambdab_{t,i}|| \geq 0$. From this we can derive the guard function
-\begin{align}
-\Gamma = \mu^2 \Lambda_{n,i}^2(\qb,\dot{\qb}^-) - \Lambdab_{t,i}(\qb,\dot{\qb}^-)\Lambdab_{t,i}^T(\qb,\dot{\qb}^-). \label{eq:slipset}
-\end{align}
-This guard function $\Gamma$ satisfies the requirements that $\Gamma<0$ in the region where the contact point goes to slip, $\Gamma > 0$ in the region where the contact point goes to stick and $\Gamma = 0$ at the border. Even though it is not physically realistic that $\Gamma < 0$, it can still be used as a guard-function.
-We now find expressions for $\Lambda_{n,i}$ and $\Lambdab_{t,i}$ by looking at the jump map to stick, given in \eqref{eq:appjump5} to \eqref{eq:appjump7}.
-
-We can rewrite \eqref{eq:appjump5} to
-\begin{align}
-\dot{\qb}^+ = \Mb^{-1}\wb_{n,i}\Lambda_{n,i} + \Mb^{-1}\Wb_{t,i}\Lambdab_{t,i} + \dot{\qb}^-,
-\end{align}
-which after substituting into \eqref{eq:appjump6} and \eqref{eq:appjump7} lead to
-
-\begin{align}
-\wb_{n,i}^T\Mb^{-1}\wb_{n,i}\Lambda_{n,i} + \wb_{n,i}^T\Mb^{-1}\Wb_{t,i}\Lambdab_{t,i} + \zeta_{n,i}^- = 0\\
-\Wb_{t,i}^T\Mb^{-1}\wb_{n,i}\Lambda_{n,i} + \Wb_{t,i}^T\Mb^{-1}\Wb_{t,i}\Lambdab_{t,i} + \zetab_{t,i}^- = 0,
-\end{align}
-respectively, with $\zeta_{n,i}^- = \wb_{n,i}^T\dot{\qb}^-$ and $\zetab_{t,i}^- = \Wb_{t,i}^T\dot{\qb}^-$. This is now rewritten to
-
-\begin{align}
-\begin{bmatrix}
-\wb_{n,i}^T\Mb^{-1}\wb_{n,i} & \wb_{n,i}^T\Mb^{-1}\Wb_{t,i} \\
-\Wb_{t,i}^T\Mb^{-1}\wb_{n,i} & \Wb_{t,i}^T\Mb^{-1}\Wb_{t,i}
-\end{bmatrix}
-\begin{bmatrix}
-\Lambda_{n,i}\\
-\Lambdab_{t,i}
-\end{bmatrix} + \begin{bmatrix}
-\zeta_{n,i}^-\\
-\zetab_{t,i}^-
-\end{bmatrix}
-= 0,
-\end{align}
-which is in turn rewritten to
-\begin{align}
-\begin{bmatrix}
-\Lambda_{n,i}\\
-\Lambdab_{t,i}
-\end{bmatrix} = - \Db^{-1}\begin{bmatrix}
-\zeta_{n,i}^-\\
-\zetab_{t,i}^-
-\end{bmatrix},\quad \text{with } \Db = \begin{bmatrix}
-\wb_{n,i}^T\Mb^{-1}\wb_{n,i} & \wb_{n,i}^T\Mb^{-1}\Wb_{t,i} \\
-\Wb_{t,i}^T\Mb^{-1}\wb_{n,i} & \Wb_{t,i}^T\Mb^{-1}\Wb_{t,i}
-\end{bmatrix}.
-\end{align}
-
-The matrix $\Db$ is often called the Delassus-matrix. We now have expressions for $\Lambda_{n,i}$ and $\Lambdab_{t,i}$ which are continuous and differentiable in $(\qb,\dot{\qb})$. It is straightforward that $\Gamma(\qb,\dot{\qb})$ is continuous and differentiable as well. From the continuity of $\Gammab_i$ we can say that if we trigger $\gamma$ away from $\Gammab_i = 0$, an infinitesimally small perturbation can not cause us to trigger $\gamma$ on the other side of $\Gammab_i$. This is proven in \textbf{SECTION TO BE WRITTEN}\\
-\textbf{Stick/slip to open}\\
-
-\textbf{Stick to slip and slip to stick}
-
-\subsection{Hybrid system formulation}
-
-\begin{align}
-&\Mb(\qb)\ddot{\qb} + \Hb(\qb,\dot{\qb}) = \Sb(\qb)\ub + \sum_{i\in\Ic_c}\left(\wb_{n,i}(\qb)\lambda_{n,i} + \Wb_{t,i}(\qb)\lambdab_{t,i} \right), \label{eq:hybriddyn}
-\end{align}
-where every contact point in the set $\Ic_a$ is subjected to some set of constraints $c_i$, depending on the mode the contact point is in. These constraints are defined below:\\
-\textbf{Open $(0)$:}
-\begin{align}
-&c_{0,i}:\nonumber\\
-&\lambda_{n,i} = 0\\
-&\lambdab_{t,i} = 0
-\end{align}
-with the jump sets
-\begin{align}
-&^{1\leftarrow 0}\mathcal{D} = \{\qb,\ub\in\Rbb^n\ |\ h_{n,i} = 0,\ \Lambda_{n,i}^2 - \Lambdab_{t,i}\Lambdab_{t,i}^T = 0\},\label{eq:D0to1}\\
-&^{2\leftarrow 0}\mathcal{D} = \{\qb,\ub\in\Rbb^n\ |\ h_{n,i} = 0,\ \Lambda_{n,i}^2 - \Lambdab_{t,i}\Lambdab_{t,i}^T > 0\}.\label{eq:D0to2}
-\end{align}
-The derivation of these jump sets is given in Section~\ref{sec:derivation}.\\
-\textbf{Slip $(1)$:}
-\begin{align}
-&c_{1,i}:\nonumber\\
-&\wb^T_{n,i}(\qb)\ddot{\qb} + \dot{\wb}^T_{n,i}(\qb)\dot{\qb} = 0,\\
-&\lambdab_{t,i} = -\epsilon(\zetab^-_{t,i})\mu\lambda_{n,i},\footnote{}
-\end{align}
-with the jump sets
-\begin{align}
-&^{0\leftarrow 1}\mathcal{D} = \{\qb,\ub\in\Rbb^n\ |\ h_{n,i} = 0,\ \lambda_{n,i} = 0\},\\
-&^{2\leftarrow 1}\mathcal{D} = \{\qb,\ub\in\Rbb^n\ |\ h_{n,i} = 0,\ ||\zetab_{t,i}|| = 0\}.
-\end{align}
-\textbf{Stick $(2)$:}
-\begin{align}
-&c_{2,i}:\nonumber\\
-&\wb^T_{n,i}(\qb)\ddot{\qb} + \dot{\wb}^T_{n,i}(\qb)\dot{\qb} = 0,\\
-&\Wb^T_{t,i}(\qb)\ddot{\qb} + \dot{\Wb}^T_{t,i}(\qb)\dot{\qb} = 0,
-\end{align}
-with the jump sets
-\begin{align}
-&^{0\leftarrow 2}\mathcal{D}= \{\qb,\ub\in\Rbb^n\ |\ h_{n,i} = 0,\ \lambda_{n,i} = 0\},\\
-&^{1\leftarrow 2}\mathcal{D} = \{\qb,\ub\in\Rbb^n\ |\ ||\lambdab_{t,i}||=\lambda_{n,i}\}.
-\end{align}
-$^1$: Because we assume isotropic friction, we can say $\epsilon(\zetab^+_{t,i}) = \epsilon(\zetab^-_{t,i})$.
-\begin{figure}[H]
-\centering
-\includegraphics[width=.85\textwidth]{nodehybrid.eps}\caption{The hybrid system representation of one contact point of a system experiencing impact and spatial friction.}\label{fig:nodehybrid}
-\end{figure}
-
-\chapter{Friction in Mechanical Systems with Unilateral Constraints}
+\chapter{Spatial Friction in Mechanical Systems with Unilateral Constraints}
 \section{Reference trajectories with impact away from slip-stick border}\label{app:impactsaway}
 Now we look at the case where a contact point goes from open to closed, away from $\Gammab = 0$. This is illustrated in Figure~\ref{fig:impactfromborder}. The goal is to proof that for an event away from $\Gammab$, an infinitesimally small perturbation can not cause the trajectory to hit $\gamma = 0$ at a perturbed ante-impact state $\xb_\epsilon^-(t_\epsilon)$ where $\Gammab$ changes sign in comparison with the unperturbed ante-impact state $\alphab^-(\tau)$. From \cite[p. 6]{Rijnen2018} we know that based on the continuity property of $\gammab$ and $\fb$, the perturbed impact state can be written as
 
@@ -262,7 +58,7 @@ The mode transition from stick to slip happens when a guard is triggered at acce
 \begin{align}
 ^{\text{slip}\leftarrow\text{stick}}\gamma = \mu^2\lambda_{n,i}^2 - \lambdab_{t,i}\lambdab_{t,i}^T,
 \end{align}
-and the mode transition from open to stick happens when a guard is triggered at velocity level
+and the post-impact mode is determined by the guard function defined at velocity level
 \begin{align}
 \Gamma = \mu^2 \Lambda_{n,i}^2(\qb,\dot{\qb}^-) - \Lambdab_{t,i}(\qb,\dot{\qb}^-)\Lambdab_{t,i}^T(\qb,\dot{\qb}^-). \label{eq:appopentostick}
 \end{align}
@@ -657,7 +453,7 @@ The same is true for impacts close to the border of stick and slip.
 
 %% New chapter %%
 \cleartooddpage
-\chapter{Plank-Box Model} 
+\chapter{Simulation Design}
 \section{Plank box dynamics}
 In Figure~\ref{fig:blockplank} the plank-box model is illustrated. The block is fully actuated and the plank is attached to the solid environment with a spring and damper. The line contact is for now modeled using two contact-points $C_L$ and $C_R$.
 
@@ -850,9 +646,6 @@ with
 \end{bmatrix}.
 \end{align}
 
-%% New chapter %%
-\cleartooddpage
-\chapter{Simulation Design}
 \section{Reference Trajectory Design}
 
 \end{document}

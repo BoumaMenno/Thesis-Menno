@@ -41,6 +41,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{chngpage}
+\usepackage{chngcntr}
 \usepackage{pdflscape}
 \usepackage[version=3]{mhchem}
 \usepackage{epstopdf}
@@ -85,7 +86,12 @@
 % Empty page when chapter starts at even page
 \newcommand\cleartooddpage{\clearpage\ifodd\value{page}\else\null\thispagestyle{empty}\clearpage\fi}
 
-% Enable equation, figure and table numbering per chapter
+% Remove counter resets at section level
+\counterwithout{equation}{section}
+\counterwithout{figure}{section}
+\counterwithout{table}{section}
+
+% Change numbering format to chapter level
 \numberwithin{equation}{chapter}
 \numberwithin{figure}{chapter}
 \numberwithin{table}{chapter}
@@ -254,5 +260,6 @@
 \newcommand{\evec}{\vv{\boldsymbol{e}}}
 
 \DeclareMathOperator{\prox}{\text{prox}}
+\DeclareMathOperator{\Sign}{\text{Sign}}
 \DeclareMathOperator{\argmax}{\text{argmax}}
 \DeclareMathOperator{\argmin}{\text{argmin}}
