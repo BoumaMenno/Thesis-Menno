@@ -1,58 +1,56 @@
 \documentclass[../DC2017114Bouma.tex]{subfiles}
 \begin{document}
 \graphicspath{{02_Material/img/}}
-
-
 %% New chapter %%
+\pagestyle{fancyreport}
 \cleartooddpage
-\chapter{Modeling of Mechanical Systems with Unilateral Constraints and Spatial Friction}
-\section{Mechanical system with unilateral constraints and spatial friction dynamics}
-\textbf{Define lambdas and other variables}
-We define $\xib=\dot{\qb}$, except at jump-times $\tau_i$. $h_n$ is the normal contact distance and $\zetab_{n}$ and $\zetab_{t}$ represent the relative velocities in normal and tangential direction,  respectively. Then, the continuous dynamics of a mechanical system with unilateral constraints and spatial friction are of the form
+\pagestyle{fancyreport}
+\chapter{Mechanical Systems with Unilateral Constraints and Spatial Friction}
+In this chapter several modeling approaches of mechanical systems with unilateral constraints and spatial friction are presented. First a general representation of such a system is given, which is followed by sections introducing several formulations of the contact and friction laws in these systems. First a complementarity problem formulation is given, which is a complete and often used formulation for mechanical systems with unilateral constraints. From the complementarity formulation a hybrid system formulation is derived, which although less complete is a more intuitive formulation from a control point-of-view.
+\section{General system definition}
+For a mechanical system contact points $i_c\in\{i_1,i_2,...,i_C\}$ is defined, with $C$ being the number of considered contact points. A set $\Ic_\text{c}$ is defined as the set of closed contact points, such that a contact $i\in\Ic_\text{c}$ has closed a unilateral constraint. Due to the modeling of friction, the set $\Ic_\text{c}$ is subdivided in the two sets $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$. Here $\Ic_{\text{sl}}$ is the set of closed contact points in slip and $\Ic_{\text{st}}$ the set of closed contact points in stick with $\Ic_\text{c} =\Ic_{\text{sl}}\cup\Ic_{\text{st}}$ and $\Ic_{\text{sl}}\cup\Ic_{\text{st}}=\emptyset$. When a unilateral constraint is activated at a nonzero velocity impact happens, meaning a jump in the velocity will appear. Therefore the generalized velocity $\dot{\qb}$ is not continuously defined over the entire domain of a trajectory with impacts. Therefore $\xib:=\dot{\qb}$ is defined, except at impact-times $\tau_i$. Here $i$ is a counter for unilateral constraint activations where $i\in \{1,2,...,N\}$, with $N$ the amount of jumps in a trajectory. $h_n$ is the normal contact distance and $\zetab_{n,i_c}$ and $\zetab_{t,i_c}$ represent the relative velocities in normal and tangential direction,  respectively. Then, the continuous dynamics of a mechanical system with unilateral constraints and spatial friction are of the form
 \begin{align}
-&\Mb(\qb)\dot{\xib} + \Hb(\qb,\xib) = \Sb(\qb)\ub + \sum_{i\in\Ic_c}\left(\wb_{n,i}(\qb)\lambda_{n,i} + \Wb_{t,i}(\qb)\lambdab_{t,i} \right), \label{eq:appcont1}\\
+&\Mb(\qb)\dot{\xib} + \Hb(\qb,\xib) = \Sb(\qb)\ub + \sum_{i_c\in\Ic_c}\left(\wb_{n,i_c}(\qb)\lambda_{n,i_c} + \Wb_{t,i_c}(\qb)\lambdab_{t,i_c} \right), \label{eq:appcont1}\\
 &\text{(Contact Law)},\label{eq:appcont2}\\
 &\text{(Friction Law)}.\label{eq:appcont3}
 \end{align}
-
-When the system activates a unilateral constraint, impulsive dynamics can cause the state of the system to jump. These dynamics are of the form
+Here $\Mb(\qb)$ is the mass matrix of the system, $H(\qb,\xib)$ contains the centripetal, Coriolis and gravitational forces in the system and $\Sb(\qb)$ represents the generalized directions of the forces. $\lambda_{n,i_c}$ and $\lambdab_{t,i_c}$ are the normal and tangential reaction forces, respectively, of contact point $i_c$ with $\wb_{n,i_c}$ and $\Wb_{t,i_c}$ the corresponding reaction force jacobians. When a contact point activates a unilateral constraint, impulsive dynamics can cause the state of the system to jump. These dynamics are of the form
 
 \begin{align}
-&\Mb(\qb)(\xib^+ - \xib^-) = \sum_{i\in\Ic_c}\left( \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i}\right), \label{eq:appimp1}\\
+&\Mb(\qb)(\xib^+ - \xib^-) = \sum_{i_c\in\Ic_c}\left( \wb_{n,i_c}(\qb)\Lambda_{n,i_c} + \Wb_{t,i_c}(\qb)\Lambdab_{t,i_c}\right), \label{eq:appimp1}\\
 &\text{(Impulsive Contact Law)},\label{eq:appimp2}\\
 &\text{(Impulsive Friction Law)}.\label{eq:appimp3}
 \end{align}
-
-These dynamics are impulsive, and happen at one instance in time. The $^-$ superscript indicates the ante-event state and the $^+$ superscript indicates the post-event state. In the following sections three different methods of describing the contact and friction laws are presented. First a complementarity problem formulation of mechanical systems with unilateral constraints is given, from which later a proximal point formulation and a hybrid system formulation are derived.
+Here $\Lambda_{n,i_c}$ and $\Lambdab_{t,i_c}$ the normal and tangential impulsive reaction forces, respectively, of contact point $i_c$. These dynamics are impulsive, and happen at one instance in time. The $^-$ superscript indicates the ante-event state and the $^+$ superscript indicates the post-event state. In the following sections three different methods of describing the contact and friction laws are presented. First a complementarity problem formulation of mechanical systems with unilateral constraints is given, from which later a proximal point formulation and a hybrid system formulation are derived. For more information on modeling of multibody systems one can refer to \cite{Leine2008} and \cite{Wouw2016}.
 
 \section{Complementarity problem formulation}\label{sec:comp}
-\subsection{Signourini's contact law and Poisson's impact law}
-To describe the normal contact between rigid bodies Signourini's contact law is used. Since the bodies are impenetrable and reaction forces caused by contact can not prevent the bodies from seperating, both the contact distance $h_{n,i}$ and $\lambda_{n,i}$ can not become negative. Two situations are possible
+\subsection{Signorini's contact law and Poisson's impact law}
+To describe the normal contact between rigid bodies Signorini's contact law is used. Since the bodies are impenetrable and reaction forces caused by contact can not prevent the bodies from seperating, both the contact distance $h_{n,i}$ and $\lambda_{n,i}$ can not become negative. Two situations are possible
 
 \begin{enumerate}
 \item $h_{n,i}=0\ \wedge\ \lambda_{n,i} \geq 0$ (closed-contact)
 \item $h_{n,i}>0\ \wedge\ \lambda_{n,i} = 0$ (open-contact)
 \end{enumerate}
 
-These situations are illustrated in Figure~\ref{fig:signourinicontact}, where it can be seen that the two situations are orthogonal. This behavior can be summarized in the complementarity condition
+These situations are illustrated in Figure~\ref{fig:signorinicontact}, where it can be seen that the two situations are orthogonal. This behavior can be summarized in the complementarity condition
 
 \begin{align}
-0\leq h_{n,i}\ \bot\ \lambda_{n,i} \geq 0,\label{eq:signourini}
+0\leq h_{n,i}\ \bot\ \lambda_{n,i} \geq 0,\label{eq:signorini}
 \end{align}
 
-where the symbol $\bot$ is used to express the orthogonality between $h_{n,i}$ and $\lambda_{n,i}$. The complementarity condition in \eqref{eq:signourini} is called Signourini's contact law.
+where the symbol $\bot$ is used to express the orthogonality between $h_{n,i}$ and $\lambda_{n,i}$. The complementarity condition in \eqref{eq:signorini} is called Signorini's contact law.
 \begin{figure}[h]
 \centering
 \begin{subfigure}{0.3\textwidth}
 \centering
-\includegraphics[width=\linewidth]{signourinicontact.eps}
-\caption{Signourini's contact law.}\label{fig:signourinicontact}
+\includegraphics[width=\linewidth]{signorinicontact.eps}
+\caption{Signorini's contact law.}\label{fig:signorinicontact}
 \end{subfigure}
 \qquad
 %\begin{subfigure}{0.3\textwidth}
 %\centering
-%\includegraphics[width=\linewidth]{signouriniforce.eps}
-%\caption{Signourini's force law.}\label{fig:signouriniforce}
+%\includegraphics[width=\linewidth]{signoriniforce.eps}
+%\caption{Signorini's force law.}\label{fig:signoriniforce}
 %\end{subfigure}
 %\quad
 \begin{subfigure}{0.3\textwidth}
@@ -63,7 +61,7 @@ where the symbol $\bot$ is used to express the orthogonality between $h_{n,i}$ a
 \caption{}
 \end{figure}
 
-When contact happens at non-zero velocity, impact occurs. Newton's impact law is used to describe this impact. Newton's law of impact is defined as
+When contact happens at nonzero velocity, impact occurs. Newton's impact law is used to describe this impact. Newton's law of impact is defined as
 \begin{align}
 \zeta^+_{n,i} = e_{n,i}\zeta^+_{n,i},\text{ when }h_{n,i}=0,\ \dot{h}_{n,i}<0.
 \end{align}
@@ -162,20 +160,20 @@ with
 \section{Proximal point formulation}
 The contact law and friction law defined in the complementarity condition formulation can be redefined to a proximal point formulation. This makes the system compatible with simulation methods as timestepping \cite[Chapter 10]{Acary2008}. More information on the definition of the proximal point formulation of contact laws and friction laws can be found in \cite[Section 5.3]{Leine2008}.
 
-\subsection{Signourini's contact law and Poisson's impact law}
-In Figure~\ref{fig:convex} a convex set $C$ is illustrated. The normal cone $N_C(\xb)$ of a point $\xb$ is $N_C(\xb)=0$ if $\xb\in \text{int}(C)$, where $\text{int}(.)$ is the interior of a set. An example of this is point $\xb_3$ in Figure~\ref{fig:convex}. Defining $\text{bd}(.)$ as the boundary of the set, when $\xb\in \text{bd}(C)$ there are two options. When $\xb$ is on a smooth part of $\text{bd}(C)$, then $N_C(\xb)$ is a ray normal to $\text{bd}(C)$ at point $\xb$ as depicted in at point $\xb_1$. When $\xb$ is on a non-smooth part of $\text{bd}(C)$, then $N_C(\xb)$ is a cone starting on the point $\xb$ whose sides are normal to the left and right approximation of the point $\xb$ on $\text{bd}(C)$. This is illustrated at point $\xb_2$. The proximal point $\prox_C(\zb)$ of a point $\zb$, is the point in $C$ closest to the point $\zb$. The point $\xb$ is the proximal point to all points  $\zb\in N_C(\xb)$. For a point $\zb\in C$, $\prox_C(\zb) = \zb$ i.e. $\xb_3$ in Figure~\ref{fig:convex}.
+\subsection{Signorini's contact law and Poisson's impact law}
+In Figure~\ref{fig:convex} a convex set $C$ is illustrated. The normal cone $N_C(\xb)$ of a point $\xb$ is $N_C(\xb)=0$ if $\xb\in \text{int}(C)$, where $\text{int}(.)$ is the interior of a set. An example of this is point $\xb_3$ in Figure~\ref{fig:convex}. Defining $\text{bd}(.)$ as the boundary of the set, when $\xb\in \text{bd}(C)$ there are two options. When $\xb$ is on a smooth part of $\text{bd}(C)$, then $N_C(\xb)$ is a ray normal to $\text{bd}(C)$ at point $\xb$ as depicted in at point $\xb_1$. When $\xb$ is on a nonsmooth part of $\text{bd}(C)$, then $N_C(\xb)$ is a cone starting on the point $\xb$ whose sides are normal to the left and right approximation of the point $\xb$ on $\text{bd}(C)$. This is illustrated at point $\xb_2$. The proximal point $\prox_C(\zb)$ of a point $\zb$, is the point in $C$ closest to the point $\zb$. The point $\xb$ is the proximal point to all points  $\zb\in N_C(\xb)$. For a point $\zb\in C$, $\prox_C(\zb) = \zb$ i.e. $\xb_3$ in Figure~\ref{fig:convex}.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=.6\textwidth]{convex.PNG}\caption{}\label{fig:convex}
 \end{figure}
 
-This formulation can be used to define Signourini's contact law, which is defined as \eqref{eq:ncpcontact2}. The normal cone formulation, as illustrated in Figure~\ref{fig:convex}, of the contact is given by
+This formulation can be used to define Signorini's contact law, which is defined as \eqref{eq:ncpcontact2}. The normal cone formulation, as illustrated in Figure~\ref{fig:convex}, of the contact is given by
 
 \begin{align}
 -h_{n,i} \in N_{C_{n,i}}(\lambda_{n,i}),\quad \text{with }C_{n,i} = (\Rbb^n)^+.\label{eq:hnormalcone}
 \end{align}
-The set $C_{n,i}$ is the set of admissible normal forces according to Signourini's law. See Figure~\ref{fig:signourinicontact} for an illustration of the set $C_{n,i}$ with $\lambda_{n,i}\in C_{n,i}$ and $h_{n,i} \in N_{C_{n,i}}(\lambda_{n,i})$. Now using the fact that
+The set $C_{n,i}$ is the set of admissible normal forces according to Signorini's law. See Figure~\ref{fig:signorinicontact} for an illustration of the set $C_{n,i}$ with $\lambda_{n,i}\in C_{n,i}$ and $h_{n,i} \in N_{C_{n,i}}(\lambda_{n,i})$. Now using the fact that
 \begin{align}
 \xb = \prox_C(\xb -r\yb), r > 0\ \iff\ -\yb\in N_C(\xb),
 \end{align}
@@ -242,7 +240,7 @@ with
 &C_{t,i}(\lambda_{n,i}) = \{\Lambdab_{t,i}\ |\ ||\Lambdab_{t,i}|| \leq \mu\Lambda_{n,i}\}\text{ and }r>0.
 \end{align}
 \section{Hybrid system formulation for mechanical system with unilateral constraints and spatial friction}
-In this section the dynamics of the complementarity system defined in Section~\ref{sec:comp} is written to a hybrid formulation. 
+In this section the dynamics of the complementarity system defined in Section~\ref{sec:comp} is written to a hybrid formulation. The formulation given in this section has a requirement on the trajectories. The hybrid system formulation only holds for trajectories where during an impact at contact point $i$, the contact points other than $i$ will stay in the same mode. For trajectories where this is not the case, the contact points other than $i$ can experience infeasible reaction forces.
 
 \subsection{Hybrid system formulation}
 \begin{align}

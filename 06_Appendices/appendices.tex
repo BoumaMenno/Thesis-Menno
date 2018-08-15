@@ -3,9 +3,10 @@
 \appendix
 \begin{document}
 
-
 %% New chapter %%
+\pagestyle{fancyreport}
 \cleartooddpage
+\pagestyle{fancyreport}
 \chapter{Mathematical Preliminaries}
 \section{Sensitivity analysis for smooth systems}
 \section{(Non-)linear complementarity problems}
@@ -14,7 +15,7 @@
 
 \chapter{Spatial Friction in Mechanical Systems with Unilateral Constraints}
 \section{Reference trajectories with impact away from slip-stick border}\label{app:impactsaway}
-Now we look at the case where a contact point goes from open to closed, away from $\Gammab = 0$. This is illustrated in Figure~\ref{fig:impactfromborder}. The goal is to proof that for an event away from $\Gammab$, an infinitesimally small perturbation can not cause the trajectory to hit $\gamma = 0$ at a perturbed ante-impact state $\xb_\epsilon^-(t_\epsilon)$ where $\Gammab$ changes sign in comparison with the unperturbed ante-impact state $\alphab^-(\tau)$. From \cite[p. 6]{Rijnen2018} we know that based on the continuity property of $\gammab$ and $\fb$, the perturbed impact state can be written as
+Now we look at the case where a contact point goes from open to closed, away from $\Gammab = 0$. This is illustrated in Figure~\ref{fig:impactfromborder}. The goal is to prove that for an event away from $\Gammab$, a sufficiently small perturbation cannot cause the trajectory to hit $\gamma = 0$ at a perturbed ante-impact state $\xb_\epsilon^-(t_\epsilon)$ where $\Gammab$ changes sign in comparison with the unperturbed ante-impact state $\alphab^-(\tau)$. From \cite[p. 6]{Rijnen2018} we know that based on the continuity property of $\gammab$ and $\fb$, the perturbed impact state can be written as
 
 \begin{align}
 \xb_\epsilon(t_\epsilon) = \alphab(\tau) + \epsilon\dot{\alphab}(\tau)\frac{\partial t_\epsilon}{\partial \epsilon} + \epsilon\zb(\tau) + o(\epsilon),\label{eq:appxpert}
@@ -49,7 +50,7 @@ In other words, this proves that if $\fb$, $\gammab$ and $\Gammab$ are continuou
 \section{Reference trajectories with impact at the slip-stick border}
 
 \begin{itemize}
-	\item Consider as simultaneous trigger of open-closed guard and slip-stick guard. However, it is not entirely the same, as the slip-stick guard can not be triggered before the open-closed guard.
+	\item Consider as simultaneous trigger of open-closed guard and slip-stick guard. However, it is not entirely the same, as the slip-stick guard cannot be triggered before the open-closed guard.
 	\item The trigger should be transversal, in both closed-open guard and slip-stick guard.
 	\item If we can show continuity of post-impact state, then we can define a jump gain like $H$, which uses one jump map for the open to stick domain and another jump map for the open to slip domain.
 \end{itemize}
@@ -117,7 +118,7 @@ When we consider a single jump
 \begin{align}
 \xb^{+}_\epsilon(t_\epsilon,\epsilon) = \gb(\xb^{-}_\epsilon(t_\epsilon,\epsilon),t_\epsilon),\label{eq:g}
 \end{align}
-using a Taylor approximation (\textbf{Under what conditions is this approximation valid? $\gammab$ continuous, $\alpha$ continuous, $\fb$ continuous?} with respect to $\epsilon$ and around $\epsilon = 0$, we can write
+using a Taylor approximation (\textbf{Under what conditions is this approximation valid? $\gammab$ continuous, $\alpha$ continuous, $\fb$ continuous?}) with respect to $\epsilon$ and around $\epsilon = 0$, we can write
 \begin{align}
 \xb^{+}_\epsilon(t_\epsilon,\epsilon) &= \alphab^{+}(t_\epsilon) + \epsilon \zb^{+}(t_\epsilon) + o(\epsilon),\label{eq:xe}\\
 \ub^{+}_\epsilon(t_\epsilon,\epsilon) &= \mub^{+}(t_\epsilon) + \epsilon \vb^{+}(t_\epsilon) + o(\epsilon),\label{eq:ue}
@@ -443,7 +444,7 @@ If we now look at the solution for $\zb_4(t_0) = \alpha\zb_1(t_0)$ with $\vb_4(t
 
 %% New chapter %%
 \cleartooddpage
-\chapter{Assumptions on Guard-Activations}
+\chapter{Assumptions on Trajectories}
 \section{Associativity}
 \section{Transversality}
 \section{Superfluous Contacts}
@@ -451,6 +452,8 @@ If we now look at the solution for $\zb_4(t_0) = \alpha\zb_1(t_0)$ with $\vb_4(t
 For impacts, the theory is valid for impacts away from a simultaneous impacts and for simultaneous impacts, but not for impacts very close to simultaneous impacts. In this case the nominal impact is not a simultaneous impact, but a perturbation can cause the order of impacts to change. I believe the jump gain is not conewise constant anymore in this case.
 
 The same is true for impacts close to the border of stick and slip.
+
+\section{Non-impacting contact points can not switch modes}
 
 %% New chapter %%
 \cleartooddpage
