@@ -13,6 +13,89 @@
 \section{Convex analysis}
 \section{Hybrid system theory}
 
+\chapter{Proximal Point Formulation}
+The contact law and friction law defined in the complementarity condition formulation can be redefined to a proximal point formulation. This makes the system compatible with simulation methods as timestepping \cite[Chapter 10]{Acary2008}. More information on the definition of the proximal point formulation of contact laws and friction laws can be found in \cite[Section 5.3]{Leine2008}.
+
+\section{Signorini's contact law and Poisson's impact law}
+In Figure~\ref{fig:convex} a convex set $C$ is illustrated. The normal cone $N_C(\xb)$ of a point $\xb$ is $N_C(\xb)=0$ if $\xb\in \text{int}(C)$, where $\text{int}(.)$ is the interior of a set. An example of this is point $\xb_3$ in Figure~\ref{fig:convex}. Defining $\text{bd}(.)$ as the boundary of the set, when $\xb\in \text{bd}(C)$ there are two options. When $\xb$ is on a smooth part of $\text{bd}(C)$, then $N_C(\xb)$ is a ray normal to $\text{bd}(C)$ at point $\xb$ as depicted in at point $\xb_1$. When $\xb$ is on a nonsmooth part of $\text{bd}(C)$, then $N_C(\xb)$ is a cone starting on the point $\xb$ whose sides are normal to the left and right approximation of the point $\xb$ on $\text{bd}(C)$. This is illustrated at point $\xb_2$. The proximal point $\prox_C(\zb)$ of a point $\zb$, is the point in $C$ closest to the point $\zb$. The point $\xb$ is the proximal point to all points  $\zb\in N_C(\xb)$. For a point $\zb\in C$, $\prox_C(\zb) = \zb$ i.e. $\xb_3$ in Figure~\ref{fig:convex}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.6\textwidth]{convex.PNG}\caption{}\label{fig:convex}
+\end{figure}
+
+This formulation can be used to define Signorini's contact law, which is defined as \eqref{eq:ncpcontact2}. The normal cone formulation, as illustrated in Figure~\ref{fig:convex}, of the contact is given by
+
+\begin{align}
+-h_{n,i} \in N_{C_{n,i}}(\lambda_{n,i}),\quad \text{with }C_{n,i} = (\Rbb^n)^+.\label{eq:hnormalcone}
+\end{align}
+The set $C_{n,i}$ is the set of admissible normal forces according to Signorini's law. See Figure~\ref{fig:signorinicontact} for an illustration of the set $C_{n,i}$ with $\lambda_{n,i}\in C_{n,i}$ and $h_{n,i} \in N_{C_{n,i}}(\lambda_{n,i})$. Now using the fact that
+\begin{align}
+\xb = \prox_C(\xb -r\yb), r > 0\ \iff\ -\yb\in N_C(\xb),
+\end{align}
+rewriting \eqref{eq:hnormalcone} to a proximal point formulation gives 
+
+\begin{align}
+\lambda_{n,i} = \prox_{C_{n,i}}(\lambda_{n,i} - rh_{n,i}),\quad \text{with }C_{n,i} = (\Rbb^n)^+\text{ and } r>0.
+\end{align}
+
+Similarly for the Poisson's impact law illustrated in Figure~\ref{fig:poissonimpact}, we find the proximal point formulation
+
+\begin{align}
+\Lambda_{n,i} = \prox_{C_{n,i}}(\Lambda_{n,i} - r\zeta^+_{n,i}),\quad \text{with }C_{n,i} = (\Rbb^n)^+\text{ and } r>0.
+\end{align}
+
+\section{Coulomb's friction law}
+Now we define the normal cone formulation of Coulomb's friction law
+\begin{align}
+-\zetab_{t,i} \in N_{C_{t,i}}(\lambdab_{t,i})\quad \forall i\in\Ic_a,\quad \text{with }C_{t,i}(\lambda_{n,i}) = \{\lambdab_{t,i}\ |\ ||\lambdab_{t,i}|| \leq \mu\lambda_{n,i}\},
+\end{align}
+which is illustrated in Figure~\ref{fig:frictiondisk}.  
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.4\textwidth]{frictiondisk.eps}\caption{The friction disk with two seperate friction forces $\lambdab_{t,1}$ and $\lambdab_{t,2}$. $\lambdab_{t,1} = \mu\lambda_{n,1}$, resulting in a tangential velocity $\zetab_{t,i}>0$. $\lambdab_{t,2}<\mu\lambda_{n,2}$, leading to a tangential velocity $\zetab_{t,i}=0$.}\label{fig:frictiondisk}
+\end{figure}
+
+$C_t$ is the set of all admitted friction forces. The tangential velocity $\zetab_{t,i}$ is directed opposite to the friction force $\lambdab_{t,i}$ for isotropic friction. 
+
+Now using the fact that
+\begin{align}
+\xb = \prox_C(\xb -r\yb), r > 0\ \iff\ -\yb\in N_C(\xb),
+\end{align}
+we can rewrite the normal cone to a proximal point formulation
+\begin{align}
+\lambdab_{t,i} = \prox_{C_{t,i}}(\lambdab_{t,i} - r\zetab_{t,i})\,\quad\text{with }C_{t,i}(\lambda_{n,i}) = \{\lambdab_{t,i}\ |\ ||\lambdab_{t,i}|| \leq \mu\lambda_{n,i}\}\text{ and }r>0.
+\end{align}
+Similarly, for the impact dynamics we can formulate
+\begin{align}
+\Lambdab_{t,i} = \prox_{C_{t,i}}(\Lambdab_{t,i} - r\zetab^+_{t,i})\,\quad \text{with }C_{t,i}(\lambda_{n,i}) = \{\Lambdab_{t,i}\ |\ ||\Lambdab_{t,i}|| \leq \mu\Lambda_{n,i}\}\text{ and }r>0.
+\end{align}
+
+\section{System dynamics with contact law and friction law}
+The flow dynamics is then described by
+\begin{align}
+&\Mb(\qb)\dot{\xib} + \Hb(\qb,\xib) = \Sb(\qb)\ub + \sum_{i\in\Ic_c}\left(\wb_{n,i}(\qb)\lambda_{n,i} + \Wb_{t,i}(\qb)\lambdab_{t,i} \right), \label{eq:proxcontact1}\\
+&\lambda_{n,i} = \prox_{C_{n,i}}(\lambda_{n,i} - rh_{n,i}),\label{eq:proxcontact2}\\
+&\lambdab_{t,i} = \prox_{C_{t,i}}(\lambdab_{t,i} - r\zetab_{t,i}),\label{eq:proxcontact3}
+\end{align}
+with
+\begin{align}
+&C_{n,i} = (\Rbb^n)^+\text{ and } r>0,\\
+&C_{t,i}(\lambda_{n,i}) = \{\lambdab_{t,i}\ |\ ||\lambdab_{t,i}|| \leq \mu\lambda_{n,i}\}\text{ and }r>0.
+\end{align}
+The impulsive dynamics that take place when a contact point opens or closes contact is described by
+\begin{align}
+&\Mb(\qb)(\xib^+ - \xib^-) = \sum_{i\in\Ic_c}\left( \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i}\right), \label{eq:proximpact1}\\
+&\Lambda_{n,i} = \prox_{C_{n,i}}(\Lambda_{n,i} - r\zeta^+_{n,i}),\label{eq:proximpact2}\\
+&\Lambdab_{t,i} = \prox_{C_{t,i}}(\Lambdab_{t,i} - r\zetab^+_{t,i})\,\label{eq:proximpact3}
+\end{align}
+with
+\begin{align}
+&C_{n,i} = (\Rbb^n)^+\text{ and } r>0,\\
+&C_{t,i}(\lambda_{n,i}) = \{\Lambdab_{t,i}\ |\ ||\Lambdab_{t,i}|| \leq \mu\Lambda_{n,i}\}\text{ and }r>0.
+\end{align}
+
 \chapter{Spatial Friction in Mechanical Systems with Unilateral Constraints}
 \section{Reference trajectories with impact away from slip-stick border}\label{app:impactsaway}
 Now we look at the case where a contact point goes from open to closed, away from $\Gammab = 0$. This is illustrated in Figure~\ref{fig:impactfromborder}. The goal is to prove that for an event away from $\Gammab$, a sufficiently small perturbation cannot cause the trajectory to hit $\gamma = 0$ at a perturbed ante-impact state $\xb_\epsilon^-(t_\epsilon)$ where $\Gammab$ changes sign in comparison with the unperturbed ante-impact state $\alphab^-(\tau)$. From \cite[p. 6]{Rijnen2018} we know that based on the continuity property of $\gammab$ and $\fb$, the perturbed impact state can be written as
