@@ -1,17 +1,21 @@
 \documentclass[../DC2017114Bouma.tex]{subfiles}
 \begin{document}
 \graphicspath{{02_Material/img/}}
-%% New chapter %%
+%% New chapter
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}{}}
 \pagestyle{fancyreport}
 \cleartooddpage
 \pagestyle{fancyreport}
-\chapter{Mechanical Systems with Unilateral Constraints and Spatial Friction}
+\chapter{Mechanical Systems with Unilateral Constraints and Spatial Friction}\label{ch:model}
 In this chapter several modeling approaches of mechanical systems with unilateral constraints and spatial friction are presented. First a general representation of such a system is given, which is followed by sections introducing several formulations of the contact and friction laws in these systems. First a complementarity problem formulation is given, which is a complete and often used formulation for mechanical systems with unilateral constraints. From the complementarity formulation a hybrid system formulation is derived, which although less complete is a more intuitive formulation from a control point-of-view.
 \section{General system definition}
-\textbf{SOMEWHERE EXPLAIN DIFFERENCE BETWEEN CLOSING CONTACTS AND OTHER EVENTS (NONSMOOTHNESS)}\\
 For mechanical systems a set of contact points $i_c\in\{i_1,i_2,...,i_C\}$ is defined, with $C$ being the number of considered contact points. A set $\Ic_\text{c}$ is defined as the set of closed contact points, such that a contact $i\in\Ic_\text{c}$ has closed a unilateral constraint. When a unilateral constraint is activated at a nonzero velocity impact happens, meaning a jump in the velocity will appear. Therefore the generalized velocity $\dot{\qb}$ is not continuously defined over the entire domain of a trajectory with impacts. Therefore $\xib:=\dot{\qb}$ is defined, except at impact-times $\tau_i$. Here $i$ is a counter for unilateral constraint activations where $i\in \{1,2,...,N\}$, with $N$ the amount of jumps in a trajectory. $h_n$ is the normal contact distance and $\zeta_{n,i_c}$ and $\zetab_{t,i_c}$ represent the relative velocities in normal and tangential direction,  respectively. 
 
-\textbf{IMAGE HN ZETAN ZETAT}
+\begin{figure}[h]
+\centering
+\includegraphics[width=.75\textwidth]{contactplanes.eps}\caption{An illustration of a body impacting the fixed world. A contact point $i_c$ is defined on the body, which can make contact with the fixed world at $i_{FW}$. The points $i_c$ and $i_{FW}$ are connected by a line which is perpendicular to their respective bodies, which is used to define the contact distance $h_{n,i_c}$ and normal contact velocity $\zeta_{n,i_c}$. In the plane tangent to the body's surface, the tangential contact velocity $\zetab_{t,i_c}$ is defined.} \label{fig:contactplanes}
+\end{figure}
 
 Then, the continuous dynamics of a mechanical system with unilateral constraints and spatial friction are of the form
 \begin{align}
@@ -175,16 +179,49 @@ Therefore, a hybrid system with impulsive effects is given by
 \xb(t,i) = \ ^{s_i}\gb(\xb(t,i-1),\ub(t,i-1),t),& \xb(t,i-1),\ub(t,i-1)\in \ ^{s_i}D
 \end{array}\label{eq:hybimp}
 \end{equation}
-with $\xb(t,i)\in\Rbb^{n(s_i)}$, $\ub(t,i)\in\Rbb^{m(s_i)}$, $\ ^{s_i}\fb(t,i)\ :\ \Rbb^{n(s_i)}\ \times\ \Rbb^{m(s_i)}\ \times\ \Rbb\rightarrow \Rbb^{n(s_i)}$. $s_i$ is the mode descriptor of the system during flow after event $i$. Note that the state dimension $n(s_i)$ and the input dimension $m(s_i)$ can vary in different modes $s_i$. For the difference equation we have $\ ^{s_i}\gb\ :\ \Rbb^{n(s_{i-1})}\ \times\ \Rbb^{m(s_{i-1})}\ \times\ \Rbb\rightarrow \Rbb^{n(s_i)}$. The set $\ ^{s_i}D = \ ^{s_i}D(t) := \{\xb(t,i)\in\Rbb^{n(s_i)},\ \ub(t,i)\in\Rbb^{m(s_i)}\ |\ ^{s_i}_{=}\gamma(\xb^{\wedge},\ub^{\wedge},t) = 0, \ ^{s_i}_{\geq}\gamma(\xb^{\wedge},\ub^{\wedge},t) \geq 0\}$, where $\ ^{s_i}_{=}\gamma$ and $\ ^{s_i}_{\geq}\gamma$ are some sets of guard functions that are activated at event $i$, and $\xb^{\wedge}$,$\ub^{\wedge}$ are some virtual state and input that are not necessarily physically realistic.
+with $\xb(t,i)\in\Rbb^{n(s_i)}$, $\ub(t,i)\in\Rbb^{m(s_i)}$, $\ ^{s_i}\fb(t,i)\ :\ \Rbb^{n(s_i)}\ \times\ \Rbb^{m(s_i)}\ \times\ \Rbb\rightarrow \Rbb^{n(s_i)}$. The mode descriptor $s_i$ represents the mode of the system during flow after event $i$. With $c_i$ the number of open contraints, $s_i\in\{0,1,...,2^{c_i}-1\}$ written in the binary numeral system for reasons made clear later in this section. Note that the state dimension $n(s_i)$ and the input dimension $m(s_i)$ can vary in different modes $s_i$. For the difference equation we have $\ ^{s_i}\gb\ :\ \Rbb^{n(s_{i-1})}\ \times\ \Rbb^{m(s_{i-1})}\ \times\ \Rbb\rightarrow \Rbb^{n(s_i)}$. The set $\ ^{s_i}D = \ ^{s_i}D(t) := \{\xb(t,i)\in\Rbb^{n(s_i)},\ \ub(t,i)\in\Rbb^{m(s_i)}\ |\ ^{s_i}_{=}\gamma(\xb^{\wedge},\ub^{\wedge},t) = 0, \ ^{s_i}_{\geq}\gamma(\xb^{\wedge},\ub^{\wedge},t) \geq 0\}$, where $\ ^{s_i}_{=}\gamma$ and $\ ^{s_i}_{\geq}\gamma$ are some sets of guard functions that are activated at event $i$, and $\xb^{\wedge}$,$\ub^{\wedge}$ are some virtual state and input that are not necessarily physically realistic.
 
 The dynamics given in \eqref{eq:hybimp} will be used to describe a tracking problem for mechanical systems with unilateral constraints and spatial friction. A nominal state-input trajectory is considered consisting of absolutely continuous segments $(\alphab(t,i),\mub(t,i))$, with $t\in\left[\tau_i,\tau_{i+1}\right]$ and $i\in\{0,1,...,N\}$ the event counter. $\alphab(t,i)$ and $\mub(t,i)$ are the nominal state and input, respectively, that define the nominal trajectory with $N$ events. $\tau_i$ is referred to as the nominal event time of event $i$ and $t$ is referred to as regular time. Every segment of the nominal trajectory $(\alphab(t,i),\mub(t,i))$ and every event $i\in\{0,1,...,N\}$ satisfy the dynamics in \eqref{eq:hybimp}, where an event happens when $(\alphab(t,i),\mub(t,i))$ enters $\ ^{s_{i+1}}D$. Such a nominal trajectory existing of absolutely continuous segments experiencing events according to \eqref{eq:hybimp} is illustrated in Figure~\ref{fig:nomtraj}.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{nomtraj.eps}\caption{A nominal trajectory consisting of two events and three segments, which satisfies the dynamics \eqref{eq:hybimp}. At the nominal event time $\tau_i$ the trajectory governed by $\dot{\alphab}(t,i-1) =\ ^{s_{i-1}}\fb(\alphab(t,i-1),\mub(t,i-1),t)$ enters the set $\ ^{s_i}D$, which leads to a state jump described by $\alphab(t,i) = \ ^{s_i}\gb(\alphab(t,i-1),\mub(t,i-1),\tau_i)$. After event $i$ the flow continues according to $\dot{\alphab}(t,i) =\ ^{s_i}\fb(\alphab(t,i),\mub(t,i),t)$. Note that the jump only happens in the state $\alphab$ and not in $\mub$.} \label{fig:nomtraj}
+\includegraphics[width=\textwidth]{nomtraj.eps}\caption{A nominal trajectory consisting of two events and three segments, which satisfies the dynamics \eqref{eq:hybimp}. At the nominal event time $\tau_i$ the trajectory governed by $\dot{\alphab}(t,i-1) =\ ^{s_{i-1}}\fb(\alphab(t,i-1),\mub(t,i-1),t)$ enters the set $\ ^{s_i}D$, which leads to a state jump described by $\alphab(t,i) = \ ^{s_i}\gb(\alphab(t,i-1),\mub(t,i-1),\tau_i)$. After event $i$ the flow continues according to $\dot{\alphab}(t,i) =\ ^{s_i}\fb(\alphab(t,i),\mub(t,i),t)$. Note that the sets $\ ^{s_i}D$, besides being dependent on $\xb$, are also dependent on $\ub$.} \label{fig:nomtraj}
 \end{figure}
 
 The following sections will be used to write the complementarity system defined in Section~\ref{sec:comp} into a hybrid system with impulsive effects as in \eqref{eq:hybimp}. In \ref{sec:2contdyn} the continuous dynamics $\ ^{s_i}\fb$ will be derived for mechanical systems with unilateral constraints and spatial friction. Then, in Section~\ref{sec:2discdyn} the discrete dynamics $\ ^{s_i}\gb$ of the hybrid system with impulsive effects will be derived. Finally, in Section~\ref{sec:2reset} the reset set $\ ^{s_i}D$ will be defined. This will fully define the hybrid system with impulsive effects formulation of mechanical systems with unilateral constraints and spatial friction.
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}[b]{0.475\textwidth}
+\centering
+\includegraphics[width=\textwidth]{example1.eps}
+\caption{$i_1,i_2\notin\Ic_{\text{c}}$}
+\label{fig:example1}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.475\textwidth}  
+\centering 
+\includegraphics[width=\textwidth]{example2.eps}
+\caption{$i_1\notin\Ic_{\text{c}}$, $i_2\in\Ic_{\text{sl}}$}
+\label{fig:example2}
+\end{subfigure}
+\vskip\baselineskip
+\begin{subfigure}[b]{0.475\textwidth}   
+\centering 
+\includegraphics[width=\textwidth]{example3.eps}
+\caption{$i_1,i_2\in\Ic_{\text{sl}}$}
+\label{fig:example3}
+\end{subfigure}
+\quad
+\begin{subfigure}[b]{0.475\textwidth}   
+\centering 
+\includegraphics[width=\textwidth]{example4.eps}
+\caption{$i_1,i_2\in\Ic_{\text{st}}$}
+\label{fig:example4}
+\end{subfigure}
+\caption{An example trajectory of a block moving towards a surface with velocity $v$. The block starts with both contact points $i_1$ and $i_2$ in open contact and through three events the block ends with both contact points in closed contact stick.} 
+\label{fig:mean and std of nets}
+\end{figure}
 
 \textbf{EXAMPLE WITH BLOCK PUSHING TO SURFACE, EXPLAIN $s_i$ HERE}\\
 \textbf{IMAGE WITH TRAJECTORY AND ILLUSTRATIONS OF BLOCK NEXT TO IT}
@@ -202,8 +239,6 @@ When describing mechanical systems, we take
 \end{align}
 
 where $\qb$ and $\dot{\qb}$ are the joint positions, velocities and accelerations respectively. As described in Section~\ref{sec:comp}, for mechanical systems a set of contact points $i_c\in\{i_1,i_2,...,i_C\}$ is defined. Here $C$ is the number of considered contact points. A set $\Ic_\text{c}$ is defined as the set of closed contact points, such that a contact $i\in\Ic_\text{c}$ has closed a unilateral constraint. The set $\Ic_\text{c}$ is subdivided in two subsets $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$, where $\Ic_{\text{sl}}$ is the set of closed contact points in slip and $\Ic_{\text{st}}$ the set of closed contact points in stick. Here $\Ic_\text{c} =\Ic_{\text{sl}}\cup\Ic_{\text{st}}$ and $\Ic_{\text{sl}}\cup\Ic_{\text{st}}=\emptyset$. 
-
-\textbf{IMAGE ILLUSTRATING SETS}
 
 The equations of motion, given in \eqref{eq:appcont1}, can be rewritten to
 
@@ -224,15 +259,18 @@ The closed contact points in $\Ic_\text{c}$ experience reaction forces $\lambda_
 \begin{array}{ll}
 \wb^T_{n,i}(\qb)\ddot{\qb} + \dot{\wb}^T_{n,i}(\qb)\dot{\qb} = 0, & \forall i_c\in\Ic_{\text{c}},\\
 \Wb^T_{t,i}(\qb)\ddot{\qb} + \dot{\Wb}^T_{t,i}(\qb)\dot{\qb} = 0, & \forall i_c\in\Ic_{\text{sl}},\\
-||\zetab^-_{t,i}||\lambdab_{t,i} + \zetab^-_{t,i}\mu\lambda_{n,i} = 0, & \forall i_c\in\Ic_{\text{st}},
+\lambdab_{t,i}||\Wb_{t,i_c}^T\dot{\qb}|| + \mu\lambda_{n,i}\Wb_{t,i_c}^T\dot{\qb} = 0, & \forall i_c\in\Ic_{\text{st}},
 \end{array}\label{eq:fcontconst}
 \end{equation}
 where $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$ are the sets of closed contacts in slip and closed contacts in stick respectively. Now, with \eqref{eq:fcont} and \eqref{eq:fcontconst}, the continuous dynamics of the hybrid system with impulsive dynamics are correctly defined.
 
-\textbf{DO WE NEED APPENDIX WITH MORE THOROUGH DERIVATION?}
+
+\textbf{IMAGE ILLUSTRATING SETS}\\
+\textbf{REFER TO APPENDIX WITH DERIVATION}
 
 \subsection{Discrete dynamics}\label{sec:2discdyn}
-\textbf{Define transition maps based on contact point sets}
+\textbf{DEFINE RESET MAPS BASED ON CONTACT POINT SETS}\\
+\textbf{EXPLAIN DIFFERENCE BETWEEN CLOSING CONTACTS AND OTHER EVENTS (NONSMOOTHNESS)}\\
 The impact dynamics related to the jump sets are given by
 \begin{align}
 &0\leftarrow \ast:\nonumber\\
@@ -320,14 +358,5 @@ The matrix $\Db$ is often called a Delassus-matrix. We now have expressions for 
 \textbf{Stick to slip and slip to stick}\\
 
 \textbf{Stick/slip to open}\\
-
-\cleartooddpage
-\chapter{Tracking Control for Hybrid Systems: Ordered State-Triggered Transitions}
-\cite{Rijnen2017}\\
-\textbf{Binary mode descriptor and $\eta$}\\
-\textbf{Event character}\\
-
-\section{Error notation for perturbed jump times}
-\section{Linearization for Trajectories with Separate Guard-Activation}
 
 \end{document}
