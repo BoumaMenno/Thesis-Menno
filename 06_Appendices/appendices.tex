@@ -13,10 +13,14 @@
 \section{Convex analysis}
 \section{Hybrid system theory}
 
-\chapter{Proximal Point Formulation}
+%% New chapter %%
+\cleartooddpage
+\chapter{Nonsmooth modeling}
+\section{Hybrid system formulation for mechanical systems}\label{app:hybrid}
+\section{Proximal Point Formulation}
 The contact law and friction law defined in the complementarity condition formulation can be redefined to a proximal point formulation. This makes the system compatible with simulation methods as timestepping \cite[Chapter 10]{Acary2008}. More information on the definition of the proximal point formulation of contact laws and friction laws can be found in \cite[Section 5.3]{Leine2008}.
 
-\section{Signorini's contact law and Poisson's impact law}
+\subsection{Signorini's contact law and Poisson's impact law}
 In Figure~\ref{fig:convex} a convex set $C$ is illustrated. The normal cone $N_C(\xb)$ of a point $\xb$ is $N_C(\xb)=0$ if $\xb\in \text{int}(C)$, where $\text{int}(.)$ is the interior of a set. An example of this is point $\xb_3$ in Figure~\ref{fig:convex}. Defining $\text{bd}(.)$ as the boundary of the set, when $\xb\in \text{bd}(C)$ there are two options. When $\xb$ is on a smooth part of $\text{bd}(C)$, then $N_C(\xb)$ is a ray normal to $\text{bd}(C)$ at point $\xb$ as depicted in at point $\xb_1$. When $\xb$ is on a nonsmooth part of $\text{bd}(C)$, then $N_C(\xb)$ is a cone starting on the point $\xb$ whose sides are normal to the left and right approximation of the point $\xb$ on $\text{bd}(C)$. This is illustrated at point $\xb_2$. The proximal point $\prox_C(\zb)$ of a point $\zb$, is the point in $C$ closest to the point $\zb$. The point $\xb$ is the proximal point to all points  $\zb\in N_C(\xb)$. For a point $\zb\in C$, $\prox_C(\zb) = \zb$ i.e. $\xb_3$ in Figure~\ref{fig:convex}.
 
 \begin{figure}[h]
@@ -45,7 +49,7 @@ Similarly for the Poisson's impact law illustrated in Figure~\ref{fig:poissonimp
 \Lambda_{n,i} = \prox_{C_{n,i}}(\Lambda_{n,i} - r\zeta^+_{n,i}),\quad \text{with }C_{n,i} = (\Rbb^n)^+\text{ and } r>0.
 \end{align}
 
-\section{Coulomb's friction law}
+\subsection{Coulomb's friction law}
 Now we define the normal cone formulation of Coulomb's friction law
 \begin{align}
 -\zetab_{t,i} \in N_{C_{t,i}}(\lambdab_{t,i})\quad \forall i\in\Ic_a,\quad \text{with }C_{t,i}(\lambda_{n,i}) = \{\lambdab_{t,i}\ |\ ||\lambdab_{t,i}|| \leq \mu\lambda_{n,i}\},
@@ -72,7 +76,7 @@ Similarly, for the impact dynamics we can formulate
 \Lambdab_{t,i} = \prox_{C_{t,i}}(\Lambdab_{t,i} - r\zetab^+_{t,i})\,\quad \text{with }C_{t,i}(\lambda_{n,i}) = \{\Lambdab_{t,i}\ |\ ||\Lambdab_{t,i}|| \leq \mu\Lambda_{n,i}\}\text{ and }r>0.
 \end{align}
 
-\section{System dynamics with contact law and friction law}
+\subsection{System dynamics with contact law and friction law}
 The flow dynamics is then described by
 \begin{align}
 &\Mb(\qb)\dot{\xib} + \Hb(\qb,\xib) = \Sb(\qb)\ub + \sum_{i\in\Ic_c}\left(\wb_{n,i}(\qb)\lambda_{n,i} + \Wb_{t,i}(\qb)\lambdab_{t,i} \right), \label{eq:proxcontact1}\\
@@ -96,6 +100,8 @@ with
 &C_{t,i}(\lambda_{n,i}) = \{\Lambdab_{t,i}\ |\ ||\Lambdab_{t,i}|| \leq \mu\Lambda_{n,i}\}\text{ and }r>0.
 \end{align}
 
+%% New chapter %%
+\cleartooddpage
 \chapter{Spatial Friction in Mechanical Systems with Unilateral Constraints}
 \section{Reference trajectories with impact away from slip-stick border}\label{app:impactsaway}
 Now we look at the case where a contact point goes from open to closed, away from $\Gammab = 0$. This is illustrated in Figure~\ref{fig:impactfromborder}. The goal is to prove that for an event away from $\Gammab$, a sufficiently small perturbation cannot cause the trajectory to hit $\gamma = 0$ at a perturbed ante-impact state $\xb_\epsilon^-(t_\epsilon)$ where $\Gammab$ changes sign in comparison with the unperturbed ante-impact state $\alphab^-(\tau)$. From \cite[p. 6]{Rijnen2018} we know that based on the continuity property of $\gammab$ and $\fb$, the perturbed impact state can be written as
