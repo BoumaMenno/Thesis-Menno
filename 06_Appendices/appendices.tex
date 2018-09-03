@@ -18,7 +18,7 @@
 \chapter{Nonsmooth modeling}
 \section{Hybrid system formulation for mechanical systems}\label{app:hybrid}
 \subsection{Continuous dynamics derivation}
-\subsection{Discrete event set derivation}
+\subsection{Discrete event set derivation}\label{app:hybriddisc}
 \textbf{Open to stick/slip}\\
 When a contact point is "open", it can trigger a guard function $\gamma$ to go from open to closed.
 
@@ -30,19 +30,38 @@ The plane that spans $\gamma = 0$ is divided in two regions: a region where the 
 	\centering
 	\includegraphics[width=.7\textwidth]{guardopcl.eps}\caption{The functions $\gammab(\qb,\dot{\qb})$ and $\Gammab(\qb,\dot{\qb})$ illustrated in the state space of $\qb\in\mathbb{R}^{2}$. The light blue area is the state space where the contact is open, and goes the closed when it triggers $\gamma = 0$. If it triggers $\gamma = 0$ in the area where $\Gamma<0$ (orange), then the contact will go to slip. If it triggers $\gamma=0$ in the area where $\Gamma\geq 0$ (green), then the contact will go to stick.}\label{fig:guardopcl}
 \end{figure}
-
-For slip, we know that $\mu\Lambda_{n,i} - ||\Lambdab_{t,i}|| = 0$ and for stick, we know that  $\mu\Lambda_{n,i} - ||\Lambdab_{t,i}|| \geq 0$. From this we can derive the guard function
+\textbf{Virtual reaction forces}\\
+For slip, we know that $\mu\Lambda_{n,i_c} - ||\Lambdab_{t,i_c}|| = 0$ and for stick, we know that  $\mu\Lambda_{n,i_c} - ||\Lambdab_{t,i_c}|| \geq 0$. From this we can derive the guard function
 \begin{align}
-\Gamma = \mu^2 \Lambda_{n,i}^2(\qb,\dot{\qb}^-) - \Lambdab_{t,i}(\qb,\dot{\qb}^-)\Lambdab_{t,i}^T(\qb,\dot{\qb}^-). \label{eq:slipset}
+\Gamma = \mu^2 \underline{\Lambda}_{n,i_c}^2(\underline{\qb},\underline{\dot{\qb}}) - \underline{\Lambdab}_{t,i_c}(\underline{\qb},\underline{\dot{\qb}})\underline{\Lambdab}_{t,i_c}^T(\underline{\qb},\underline{\dot{\qb}}). \label{eq:slipset}
 \end{align}
-This guard function $\Gamma$ satisfies the requirements that $\Gamma<0$ in the region where the contact point goes to slip, $\Gamma > 0$ in the region where the contact point goes to stick and $\Gamma = 0$ at the border. Even though it is not physically realistic that $\Gamma < 0$, it can still be used as a guard-function.
-We now find expressions for $\Lambda_{n,i}$ and $\Lambdab_{t,i}$ by looking at the jump map to stick, given in \eqref{eq:appjump5} to \eqref{eq:appjump7}.
+The underlined variables are virtual states, meaning that they do not necessarily have a physical meaning. The way \eqref{eq:slipset} is given, it is defined in both open and closed contact. This map is only physically realistic during an event from open to closed contact. However, by using virtual states we obtain a differentiable guard function $\Gamma$. This guard function $\Gamma$ satisfies the requirements that $\Gamma<0$ in the region where the contact point goes to slip, $\Gamma > 0$ in the region where the contact point goes to stick and $\Gamma = 0$ at the border. We now find expressions for $\Lambda_{n,i_c}$ and $\Lambdab_{t,i_c}$ by looking at the jump map to stick, given in \eqref{eq:appjump5} to \eqref{eq:appjump7}.
 
 We can rewrite \eqref{eq:appjump5} to
 \begin{align}
-\dot{\qb}^+ = \Mb^{-1}\wb_{n,i}\Lambda_{n,i} + \Mb^{-1}\Wb_{t,i}\Lambdab_{t,i} + \dot{\qb}^-,
+\dot{\qb}^+ = \Mb^{-1}\Wb_{n}\Lambdab_{n} + \Mb^{-1}\Wb_{t}\Lambdab_{t} + \dot{\qb}^-,\label{eq:appqplus}
 \end{align}
-which after substituting into \eqref{eq:appjump6} and \eqref{eq:appjump7} lead to
+and \eqref{eq:appjump6}, \eqref{eq:appjump7} to
+\begin{align}
+\Wb_{n}^T\dot{\qb} = 0,\\
+\Wb_{t}^T\dot{\qb} = 0,
+\end{align}
+with
+\begin{align}
+\Wb_n &= \begin{bmatrix}
+\wb_{n,i_1},\wb_{n,i_2},...,\wb_{n,i_c}
+\end{bmatrix}\in\Rbb^{n\times C},\\
+\Wb_t &= \begin{bmatrix}
+\Wb_{t,i_1},\Wb_{t,i_2},...,\Wb_{t,i_c} 
+\end{bmatrix}\in\Rbb^{n\times 2C},\\
+\Lambdab_n &= \begin{bmatrix}
+\Lambda_{n,i_1};\Lambda_{n,i_2};...;\Lambda_{n,i_c} 
+\end{bmatrix}\in\Rbb^{C},\\
+\Lambdab_t &= \begin{bmatrix}
+\Lambdab_{t,i_1};\Lambdab_{t,i_2};...;\Lambdab_{t,i_c} 
+\end{bmatrix}\in\Rbb^{2C}.
+\end{align}
+Substituting \eqref{eq:appqplus} into \eqref{eq:appjump6} and \eqref{eq:appjump7} leads to
 
 \begin{align}
 \wb_{n,i}^T\Mb^{-1}\wb_{n,i}\Lambda_{n,i} + \wb_{n,i}^T\Mb^{-1}\Wb_{t,i}\Lambdab_{t,i} + \zeta_{n,i}^- = 0\\

@@ -21,9 +21,9 @@ Then, the continuous dynamics of a mechanical system with unilateral constraints
 \begin{align}
 &\Mb(\qb)\dot{\xib} + \Hb(\qb,\xib) = \Sb(\qb)\ub + \sum_{i_c\in\Ic_{\text{cl}}}\left(\wb_{n,i_c}(\qb)\lambda_{n,i_c} + \Wb_{t,i_c}(\qb)\lambdab_{t,i_c} \right), \label{eq:appcont1}\\
 &\text{(Contact Law)},\label{eq:appcont2}\\
-&\text{(Friction Law)}.\label{eq:appcont3}
+&\text{(Friction Law)},\label{eq:appcont3}
 \end{align}
-Here $\Mb(\qb)$ is the mass matrix of the system, $\Hb(\qb,\xib)$ contains the centripetal, Coriolis and gravitational forces in the system and $\Sb(\qb)$ represents the generalized directions of the forces. $\lambda_{n,i_c}$ and $\lambdab_{t,i_c}$ are the normal and tangential reaction forces, respectively, of contact point $i_c$ with $\wb_{n,i_c}$ and $\Wb_{t,i_c}$ the corresponding reaction force jacobians. When a contact point activates a unilateral constraint, impulsive dynamics can cause the state of the system to jump. These dynamics are of the form
+with $\qb,\xib\in\Rbb^{n}$ and $\ub\in\Rbb^m$. Here $\Mb(\qb)\in\Rbb^{n\times n}$ is the mass matrix of the system, $\Hb(\qb,\xib)\in\Rbb^{n}$ contains the centripetal, Coriolis and gravitational forces in the system and $\Sb(\qb)\in\Rbb^{n\times m}$ represents the generalized directions of the forces. $\lambda_{n,i_c}\in\Rbb$ and $\lambdab_{t,i_c}\in\Rbb^{2}$ are the normal and tangential reaction forces, respectively, of contact point $i_c$ with $\wb_{n,i_c}\in\Rbb^{n}$ and $\Wb_{t,i_c}\in\Rbb^{n\times 2}$ the corresponding reaction force jacobians. When a contact point activates a unilateral constraint, impulsive dynamics can cause the state of the system to jump. These dynamics are of the form
 
 \begin{align}
 &\Mb(\qb)(\xib^+ - \xib^-) = \sum_{i_c\in\Ic_{\text{cl}}}\left( \wb_{n,i_c}(\qb)\Lambda_{n,i_c} + \Wb_{t,i_c}(\qb)\Lambdab_{t,i_c}\right), \label{eq:appimp1}\\
@@ -136,28 +136,28 @@ Note that just as the contact case, the impulsive friction law only holds for cl
 \subsection{System dynamics with contact and friction law}
 The flow dynamics are then described by
 \begin{align}
-&\Mb(\qb)\dot{\xib} + \Hb(\qb,\xib) = \Sb(\qb)\ub + \sum_{i\in\Ic_{\text{cl}}}\left(\wb_{n,i}(\qb)\lambda_{n,i} + \Wb_{t,i}(\qb)\lambdab_{t,i} \right), \label{eq:ncpcontact1}\\
-&0\leq h_{n,i}\ \bot\ \lambda_{n,i} \geq 0,\label{eq:ncpcontact2}\\
-&0\leq \left(\mu\lambda_{n,i} - ||\lambdab_{t,i}||\right)\ \bot\ \kappa_i \geq 0,\label{eq:ncpcontact3}\\
-&||\lambdab_{t,i}||\zetab_{t,i} = -\kappa_i\lambdab_{t,i},\label{eq:ncpcontact4}
+&\Mb(\qb)\dot{\xib} + \Hb(\qb,\xib) = \Sb(\qb)\ub + \sum_{i_c\in\Ic_{\text{cl}}}\left(\wb_{n,i_c}(\qb)\lambda_{n,i_c} + \Wb_{t,i_c}(\qb)\lambdab_{t,i_c} \right), \label{eq:ncpcontact1}\\
+&0\leq h_{n,i_c}\ \bot\ \lambda_{n,i_c} \geq 0,\label{eq:ncpcontact2}\\
+&0\leq \left(\mu\lambda_{n,i_c} - ||\lambdab_{t,i_c}||\right)\ \bot\ \kappa_{i_c} \geq 0,\label{eq:ncpcontact3}\\
+&||\lambdab_{t,i_c}||\zetab_{t,i_c} = -\kappa_{i_c}\lambdab_{t,i_c},\label{eq:ncpcontact4}
 \end{align}
 with 
 \begin{align}
-&h_{n,i} = \wb_{n,i}^T(\qb)\qb,\label{eq:h}\\
-&\zeta_{n,i}(\qb) = \wb^T_{n,i}(\qb) \xib,  \label{eq:zetan}\\
-&\zetab_{t,i}(\qb) = \Wb^T_{t,i}(\qb) \xib. \label{eq:zetab}
+&h_{n,i_c} = \wb_{n,i_c}^T(\qb)\qb,\label{eq:h}\\
+&\zeta_{n,i_c}(\qb) = \wb^T_{n,i_c}(\qb) \xib,  \label{eq:zetan}\\
+&\zetab_{t,i_c}(\qb) = \Wb^T_{t,i_c}(\qb) \xib. \label{eq:zetab}
 \end{align}
 The impulsive dynamics that take place when a contact point opens or closes contact are described by
 \begin{align}
-&\Mb(\qb)(\xib^+ - \xib^-) = \sum_{i\in\Ic_{\text{cl}}}\left( \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i}\right), \label{eq:ncpimpact1}\\
-&0\leq \zeta_{n,i}^+\ \bot\ \Lambda_{n,i} \geq 0, \qquad \forall i\in\Ic_{\text{cl}},\label{eq:ncpimpact2}\\
-&0 \leq (\mu\Lambda_{n,i} - ||\Lambdab_{t,i}||)\ \bot\ \kappa_i \geq 0. \qquad \forall i\in\Ic_{\text{cl}},\label{eq:ncpimpact3}\\
-&||\Lambdab_{t,i}||\zetab_{t,i}^+ = -\kappa_i\Lambdab_{t,i},\qquad \forall i\in\Ic_{\text{cl}},\label{eq:ncpimpact4}
+&\Mb(\qb)(\xib^+ - \xib^-) = \sum_{i_c\in\Ic_{\text{cl}}}\left( \wb_{n,i_c}(\qb)\Lambda_{n,i_c} + \Wb_{t,i_c}(\qb)\Lambdab_{t,i_c}\right), \label{eq:ncpimpact1}\\
+&0\leq \zeta_{n,i_c}^+\ \bot\ \Lambda_{n,i_c} \geq 0, \qquad \forall i_c\in\Ic_{\text{cl}},\label{eq:ncpimpact2}\\
+&0 \leq (\mu\Lambda_{n,i_c} - ||\Lambdab_{t,i_c}||)\ \bot\ \kappa_{i_c} \geq 0. \qquad \forall i_c\in\Ic_{\text{cl}},\label{eq:ncpimpact3}\\
+&||\Lambdab_{t,i_c}||\zetab_{t,i_c}^+ = -\kappa_i\Lambdab_{t,i_c},\qquad \forall i_c\in\Ic_{\text{cl}},\label{eq:ncpimpact4}
 \end{align}
 with 
 \begin{align}
-&\zeta^+_{n,i}(\qb) = \wb^T_{n,i}(\qb) \xib^+,\\
-&\zetab^+_{t,i}(\qb) = \Wb^T_{t,i}(\qb) \xib^+.\label{eq:ncpimpactend}
+&\zeta^+_{n,i_c}(\qb) = \wb^T_{n,i_c}(\qb) \xib^+,\\
+&\zetab^+_{t,i_c}(\qb) = \Wb^T_{t,i_c}(\qb) \xib^+.\label{eq:ncpimpactend}
 \end{align}
 
 \section{Hybrid system formulation}
@@ -218,7 +218,7 @@ In \ref{fig:2example} an example trajectory of a block pushing towards a surface
 \label{fig:2example}
 \end{figure}
 
-The following sections will be used to write the complementarity system defined in Section~\ref{sec:comp} into a hybrid system with impulsive effects as in \eqref{eq:hybimp}. In \ref{sec:2contdyn} the continuous dynamics $\ ^{s_i}\fb$ will be derived for mechanical systems with unilateral constraints and spatial friction. Then, in Section~\ref{sec:2discdyn} the discrete dynamics $\ ^{s_i}\gb$ of the hybrid system with impulsive effects will be derived. Finally, in Section~\ref{sec:2reset} the reset set $\ ^{s_i}D$ will be defined. This will fully define the hybrid system with impulsive effects formulation of mechanical systems with unilateral constraints and spatial friction.
+The following sections will be used to write the complementarity system defined in Section~\ref{sec:comp} into a hybrid system with impulsive effects as in \eqref{eq:hybimp}. In \ref{sec:2contdyn} the continuous dynamics $\fb_i$ will be derived for mechanical systems with unilateral constraints and spatial friction. Then, in Section~\ref{sec:2discdyn} the discrete dynamics $\gb_i$ of the hybrid system with impulsive effects will be derived. Finally, in Section~\ref{sec:2reset} the reset set $D_i$ will be defined. This will fully define the hybrid system with impulsive effects formulation of mechanical systems with unilateral constraints and spatial friction.
 
 \subsection{Continuous dynamics}\label{sec:2contdyn}
 When describing mechanical systems, we take 
@@ -239,7 +239,7 @@ The equations of motion, given in \eqref{eq:appcont1}, can be rewritten to
 \begin{align}
 \ddot{\qb} = \Mb^{-1}(\qb)\left[ \Sb(\qb)\ub - \Hb(\qb,\dot{\qb}) + \sum_{i_c\in\Ic_{\text{cl}}}\left(\wb_{n,i_c}(\qb)\lambda_{n,i_c} + \Wb_{t,i_c}(\qb)\lambdab_{t,i_c} \right)\right].\label{eq:qddot}
 \end{align}
-Note that since $\ ^{s_i}\fb$ is only defined on $\xb(t,i),\ub(t,i)\notin \ ^{s_i}D$, it is not necessary to use $\xib$ to define the equations of motion as done in \eqref{eq:appcont1}. Now $\ ^{s_i}\fb$ can be written as
+Note that since $\fb_i$ is only defined on $\xb(t,i),\ub(t,i)\notin D_i$, it is not necessary to use $\xib$ to define the equations of motion as done in \eqref{eq:appcont1}. Now $\fb_i$ can be written as
 
 \begin{align}
 \dot{\xb}(t,i) =\begin{bmatrix}
@@ -251,9 +251,9 @@ The closed contact points in $\Ic_{\text{cl}}$ experience reaction forces $\lamb
 
 \begin{equation}
 \begin{array}{ll}
-\wb^T_{n,i}(\qb)\ddot{\qb} + \dot{\wb}^T_{n,i}(\qb)\dot{\qb} = 0, & \forall i_c\in\Ic_{\text{cl}},\\
-\Wb^T_{t,i}(\qb)\ddot{\qb} + \dot{\Wb}^T_{t,i}(\qb)\dot{\qb} = 0, & \forall i_c\in\Ic_{\text{sl}},\\
-\lambdab_{t,i}||\Wb_{t,i_c}^T\dot{\qb}|| + \mu\lambda_{n,i}\Wb_{t,i_c}^T\dot{\qb} = 0, & \forall i_c\in\Ic_{\text{st}},
+\wb^T_{n,i_c}(\qb)\ddot{\qb} + \dot{\wb}^T_{n,i_c}(\qb)\dot{\qb} = 0, & \forall i_c\in\Ic_{\text{cl}},\\
+\lambdab_{t,i_c}||\Wb_{t,i_c}^T\dot{\qb}|| + \mu\lambda_{n,i_c}\Wb_{t,i_c}^T\dot{\qb} = 0, & \forall i_c\in\Ic_{\text{sl}},\\
+\Wb^T_{t,i_c}(\qb)\ddot{\qb} + \dot{\Wb}^T_{t,i_c}(\qb)\dot{\qb} = 0, & \forall i_c\in\Ic_{\text{st}},
 \end{array}\label{eq:fcontconst}
 \end{equation}
 where $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$ are the sets of closed contacts in slip and closed contacts in stick respectively. Now, with \eqref{eq:fcont} and \eqref{eq:fcontconst}, the continuous dynamics of the hybrid system with impulsive dynamics are correctly defined. A more thorough derivation of these dynamics can be found in Appendix~\ref{app:hybrid}.
@@ -261,14 +261,58 @@ where $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$ are the sets of closed contacts in
 \subsection{Discrete event sets}\label{sec:2event}
 When the continuous dynamics enter an event set $D$, an event will take place. Such an event can cause a contact point to enter a different set, which will lead to different post-event continuous dynamics, and it can cause the state to reinitialize according to the discrete dynamics presented in Section~\ref{sec:2discdyn}. For each set of contact points these sets are defined differently. In this section the sets $D$ are defined for each set of contact points. The derivation of the discrete event sets can be found in Appendix~\ref{app:hybrid}.
 
+\textbf{Discrete events sets in open contact}\\
 For all contact points $i_c\in\Ic_{\text{op}}$ the discrete event sets are defined as
-
 \begin{align}
-D_{\text{op}\rightarrow\text{cl}} &= \{ \qb,\ub\ |\ \gamma_{\text{op}\rightarrow\text{cl}} = 0,\ \dot{\gamma}_{\text{op}\rightarrow\text{sl}} < 0,\ \Gamma < 0 \}\\
-D_{\text{op}\rightarrow\text{st}} &= \{ \qb,\ub\ |\ \gamma_{\text{op}\rightarrow\text{cl}} = 0,\ \dot{\gamma}_{\text{op}\rightarrow\text{cl}} < 0,\ \Gamma \geq 0 \},
+D_{\text{op}\rightarrow\text{sl}} &= \{ \qb\ |\ \gamma_{\text{op}\rightarrow\text{cl}} = 0,\ \dot{\gamma}_{\text{op}\rightarrow\text{cl}} < 0,\ \Gamma < 0 \},\\
+D_{\text{op}\rightarrow\text{st}} &= \{ \qb\ |\ \gamma_{\text{op}\rightarrow\text{cl}} = 0,\ \dot{\gamma}_{\text{op}\rightarrow\text{cl}} < 0,\ \Gamma \geq 0 \},
 \end{align}
 with
-\textbf{NOW DEFINE $\gamma$ and $\Gamma$ using virtual states!}
+\begin{align}
+\gamma_{\text{op}\rightarrow\text{cl}} &= h_{n,i_c}(\qb),\\
+\Gamma &= \mu^2\underline{\Lambda}^2_{n,i_c}(\qb,\dot{\qb})-\underline{\Lambdab}_{t,i_c}(\qb,\dot{\qb})\underline{\Lambdab}^T_{t,i_c}(\qb,\dot{\qb}).
+\end{align}
+The contact distance $h_{n,i_c}(\qb)$ is given by 
+\begin{align}
+h_{n,i_c}(\qb) = \wb_{n,i_c}^T(\qb)\qb,
+\end{align}
+and the virtual impulsive reaction force are determined by
+\begin{align}
+\begin{bmatrix}
+\underline{\Lambda}_{n,i}\\
+\underline{\Lambdab}_{t,i}
+\end{bmatrix} = - \Db^{-1}\begin{bmatrix}
+\zeta_{n,i}\\
+\zetab_{t,i}
+\end{bmatrix},\quad \text{with } \Db = \begin{bmatrix}
+\wb_{n,i}^T\Mb^{-1}\wb_{n,i} & \wb_{n,i}^T\Mb^{-1}\Wb_{t,i} \\
+\Wb_{t,i}^T\Mb^{-1}\wb_{n,i} & \Wb_{t,i}^T\Mb^{-1}\Wb_{t,i}
+\end{bmatrix},
+\end{align}
+where $\Db$ is often called the Delassus-matrix. For the definition of $\Gamma$ the virtual reaction forces $\underline{\Lambda}_{n,i}$ and $\underline{\Lambdab}_{t,i}$ are used, because their value is not physically realistic everywhere on the manifold where $\Gamma$ is defined. More information on the derivation of these virtual reaction forces can be found in Section~\ref{app:hybriddisc}.
+
+\textbf{Discrete events sets in closed contact slip}\\
+For all contact point $i_c\in\Ic_{\text{sl}}$ the discrete event sets are defined as
+
+\begin{align}
+D_{\text{sl}\rightarrow\text{st}} &= \{ \qb,\ub\ |\ \gamma_{\text{sl}\rightarrow\text{st}} = 0,\ \dot{\gamma}_{\text{sl}\rightarrow\text{st}} < 0\}\\
+D_{\text{sl}\rightarrow\text{op}} &= \{ \qb,\ub\ |\ \gamma_{\text{cl}\rightarrow\text{op}} = 0,\ \dot{\gamma}_{\text{cl}\rightarrow\text{op}} < 0\},
+\end{align}
+with 
+\begin{align}
+\gamma_{\text{sl}\rightarrow\text{st}} &= \zetab_{t,i_c}\zetab_{t,i_c}^T\\
+\gamma_{\text{cl}\rightarrow\text{op}} &= \lambda_{n,i_c}.\\
+\end{align}
+The tangential velocity $\zetab_{t,i_c}$ is given by 
+\begin{align}
+\zetab_{t,i_c} = \Wb_{t,i_c}^T\qb,
+\end{align}
+and the reaction normal force is given by
+\begin{align}
+\lambda_{n,i_c} = 
+\end{align}
+
+\textbf{Discrete events sets in closed contact stick}\\
 \subsection{Discrete dynamics}\label{sec:2discdyn}
 \textbf{DEFINE RESET MAPS BASED ON CONTACT POINT SETS}\\
 \textbf{EXPLAIN DIFFERENCE BETWEEN CLOSING CONTACTS AND OTHER EVENTS (NONSMOOTHNESS)}\\
