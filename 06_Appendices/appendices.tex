@@ -1,23 +1,30 @@
 \documentclass[../DC2017114Bouma.tex]{subfiles}
 \graphicspath{{06_Appendices/img/}}
+\pagestyle{plain}
 \appendix
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}{}}
 \begin{document}
 
 %% New chapter %%
-\pagestyle{fancyreport}
-\cleartooddpage
-\pagestyle{fancyreport}
-\chapter{Mathematical Preliminaries}
-\section{Sensitivity analysis for smooth systems}
-\section{(Non-)linear complementarity problems}
-\section{Convex analysis}
-\section{Hybrid system theory}
+%\pagestyle{fancyreport}
+%\cleartooddpage
+%\pagestyle{fancyreport}
+%\chapter{Mathematical Preliminaries}
+%\section{Sensitivity analysis for smooth systems}
+%\section{(Non-)linear complementarity problems}
+%\section{Convex analysis}
+%\section{Hybrid system theory}
 
 %% New chapter %%
 \cleartooddpage
+\pagestyle{appendix}
 \chapter{Nonsmooth modeling}
 \section{Hybrid system formulation for mechanical systems}\label{app:hybrid}
 \subsection{Continuous dynamics derivation}
+
+\subsection{Discrete dynamics derivation}
+
 \subsection{Discrete event set derivation}\label{app:hybriddisc}
 \textbf{Open to stick/slip}\\
 When a contact point is "open", it can trigger a guard function $\gamma$ to go from open to closed.
@@ -30,7 +37,7 @@ The plane that spans $\gamma = 0$ is divided in two regions: a region where the 
 	\centering
 	\includegraphics[width=.7\textwidth]{guardopcl.eps}\caption{The functions $\gammab(\qb,\dot{\qb})$ and $\Gammab(\qb,\dot{\qb})$ illustrated in the state space of $\qb\in\mathbb{R}^{2}$. The light blue area is the state space where the contact is open, and goes the closed when it triggers $\gamma = 0$. If it triggers $\gamma = 0$ in the area where $\Gamma<0$ (orange), then the contact will go to slip. If it triggers $\gamma=0$ in the area where $\Gamma\geq 0$ (green), then the contact will go to stick.}\label{fig:guardopcl}
 \end{figure}
-\textbf{Virtual reaction forces}\\
+
 For slip, we know that $\mu\Lambda_{n,i_c} - ||\Lambdab_{t,i_c}|| = 0$ and for stick, we know that  $\mu\Lambda_{n,i_c} - ||\Lambdab_{t,i_c}|| \geq 0$. From this we can derive the guard function
 \begin{align}
 \Gamma = \mu^2 \underline{\Lambda}_{n,i_c}^2(\underline{\qb},\underline{\dot{\qb}}) - \underline{\Lambdab}_{t,i_c}(\underline{\qb},\underline{\dot{\qb}})\underline{\Lambdab}_{t,i_c}^T(\underline{\qb},\underline{\dot{\qb}}). \label{eq:slipset}
@@ -39,12 +46,12 @@ The underlined variables are virtual states, meaning that they do not necessaril
 
 We can rewrite \eqref{eq:appjump5} to
 \begin{align}
-\dot{\qb}^+ = \Mb^{-1}\Wb_{n}\Lambdab_{n} + \Mb^{-1}\Wb_{t}\Lambdab_{t} + \dot{\qb}^-,\label{eq:appqplus}
+\dot{\qb} = \Mb^{-1}\Wb_{n}\underline{\Lambdab}_{n} + \Mb^{-1}\Wb_{t}\underline{\Lambdab}_{t} + \underline{\dot{\qb}},\label{eq:appqplus}
 \end{align}
 and \eqref{eq:appjump6}, \eqref{eq:appjump7} to
 \begin{align}
-\Wb_{n}^T\dot{\qb} = 0,\\
-\Wb_{t}^T\dot{\qb} = 0,
+\Wb_{n}^T\underline{\dot{\qb}} = 0,\label{eq:appnormalcon}\\
+\Wb_{t}^T\underline{\dot{\qb}} = 0,\label{eq:apptangentcon}
 \end{align}
 with
 \begin{align}
@@ -54,56 +61,96 @@ with
 \Wb_t &= \begin{bmatrix}
 \Wb_{t,i_1},\Wb_{t,i_2},...,\Wb_{t,i_c} 
 \end{bmatrix}\in\Rbb^{n\times 2C},\\
-\Lambdab_n &= \begin{bmatrix}
-\Lambda_{n,i_1};\Lambda_{n,i_2};...;\Lambda_{n,i_c} 
+\underline{\Lambdab}_n &= \begin{bmatrix}
+\underline{\Lambda}_{n,i_1};\underline{\Lambda}_{n,i_2};...;\underline{\Lambda}_{n,i_c} 
 \end{bmatrix}\in\Rbb^{C},\\
-\Lambdab_t &= \begin{bmatrix}
-\Lambdab_{t,i_1};\Lambdab_{t,i_2};...;\Lambdab_{t,i_c} 
+\underline{\Lambdab}_t &= \begin{bmatrix}
+\underline{\Lambdab}_{t,i_1};\underline{\Lambdab}_{t,i_2};...;\underline{\Lambdab}_{t,i_c} 
 \end{bmatrix}\in\Rbb^{2C}.
 \end{align}
-Substituting \eqref{eq:appqplus} into \eqref{eq:appjump6} and \eqref{eq:appjump7} leads to
+Substituting \eqref{eq:appqplus} into \eqref{eq:appnormalcon} and \eqref{eq:apptangentcon} leads to
 
 \begin{align}
-\wb_{n,i}^T\Mb^{-1}\wb_{n,i}\Lambda_{n,i} + \wb_{n,i}^T\Mb^{-1}\Wb_{t,i}\Lambdab_{t,i} + \zeta_{n,i}^- = 0\\
-\Wb_{t,i}^T\Mb^{-1}\wb_{n,i}\Lambda_{n,i} + \Wb_{t,i}^T\Mb^{-1}\Wb_{t,i}\Lambdab_{t,i} + \zetab_{t,i}^- = 0,
+\Wb_{n}^T\Mb^{-1}\Wb_{n}\underline{\Lambdab}_{n} + \Wb_{n}^T\Mb^{-1}\Wb_{t}\underline{\Lambdab}_{t} + \underline{\zetab}_{n} = 0\\
+\Wb_{t}^T\Mb^{-1}\Wb_{n}\underline{\Lambda}_{n} + \Wb_{t}^T\Mb^{-1}\Wb_{t}\underline{\Lambdab}_{t} + \underline{\zetab}_{t} = 0,
 \end{align}
-respectively, with $\zeta_{n,i}^- = \wb_{n,i}^T\dot{\qb}^-$ and $\zetab_{t,i}^- = \Wb_{t,i}^T\dot{\qb}^-$. This is now rewritten to
+respectively, with 
+\begin{align}
+\underline{\zetab}_{n} = \Wb_n^T\underline{\dot{\qb}},\\
+\underline{\zetab}_{t} = \Wb_t^T\underline{\dot{\qb}}.
+\end{align}
+This is now rewritten to
 
 \begin{align}
 \begin{bmatrix}
-\wb_{n,i}^T\Mb^{-1}\wb_{n,i} & \wb_{n,i}^T\Mb^{-1}\Wb_{t,i} \\
-\Wb_{t,i}^T\Mb^{-1}\wb_{n,i} & \Wb_{t,i}^T\Mb^{-1}\Wb_{t,i}
+\Wb_{n}^T\Mb^{-1}\Wb_{n} & \Wb_{n}^T\Mb^{-1}\Wb_{t} \\
+\Wb_{t}^T\Mb^{-1}\Wb_{n} & \Wb_{t}^T\Mb^{-1}\Wb_{t}
 \end{bmatrix}
 \begin{bmatrix}
-\Lambda_{n,i}\\
-\Lambdab_{t,i}
+\underline{\Lambdab}_{n}\\
+\underline{\Lambdab}_{t}
 \end{bmatrix} + \begin{bmatrix}
-\zeta_{n,i}^-\\
-\zetab_{t,i}^-
+\underline{\zetab}_{n}\\
+\underline{\zetab}_{t}
 \end{bmatrix}
 = 0,
 \end{align}
 which is in turn rewritten to
 \begin{align}
 \begin{bmatrix}
-\Lambda_{n,i}\\
-\Lambdab_{t,i}
+\underline{\Lambdab}_{n}\\
+\underline{\Lambdab}_{t}
 \end{bmatrix} = - \Db^{-1}\begin{bmatrix}
-\zeta_{n,i}^-\\
-\zetab_{t,i}^-
+\underline{\zetab}_{n}\\
+\underline{\zetab}_{t}
 \end{bmatrix},\quad \text{with } \Db = \begin{bmatrix}
-\wb_{n,i}^T\Mb^{-1}\wb_{n,i} & \wb_{n,i}^T\Mb^{-1}\Wb_{t,i} \\
-\Wb_{t,i}^T\Mb^{-1}\wb_{n,i} & \Wb_{t,i}^T\Mb^{-1}\Wb_{t,i}
+\Wb_{n}^T\Mb^{-1}\Wb_{n} & \Wb_{n}^T\Mb^{-1}\Wb_{t}\\
+\Wb_{t}^T\Mb^{-1}\Wb_{n} & \Wb_{t}^T\Mb^{-1}\Wb_{t}
 \end{bmatrix}.
 \end{align}
 
-The matrix $\Db$ is often called a Delassus-matrix. We now have expressions for $\Lambda_{n,i}$ and $\Lambdab_{t,i}$ which are continuous and differentiable in $(\qb,\dot{\qb})$. It is straightforward that $\Gamma(\qb,\dot{\qb})$ is continuous and differentiable as well.
+The matrix $\Db$ is often called a Delassus-matrix. We now have expressions for $\underline{\Lambdab}_{n}$ and $\underline{\Lambdab}_{t}$ which are continuous and differentiable in $(\qb,\dot{\qb})$. It is straightforward that $\Gamma(\qb,\dot{\qb})$ is continuous and differentiable as well.
 
-\textbf{Stick to slip and slip to stick}\\
+\textbf{Slip to stick/open}\\
+When a contact point is in closed-contact slip, it can go to closed-contact stick and it can go to open-contact. A slipping contact transitions to sticking when the tangential velocity of the contact point is zero, i.e.,
 
-\textbf{Stick/slip to open}\\
+\begin{align}
+||\zetab_{t,i_c}|| = 0.
+\end{align}
 
-\subsection{Discrete dynamics derivation}
+A guard function that can be used to describe this set is
+
+\begin{align}
+\gamma_{\text{sl}\rightarrow\text{st}} = \zetab_{t,i_c}\zetab_{t,i_c}^T,
+\end{align}
+
+which is equal to zero when $||\zetab_{t,i_c}|| = 0$, greater than zero when $||\zetab_{t,i_c}|| > 0$, smaller than zero when $||\zetab_{t,i_c}|| < 0$, and it is globally differentiable. For a slipping contact transitioning to open-contact an acceleration based guard function is necessary, since the normal velocity of the contact point is constrained in the continuous dynamics of a slipping contact. Therefore, a slipping contact point transitions to open-contact when
+
+\begin{align}
+\lambda_{n,i_c} = 0.
+\end{align}
+
+Similarly to the expression found for $\Lambdab_{n}$ and $\Lambdab_{t}$, we can use \eqref{eq:qddot} and \eqref{eq:fcontconst} to define $\lambda_{n,i_c}$. With
+
+\begin{align}
+\underline{\lambdab}_n &= \begin{bmatrix}
+\underline{\lambda}_{n,i_1};\underline{\lambda}_{n,i_2};...;\underline{\lambda}_{n,i_c} 
+\end{bmatrix}\in\Rbb^{C},\\
+\underline{\lambdab}_t &= \begin{bmatrix}
+\underline{\lambdab}_{t,i_1};\underline{\lambdab}_{t,i_2};...;\underline{\lambdab}_{t,i_c} 
+\end{bmatrix}\in\Rbb^{2C},
+\end{align}
+we define
+\begin{align}
+&\ddot{\qb} = \Mb^{-1}\left[\Sb\ub - \Hb + \Wb_{n}\lambdab_{n} + \Wb_{t}\lambdab_{t}\right],\label{eq:appqddot}\\
+&\Wb^T_{n}\ddot{\qb} + \dot{\Wb}^T_{n}\dot{\qb} = 0,\\
+&\lambdab_{t}||\Wb_{t}^T\dot{\qb}|| + \mu\lambdab_{n}\Wb_{t}^T\dot{\qb} = 0,
+\end{align}
+which results in
+
+\textbf{Stick to slip/open}\\
+
+
 \section{Proximal Point Formulation}
 The contact law and friction law defined in the complementarity condition formulation can be redefined to a proximal point formulation. This makes the system compatible with simulation methods as timestepping \cite[Chapter 10]{Acary2008}. More information on the definition of the proximal point formulation of contact laws and friction laws can be found in \cite[Section 5.3]{Leine2008}.
 
@@ -188,7 +235,9 @@ with
 \end{align}
 
 %% New chapter %%
+\pagestyle{fancyreport}
 \cleartooddpage
+\pagestyle{fancyreport}
 \chapter{Spatial Friction in Mechanical Systems with Unilateral Constraints}
 \section{Reference trajectories with impact away from slip-stick border}\label{app:impactsaway}
 Now we look at the case where a contact point goes from open to closed, away from $\Gammab = 0$. This is illustrated in Figure~\ref{fig:impactfromborder}. The goal is to prove that for an event away from $\Gammab$, a sufficiently small perturbation cannot cause the trajectory to hit $\gamma = 0$ at a perturbed ante-impact state $\xb_\epsilon^-(t_\epsilon)$ where $\Gammab$ changes sign in comparison with the unperturbed ante-impact state $\alphab^-(\tau)$. From \cite[p. 6]{Rijnen2018} we know that based on the continuity property of $\gammab$ and $\fb$, the perturbed impact state can be written as
@@ -266,7 +315,9 @@ Using the continuity of the system's flow dynamics and the function $\mu^2(\lamb
 
 
 %% New chapter %%
+\pagestyle{fancyreport}
 \cleartooddpage
+\pagestyle{fancyreport}
 \chapter{Sensitivity Analysis for Input-Dependent Guards}
 \section{Linearization for single jumps}
 The perturbed state is defined as
@@ -507,7 +558,9 @@ and
 \end{align}
 
 %% New chapter %%
+\pagestyle{fancyreport}
 \cleartooddpage
+\pagestyle{fancyreport}
 \chapter{Positive Homogenization for Input-Dependent Guards}
 \section{Conewise constant jump gain}
 This section is written under the assumption that in one macro event, only two modes are possible per contact point. The general form of a jump map for simultaneous impacts with is 
@@ -619,7 +672,9 @@ Here we see that the solution of $^{s^{k-1}}\zb_3(t_0) = ^{s^{k-1}}\zb_1(t_0) + 
 If we now look at the solution for $\zb_4(t_0) = \alpha\zb_1(t_0)$ with $\vb_4(t) = \alpha\vb_1(t)$ jumping with $\Gb^4(\tau)$, and using the fact that $\Gb^4(\tau) = \Gb^1(\tau)$ since the gains are conewise constant as illustrated in Figure~\ref{fig:cone}, we find the same solution as \eqref{eq:alphaz1sol}. This shows that \eqref{eq:PHdyn} is positive homogeneous for any conewise constant jump gain $^{s^{k}\leftarrow s^{k-1}}\Hb\left(^{s^{k-1}}\zb,t\right)$. Hence the name, positive homogenization. 
 
 %% New chapter %%
+\pagestyle{fancyreport}
 \cleartooddpage
+\pagestyle{fancyreport}
 \chapter{Considered Trajectories}\label{app:trajectories}
 \section{Associativity}
 \section{Transversality}
@@ -632,7 +687,9 @@ The same is true for impacts close to the border of stick and slip.
 \section{Non-impacting contact points can not switch modes}
 
 %% New chapter %%
+\pagestyle{fancyreport}
 \cleartooddpage
+\pagestyle{fancyreport}
 \chapter{Simulation Design}
 \section{Plank box dynamics}
 In Figure~\ref{fig:blockplank} the plank-box model is illustrated. The block is fully actuated and the plank is attached to the solid environment with a spring and damper. The line contact is for now modeled using two contact-points $C_L$ and $C_R$.

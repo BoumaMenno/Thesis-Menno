@@ -218,7 +218,7 @@ In \ref{fig:2example} an example trajectory of a block pushing towards a surface
 \label{fig:2example}
 \end{figure}
 
-The following sections will be used to write the complementarity system defined in Section~\ref{sec:comp} into a hybrid system with impulsive effects as in \eqref{eq:hybimp}. In \ref{sec:2contdyn} the continuous dynamics $\fb_i$ will be derived for mechanical systems with unilateral constraints and spatial friction. Then, in Section~\ref{sec:2discdyn} the discrete dynamics $\gb_i$ of the hybrid system with impulsive effects will be derived. Finally, in Section~\ref{sec:2reset} the reset set $D_i$ will be defined. This will fully define the hybrid system with impulsive effects formulation of mechanical systems with unilateral constraints and spatial friction.
+The following sections will be used to write the complementarity system defined in Section~\ref{sec:comp} into a hybrid system with impulsive effects as in \eqref{eq:hybimp}. In \ref{sec:2contdyn} the continuous dynamics $\fb_i$ will be derived for mechanical systems with unilateral constraints and spatial friction. Then, in Section~\ref{sec:2discdyn} the discrete dynamics $\gb_i$ of the hybrid system with impulsive effects will be derived. Finally, in Section~\ref{sec:2event} the reset set $D_i$ will be defined. This will fully define the hybrid system with impulsive effects formulation of mechanical systems with unilateral constraints and spatial friction.
 
 \subsection{Continuous dynamics}\label{sec:2contdyn}
 When describing mechanical systems, we take 
@@ -257,6 +257,31 @@ The closed contact points in $\Ic_{\text{cl}}$ experience reaction forces $\lamb
 \end{array}\label{eq:fcontconst}
 \end{equation}
 where $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$ are the sets of closed contacts in slip and closed contacts in stick respectively. Now, with \eqref{eq:fcont} and \eqref{eq:fcontconst}, the continuous dynamics of the hybrid system with impulsive dynamics are correctly defined. A more thorough derivation of these dynamics can be found in Appendix~\ref{app:hybrid}.
+
+\subsection{Discrete dynamics}\label{sec:2discdyn}
+\textbf{DEFINE RESET MAPS BASED ON CONTACT POINT SETS}\\
+\textbf{EXPLAIN DIFFERENCE BETWEEN CLOSING CONTACTS AND OTHER EVENTS (NONSMOOTHNESS)}\\
+The impact dynamics related to the jump sets are given by
+\begin{align}
+&0\leftarrow \ast:\nonumber\\
+&(\dot{\qb}^+ - \dot{\qb}^-) = 0,\label{eq:appjump1}\\
+&1\leftarrow\ast:\nonumber\\
+&\Mb(\qb)(\dot{\qb}^+ - \dot{\qb}^-) = \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i},\label{eq:appjump2}\\
+&\zeta_{n,i}^+=0,\label{eq:appjump3}\\
+&\Lambdab_{t,i} = -\widehat{\zetab}^-_{t,i}\mu\Lambda_{n,i},\label{eq:appjump4}\\
+&2\leftarrow \ast:\nonumber\\
+&\Mb(\qb)(\dot{\qb}^+ - \dot{\qb}^-) = \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i},\label{eq:appjump5}\\
+&\zeta_{n,i}^+=0,\label{eq:appjump6}\\
+&\zeta_{t,i}^+= 0,\label{eq:appjump7}
+\end{align}
+with $0\leftarrow\ast$,$1\leftarrow\ast$ and $2\leftarrow\ast$ representing the impact dynamics to open contact, slip and stick respectively. 
+
+When we go from any mode to open, there is no jump in the velocity and the reaction impulses are 0. Therefore $0\leftarrow \ast$ is correct.
+
+When we go from open to slip, there will be a jump in velocity, and $||\Lambdab_{t,i}|| = \mu\Lambda_{n,i}$. The reaction impulses will be larger than zero. When we go from stick to slip, there will be no jump in velocity. In stick, $\zetab_{t,i} =0$, so $\epsilon(\zetab^-_{t,i}) = 0$. Also we know $\wb_{n,i}^T\dot{\qb}^- = \wb_{n,i}^T\dot{\qb}^+ = 0 $. This leads to $\dot{\qb}^- = \dot{\qb}^+$, meaning there is no jump in velocity and no impulsive reaction force. Therefore $1\leftarrow \ast$ is correct.
+
+When we go from open to stick, there will be a jump in velocity and impulsive reaction forces.
+\textbf{SHOW THAT JUMP MAPS ARE CORRECT}
 
 \subsection{Discrete event sets}\label{sec:2event}
 When the continuous dynamics enter an event set $D$, an event will take place. Such an event can cause a contact point to enter a different set, which will lead to different post-event continuous dynamics, and it can cause the state to reinitialize according to the discrete dynamics presented in Section~\ref{sec:2discdyn}. For each set of contact points these sets are defined differently. In this section the sets $D$ are defined for each set of contact points. The derivation of the discrete event sets can be found in Appendix~\ref{app:hybrid}.
@@ -313,30 +338,7 @@ and the reaction normal force is given by
 \end{align}
 
 \textbf{Discrete events sets in closed contact stick}\\
-\subsection{Discrete dynamics}\label{sec:2discdyn}
-\textbf{DEFINE RESET MAPS BASED ON CONTACT POINT SETS}\\
-\textbf{EXPLAIN DIFFERENCE BETWEEN CLOSING CONTACTS AND OTHER EVENTS (NONSMOOTHNESS)}\\
-The impact dynamics related to the jump sets are given by
-\begin{align}
-&0\leftarrow \ast:\nonumber\\
-&(\dot{\qb}^+ - \dot{\qb}^-) = 0,\label{eq:appjump1}\\
-&1\leftarrow\ast:\nonumber\\
-&\Mb(\qb)(\dot{\qb}^+ - \dot{\qb}^-) = \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i},\label{eq:appjump2}\\
-&\zeta_{n,i}^+=0,\label{eq:appjump3}\\
-&\Lambdab_{t,i} = -\widehat{\zetab}^-_{t,i}\mu\Lambda_{n,i},\label{eq:appjump4}\\
-&2\leftarrow \ast:\nonumber\\
-&\Mb(\qb)(\dot{\qb}^+ - \dot{\qb}^-) = \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i},\label{eq:appjump5}\\
-&\zeta_{n,i}^+=0,\label{eq:appjump6}\\
-&\zeta_{t,i}^+= 0,\label{eq:appjump7}
-\end{align}
-with $0\leftarrow\ast$,$1\leftarrow\ast$ and $2\leftarrow\ast$ representing the impact dynamics to open contact, slip and stick respectively. 
 
-When we go from any mode to open, there is no jump in the velocity and the reaction impulses are 0. Therefore $0\leftarrow \ast$ is correct.
-
-When we go from open to slip, there will be a jump in velocity, and $||\Lambdab_{t,i}|| = \mu\Lambda_{n,i}$. The reaction impulses will be larger than zero. When we go from stick to slip, there will be no jump in velocity. In stick, $\zetab_{t,i} =0$, so $\epsilon(\zetab^-_{t,i}) = 0$. Also we know $\wb_{n,i}^T\dot{\qb}^- = \wb_{n,i}^T\dot{\qb}^+ = 0 $. This leads to $\dot{\qb}^- = \dot{\qb}^+$, meaning there is no jump in velocity and no impulsive reaction force. Therefore $1\leftarrow \ast$ is correct.
-
-When we go from open to stick, there will be a jump in velocity and impulsive reaction forces.
-\textbf{SHOW THAT JUMP MAPS ARE CORRECT}
 
 
 
