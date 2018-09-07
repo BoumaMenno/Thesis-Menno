@@ -31,7 +31,7 @@ When a contact point is "open", it can trigger a guard function $\gamma$ to go f
 
 \textbf{DEFINITION OF $\gamma$}
 
-The plane that spans $\gamma = 0$ is divided in two regions: a region where the post-impact state is in slip and a region where the post-impact state is in stick. This region is defined by $\Gamma$, where $\Gamma<0$ in the region where the contact point goes to slip and $\Gamma > 0$ in the region where the contact point goes to stick. When $\Gamma = 0$ the system is right at the border between a slip post-impact state and a stick post-impact state. This is illustrated in Figure~\ref{fig:guardopcl}. 
+The plane that spans $\gamma = 0$ is divided in two regions: a region where the post-impact state is in slip and a region where the post-impact state is in stick. This region is defined by $\Gamma_{i_c}$, where $\Gamma_{i_c}<0$ in the region where the contact point goes to slip and $\Gamma_{i_c} > 0$ in the region where the contact point goes to stick. When $\Gamma_{i_c} = 0$ the system is right at the border between a slip post-impact state and a stick post-impact state. This is illustrated in Figure~\ref{fig:guardopcl}. 
 
 \begin{figure}[H]
 	\centering
@@ -40,9 +40,9 @@ The plane that spans $\gamma = 0$ is divided in two regions: a region where the 
 
 For slip, we know that $\mu\Lambda_{n,i_c} - ||\Lambdab_{t,i_c}|| = 0$ and for stick, we know that  $\mu\Lambda_{n,i_c} - ||\Lambdab_{t,i_c}|| \geq 0$. From this we can derive the guard function
 \begin{align}
-\Gamma = \mu^2 \underline{\Lambda}_{n,i_c}^2(\underline{\qb},\underline{\dot{\qb}}) - \underline{\Lambdab}_{t,i_c}(\underline{\qb},\underline{\dot{\qb}})\underline{\Lambdab}_{t,i_c}^T(\underline{\qb},\underline{\dot{\qb}}). \label{eq:slipset}
+\Gamma_{i_c} = \mu^2 \underline{\Lambda}_{n,i_c}^2(\underline{\qb},\underline{\dot{\qb}}) - \underline{\Lambdab}_{t,i_c}(\underline{\qb},\underline{\dot{\qb}})\underline{\Lambdab}_{t,i_c}^T(\underline{\qb},\underline{\dot{\qb}}). \label{eq:slipset}
 \end{align}
-The underlined variables are virtual states, meaning that they do not necessarily have a physical meaning. The way \eqref{eq:slipset} is given, it is defined in both open and closed contact. This map is only physically realistic during an event from open to closed contact. However, by using virtual states we obtain a differentiable guard function $\Gamma$. This guard function $\Gamma$ satisfies the requirements that $\Gamma<0$ in the region where the contact point goes to slip, $\Gamma > 0$ in the region where the contact point goes to stick and $\Gamma = 0$ at the border. We now find expressions for $\Lambda_{n,i_c}$ and $\Lambdab_{t,i_c}$ by looking at the jump map to stick, given in \eqref{eq:appjump5} to \eqref{eq:appjump7}.
+The underlined variables are virtual states, meaning that they do not necessarily have a physical meaning. The way \eqref{eq:slipset} is given, it is defined in both open and closed contact. This map is only physically realistic during an event from open to closed contact. However, by using virtual states we obtain a differentiable guard function $\Gamma_{i_c}$. This guard function $\Gamma_{i_c}$ satisfies the requirements that $\Gamma_{i_c}<0$ in the region where the contact point goes to slip, $\Gamma_{i_c} > 0$ in the region where the contact point goes to stick and $\Gamma_{i_c} = 0$ at the border. We now find expressions for $\Lambda_{n,i_c}$ and $\Lambdab_{t,i_c}$ by looking at the jump map to stick, given in \eqref{eq:appjump5} to \eqref{eq:appjump7}.
 
 We can rewrite \eqref{eq:appjump5} to
 \begin{align}
@@ -109,7 +109,7 @@ which is in turn rewritten to
 \end{bmatrix}.
 \end{align}
 
-The matrix $\Db$ is often called a Delassus-matrix. We now have expressions for $\underline{\Lambdab}_{n}$ and $\underline{\Lambdab}_{t}$ which are continuous and differentiable in $(\qb,\dot{\qb})$. It is straightforward that $\Gamma(\qb,\dot{\qb})$ is continuous and differentiable as well.
+The matrix $\Db$ is often called a Delassus-matrix. We now have expressions for $\underline{\Lambdab}_{n}$ and $\underline{\Lambdab}_{t}$ which are continuous and differentiable in $(\qb,\dot{\qb})$. It is straightforward that $\Gamma(\qb,\dot{\qb})$ is continuous and differentiable as well. In this work only trajectories where all closed contacts are in the same mode are considered. This means that when \eqref{eq:slipset} is smaller than zero, i.e. the reaction forces are infeasible for a stick post-impact mode, all contact points have a feasible slip post-impact mode. For trajectories where different contact points can be in slip and in stick at the same time, this conclusion can not be drawn. One should then iterate over all possible post-impact modes until a post-impact mode is found which has feasible reaction forces.
 
 \textbf{Slip to stick/open}\\
 When a contact point is in closed-contact slip, it can go to closed-contact stick and it can go to open-contact. A slipping contact transitions to sticking when the tangential velocity of the contact point is zero, i.e.,
@@ -130,23 +130,25 @@ which is equal to zero when $||\zetab_{t,i_c}|| = 0$, greater than zero when $||
 \lambda_{n,i_c} = 0.
 \end{align}
 
-Similarly to the expression found for $\Lambdab_{n}$ and $\Lambdab_{t}$, we can use \eqref{eq:qddot} and \eqref{eq:fcontconst} to define $\lambda_{n,i_c}$. With
+Similarly to the expression found for $\Lambdab_{n}$ and $\Lambdab_{t}$, we can use \eqref{eq:qddot} and \eqref{eq:fcontconst} to define the vector $\lambdab_{n}$. With
 
 \begin{align}
 \underline{\lambdab}_n &= \begin{bmatrix}
-\underline{\lambda}_{n,i_1};\underline{\lambda}_{n,i_2};...;\underline{\lambda}_{n,i_c} 
+\underline{\lambda}_{n,i_1};\underline{\lambda}_{n,i_2};...;\underline{\lambda}_{n,i_C} 
 \end{bmatrix}\in\Rbb^{C},\\
 \underline{\lambdab}_t &= \begin{bmatrix}
-\underline{\lambdab}_{t,i_1};\underline{\lambdab}_{t,i_2};...;\underline{\lambdab}_{t,i_c} 
+\underline{\lambdab}_{t,i_1};\underline{\lambdab}_{t,i_2};...;\underline{\lambdab}_{t,i_C} 
 \end{bmatrix}\in\Rbb^{2C},
 \end{align}
 we define
 \begin{align}
 &\ddot{\qb} = \Mb^{-1}\left[\Sb\ub - \Hb + \Wb_{n}\lambdab_{n} + \Wb_{t}\lambdab_{t}\right],\label{eq:appqddot}\\
 &\Wb^T_{n}\ddot{\qb} + \dot{\Wb}^T_{n}\dot{\qb} = 0,\\
-&\lambdab_{t}||\Wb_{t}^T\dot{\qb}|| + \mu\lambdab_{n}\Wb_{t}^T\dot{\qb} = 0,
+&\lambdab_{t} = -\mu\lambdab_{n}\odot\langle\zetab_{t}\rangle,
 \end{align}
-which results in
+where $\odot$ indicates the element wise multiplication of two vectors and $\langle\zetab_{t}\rangle=\begin{bmatrix}\langle\zetab_{t,i_1}\rangle,\langle\zetab_{t,i_2}\rangle,...,\langle\zetab_{t,i_C}\rangle \end{bmatrix}^T$, with $\langle\zetab_{t,i_c}\rangle$ the unit vector $\zetab_{t,i_c}$.
+
+
 
 \textbf{Stick to slip/open}\\
 
@@ -685,6 +687,10 @@ For impacts, the theory is valid for impacts away from a simultaneous impacts an
 The same is true for impacts close to the border of stick and slip.
 
 \section{Non-impacting contact points can not switch modes}
+\section{All closed contact points are in the same mode}
+If I do not assume this, then every combination of $\Gamma_{i_C}$ has to be iterated until a feasible solution is found. If we do assume this, we can just check if all $\Gamma_{i_C}$ go to stick. If not, then all $\Gamma_{i_C}$ go to slip.
+
+In this work only trajectories where all closed contacts are in the same mode are considered. This means that when \eqref{eq:slipset} is smaller than zero, i.e. the reaction forces are infeasible for a stick post-impact mode, all contact points have a feasible slip post-impact mode. For trajectories where different contact points can be in slip and in stick at the same time, this conclusion can not be drawn. One should then iterate over all possible post-impact modes until a post-impact mode is found which has feasible reaction forces.
 
 %% New chapter %%
 \pagestyle{fancyreport}
