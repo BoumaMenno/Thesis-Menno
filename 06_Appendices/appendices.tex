@@ -23,8 +23,6 @@
 \section{Hybrid system formulation for mechanical systems}\label{app:hybrid}
 \subsection{Continuous dynamics derivation}
 
-\subsection{Discrete dynamics derivation}
-
 \subsection{Discrete event set derivation}\label{app:hybriddisc}
 In this section the discrete event sets $D$ are defined. When the state or input of the system enters a discrete event set, contact points can change set and a reinitialization of the state can take place. In this work the assumption is made that all contact points in closed contact are in the same set, i.e., in either $\Ic_{\text{sl}}$ or $\Ic_{\text{st}}$.
 
@@ -38,12 +36,10 @@ When a contact point is "open", it can trigger a guard function $\gamma$ to go f
 \textbf{DEFINITION OF $\gamma$}
 
 The plane that spans $\gamma = 0$ is divided in two regions: a region where the post-impact state is in slip and a region where the post-impact state is in stick. This region is defined by $\Gamma_{i_c}$, where $\Gamma_{i_c}<0$ in the region where the contact point goes to slip and $\Gamma_{i_c} > 0$ in the region where the contact point goes to stick. When $\Gamma_{i_c} = 0$ the system is right at the border between a slip post-impact state and a stick post-impact state. This is illustrated in Figure~\ref{fig:guardopcl}. 
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.7\textwidth]{guardopcl.eps}\caption{The functions $\gammab(\qb,\dot{\qb})$ and $\Gammab(\qb,\dot{\qb})$ illustrated in the state space of $\qb\in\mathbb{R}^{2}$. The light blue area is the state space where the contact is open, and goes the closed when it triggers $\gamma = 0$. If it triggers $\gamma = 0$ in the area where $\Gamma<0$ (orange), then the contact will go to slip. If it triggers $\gamma=0$ in the area where $\Gamma\geq 0$ (green), then the contact will go to stick.}\label{fig:guardopcl}
 \end{figure}
-
 For slip, we know that $\mu\Lambda_{n,i_c} - ||\Lambdab_{t,i_c}|| = 0$ and for stick, we know that  $\mu\Lambda_{n,i_c} - ||\Lambdab_{t,i_c}|| \geq 0$. From this we can derive the guard function
 \begin{align}
 \Gamma_{i_c} = \mu^2 \underline{\Lambda}_{n,i_c}^2(\underline{\qb},\underline{\dot{\qb}}) - \underline{\Lambdab}_{t,i_c}(\underline{\qb},\underline{\dot{\qb}})\underline{\Lambdab}_{t,i_c}^T(\underline{\qb},\underline{\dot{\qb}}). \label{eq:slipset}
@@ -75,7 +71,6 @@ with
 \end{bmatrix}\in\Rbb^{2C}.
 \end{align}
 Substituting \eqref{eq:appqplus} into \eqref{eq:appnormalcon} and \eqref{eq:apptangentcon} leads to
-
 \begin{align}
 \Wb_{n}^T\Mb^{-1}\Wb_{n}\underline{\Lambdab}_{n} + \Wb_{n}^T\Mb^{-1}\Wb_{t}\underline{\Lambdab}_{t} + \underline{\zetab}_{n} = 0\\
 \Wb_{t}^T\Mb^{-1}\Wb_{n}\underline{\Lambda}_{n} + \Wb_{t}^T\Mb^{-1}\Wb_{t}\underline{\Lambdab}_{t} + \underline{\zetab}_{t} = 0,
@@ -86,7 +81,6 @@ respectively, with
 \underline{\zetab}_{t} = \Wb_t^T\underline{\dot{\qb}}.
 \end{align}
 This is now rewritten to
-
 \begin{align}
 \begin{bmatrix}
 \Wb_{n}^T\Mb^{-1}\Wb_{n} & \Wb_{n}^T\Mb^{-1}\Wb_{t} \\
@@ -114,30 +108,22 @@ which is in turn rewritten to
 \Wb_{t}^T\Mb^{-1}\Wb_{n} & \Wb_{t}^T\Mb^{-1}\Wb_{t}
 \end{bmatrix}.
 \end{align}
-
 The matrix $\Db$ is often called a Delassus-matrix. We now have expressions for $\underline{\Lambdab}_{n}$ and $\underline{\Lambdab}_{t}$ which are continuous and differentiable in $(\qb,\dot{\qb})$. It is straightforward that $\Gamma(\qb,\dot{\qb})$ is continuous and differentiable as well. In this work only trajectories where all closed contacts are in the same mode are considered. This means that when \eqref{eq:slipset} is smaller than zero, i.e., the reaction forces are infeasible for a stick post-impact mode, all contact points have a feasible slip post-impact mode. For trajectories where different contact points can be in slip and in stick at the same time, this conclusion can not be drawn. One should then iterate over all possible post-impact modes until a post-impact mode is found which has feasible reaction forces.
 
 \textbf{Slip to stick/open}\\
 When a contact point is in closed-contact slip, it can transition to closed-contact stick and it can transition to open-contact. A slipping contact transitions to sticking when the tangential velocity of the contact point is zero, i.e.,
-
 \begin{align}
 ||\zetab_{t,i_c}|| = 0.
 \end{align}
-
 A guard function that can be used to describe this set is
-
 \begin{align}
 \gamma_{\text{sl}\rightarrow\text{st}} = \zetab_{t,i_c}\zetab_{t,i_c}^T,
 \end{align}
-
 which is equal to zero when $||\zetab_{t,i_c}|| = 0$, greater than zero when $||\zetab_{t,i_c}|| > 0$, smaller than zero when $||\zetab_{t,i_c}|| < 0$, and it is globally differentiable. For a slipping contact transitioning to open-contact an acceleration based guard function is necessary, since the normal velocity of the contact point is constrained in the continuous dynamics of a slipping contact. Therefore, a slipping contact point transitions to open-contact when
-
 \begin{align}
 \lambda_{n,i_c} = 0.\label{eq:applambdanguard}
 \end{align}
-
 Similarly to the expression found for $\Lambdab_{n}$ and $\Lambdab_{t}$, we can use \eqref{eq:qddot} and \eqref{eq:fcontconst} to define the vector $\lambdab_{n}$. With
-
 \begin{align}
 \underline{\lambdab}_n &= \begin{bmatrix}
 \underline{\lambda}_{n,i_1};\underline{\lambda}_{n,i_2};...;\underline{\lambda}_{n,i_C} 
@@ -158,48 +144,36 @@ with
 \langle\zetab_{t,i_1}\rangle & \mathbf{0} & \cdots & \mathbf{0}\\
 \mathbf{0} & \langle\zetab_{t,i_2}\rangle & \cdots & \mathbf{0}\\
 \vdots & \vdots & \ddots & \vdots\\
-\mathbf{0} & \mathbf{0} & \cdots & \langle\zetab_{t,i_C}\rangle,
-\end{bmatrix}\quad\in\Rbb^{2C \times C,}
+\mathbf{0} & \mathbf{0} & \cdots & \langle\zetab_{t,i_C}\rangle
+\end{bmatrix},\quad\in\Rbb^{2C \times C}\label{eq:appZt}
 \end{align}
-
 where $\langle\zetab_{t}\rangle=\begin{bmatrix}\langle\zetab_{t,i_1}\rangle,\langle\zetab_{t,i_2}\rangle,...,\langle\zetab_{t,i_C}\rangle \end{bmatrix}^T$, with $\langle\zetab_{t,i_c}\rangle$ the unit vector $\zetab_{t,i_c}$. \eqref{eq:appslipdyn1}-\eqref{eq:appslipdyn3} can be rewritten into
-
 \begin{align}
 &\lambdab_{n} = -\left[\Wb^T_{n}\Mb^{-1}\left(\Wb_{n} - \mu\Wb_{t}\Zb_{t}\right)\right]^{-1}\Wb^T_{n}\Mb^{-1}\left[\Sb\ub - \Hb\right] - \dot{\Wb}^T_{n}\dot{\qb},
 \end{align}
-
 which can be used to define the guard function \eqref{eq:applambdanguard}.
 
 \textbf{Stick to slip/open}\\
-When a contact point is in closed-contact stick, it can transition to closed-contact slip and it can transition to open-contact. A slipping contact transitions to sticking when the tangential reaction force of the contact point is zero, i.e.,
-
+When a contact point is in closed-contact stick, it can transition to closed-contact slip and it can transition to open-contact. A slipping contact transitions to sticking when the tangential reaction force becomes equal to the normal reaction force at that contact point times the friction coefficient, i.e.,
 \begin{align}
-||\lambdab_{t,i_c}|| = 0.
+\mu\lambda_{n,i_c} = ||\lambdab_{t,i_c}||.
 \end{align}
-
 A guard function that can be used to describe this set is
-
 \begin{align}
-\gamma_{\text{st}\rightarrow\text{sl}} = \lambdab_{t,i_c}\lambdab_{t,i_c}^T,
+\gamma_{\text{st}\rightarrow\text{sl}} = \mu^2\lambda^2_{n,i_c} - \lambdab_{t,i_c}\lambdab_{t,i_c}^T,\label{eq:appguardstsl}
 \end{align}
-
-which is equal to zero when $||\lambdab_{t,i_c}|| = 0$, greater than zero when $||\lambdab_{t,i_c}|| > 0$, smaller than zero when $||\lambdab_{t,i_c}|| < 0$, and it is globally differentiable. The dynamics and constraints of a system with all contact points in stick are defined as
-
+which is equal to zero when $\mu^2\lambda^2_{n,i_c} = ||\lambdab_{t,i_c}||$, greater than zero when $\mu^2\lambda^2_{n,i_c} > ||\lambdab_{t,i_c}||$, and it is globally differentiable. It is physically impossible that $\mu^2\lambda^2_{n,i_c} < ||\lambdab_{t,i_c}||$, meaning that $\gamma_{\text{st}\rightarrow\text{sl}}$ will never be smaller than zero. The dynamics and constraints of a system with all contact points in stick are defined as
 \begin{align}
 &\ddot{\qb} = \Mb^{-1}\left[\Sb\ub - \Hb + \Wb_{n}\lambdab_{n} + \Wb_{t}\lambdab_{t}\right],\label{eq:appstickdyn1}\\
 &\Wb^T_{n}\ddot{\qb} + \dot{\Wb}^T_{n}\dot{\qb} = 0,\label{eq:appstickdyn2}\\
 &\Wb^T_{t}\ddot{\qb} + \dot{\Wb}^T_{t}\dot{\qb} = 0,,\label{eq:appstickdyn3}
 \end{align}
-
 Substituting \eqref{eq:appstickdyn1} into \eqref{eq:appstickdyn2} and \eqref{eq:appstickdyn3} leads to
-
 \begin{align}
 \Wb_{n}^T\Mb^{-1}\Wb_{n}\lambdab_{n} + \Wb_{n}^T\Mb^{-1}\Wb_{t}\lambdab_{t} = \Wb_{n}^T\Mb^{-1}\left[\Sb\ub - \Hb\right] -\dot{\Wb}^T_{n}\dot{\qb}, \\
 \Wb_{t}^T\Mb^{-1}\Wb_{n}\lambdab_{n} + \Wb_{t}^T\Mb^{-1}\Wb_{t}\lambdab_{t} = \Wb_{t}^T\Mb^{-1}\left[\Sb\ub - \Hb\right] -\dot{\Wb}^T_{t}\dot{\qb},
 \end{align}
-
 which can be rewritten to
-
 \begin{align}
 \begin{bmatrix}
 \lambdab_{n}\\
@@ -210,7 +184,77 @@ which can be rewritten to
 \end{bmatrix}.\label{eq:applambdastick}
 \end{align}
 
-Using \eqref{eq:applambdastick} the guard function $\gamma_{\text{st}\rightarrow\text{sl}} = \lambdab_{t,i_c}\lambdab_{t,i_c}^T$ is defined.
+Using \eqref{eq:applambdastick} the guard function \eqref{eq:appguardstsl} is defined.
+
+\subsection{Discrete dynamics derivation}
+In this section the discrete dynamics are defined, describing the state reinitialization when a discrete event set is entered. These dynamics are defined by a jump map $\gb$, which is defined differently for each post-event mode.
+
+\textbf{Slip post-impact mode}\\
+The discrete dynamics of a transition with a slip post-impact mode are given by
+\begin{align}
+&\Mb[\dot{\qb}^+ - \dot{\qb}^-] = \Wb_{n}\Lambdab_{n} + \Wb_{t}\Lambdab_{t},\label{eq:appdiscslip1}\\
+&\Wb^T_{n}\dot{\qb}^+ = 0,\label{eq:appdiscslip2}\\
+&\Lambdab_{t} = -\mu\Zb^{-}_{t}\Lambdab_{n},\label{eq:appdiscslip3}
+\end{align}
+with $\Zb^{-}_{t}$ defined as in \eqref{eq:appZt} using the unit vector of the ante-impact tangential velocity $\langle\zetab_{t}^-\rangle$. After substituting \eqref{eq:appdiscslip3} intro \eqref{eq:appdiscslip1} and rewriting to
+\begin{align}
+\dot{\qb}^+ = \left[\Mb^{-1}\Wb_{n} - \mu\Mb^{-1}\Wb_{t}\Zb^-_{t}\right]\Lambdab_{n} + \dot{\qb}^-,\label{eq:appqdotplusslip1}
+\end{align}
+and expression for $\Lambdab_n$ can be found by substituting this into \eqref{eq:appdiscslip2}, which is
+\begin{align}
+\Lambdab_{n} = -\left[\Wb^T_{n}\Mb^{-1}\Wb_{n}- \mu\Wb^T_{n}\Mb^{-1}\Wb_{t}\Zb^-_{t}\right]^{-1}\Wb^T_{n}\dot{\qb}^-,\label{eq:appLambdanstick}
+\end{align}
+The jump map $\dot{\qb}^+ = \gb_{\rightarrow\text{sl}}(\dot{\qb}^-)$ is then found by substituting \eqref{eq:appLambdanstick} into \eqref{eq:appqdotplusslip1},
+\begin{align}
+\dot{\qb}^+ = -\left[\Mb^{-1}\Wb_{n} - \mu\Mb^{-1}\Wb_{t}\Zb^-_{t}\right]\left[\Wb^T_{n}\Mb^{-1}\Wb_{n}- \mu\Wb^T_{n}\Mb^{-1}\Wb_{t}\Zb^-_{t}\right]^{-1}\Wb^T_{n}\dot{\qb}^- + \dot{\qb}^-.\label{eq:appgslip}
+\end{align}
+Note that when there is a transition from stick to slip, i.e., there is no impact, the post-event velocity is $\dot{\qb}^+ = \dot{\qb}^-$.
+
+\textbf{Stick post-impact mode}\\
+The discrete dynamics of a transition with a stick post-impact mode are given by
+\begin{align}
+&\Mb[\dot{\qb}^+ - \dot{\qb}^-] = \Wb_{n}\Lambda_{n} + \Wb_{t}\Lambdab_{t},\label{eq:appdiscstick1}\\
+&\Wb^T_{n}\dot{\qb}^+ = 0,\label{eq:appdiscstick2}\\
+&\Wb^T_{t}\dot{\qb}^+ = 0.\label{eq:appdiscstick3}
+\end{align}
+After rewriting \eqref{eq:appdiscstick1} into
+\begin{align}
+\dot{\qb}^+ = \Mb^{-1}\Wb_{n}\Lambdab_{n} + \Mb^{-1}\Wb_{t}\Lambdab_{t} + \dot{\qb}^-,\label{eq:appqdotplusstick1}
+\end{align}
+substituting this into \eqref{eq:appdiscstick2} and \eqref{eq:appdiscstick3} results in
+\begin{align}
+\Wb_{n}^T\Mb^{-1}\Wb_{n}\Lambdab_{n} + \Wb_{n}^T\Mb^{-1}\Wb_{t}\Lambdab_{t} + \Wb^T_{n}\dot{\qb}^- = 0\\
+\Wb_{t}^T\Mb^{-1}\Wb_{n}\Lambdab_{n} + \Wb_{t}^T\Mb^{-1}\Wb_{t}\Lambdab_{t} + \Wb^T_{t}\dot{\qb}^- = 0.
+\end{align}
+This can be rewritten into a definition of $\Lambdab_{n}$ and $\Lambdab_{t}$, given by
+\begin{align}
+\begin{bmatrix}
+\Lambdab_{n}\\
+\Lambdab_{t}
+\end{bmatrix} = -\Db^{-1}\begin{bmatrix}
+\Wb^T_{n}\dot{\qb}^-\\
+\Wb^T_{t}\dot{\qb}^-
+\end{bmatrix},\quad \text{with } \Db = \begin{bmatrix}
+\Wb_{n}^T\Mb^{-1}\Wb_{n} & \Wb_{n}^T\Mb^{-1}\Wb_{t}\\
+\Wb_{t}^T\Mb^{-1}\Wb_{n} & \Wb_{t}^T\Mb^{-1}\Wb_{t}
+\end{bmatrix}.
+\end{align}
+Substituting $\Lambdab_{n}$ and $\Lambdab_{t}$ into \eqref{eq:appqdotplusstick1} results in the jump map $\dot{\qb}^+ = \gb_{\rightarrow\text{st}}(\dot{\qb}^-)$,
+\begin{align}
+\dot{\qb}^+ = \Mb^{-1}\Wb_{n}\Lambdab_{n} + \Mb^{-1}\Wb_{t}\Lambdab_{t} + \dot{\qb}^-,\label{eq:appgstick}
+\end{align}
+Similarly to the stick to slip case, note that when there is a transition from slip to stick the post-event velocity is $\dot{\qb}^+ = \dot{\qb}^-$.
+
+\textbf{Open-contact post-impact mode}\\
+The discrete dynamics of a transition with a slip post-impact mode are given by
+\begin{align}
+&\Mb(\dot{\qb}^+ - \dot{\qb}^-) = 0.\label{eq:appdiscopen}
+\end{align}
+In this case there are no impulsive reaction forces, and it is trivial to see that the jump map $\dot{\qb}^+ = \gb_{\rightarrow\text{op}}(\dot{\qb}^-)$ is given by
+\begin{align}
+\dot{\qb}^+ = \dot{\qb}^-.\label{eq:appgopen}
+\end{align}
+
 \section{Proximal Point Formulation}
 The contact law and friction law defined in the complementarity condition formulation can be redefined to a proximal point formulation. This makes the system compatible with simulation methods as timestepping \cite[Chapter 10]{Acary2008}. More information on the definition of the proximal point formulation of contact laws and friction laws can be found in \cite[Section 5.3]{Leine2008}.
 

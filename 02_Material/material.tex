@@ -14,7 +14,7 @@ For mechanical systems a set of contact points $i_c\in\{i_1,i_2,...,i_C\}$ is de
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.75\textwidth]{contactplanes.eps}\caption{An illustration of a body impacting the fixed world. A contact point $i_c$ is defined on the body, which can make contact with the fixed world at $i_{FW}$. The points $i_c$ and $i_{FW}$ are connected by a line which is perpendicular to their respective bodies, which is used to define the contact distance $h_{n,i_c}$ and normal contact velocity $\zeta_{n,i_c}$. In the plane tangent to the body's surface, the tangential contact velocity $\zetab_{t,i_c}$ is defined.} \label{fig:contactplanes}
+\includegraphics[width=.6\textwidth]{contactplanes.eps}\caption{An illustration of a body impacting the fixed world. A contact point $i_c$ is defined on the body, which can make contact with the fixed world at $i_{FW}$. The points $i_c$ and $i_{FW}$ are connected by a line which is perpendicular to their respective bodies, which is used to define the contact distance $h_{n,i_c}$ and normal contact velocity $\zeta_{n,i_c}$. In the plane tangent to the body's surface, the tangential contact velocity $\zetab_{t,i_c}$ is defined.} \label{fig:contactplanes}
 \end{figure}
 
 Then, the continuous dynamics of a mechanical system with unilateral constraints and spatial friction are of the form
@@ -218,7 +218,7 @@ In \ref{fig:2example} an example trajectory of a block pushing towards a surface
 \label{fig:2example}
 \end{figure}
 
-The following sections will be used to write the complementarity system defined in Section~\ref{sec:comp} into a hybrid system with impulsive effects as in \eqref{eq:hybimp}. In \ref{sec:2contdyn} the continuous dynamics $\fb_i$ will be derived for mechanical systems with unilateral constraints and spatial friction. Then, in Section~\ref{sec:2discdyn} the discrete dynamics $\gb_i$ of the hybrid system with impulsive effects will be derived. Finally, in Section~\ref{sec:2event} the reset set $D_i$ will be defined. This will fully define the hybrid system with impulsive effects formulation of mechanical systems with unilateral constraints and spatial friction.
+The following sections will be used to write the complementarity system defined in Section~\ref{sec:comp} into a hybrid system with impulsive effects as in \eqref{eq:hybimp}. In \ref{sec:2contdyn} the continuous dynamics $\fb_i$ will be derived for mechanical systems with unilateral constraints and spatial friction. Then, in Section~\ref{sec:2event} the reset set $D_i$ will be defined. Finally, in Section~\ref{sec:2discdyn} the discrete dynamics $\gb_i$ will be derived. This will fully define the hybrid system with impulsive effects formulation of mechanical systems with unilateral constraints and spatial friction.
 
 \subsection{Continuous dynamics}\label{sec:2contdyn}
 When describing mechanical systems, we take 
@@ -237,13 +237,30 @@ where $\qb$ and $\dot{\qb}$ are the joint positions, velocities and acceleration
 The equations of motion, given in \eqref{eq:appcont1}, can be rewritten to
 
 \begin{align}
-\ddot{\qb} = \Mb^{-1}(\qb)\left[ \Sb(\qb)\ub - \Hb(\qb,\dot{\qb}) + \sum_{i_c\in\Ic_{\text{cl}}}\left(\wb_{n,i_c}(\qb)\lambda_{n,i_c} + \Wb_{t,i_c}(\qb)\lambdab_{t,i_c} \right)\right].\label{eq:qddot}
+\ddot{\qb} = \Mb^{-1}(\qb)\left[ \Sb(\qb)\ub - \Hb(\qb,\dot{\qb}) + \Wb_{n}(\qb)\lambdab_{n} + \Wb_{t}(\qb)\lambdab_{t}\right],\label{eq:qddot}
 \end{align}
+with
+
+\begin{align}
+\Wb_n &= \begin{bmatrix}
+\wb_{n,i_1},\wb_{n,i_2},...,\wb_{n,i_c}
+\end{bmatrix}\in\Rbb^{n\times C},\\
+\Wb_t &= \begin{bmatrix}
+\Wb_{t,i_1},\Wb_{t,i_2},...,\Wb_{t,i_c} 
+\end{bmatrix}\in\Rbb^{n\times 2C},\\
+\lambdab_n &= \begin{bmatrix}
+\lambda_{n,i_1};\lambda_{n,i_2};...;\lambda_{n,i_C} 
+\end{bmatrix}\in\Rbb^{C},\\
+\lambdab_t &= \begin{bmatrix}
+\lambdab_{t,i_1};\lambdab_{t,i_2};...;\lambdab_{t,i_C} 
+\end{bmatrix}\in\Rbb^{2C},
+\end{align}
+
 Note that since $\fb_i$ is only defined on $\xb(t,i),\ub(t,i)\notin D_i$, it is not necessary to use $\xib$ to define the equations of motion as done in \eqref{eq:appcont1}. Now $\fb_i$ can be written as
 
 \begin{align}
 \dot{\xb}(t,i) =\begin{bmatrix}
-\dot{\qb}\\ \Mb^{-1}(\qb)\left[ \Sb(\qb)\ub - \Hb(\qb,\dot{\qb}) + \sum_{i_c\in\Ic_{\text{cl}}}\left(\wb_{n,i_c}(\qb)\lambda_{n,i_c} + \Wb_{t,i_c}(\qb)\lambdab_{t,i_c} \right)\right]
+\dot{\qb}\\ \Mb^{-1}(\qb)\left[ \Sb(\qb)\ub - \Hb(\qb,\dot{\qb}) + \Wb_{n}(\qb)\lambdab_{n} + \Wb_{t}(\qb)\lambdab_{t}\right]
 \end{bmatrix}.\label{eq:fcont}
 \end{align}
 
@@ -257,31 +274,6 @@ The closed contact points in $\Ic_{\text{cl}}$ experience reaction forces $\lamb
 \end{array}\label{eq:fcontconst}
 \end{equation}
 where $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$ are the sets of closed contacts in slip and closed contacts in stick respectively. Now, with \eqref{eq:fcont} and \eqref{eq:fcontconst}, the continuous dynamics of the hybrid system with impulsive dynamics are correctly defined. A more thorough derivation of these dynamics can be found in Appendix~\ref{app:hybrid}.
-
-\subsection{Discrete dynamics}\label{sec:2discdyn}
-\textbf{DEFINE RESET MAPS BASED ON CONTACT POINT SETS}\\
-\textbf{EXPLAIN DIFFERENCE BETWEEN CLOSING CONTACTS AND OTHER EVENTS (NONSMOOTHNESS)}\\
-The impact dynamics related to the jump sets are given by
-\begin{align}
-&0\leftarrow \ast:\nonumber\\
-&(\dot{\qb}^+ - \dot{\qb}^-) = 0,\label{eq:appjump1}\\
-&1\leftarrow\ast:\nonumber\\
-&\Mb(\qb)(\dot{\qb}^+ - \dot{\qb}^-) = \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i},\label{eq:appjump2}\\
-&\zeta_{n,i}^+=0,\label{eq:appjump3}\\
-&\Lambdab_{t,i} = -\widehat{\zetab}^-_{t,i}\mu\Lambda_{n,i},\label{eq:appjump4}\\
-&2\leftarrow \ast:\nonumber\\
-&\Mb(\qb)(\dot{\qb}^+ - \dot{\qb}^-) = \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i},\label{eq:appjump5}\\
-&\zeta_{n,i}^+=0,\label{eq:appjump6}\\
-&\zeta_{t,i}^+= 0,\label{eq:appjump7}
-\end{align}
-with $0\leftarrow\ast$,$1\leftarrow\ast$ and $2\leftarrow\ast$ representing the impact dynamics to open contact, slip and stick respectively. 
-
-When we go from any mode to open, there is no jump in the velocity and the reaction impulses are 0. Therefore $0\leftarrow \ast$ is correct.
-
-When we go from open to slip, there will be a jump in velocity, and $||\Lambdab_{t,i}|| = \mu\Lambda_{n,i}$. The reaction impulses will be larger than zero. When we go from stick to slip, there will be no jump in velocity. In stick, $\zetab_{t,i} =0$, so $\epsilon(\zetab^-_{t,i}) = 0$. Also we know $\wb_{n,i}^T\dot{\qb}^- = \wb_{n,i}^T\dot{\qb}^+ = 0 $. This leads to $\dot{\qb}^- = \dot{\qb}^+$, meaning there is no jump in velocity and no impulsive reaction force. Therefore $1\leftarrow \ast$ is correct.
-
-When we go from open to stick, there will be a jump in velocity and impulsive reaction forces.
-\textbf{SHOW THAT JUMP MAPS ARE CORRECT}
 
 \subsection{Discrete event sets}\label{sec:2event}
 When the continuous dynamics enter an event set $D$, an event will take place. Such an event can cause a contact point to enter a different set, which will lead to different post-event continuous dynamics, and it can cause the state to reinitialize according to the discrete dynamics presented in Section~\ref{sec:2discdyn}. For each set of contact points these sets are defined differently. In this section the sets $D$ are defined for each set of contact points. The derivation of the discrete event sets can be found in Appendix~\ref{app:hybrid}.
@@ -304,42 +296,105 @@ h_{n,i_c}(\qb) = \wb_{n,i_c}^T(\qb)\qb,
 and the virtual impulsive reaction force are determined by
 \begin{align}
 \begin{bmatrix}
-\underline{\Lambda}_{n,i}\\
-\underline{\Lambdab}_{t,i}
+\underline{\Lambda}_{n}\\
+\underline{\Lambdab}_{t}
 \end{bmatrix} = - \Db^{-1}\begin{bmatrix}
-\zeta_{n,i}\\
-\zetab_{t,i}
+\zeta_{n}\\
+\zetab_{t}
 \end{bmatrix},\quad \text{with } \Db = \begin{bmatrix}
-\wb_{n,i}^T\Mb^{-1}\wb_{n,i} & \wb_{n,i}^T\Mb^{-1}\Wb_{t,i} \\
-\Wb_{t,i}^T\Mb^{-1}\wb_{n,i} & \Wb_{t,i}^T\Mb^{-1}\Wb_{t,i}
-\end{bmatrix},
+\Wb_{n}^T\Mb^{-1}\Wb_{n} & \Wb_{n}^T\Mb^{-1}\Wb_{t} \\
+\Wb_{t}^T\Mb^{-1}\Wb_{n} & \Wb_{t}^T\Mb^{-1}\Wb_{t}
+\end{bmatrix},\label{eq:Lambdaimpact}
 \end{align}
 where $\Db$ is often called the Delassus-matrix. For the definition of $\Gamma$ the virtual reaction forces $\underline{\Lambda}_{n,i}$ and $\underline{\Lambdab}_{t,i}$ are used, because their value is not physically realistic everywhere on the manifold where $\Gamma$ is defined. More information on the derivation of these virtual reaction forces can be found in Section~\ref{app:hybriddisc}.
 
 \textbf{Discrete events sets in closed contact slip}\\
-For all contact point $i_c\in\Ic_{\text{sl}}$ the discrete event sets are defined as
-
+For all contact points $i_c\in\Ic_{\text{sl}}$ the discrete event sets are defined as
 \begin{align}
-D_{\text{sl}\rightarrow\text{st}} &= \{ \qb,\ub\ |\ \gamma_{\text{sl}\rightarrow\text{st}} = 0,\ \dot{\gamma}_{\text{sl}\rightarrow\text{st}} < 0\}\\
+D_{\text{sl}\rightarrow\text{st}} &= \{ \qb\ |\ \gamma_{\text{sl}\rightarrow\text{st}} = 0,\ \dot{\gamma}_{\text{sl}\rightarrow\text{st}} < 0\}\\
 D_{\text{sl}\rightarrow\text{op}} &= \{ \qb,\ub\ |\ \gamma_{\text{cl}\rightarrow\text{op}} = 0,\ \dot{\gamma}_{\text{cl}\rightarrow\text{op}} < 0\},
 \end{align}
 with 
 \begin{align}
 \gamma_{\text{sl}\rightarrow\text{st}} &= \zetab_{t,i_c}\zetab_{t,i_c}^T\\
-\gamma_{\text{cl}\rightarrow\text{op}} &= \lambda_{n,i_c}.\\
+\gamma_{\text{cl}\rightarrow\text{op}} &= \lambda_{n,i_c}.
 \end{align}
 The tangential velocity $\zetab_{t,i_c}$ is given by 
 \begin{align}
-\zetab_{t,i_c} = \Wb_{t,i_c}^T\qb,
+\zetab_{t} = \Wb_{t}^T\qb,
 \end{align}
-and the reaction normal force is given by
+and the reaction normal force in slip is given by
 \begin{align}
-\lambda_{n,i_c} = 
+&\lambdab_{n} = -\left[\Wb^T_{n}\Mb^{-1}\left(\Wb_{n} - \mu\Wb_{t}\Zb_{t}\right)\right]^{-1}\Wb^T_{n}\Mb^{-1}\left[\Sb\ub - \Hb\right] - \dot{\Wb}^T_{n}\dot{\qb},
+\end{align}
+with 
+\begin{align}
+\Zb_{t} = \begin{bmatrix}
+\langle\zetab_{t,i_1}\rangle & \mathbf{0} & \cdots & \mathbf{0}\\
+\mathbf{0} & \langle\zetab_{t,i_2}\rangle & \cdots & \mathbf{0}\\
+\vdots & \vdots & \ddots & \vdots\\
+\mathbf{0} & \mathbf{0} & \cdots & \langle\zetab_{t,i_C}\rangle
+\end{bmatrix}.\quad\in\Rbb^{2C \times C}
 \end{align}
 
 \textbf{Discrete events sets in closed contact stick}\\
+For all contact points $i_c\in\Ic_{\text{st}}$ the discrete event sets are defined as
+\begin{align}
+D_{\text{st}\rightarrow\text{sl}} &= \{ \qb,\ub\ |\ \gamma_{\text{st}\rightarrow\text{sl}} = 0,\ \dot{\gamma}_{\text{sl}\rightarrow\text{st}} < 0\}\\
+D_{\text{st}\rightarrow\text{op}} &= \{ \qb,\ub\ |\ \gamma_{\text{cl}\rightarrow\text{op}} = 0,\ \dot{\gamma}_{\text{cl}\rightarrow\text{op}} < 0\},
+\end{align}
+with 
+\begin{align}
+\gamma_{\text{st}\rightarrow\text{sl}} &= \mu^2\lambda_{n,i_c}^2-\lambdab_{t,i_c}\lambdab_{t,i_c}^T\\
+\gamma_{\text{cl}\rightarrow\text{op}} &= \lambda_{n,i_c}.
+\end{align}
+The tangential and normal reaction forces in stick are given by
+
+\begin{align}
+\begin{bmatrix}
+\lambdab_{n}\\
+\lambdab_{t}
+\end{bmatrix} = - \Db^{-1}\begin{bmatrix}
+\Wb_{n}^T\Mb^{-1}\left[\Sb\ub - \Hb\right] -\dot{\Wb}^T_{n}\dot{\qb}\\
+\Wb_{t}^T\Mb^{-1}\left[\Sb\ub - \Hb\right] -\dot{\Wb}^T_{t}\dot{\qb}
+\end{bmatrix},\label{eq:lambdastick}
+\end{align}
+with $\Db$ defined as in \eqref{eq:Lambdaimpact}.
+
+\subsection{Discrete dynamics}\label{sec:2discdyn}
+\textbf{DEFINE RESET MAPS BASED ON CONTACT POINT SETS}\\
+\textbf{EXPLAIN DIFFERENCE BETWEEN CLOSING CONTACTS AND OTHER EVENTS (NONSMOOTHNESS)}\\
+
+When a discrete event set $D$ is entered, the discrete dynamics describe the reinitialization of the state. The discrete dynamics are defined by a jump map $\gb$. Since there are three different modes for each contact point, three different discrete dynamics functions should be defined: one for a reinitialization into slip, one for a reinitialization into stick and one for a reinitialization into open-contact.
+
+The jump map to a closed-contact slip mode is given by
+
+The jump map to a closed-contact stick mode is given by
+
+The jump map to an open-contact mode is given by
 
 
+The impact dynamics related to the jump sets are given by
+\begin{align}
+&0\leftarrow \ast:\nonumber\\
+&(\dot{\qb}^+ - \dot{\qb}^-) = 0,\label{eq:appjump1}\\
+&1\leftarrow\ast:\nonumber\\
+&\Mb(\qb)(\dot{\qb}^+ - \dot{\qb}^-) = \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i},\label{eq:appjump2}\\
+&\zeta_{n,i}^+=0,\label{eq:appjump3}\\
+&\Lambdab_{t,i} = -\widehat{\zetab}^-_{t,i}\mu\Lambda_{n,i},\label{eq:appjump4}\\
+&2\leftarrow \ast:\nonumber\\
+&\Mb(\qb)(\dot{\qb}^+ - \dot{\qb}^-) = \wb_{n,i}(\qb)\Lambda_{n,i} + \Wb_{t,i}(\qb)\Lambdab_{t,i},\label{eq:appjump5}\\
+&\zeta_{n,i}^+=0,\label{eq:appjump6}\\
+&\zeta_{t,i}^+= 0,\label{eq:appjump7}
+\end{align}
+with $0\leftarrow\ast$,$1\leftarrow\ast$ and $2\leftarrow\ast$ representing the impact dynamics to open contact, slip and stick respectively. 
+
+When we go from any mode to open, there is no jump in the velocity and the reaction impulses are 0. Therefore $0\leftarrow \ast$ is correct.
+
+When we go from open to slip, there will be a jump in velocity, and $||\Lambdab_{t,i}|| = \mu\Lambda_{n,i}$. The reaction impulses will be larger than zero. When we go from stick to slip, there will be no jump in velocity. In stick, $\zetab_{t,i} =0$, so $\epsilon(\zetab^-_{t,i}) = 0$. Also we know $\wb_{n,i}^T\dot{\qb}^- = \wb_{n,i}^T\dot{\qb}^+ = 0 $. This leads to $\dot{\qb}^- = \dot{\qb}^+$, meaning there is no jump in velocity and no impulsive reaction force. Therefore $1\leftarrow \ast$ is correct.
+
+When we go from open to stick, there will be a jump in velocity and impulsive reaction forces.
+\textbf{SHOW THAT JUMP MAPS ARE CORRECT}
 
 
 \end{document}
