@@ -200,7 +200,7 @@
 
 \newcommand{\nocontentsline}[3]{}                                                   %Zorgt ervoor dat je met het command \tocless kunt zorgen dat bijv. een section
 \newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}  %niet in de TableOfContent wordt opgenomen, maar de nummerig wel doorloopt. 
-
+\setcounter{tocdepth}{1} %Geen subsections in table of contents
 %\AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{plain}}} 
 
 \newcommand{\R}{\mathbb{R}}

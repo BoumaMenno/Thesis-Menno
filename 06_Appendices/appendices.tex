@@ -31,9 +31,11 @@ In this section the discrete event sets $D$ are defined. When the state or input
 \textbf{Recap each paragraph using section $D$ and mentioning $\gamma$'s again.}
 
 \textbf{Open to stick/slip}\\
-When a contact point is "open", it can trigger a guard function $\gamma$ to go from open to closed.
+When a contact point is "open", it can trigger a guard function $\gamma_{\text{op}\rightarrow\text{cl}}$ to go from open to closed. This guard is defined using the contact distance $h_{n,i_c}$. When $h_{n,i_c}>0$, the contact point is in open-contact. When $h_{n,i_c}=0$ with $\dot{h}_{n,i_c}<0$, the contact point enters the closed-contact mode with a non-zero ante-impact velocity. Therefore the guard function $\gamma_{\text{op}\rightarrow\text{cl}}$ is given by
 
-\textbf{DEFINITION OF $\gamma$}
+\begin{align}
+\gamma_{\text{op}\rightarrow\text{cl}} = h_{n,i_c}(\qb).
+\end{align}
 
 The plane that spans $\gamma = 0$ is divided in two regions: a region where the post-impact state is in slip and a region where the post-impact state is in stick. This region is defined by $\Gamma_{i_c}$, where $\Gamma_{i_c}<0$ in the region where the contact point goes to slip and $\Gamma_{i_c} > 0$ in the region where the contact point goes to stick. When $\Gamma_{i_c} = 0$ the system is right at the border between a slip post-impact state and a stick post-impact state. This is illustrated in Figure~\ref{fig:guardopcl}. 
 \begin{figure}[H]
@@ -189,7 +191,7 @@ Using \eqref{eq:applambdastick} the guard function \eqref{eq:appguardstsl} is de
 \subsection{Discrete dynamics derivation}
 In this section the discrete dynamics are defined, describing the state reinitialization when a discrete event set is entered. These dynamics are defined by a jump map $\gb$, which is defined differently for each post-event mode.
 
-\textbf{Slip post-impact mode}\\
+\textbf{Slip post-impact mode} $\dot{\qb}^+ = \gb_{\rightarrow\text{sl}}(\dot{\qb}^-)$\\
 The discrete dynamics of a transition with a slip post-impact mode are given by
 \begin{align}
 &\Mb[\dot{\qb}^+ - \dot{\qb}^-] = \Wb_{n}\Lambdab_{n} + \Wb_{t}\Lambdab_{t},\label{eq:appdiscslip1}\\
@@ -202,15 +204,15 @@ with $\Zb^{-}_{t}$ defined as in \eqref{eq:appZt} using the unit vector of the a
 \end{align}
 and expression for $\Lambdab_n$ can be found by substituting this into \eqref{eq:appdiscslip2}, which is
 \begin{align}
-\Lambdab_{n} = -\left[\Wb^T_{n}\Mb^{-1}\Wb_{n}- \mu\Wb^T_{n}\Mb^{-1}\Wb_{t}\Zb^-_{t}\right]^{-1}\Wb^T_{n}\dot{\qb}^-,\label{eq:appLambdanstick}
+\Lambdab_{n} = -\left[\Wb^T_{n}\Mb^{-1}\Wb_{n}- \mu\Wb^T_{n}\Mb^{-1}\Wb_{t}\Zb^-_{t}\right]^{-1}\Wb^T_{n}\dot{\qb}^-,\label{eq:appLambdanslip}
 \end{align}
-The jump map $\dot{\qb}^+ = \gb_{\rightarrow\text{sl}}(\dot{\qb}^-)$ is then found by substituting \eqref{eq:appLambdanstick} into \eqref{eq:appqdotplusslip1},
+The jump map $\dot{\qb}^+ = \gb_{\rightarrow\text{sl}}(\dot{\qb}^-)$ is then found by substituting \eqref{eq:appLambdanslip} into \eqref{eq:appqdotplusslip1},
 \begin{align}
 \dot{\qb}^+ = -\left[\Mb^{-1}\Wb_{n} - \mu\Mb^{-1}\Wb_{t}\Zb^-_{t}\right]\left[\Wb^T_{n}\Mb^{-1}\Wb_{n}- \mu\Wb^T_{n}\Mb^{-1}\Wb_{t}\Zb^-_{t}\right]^{-1}\Wb^T_{n}\dot{\qb}^- + \dot{\qb}^-.\label{eq:appgslip}
 \end{align}
 Note that when there is a transition from stick to slip, i.e., there is no impact, the post-event velocity is $\dot{\qb}^+ = \dot{\qb}^-$.
 
-\textbf{Stick post-impact mode}\\
+\textbf{Stick post-impact mode} $\dot{\qb}^+ = \gb_{\rightarrow\text{st}}(\dot{\qb}^-)$\\
 The discrete dynamics of a transition with a stick post-impact mode are given by
 \begin{align}
 &\Mb[\dot{\qb}^+ - \dot{\qb}^-] = \Wb_{n}\Lambda_{n} + \Wb_{t}\Lambdab_{t},\label{eq:appdiscstick1}\\
@@ -245,7 +247,7 @@ Substituting $\Lambdab_{n}$ and $\Lambdab_{t}$ into \eqref{eq:appqdotplusstick1}
 \end{align}
 Similarly to the stick to slip case, note that when there is a transition from slip to stick the post-event velocity is $\dot{\qb}^+ = \dot{\qb}^-$.
 
-\textbf{Open-contact post-impact mode}\\
+\textbf{Open-contact post-impact mode} $\dot{\qb}^+ = \gb_{\rightarrow\text{op}}(\dot{\qb}^-)$\\
 The discrete dynamics of a transition with a slip post-impact mode are given by
 \begin{align}
 &\Mb(\dot{\qb}^+ - \dot{\qb}^-) = 0.\label{eq:appdiscopen}
