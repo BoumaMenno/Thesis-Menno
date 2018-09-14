@@ -107,9 +107,17 @@ Coulomb's friction law is often used to describe dry friction in mechanical syst
 \end{align}
 and since friction is considered isotropic
 \begin{align}
-\zetab_{t,i_c} = -\kappa_{i_c}\frac{\lambdab_{t,i_c}}{||\lambdab_{t,i_c}||}.\label{eq:frictiondir}
+\zetab_{t,i_c} = -\kappa_{i_c}\SgnSp(\lambdab_{t,i_c}),\label{eq:frictiondir}
 \end{align}
-with $\kappa_{i_c}>0$.
+with $\kappa_{i_c}>0$ and
+\begin{equation}
+\SgnSp(a) = \left\lbrace\begin{array}{ll}
+\frac{a}{||a||} & a \neq 0\\
+0 & a = 0
+\end{array},\right.
+\end{equation}
+
+for a vector $a$ as defined in \cite{Studer2006}.
 
 \eqref{eq:frictionlen} can be considered as a relation between the magnitude of the tangential velocity $\zetab_{t,i_c}$ and the reaction friction force $\lambdab_{t,i_c}$. \eqref{eq:frictiondir} can be considered as a relation between the direction of $\zetab_{t,i_c}$ and $\lambdab_{t,i_c}$, namely that $\zetab_{t,i_c}$ and $\lambdab_{t,i_c}$ are always in opposite directions. The constant $\kappa_{i_c}$ can then be interpreted as the magnitude of the tangential velocity. Coulomb's friction law is illustrated in Figure~\ref{fig:coulombfriction}. In Figure~\ref{fig:coulombort} the same law is illustrated, but now as orthogonal vectors. As noticed earlier, this is convenient for writing the law in a complementarity form.
 
@@ -130,7 +138,7 @@ The complementarity formulation of the Coulomb's law is therefore defined as
 
 \begin{align}
 &0\leq \left(\mu\lambda_{n,i_c} - ||\lambdab_{t,i_c}||\right)\ \bot\ \kappa_{i_c} \geq 0,\label{eq:coulomb1}\\
-&||\lambdab_{t,i_c}||\zetab_{t,i_c} = -\kappa_{i_c}\lambdab_{t,i_c}.\label{eq:coulomb2}
+&\zetab_{t,i_c} = -\kappa_{i_c}\SgnSp(\lambdab_{t,i_c}).\label{eq:coulomb2}
 \end{align}
 
 \eqref{eq:frictiondir} is rewritten to \eqref{eq:coulomb2} to avoid singularity problems for $||\lambdab_{t,i_c}|| = 0$. For the impulsive behavior of the friction law Newton's impact law is used to define the tangential post-impact velocity as
@@ -140,7 +148,7 @@ The complementarity formulation of the Coulomb's law is therefore defined as
 where in this work $e_{t,i_c}=0$ is assumed. Then, similarly to the non-impulsive case, the impulsive Coulomb's friction law can be defined as
 \begin{align}
 &0 \leq (\mu\Lambda_{n,i_c} - ||\Lambdab_{t,i_c}||)\ \bot\ \kappa_{i_c} \geq 0. \qquad \forall i_c\in\Ic_{\text{cl}},\label{eq:coulombimp1}\\
-&||\Lambdab_{t,i}||\zetab_{t,i_c}^+ = \kappa_{i_c}\Lambdab_{t,i_c},\qquad \forall i_c\in\Ic_{\text{cl}}.\label{eq:coulombimp2}
+&\zetab_{t,i_c}^+ = \kappa_{i_c}\SgnSp(\Lambdab_{t,i_c}),\qquad \forall i_c\in\Ic_{\text{cl}}.\label{eq:coulombimp2}
 \end{align}
 Note that just as the contact case, the impulsive friction law only holds for closed contacts.
 \subsection{System dynamics with contact and friction law}
@@ -149,7 +157,7 @@ The flow dynamics are then described by
 &\Mb(\qb)\dot{\xib} + \Hb(\qb,\xib) = \Sb(\qb)\ub + \sum_{i_c\in\Ic_{\text{cl}}}\left(\wb_{n,i_c}(\qb)\lambda_{n,i_c} + \Wb_{t,i_c}(\qb)\lambdab_{t,i_c} \right), \label{eq:ncpcontact1}\\
 &0\leq h_{n,i_c}\ \bot\ \lambda_{n,i_c} \geq 0,\label{eq:ncpcontact2}\\
 &0\leq \left(\mu\lambda_{n,i_c} - ||\lambdab_{t,i_c}||\right)\ \bot\ \kappa_{i_c} \geq 0,\label{eq:ncpcontact3}\\
-&||\lambdab_{t,i_c}||\zetab_{t,i_c} = -\kappa_{i_c}\lambdab_{t,i_c},\label{eq:ncpcontact4}
+&\zetab_{t,i_c} = -\kappa_{i_c}\SgnSp(\lambdab_{t,i_c}),\label{eq:ncpcontact4}
 \end{align}
 with 
 \begin{align}
@@ -162,7 +170,7 @@ The discrete dynamics, which take place when a contact point goes through an eve
 &\Mb(\qb)(\xib^+ - \xib^-) = \sum_{i_c\in\Ic_{\text{cl}}}\left( \wb_{n,i_c}(\qb)\Lambda_{n,i_c} + \Wb_{t,i_c}(\qb)\Lambdab_{t,i_c}\right), \label{eq:ncpimpact1}\\
 &0\leq \zeta_{n,i_c}^+\ \bot\ \Lambda_{n,i_c} \geq 0, \qquad \forall i_c\in\Ic_{\text{cl}},\label{eq:ncpimpact2}\\
 &0 \leq (\mu\Lambda_{n,i_c} - ||\Lambdab_{t,i_c}||)\ \bot\ \kappa_{i_c} \geq 0. \qquad \forall i_c\in\Ic_{\text{cl}},\label{eq:ncpimpact3}\\
-&||\Lambdab_{t,i_c}||\zetab_{t,i_c}^+ = -\kappa_i\Lambdab_{t,i_c},\qquad \forall i_c\in\Ic_{\text{cl}},\label{eq:ncpimpact4}
+&\zetab_{t,i_c}^+ = -\kappa_i\SgnSp(\Lambdab_{t,i_c}),\qquad \forall i_c\in\Ic_{\text{cl}},\label{eq:ncpimpact4}
 \end{align}
 with 
 \begin{align}
@@ -293,7 +301,7 @@ The closed contact points in $\Ic_{\text{cl}}$ experience reaction forces $\lamb
 \begin{equation}
 \begin{array}{ll}
 \wb^T_{n,i_c}(\qb)\ddot{\qb} + \dot{\wb}^T_{n,i_c}(\qb)\dot{\qb} = 0, & \forall i_c\in\Ic_{\text{cl}},\\
-\lambdab_{t,i_c}||\Wb_{t,i_c}^T\dot{\qb}|| + \mu\lambda_{n,i_c}\Wb_{t,i_c}^T\dot{\qb} = 0, & \forall i_c\in\Ic_{\text{sl}},\\
+\lambdab_{t,i_c} + \mu\lambda_{n,i_c}\SgnSp(\Wb_{t,i_c}^T\dot{\qb}) = 0, & \forall i_c\in\Ic_{\text{sl}},\\
 \Wb^T_{t,i_c}(\qb)\ddot{\qb} + \dot{\Wb}^T_{t,i_c}(\qb)\dot{\qb} = 0, & \forall i_c\in\Ic_{\text{st}},
 \end{array}\label{eq:fcontconst}
 \end{equation}
@@ -302,6 +310,7 @@ where $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$ are the sets of closed contacts in
 \subsection{Discrete event sets}\label{sec:2event}
 When the continuous dynamics enter an event set $D$, an event will take place. Such an event can cause a contact point to enter a different set, which will lead to different post-event continuous dynamics, and it can cause the state to reinitialize according to the discrete dynamics presented in Section~\ref{sec:2discdyn}. For each set of contact points these sets are defined differently. In this section the sets $D$ are defined for each set of contact points. The derivation of the discrete event sets can be found in Appendix~\ref{app:hybrid}.
 
+\textbf{DONT SEPARATE, CREATE ONE DEFINITION WHERE YOU ITERATE OVER ALL POSSIBILITIES UNTIL ONE COMBINATION OF CONTACT POINT MODES IS FEASIBLE}\\
 \textbf{Discrete events sets in open contact} $D_{\text{op}\rightarrow}$\\
 For all contact points $i_c\in\Ic_{\text{op}}$ the discrete event sets are defined as
 \begin{align}
@@ -313,24 +322,6 @@ with
 \gamma_{\text{op}\rightarrow\text{cl}} &= h_{n,i_c}(\qb),\\
 \Gamma &= \mu^2\underline{\Lambda}^2_{n,i_c}(\qb,\dot{\qb})-\underline{\Lambdab}_{t,i_c}(\qb,\dot{\qb})\underline{\Lambdab}^T_{t,i_c}(\qb,\dot{\qb}).
 \end{align}
-The contact distance $h_{n,i_c}(\qb)$ is given by 
-\begin{align}
-h_{n,i_c}(\qb) = \wb_{n,i_c}^T(\qb)\qb,
-\end{align}
-and the virtual impulsive reaction force are determined by
-\begin{align}
-\begin{bmatrix}
-\underline{\Lambda}_{n}\\
-\underline{\Lambdab}_{t}
-\end{bmatrix} = - \Db^{-1}\begin{bmatrix}
-\zeta_{n}\\
-\zetab_{t}
-\end{bmatrix},\quad \text{with } \Db = \begin{bmatrix}
-\Wb_{n}^T\Mb^{-1}\Wb_{n} & \Wb_{n}^T\Mb^{-1}\Wb_{t} \\
-\Wb_{t}^T\Mb^{-1}\Wb_{n} & \Wb_{t}^T\Mb^{-1}\Wb_{t}
-\end{bmatrix},\label{eq:Lambdaimpact}
-\end{align}
-where $\Db$ is often called the Delassus-matrix. For the definition of $\Gamma$ the virtual reaction forces $\underline{\Lambda}_{n,i}$ and $\underline{\Lambdab}_{t,i}$ are used, because their value is not physically realistic everywhere on the manifold where $\Gamma$ is defined. More information on the derivation of these virtual reaction forces can be found in Section~\ref{app:hybriddisc}.
 
 \textbf{Discrete events sets in closed contact slip} $D_{\text{sl}\rightarrow}$\\
 For all contact points $i_c\in\Ic_{\text{sl}}$ the discrete event sets are defined as
@@ -342,23 +333,6 @@ with
 \begin{align}
 \gamma_{\text{sl}\rightarrow\text{st}} &= \zetab_{t,i_c}\zetab_{t,i_c}^T\\
 \gamma_{\text{cl}\rightarrow\text{op}} &= \lambda_{n,i_c}.
-\end{align}
-The tangential velocity $\zetab_{t,i_c}$ is given by 
-\begin{align}
-\zetab_{t} = \Wb_{t}^T\qb,
-\end{align}
-and the reaction normal force in slip is given by
-\begin{align}
-&\lambdab_{n} = -\left[\Wb^T_{n}\Mb^{-1}\left(\Wb_{n} - \mu\Wb_{t}\Zb_{t}\right)\right]^{-1}\Wb^T_{n}\Mb^{-1}\left[\Sb\ub - \Hb\right] - \dot{\Wb}^T_{n}\dot{\qb},
-\end{align}
-with 
-\begin{align}
-\Zb_{t} = \begin{bmatrix}
-\langle\zetab_{t,i_1}\rangle & \mathbf{0} & \cdots & \mathbf{0}\\
-\mathbf{0} & \langle\zetab_{t,i_2}\rangle & \cdots & \mathbf{0}\\
-\vdots & \vdots & \ddots & \vdots\\
-\mathbf{0} & \mathbf{0} & \cdots & \langle\zetab_{t,i_C}\rangle
-\end{bmatrix}.\quad\in\Rbb^{2C \times C}
 \end{align}
 
 \textbf{Discrete events sets in closed contact stick} $D_{\text{st}\rightarrow}$\\
@@ -372,62 +346,28 @@ with
 \gamma_{\text{st}\rightarrow\text{sl}} &= \mu^2\lambda_{n,i_c}^2-\lambdab_{t,i_c}\lambdab_{t,i_c}^T\\
 \gamma_{\text{cl}\rightarrow\text{op}} &= \lambda_{n,i_c}.
 \end{align}
-The tangential and normal reaction forces in stick are given by
-
-\begin{align}
-\begin{bmatrix}
-\lambdab_{n}\\
-\lambdab_{t}
-\end{bmatrix} = - \Db^{-1}\begin{bmatrix}
-\Wb_{n}^T\Mb^{-1}\left[\Sb\ub - \Hb\right] -\dot{\Wb}^T_{n}\dot{\qb}\\
-\Wb_{t}^T\Mb^{-1}\left[\Sb\ub - \Hb\right] -\dot{\Wb}^T_{t}\dot{\qb}
-\end{bmatrix},\label{eq:lambdastick}
-\end{align}
-with $\Db$ defined as in \eqref{eq:Lambdaimpact}.
 
 \subsection{Discrete dynamics}\label{sec:2discdyn}
 When a discrete event set $D$ is entered, the discrete dynamics describe the reinitialization of the state. The discrete dynamics are defined by a jump map $\gb$. Since there are three different modes for each contact point, three different discrete dynamics functions should be defined: one for a reinitialization into slip, one for a reinitialization into stick and one for a reinitialization into open-contact.
 
+\textbf{DONT SEPARATE, CREATE ONE DEFINITION OF DISCRETE DYNAMICS WITH THE CONTACT POINTS IN DIFFERENT MODES}\\
 \textbf{Slip post-event mode} $\dot{\qb}^+ = \gb_{\rightarrow\text{sl}}(\dot{\qb}^-)$\\
-From the discrete dynamics, defined in \eqref{eq:ncpimpact1}-\eqref{eq:ncpimpact4}, an expression for $\Lambda_{n}$ and $\Lambda_{t}$ for a slip post-event mode can be found as
+From the impulsive dynamics \eqref{eq:ncpimpact1}-\eqref{eq:ncpimpact4}, the discrete dynamics of a transition with a slip post-impact mode can be derived as
 \begin{align}
-\Lambdab_{n} &= -\left[\Wb^T_{n}\Mb^{-1}\Wb_{n}- \mu\Wb^T_{n}\Mb^{-1}\Wb_{t}\Zb^-_{t}\right]^{-1}\Wb^T_{n}\dot{\qb}^-.\label{eq:Lambdanslip}\\
-\Lambdab_{t} &= -\mu\Zb^-_{t}\lambdab_{n},\label{eq:Lambdatslip}
+&\dot{\qb}^+ = \Mb^{-1}\left[\Wb_{n}\Lambdab_{n} + \Wb_{t}\Lambdab_{t}\right] + \dot{\qb}^-,\label{eq:discslip1}\\
+&\wb^T_{n,i_c}\dot{\qb}^+ = 0,\label{eq:discslip2}\\
+&\Lambdab_{t,i_c} = -\mu\Lambda_{n,i_c}\SgnSp(\zetab^-_{t,i_c}).\label{eq:discslip3}
 \end{align}
-with 
-\begin{align}
-\Zb_{t} = \begin{bmatrix}
-\langle\zetab^-_{t,i_1}\rangle & \mathbf{0} & \cdots & \mathbf{0}\\
-\mathbf{0} & \langle\zetab^-_{t,i_2}\rangle & \cdots & \mathbf{0}\\
-\vdots & \vdots & \ddots & \vdots\\
-\mathbf{0} & \mathbf{0} & \cdots & \langle\zetab^-_{t,i_C}\rangle
-\end{bmatrix},\quad\in\Rbb^{2C \times C}\label{eq:Ztminus}
-\end{align}
-where $\langle\zetab^-_{t}\rangle=\begin{bmatrix}\langle\zetab^-_{t,i_1}\rangle,\langle\zetab^-_{t,i_2}\rangle,...,\langle\zetab^-_{t,i_C}\rangle \end{bmatrix}^T$, with $\langle a\rangle$ the unit vector of $a$.
 
-The jump map $\dot{\qb}^+ = \gb_{\rightarrow\text{sl}}(\dot{\qb}^-)$ is then found by substituting \eqref{eq:Lambdanslip} and \eqref{eq:Lambdatslip} into \eqref{eq:ncpimpact1},
-\begin{align}
-\dot{\qb}^+ = -\left[\Mb^{-1}\Wb_{n} - \mu\Mb^{-1}\Wb_{t}\Zb^-_{t}\right]\left[\Wb^T_{n}\Mb^{-1}\Wb_{n}- \mu\Wb^T_{n}\Mb^{-1}\Wb_{t}\Zb^-_{t}\right]^{-1}\Wb^T_{n}\dot{\qb}^- + \dot{\qb}^-.\label{eq:gslip}
-\end{align}
+
 Note that when there is a transition from stick to slip, i.e., there is no impact, the post-event velocity is $\dot{\qb}^+ = \dot{\qb}^-$. The acceleration is allowed to jump, which means that in this case the state is continuous, but not differentiable. This is called a Filippov-discontinuity \cite{Filippov1988}.
 
 \textbf{Stick post-event mode} $\dot{\qb}^+ = \gb_{\rightarrow\text{st}}(\dot{\qb}^-)$\\
-$\Lambda_{n}$ and $\Lambda_{t}$ for a stick post-impact mode are given by
+The discrete dynamics of a transition with a stick post-impact mode are given by
 \begin{align}
-\begin{bmatrix}
-\Lambdab_{n}\\
-\Lambdab_{t}
-\end{bmatrix} = -\Db^{-1}\begin{bmatrix}
-\Wb^T_{n}\dot{\qb}^-\\
-\Wb^T_{t}\dot{\qb}^-
-\end{bmatrix},\quad \text{with } \Db = \begin{bmatrix}
-\Wb_{n}^T\Mb^{-1}\Wb_{n} & \Wb_{n}^T\Mb^{-1}\Wb_{t}\\
-\Wb_{t}^T\Mb^{-1}\Wb_{n} & \Wb_{t}^T\Mb^{-1}\Wb_{t}
-\end{bmatrix}.
-\end{align}
-$\Lambdab_{n}$ and $\Lambdab_{t}$ can now be used to define the jump map $\dot{\qb}^+ = \gb_{\rightarrow\text{st}}(\dot{\qb}^-)$ as
-\begin{align}
-\dot{\qb}^+ = \Mb^{-1}\Wb_{n}\Lambdab_{n} + \Mb^{-1}\Wb_{t}\Lambdab_{t} + \dot{\qb}^-.\label{eq:gstick}
+&\dot{\qb}^+ = \Mb^{-1}\Wb_{n}\Lambdab_{n} + \Mb^{-1}\Wb_{t}\Lambdab_{t} + \dot{\qb}^-,\label{eq:discstick1}\\
+&\wb^T_{n,i_c}\dot{\qb}^+ = 0,\label{eq:discstick2}\\
+&\Wb^T_{t,i_c}\dot{\qb}^+ = 0.\label{eq:discstick3}
 \end{align}
 Similarly to the stick to slip case, note that when the transition from slip to stick is also a Filippov-discontinuity.
 
