@@ -181,7 +181,7 @@ with
 \section{Hybrid system formulation}
 In this section the dynamics of the complementarity system defined in Section~\ref{sec:comp} is written to a hybrid formulation, resulting in a hybrid framework for mechanical systems with unilateral constraints and spatial friction. The hybrid system formulation only holds for trajectories where only the contact points activating a guard function are allowed to change mode, i.e. no superfluous contacts. More information on the considered trajectories in this work is given in Section~\ref{app:trajectories}.
 
-\subsection{Hybrid systems with impulsive effects}
+\subsection{Hybrid systems with impulsive effects}\label{sec:2hyb}
 According to \cite{Haddad2006} an impulsive dynamical system can be described by a hybrid system with impulsive effects. This makes it a valid framework for mechanical systems with unilateral constraints and spatial friction. The notation given in \cite{Haddad2006} is convenient from a tracking point-of-view, in that only the dynamics encountered during the trajectory need to be described. A hybrid system with impulsive effects consists of three elements:
 \begin{enumerate}
 \item Continuous dynamics, a continuous-time differential equation which defines the behavior of the system in between events
@@ -190,7 +190,6 @@ According to \cite{Haddad2006} an impulsive dynamical system can be described by
 \end{enumerate}
 
 Therefore, a hybrid system with impulsive effects is given by
-
 \begin{equation}
 \begin{array}{ll}
 \dot{\xb}(t,i) =\fb_i(\xb(t,i),\ub(t,i),t),& \xb(t,i),\ub(t,i)\notin D_i\\
@@ -267,12 +266,10 @@ When describing mechanical systems, we take
 where $\qb$ and $\dot{\qb}$ are the joint positions, velocities and accelerations respectively. As described in Section~\ref{sec:comp}, for mechanical systems a set of contact points $i_c\in\{i_1,i_2,...,i_C\}$ is defined. Here $C$ is the number of considered contact points. A set $\Ic_{\text{cl}}$ is defined as the set of closed contact points, such that a contact $i\in\Ic_{\text{cl}}$ has closed a unilateral constraint. The set of contact points in open contact is defined as $\Ic_{\text{op}} := \{i_c\ |\ i_c\notin\Ic_{\text{cl}}\}$. The set $\Ic_{\text{cl}}$ is subdivided in two subsets $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$, where $\Ic_{\text{sl}}$ is the set of closed contact points in slip and $\Ic_{\text{st}}$ the set of closed contact points in stick. Here $\Ic_{\text{cl}} =\Ic_{\text{sl}}\cup\Ic_{\text{st}}$ and $\Ic_{\text{sl}}\cup\Ic_{\text{st}}=\emptyset$. 
 
 The equations of motion, given in \eqref{eq:appcont1}, can be rewritten to
-
 \begin{align}
 \ddot{\qb} = \Mb^{-1}(\qb)\left[ \Sb(\qb)\ub - \Hb(\qb,\dot{\qb}) + \Wb_{n}(\qb)\lambdab_{n} + \Wb_{t}(\qb)\lambdab_{t}\right],\label{eq:qddot}
 \end{align}
 with
-
 \begin{align}
 \Wb_n &= \begin{bmatrix}
 \wb_{n,i_1},\wb_{n,i_2},...,\wb_{n,i_c}
@@ -287,17 +284,13 @@ with
 \lambdab_{t,i_1};\lambdab_{t,i_2};...;\lambdab_{t,i_C} 
 \end{bmatrix}\in\Rbb^{2C},
 \end{align}
-
 Note that since $\fb_i$ is only defined on $\xb(t,i),\ub(t,i)\notin D_i$, it is not necessary to use $\xib$ to define the equations of motion as done in \eqref{eq:appcont1}. Now $\fb_i$ can be written as
-
 \begin{align}
 \dot{\xb}(t,i) =\begin{bmatrix}
 \dot{\qb}\\ \Mb^{-1}(\qb)\left[ \Sb(\qb)\ub - \Hb(\qb,\dot{\qb}) + \Wb_{n}(\qb)\lambdab_{n} + \Wb_{t}(\qb)\lambdab_{t}\right]
 \end{bmatrix}.\label{eq:fcont}
 \end{align}
-
 The closed contact points in $\Ic_{\text{cl}}$ experience reaction forces $\lambda_{n,i_c}$ and $\lambdab_{t,i_c}$, as can be seen in \eqref{eq:qddot}. Therefore for all closed contact points $i_c\in\Ic_{\text{cl}}$ constraints are given which define these reaction forces. These constraints are given by
-
 \begin{equation}
 \begin{array}{ll}
 \wb^T_{n,i_c}(\qb)\ddot{\qb} + \dot{\wb}^T_{n,i_c}(\qb)\dot{\qb} = 0, & \forall i_c\in\Ic_{\text{cl}},\\
