@@ -10,7 +10,7 @@
 \chapter{Mechanical Systems with Unilateral Constraints and Spatial Friction}\label{ch:model}
 In this chapter several modeling approaches of mechanical systems with unilateral constraints and spatial friction are presented. First a general representation of such a system is given, which is followed by sections introducing several formulations of the contact and friction laws in these systems. First a complementarity problem formulation is given, which is a complete and often used formulation for mechanical systems with unilateral constraints. From the complementarity formulation a hybrid system formulation is derived, which although less complete is a more intuitive formulation from a control point-of-view.
 \section{General system definition}
-For mechanical systems a set of contact points $i_c\in\{i_1,i_2,...,i_C\}$ is defined, with $C$ being the number of considered contact points. A set $\Ic_{\text{cl}}$ is defined as the set of closed contact points, such that a contact $i_c\in\Ic_{\text{cl}}$ has closed a unilateral constraint. The set of contact points in open contact is defined as $\Ic_{\text{op}} := \{i_c\ |\ i_c\notin\Ic_{\text{cl}}\}$. When a unilateral constraint is activated at a nonzero velocity impact happens, meaning a jump in the velocity will appear. Therefore the generalized velocity $\dot{\qb}$ is not continuously defined over the entire domain of a trajectory with impacts. Therefore $\xib:=\dot{\qb}$ is defined, except at impact-times $\tau_i$. Here $i$ is a counter for unilateral constraint activations where $i\in \{1,2,...,N\}$, with $N$ the amount of jumps in a trajectory. $h_n$ is the normal contact distance and $\zeta_{n,i_c}$ and $\zetab_{t,i_c}$ represent the relative velocities in normal and tangential direction,  respectively. 
+For mechanical systems a set of contact points $i_c\in\{i_1,i_2,...,i_C\}$ is defined, with $C$ being the number of considered contact points. A set $\Ic_{\text{cl}}$ is defined as the set of $C_{\text{cl}}$ closed contact points, such that a contact $i_c\in\Ic_{\text{cl}}$ has closed a unilateral constraint. The set of contact points in open contact is defined as $\Ic_{\text{op}} := \{i_c\ |\ i_c\notin\Ic_{\text{cl}}\}$. When a unilateral constraint is activated at a nonzero velocity impact happens, meaning a jump in the velocity will appear. Therefore the generalized velocity $\dot{\qb}$ is not continuously defined over the entire domain of a trajectory with impacts. Therefore $\xib:=\dot{\qb}$ is defined, except at impact-times $\tau_i$. Here $i$ is a counter for unilateral constraint activations where $i\in \{1,2,...,N\}$, with $N$ the amount of jumps in a trajectory. $h_n$ is the normal contact distance and $\zeta_{n,i_c}$ and $\zetab_{t,i_c}$ represent the relative velocities in normal and tangential direction,  respectively. 
 
 In Figure~\ref{fig:contactplanes} a body and a fixed world surface are illustrated. A contact point $i_c$ is defined on the body, on which a plane tangent to the surface of the body is spanned. On the normal direction of this plane, the contact distance $h_{n,i_c}(\qb)$ is defined. This is the distance between the contact point and the surface that it can make contact with. By taking the time derivative of $h_{n,i_c}(\qb)$, the relative normal velocity of contact point $i_c$ is found to be
 \begin{align}
@@ -241,7 +241,7 @@ In \ref{fig:2example} an example trajectory of a block pushing towards a surface
 \begin{subfigure}[b]{\textwidth}   
 \centering 
 \includegraphics[width=.85\textwidth]{exampletraj1.eps}
-\caption{The state-trajectory of the system.}
+\caption{The state-trajectory of a block pushing towards a surface, then sliding across that surface and finally releasing from the surface.}
 \label{fig:2exampletraj}
 \end{subfigure}
 \caption{An example trajectory, which satisfies the dynamics \eqref{eq:hybimp}, of a block pushing towards and withdrawing from a surface with velocity $v$.  Note that the sets $D$ besides being dependent on $\xb$, are also dependent on $\ub$. Also, although not depicted in this image, the state space of the system varies with every event.}
@@ -339,35 +339,17 @@ with
 \end{align}
 
 \subsection{Discrete dynamics}\label{sec:2discdyn}
-When a contact point enters a discrete event set $D$, the system goes through an event. Since the state can be reinitialized during such an event, the event can cause other contact points to enter another mode as well. The reinitialization of the state and selection of a post-event mode is described by the discrete dynamics in this section. The reinitialization of te state is defined by a jump map $\gb$. Since it is unknown before an event what the post-event mode is, all possible modes should be iterated over until a feasible post-event mode is found.
+When a contact point enters a discrete event set $D$, the system goes through an event. Since the state can be reinitialized during such an event, the event can cause other contact points to enter another mode as well. The reinitialization of the state and selection of a post-event mode is described by the discrete dynamics in this section. The reinitialization of te state is defined by a jump map $\gb$. Since it is unknown before an event what the post-event mode is, all possible modes should be iterated over until a feasible post-event mode is found. In essence, this feasible post-event mode can be found by solving the NCP defined in Section~\ref{sec:comp}. This NCP generates a unique feasible solution \cite{Heemels1999}, which for simple systems can be found by iterating over all solutions until the feasible solution is found.
 
-\textbf{DONT SEPARATE, CREATE ONE DEFINITION OF DISCRETE DYNAMICS WITH THE CONTACT POINTS IN DIFFERENT MODES}\\
-\textbf{EXPLAIN THAT WE HAVE TO ITERATE OVER POST IMPACT MODES UNTIL WE FIND A FEASIBLE ONE. CITE DELASSUS (or someone else) THAT THERE IS ONLY ONE FEASIBLE POST IMPACT MODE.}
-\textbf{Slip post-event mode} $\dot{\qb}^+ = \gb_{\rightarrow\text{sl}}(\dot{\qb}^-)$\\
-From the impulsive dynamics \eqref{eq:ncpimpact1}-\eqref{eq:ncpimpact4}, the discrete dynamics of a transition with a slip post-impact mode can be derived as
+From the impulsive dynamics \eqref{eq:ncpimpact1}-\eqref{eq:ncpimpact4}, the discrete dynamics of a transition can be derived as
 \begin{align}
-&\dot{\qb}^+ = \Mb^{-1}\left[\Wb_{n}\Lambdab_{n} + \Wb_{t}\Lambdab_{t}\right] + \dot{\qb}^-,\label{eq:discslip1}\\
-&\wb^T_{n,i_c}\dot{\qb}^+ = 0,\label{eq:discslip2}\\
-&\Lambdab_{t,i_c} = -\mu\Lambda_{n,i_c}\SgnSp(\zetab^-_{t,i_c}).\label{eq:discslip3}
+&\dot{\qb}^+ = \Mb^{-1}\left[\Wb_{n}\Lambdab_{n} + \Wb_{t}\Lambdab_{t}\right] + \dot{\qb}^-, \label{eq:3discdyn1}\\
+&\wb^T_{n,i_c}\dot{\qb}^+ = 0, &\forall i_c\in\Ic_{\text{cl}},\label{eq:3discdyn2}\\
+&\Lambdab_{t,i_c} = -\mu\Lambda_{n,i_c}\SgnSp(\zetab^-_{t,i_c}), &\forall i_c\in\Ic_{\text{sl}},\label{eq:3discdyn3}\\
+&\Wb^T_{t,i_c}\dot{\qb}^+ = 0, &\forall i_c\in\Ic_{\text{st}},\label{eq:3discdyn4}
 \end{align}
 
-
-Note that when there is a transition from stick to slip, i.e., there is no impact, the post-event velocity is $\dot{\qb}^+ = \dot{\qb}^-$. The acceleration is allowed to jump, which means that in this case the state is continuous, but not differentiable. This is called a Filippov-discontinuity \cite{Filippov1988}.
-
-\textbf{Stick post-event mode} $\dot{\qb}^+ = \gb_{\rightarrow\text{st}}(\dot{\qb}^-)$\\
-The discrete dynamics of a transition with a stick post-impact mode are given by
-\begin{align}
-&\dot{\qb}^+ = \Mb^{-1}\Wb_{n}\Lambdab_{n} + \Mb^{-1}\Wb_{t}\Lambdab_{t} + \dot{\qb}^-,\label{eq:discstick1}\\
-&\wb^T_{n,i_c}\dot{\qb}^+ = 0,\label{eq:discstick2}\\
-&\Wb^T_{t,i_c}\dot{\qb}^+ = 0.\label{eq:discstick3}
-\end{align}
-Similarly to the stick to slip case, note that when the transition from slip to stick is also a Filippov-discontinuity.
-
-\textbf{Open-contact post-event mode} $\dot{\qb}^+ = \gb_{\rightarrow\text{op}}(\dot{\qb}^-)$\\
-In the open-contact post-event mode case there are no impulsive reaction forces, and it is trivial to see from \eqref{eq:ncpimpact1} that the jump map $\dot{\qb}^+ = \gb_{\rightarrow\text{op}}(\dot{\qb}^-)$ is given by
-\begin{align}
-\dot{\qb}^+ = \dot{\qb}^-.\label{eq:gopen}
-\end{align}
+Here the unknown variables are $\dot{\qb}^+\in\Rbb^{n}$, $\Lambdab_{n}\in\Rbb^{C_{\text{cl}}}$ and $\Lambdab_{t}\in\Rbb^{2C_{\text{cl}}}$, which means that there are $n+3C_{\text{cl}}$ unknown variables. From \eqref{eq:3discdyn1} we get $n$ equations, from \eqref{eq:3discdyn2} we get $C_{\text{cl}}$ equations and since $\Ic_{\text{sl}}\cup\Ic_{\text{st}}=\Ic_{\text{cl}}$ and $\Lambdab_{t,i_c},\ \Wb^T_{t,i_c}\dot{\qb}^+\in\Rbb^2$ we get $2C_{\text{cl}}$ equations from \eqref{eq:3discdyn3}, \eqref{eq:3discdyn4}.
 
 \section{Summary}
 
