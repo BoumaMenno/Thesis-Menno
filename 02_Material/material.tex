@@ -43,7 +43,7 @@ Here $\Lambda_{n,i_c}$ and $\Lambdab_{t,i_c}$ the normal and tangential impulsiv
 
 \section{Complementarity problem formulation}\label{sec:comp}
 \subsection{Signorini's contact law and Poisson's impact law}
-To describe the normal contact between rigid bodies Signorini's contact law is used. Since the bodies are impenetrable and reaction forces caused by contact can not prevent the bodies from seperating, both the contact distance $h_{n,i_c}$ and $\lambda_{n,i_c}$ can not become negative. Two situations are possible
+To describe the normal contact between rigid bodies Signorini's contact law is used. Since the bodies are impenetrable and reaction forces caused by contact cannot prevent the bodies from seperating, both the contact distance $h_{n,i_c}$ and $\lambda_{n,i_c}$ cannot become negative. Two situations are possible
 
 \begin{enumerate}
 \item $h_{n,i_c}=0\ \wedge\ \lambda_{n,i_c} \geq 0$ (closed-contact)
@@ -302,83 +302,89 @@ where $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$ are the sets of closed contacts in
 \subsection{Discrete event sets}\label{sec:2event}
 When the continuous dynamics enter an event set $D$, an event will take place. Such an event can cause a contact point to enter a different set. This will lead to different post-event continuous dynamics, and it can cause the state to reinitialize according to the discrete dynamics presented in Section~\ref{sec:2discdyn}. For each set of contact points these sets are defined differently. In this section the sets $D$ are defined for each set of contact points. The derivation of the discrete event sets can be found in Appendix~\ref{app:hybrid}.
 
-\textbf{Maybe organize by impulsive vs non-impulsive}
-
-\textbf{Discrete events sets in open contact} $D_{\text{op}\rightarrow}$\\
+\textbf{Discrete events sets in open contact}\\
 For all contact points $i_c\in\Ic_{\text{op}}$ the discrete event sets are defined as
 \begin{align}
-D_{\text{op}\rightarrow\text{sl}} &= \{ \qb\ |\ \gamma_{\text{op}\rightarrow\text{cl}} = 0,\ \dot{\gamma}_{\text{op}\rightarrow\text{cl}} < 0 \},\\
-D_{\text{op}\rightarrow\text{st}} &= \{ \qb\ |\ \gamma_{\text{op}\rightarrow\text{cl}} = 0,\ \dot{\gamma}_{\text{op}\rightarrow\text{cl}} < 0 \},
+D^{\text{op}\rightarrow\text{cl}}_{i_c} &= \{ \qb\ |\ \gamma^{\text{op}\rightarrow\text{cl}}_{i_c} = 0,\ \dot{\gamma}^{\text{op}\rightarrow\text{cl}}_{i_c} < 0 \},\label{eq:2Dopcl}
 \end{align}
 with
 \begin{align}
-\gamma_{\text{op}\rightarrow\text{cl}} &= h_{n,i_c}(\qb),
+\gamma^{\text{op}\rightarrow\text{cl}}_{i_c} &= h_{n,i_c}(\qb),
 \end{align}
+This event set leads to an impulsive event, which is described in Section~\ref{sec:2discdyn}.
 
-\textbf{Discrete events sets in closed contact slip} $D_{\text{sl}\rightarrow}$\\
+\textbf{Discrete events sets in closed contact slip}\\
 For all contact points $i_c\in\Ic_{\text{sl}}$ the discrete event sets are defined as
 \begin{align}
-D_{\text{sl}\rightarrow\text{st}} &= \{ \qb\ |\ \gamma_{\text{sl}\rightarrow\text{st}} = 0,\ \dot{\gamma}_{\text{sl}\rightarrow\text{st}} < 0\}\\
-D_{\text{sl}\rightarrow\text{op}} &= \{ \qb,\ub\ |\ \gamma_{\text{cl}\rightarrow\text{op}} = 0,\ \dot{\gamma}_{\text{cl}\rightarrow\text{op}} < 0\},
+D^{\text{sl}\rightarrow\text{st}}_{i_c} &= \{ \qb\ |\ \gamma^{\text{sl}\rightarrow\text{st}}_{i_c} = 0,\ \dot{\gamma}^{\text{sl}\rightarrow\text{st}}_{i_c} < 0\},\label{eq:2Dslst}\\
+D^{\text{sl}\rightarrow\text{op}}_{i_c} &= \{ \qb,\ub\ |\ \gamma^{\text{cl}\rightarrow\text{op}}_{i_c} = 0,\ \dot{\gamma}^{\text{cl}\rightarrow\text{op}}_{i_c} < 0\},\label{eq:2Dslop}
 \end{align}
 with 
 \begin{align}
-\gamma_{\text{sl}\rightarrow\text{st}} &= \zetab_{t,i_c}\zetab_{t,i_c}^T\\
-\gamma_{\text{cl}\rightarrow\text{op}} &= \lambda_{n,i_c}.
+\gamma^{\text{sl}\rightarrow\text{st}}_{i_c} &= \zetab_{t,i_c}\zetab_{t,i_c}^T\\
+\gamma^{\text{cl}\rightarrow\text{op}}_{i_c} &= \lambda_{n,i_c}.
 \end{align}
+These event sets lead to a non-impulsive event, which is described in Section~\ref{sec:2discdyn}.
 
-\textbf{Discrete events sets in closed contact stick} $D_{\text{st}\rightarrow}$\\
+\textbf{Discrete events sets in closed contact stick}\\
 For all contact points $i_c\in\Ic_{\text{st}}$ the discrete event sets are defined as
 \begin{align}
-D_{\text{st}\rightarrow\text{sl}} &= \{ \qb,\ub\ |\ \gamma_{\text{st}\rightarrow\text{sl}} = 0,\ \dot{\gamma}_{\text{sl}\rightarrow\text{st}} < 0\}\\
-D_{\text{st}\rightarrow\text{op}} &= \{ \qb,\ub\ |\ \gamma_{\text{cl}\rightarrow\text{op}} = 0,\ \dot{\gamma}_{\text{cl}\rightarrow\text{op}} < 0\},
+D^{\text{st}\rightarrow\text{sl}}_{i_c} &= \{ \qb,\ub\ |\ \gamma^{\text{st}\rightarrow\text{sl}}_{i_c} = 0,\ \dot{\gamma}^{\text{sl}\rightarrow\text{st}}_{i_c} < 0\},\label{eq:2Dstsl}\\
+D^{\text{st}\rightarrow\text{op}}_{i_c} &= \{ \qb,\ub\ |\ \gamma^{\text{cl}\rightarrow\text{op}}_{i_c} = 0,\ \dot{\gamma}^{\text{cl}\rightarrow\text{op}}_{i_c} < 0\},\label{eq:2Dstop}
 \end{align}
 with 
 \begin{align}
-\gamma_{\text{st}\rightarrow\text{sl}} &= \mu^2\lambda_{n,i_c}^2-\lambdab_{t,i_c}\lambdab_{t,i_c}^T\\
-\gamma_{\text{cl}\rightarrow\text{op}} &= \lambda_{n,i_c}.
+\gamma^{\text{st}\rightarrow\text{sl}}_{i_c} &= \mu^2\lambda_{n,i_c}^2-\lambdab_{t,i_c}\lambdab_{t,i_c}^T\\
+\gamma^{\text{cl}\rightarrow\text{op}}_{i_c} &= \lambda_{n,i_c}.
 \end{align}
+These event sets lead to a non-impulsive event, which is described in Section~\ref{sec:2discdyn}.
 
 \subsection{Discrete dynamics}\label{sec:2discdyn}
-When a contact point enters a discrete event set $D$, the system goes through an event. Since the state can be reinitialized during such an event, the event can cause other contact points to enter another mode as well. The reinitialization of the state and selection of a post-event mode is described by the discrete dynamics in this section. The reinitialization of te state is defined by a jump map $\gb$. Since it is unknown before an event what the post-event mode is, all possible modes should be iterated over until a feasible post-event mode is found. In essence, this feasible post-event mode can be found by solving the NCP defined in Section~\ref{sec:comp}. This NCP generates a unique feasible solution \cite{Delassus1917}, which for simple systems can be found by iterating over all solutions until the feasible solution is found.
+When a contact point enters a discrete event set $D$, the system goes through an event. Since the state can be reinitialized during such an event, the event can cause other contact points to enter another mode as well. The reinitialization of the state and selection of a post-event mode is described by the discrete dynamics in this section. The discrete dynamics for both impulsive and non-impulsive events are described in this section. Since it is unknown before an event what the post-event mode is, a mode selection algorithm is presented to find a feasible post-event mode. This feasible post-event mode can also be found by solving the NCP defined in Section~\ref{sec:comp}. This NCP generates a unique feasible solution \cite{Delassus1917}, which for simple systems can be found by iterating over all solutions until the feasible solution is found. The mode selection algorithm presented in this section will find the same unique feasible solution for the hybrid system.
 
-During a transition described by \eqref{eq:3discdyn1}-\eqref{eq:3discdyn4} the ante-impact position will always be equal to the post-impact position. The ante and post-event velocity can differ however. When $\dot{\qb}^+\neq\dot{\qb}^-$ one speaks of an impulsive discontinuity, and when $\dot{\qb}^+=\dot{\qb}^-$ one speaks of a Filippov-discontinuity. In the case of mechanical systems, a contact point making contact with a surface at non-zero velocity will result in an impulsive discontinuity. Other events (releasing and stick-slip transitions) will result in a Filippov-discontinuity. No impulsive forces are present at a Filippov-discontinuity, which is confirmed by \eqref{eq:3discdyn1} when $\dot{\qb}^+=\dot{\qb}^-$. One could also say that an impulsive discontinuity is defined on velocity level, and a Filippov-discontinuity is defined on acceleration level. Why the distinction between these two events is important will become clear during the "mode selection" part of the discrete dynamics, which is described in the next paragraph. \textbf{Should I prove that some events are impulsive and others Filippov, or can I claim this based on intuition?}
+\textbf{State reinitialization}\\
+During a transition triggered by \eqref{eq:2Dopcl}, the ante-impact position will always be equal to the post-impact position. The ante and post-event velocity can differ however. \textbf{Add that this is a result from adding friction and releasing.} When $\dot{\qb}^+\neq\dot{\qb}^-$ one speaks of an impulsive discontinuity, and when $\dot{\qb}^+=\dot{\qb}^-$ one speaks of a (non-impulsive) Filippov-discontinuity. In the case of mechanical systems, a contact point making contact with a surface at non-zero velocity will result in an impulsive discontinuity. Other events (releasing and stick-slip transitions) will result in a Filippov-discontinuity. No impulsive forces are present in a Filippov-discontinuity. One could also say that an impulsive discontinuity is defined on velocity level, and a Filippov-discontinuity is defined on acceleration level.
 
-\textbf{Impulsive events}\\
-From the impulsive dynamics \eqref{eq:ncpimpact1}-\eqref{eq:ncpimpact4}, the discrete dynamics of a transition can be derived as
+From the continuous dynamics \eqref{eq:ncpcontact1}-\eqref{eq:ncpcontact4}, the discrete dynamics of a non-impulsive event can be derived as
 \begin{align}
-&\dot{\qb}^+ = \Mb^{-1}\left[\Wb_{n}\Lambdab_{n} + \Wb_{t}\Lambdab_{t}\right] + \dot{\qb}^-, \label{eq:3discdyn1}\\
-&\wb^T_{n,i_c}\dot{\qb}^+ = 0, &\forall i_c\in\Ic_{\text{cl}},\label{eq:3discdyn2}\\
-&\Lambdab_{t,i_c} = -\mu\Lambda_{n,i_c}\SgnSp(\zetab^-_{t,i_c}), &\forall i_c\in\Ic_{\text{sl}},\label{eq:3discdyn3}\\
-&\Wb^T_{t,i_c}\dot{\qb}^+ = 0, &\forall i_c\in\Ic_{\text{st}},\label{eq:3discdyn4}
+\ddot{\qb}^+ &= \Mb^{-1}\left[\Sb\ub^+ - \Hb + \Wb_{n}\lambdab^+_{n} + \Wb_{t}\lambdab^+_{t}\right], &  \label{eq:2nonimp1}\\
+\wb^T_{n,i_c}\ddot{\qb}^+ + \dot{\wb}^T_{n,i_c}\dot{\qb}^+ &= 0, & \forall i_c\in\Ic_{\text{cl}},\label{eq:2nonimp2}\\
+\lambdab^+_{t,i_c} + \mu\lambda^+_{n,i_c}\SgnSp(\Wb_{t,i_c}^T\dot{\qb}^+) &= 0, & \forall i_c\in\Ic_{\text{sl}},\label{eq:2nonimp3}\\
+\Wb^T_{t,i_c}\ddot{\qb}^+ + \dot{\Wb}^T_{t,i_c}\dot{\qb}^+ &= 0, & \forall i_c\in\Ic_{\text{st}},\label{eq:2nonimp4}
 \end{align}
+where $\Mb$, $\Sb$, $\Hb$, $\wb_{n,i_c}$ and $\Wb_{t,i_c}$ are evaluated at the post-event state $\qb^+$ and state time-derivative $\dot{\qb}^+$. Here the unknown variables are $\ddot{\qb}^+\in\Rbb^{n}$, $\lambdab_{n}\in\Rbb^{C_{\text{cl}}}$ and $\lambdab_{t}\in\Rbb^{2C_{\text{cl}}}$, which means that there are $n+3C_{\text{cl}}$ unknown variables. From \eqref{eq:2nonimp1} we get $n$ equations, from \eqref{eq:2nonimp2} we get $C_{\text{cl}}$ equations and since $\Ic_{\text{sl}}\cup\Ic_{\text{st}}=\Ic_{\text{cl}}$, $\lambdab_{t,i_c}\in\Rbb^2$, and $\Wb^T_{t,i_c}\ddot{\qb}^+ + \dot{\Wb}^T_{t,i_c}\dot{\qb}^+ \in\Rbb^2$ we get $2C_{\text{cl}}$ equations from \eqref{eq:2nonimp3}-\eqref{eq:2nonimp4}. Since we have $n+3C_{\text{cl}}$ unknown variables and $n+3C_{\text{cl}}$ equations, the system is solvable.  
 
-Here the unknown variables are $\dot{\qb}^+\in\Rbb^{n}$, $\Lambdab_{n}\in\Rbb^{C_{\text{cl}}}$ and $\Lambdab_{t}\in\Rbb^{2C_{\text{cl}}}$, which means that there are $n+3C_{\text{cl}}$ unknown variables. From \eqref{eq:3discdyn1} we get $n$ equations, from \eqref{eq:3discdyn2} we get $C_{\text{cl}}$ equations and since $\Ic_{\text{sl}}\cup\Ic_{\text{st}}=\Ic_{\text{cl}}$ and $\Lambdab_{t,i_c},\ \Wb^T_{t,i_c}\dot{\qb}^+\in\Rbb^2$ we get $2C_{\text{cl}}$ equations from \eqref{eq:3discdyn3}-\eqref{eq:3discdyn4}. Since we have $n+3C_{\text{cl}}$ unknown variables and $n+3C_{\text{cl}}$ equations, the system is solvable. 
-
-\textbf{Non-impulsive events}\\
-
-
-
+From the impulsive dynamics \eqref{eq:ncpimpact1}-\eqref{eq:ncpimpact4}, the discrete dynamics of an impulsive event can be derived as
+\begin{align}
+\dot{\qb}^+ &= \Mb^{-1}\left[\Wb_{n}\Lambdab_{n} + \Wb_{t}\Lambdab_{t}\right] + \dot{\qb}^-, \label{eq:2imp1}\\
+\wb^T_{n,i_c}\dot{\qb}^+ &= 0, &\forall i_c\in\Ic_{\text{cl}},\label{eq:2imp2}\\
+\Lambdab_{t,i_c} + \mu\Lambda_{n,i_c}\SgnSp(\zetab^-_{t,i_c})&= 0, &\forall i_c\in\Ic_{\text{sl}},\label{eq:2imp3}\\
+\Wb^T_{t,i_c}\dot{\qb}^+ &= 0, &\forall i_c\in\Ic_{\text{st}}.\label{eq:2imp4}
+\end{align}
+This system has similar dimensions as the non-impulsive dynamics and is therefore also solvable.
 
 \textbf{Mode selection}\\
-The problem that remains is that it is not straightforward to know what system to solve. The system that should be solved to find the post-impact state is determined by the post-impact mode. When a contact point enters a discrete event set, and thus generates an infeasible state, it can be concluded that the system will go through an event because in it's current mode the system is infeasible. However, it is not guaranteed that the contact point which entered the event set will change mode. Actually any contact point, or even several contact points, can change in mode. As can be seen in \eqref{eq:3discdyn2}-\eqref{eq:3discdyn4} the constraints on the discrete dynamics change when the contact points vary in their post-impact mode.  To find the correct mode, the discrete dynamics \eqref{eq:3discdyn1}-\eqref{eq:3discdyn4} should be solved for several modes until a feasible post-impact state is found. Since there are $C$ contact points $C^3$ different modes are possible, which means that at most the discrete dynamics should be solved $C^3$ times before the feasible post-impact state is found. A feasible post-impact state is a post-impact state solved for a certain set of $i_c$, such that the all corresponding guard functions are larger than 0. \textbf{$\leftarrow$ EXPLAIN MORE} As mentioned earlier, there will exist a unique post-impact mode where the system has a feasible post-impact state. This process used for mode selection is called the \textit{sweeping process} \cite[p. 117]{Brogliato1996}. 
+The problem that remains is that it is not straightforward to know which dynamics to solve, because the dynamics change as the post-impact mode changes. The dynamics that should be solved are the dynamics that correspond to the post-impact mode which generates a feasible post-impact state. When a contact point enters a discrete event set, and thus generates an infeasible state, it can be concluded that the system will go through an event because in it's current mode the system is infeasible. However, it is not guaranteed that the contact point which entered the event set will change their mode. Actually any contact point, or even several contact points, can change their mode. Therefore the dynamics should be solved for several modes, until a feasible post-event state is found. A feasible post-event state is a post-impact state solved for a certain set of modes of $i_c$, such that the all corresponding guard functions are in its unactivated state, i.e., all $\gamma$ for that mode should be greater than zero. As mentioned earlier, there will exist a unique post-impact mode where the system has a feasible post-impact state. This process where a feasible post-event is found is called \textit{mode selection}.
 
-During this process it is important to realize at which level the guard functions are defined. A distinction can be made between guards defined at position level, guards defined at velocity level and guards defined at acceleration level. A guard function defined on position level does not change value when different discrete dynamics are solved. As can be seen in \eqref{eq:3discdyn1}, only the velocity is reinitialized during an event. This means that when an event is triggered, the event can not cause contact points to change mode based on a position-level guard function. An example of a position-level guard function is $\gamma_{\text{op}\rightarrow\text{cl}}$. When an event happens, a contact point cannot transition from open to closed as the position of the contact point is not updated through the discrete dynamics. For a guard-activation on velocity level a jump map on velocity level can cause the guard function to change value. Therefore, during an impulsive event all contact points can change mode based on velocity level guard functions. The same holds for acceleration level guard functions during an impulsive event. All velocity and acceleration level guard functions should be swept over. For a non-impulsive event, only the acceleration changes value. Therefore only acceleration level guard functions should be swept over during a non-impulsive event. This is summarized in Table~\ref{tab:sweeping}.
+A non-impulsive event is an event at acceleration level, as can be seen in \eqref{eq:2nonimp1}. This means that guard functions defined on acceleration level can change in value through non-impulsive events. If the guard function changes sign then the system is in an infeasible mode. The guard functions that determine the feasibility of a non-impulsive event are given by
+\begin{align}
+\gamma^{\text{cl}\rightarrow\text{op}}_{i_c}(\ddot{\qb}) &= \lambda_{n,i_c}, & \forall i_c\in\Ic_{\text{cl}},\\
+\gamma^{\text{st}\rightarrow\text{sl}}_{i_c}(\ddot{\qb}) &= \mu^2\lambda_{n,i_c}^2 - \lambdab_{t,i_c}\lambdab_{t,i_c}^T, & \forall i_c\in\Ic_{\text{st}},
+\end{align}
+with $\Ic_{\text{sl}}\cup\Ic_{\text{st}}=\Ic_{\text{cl}}$. When a guard function is larger than zero, it means that the corresponding contact point is experiencing feasible reaction forces. When all guard functions are greater than zero, it means that all contact points are experiencing feasible reaction forces and therefore the post-event mode is feasible. Note that the guard functions for contact points in open contact are undefined. This is unnecessary, because contact points in open contact can only activate guard functions defined at position level. Since the non-impulsive dynamics only update the acceleration, it is impossible for a contact point in open contact to change mode during an impulsive event. This also holds for the guard function from slip to stick, which is defined on velocity level. The guard functions given above are all defined on acceleration level, and therefore can change value during a non-impulsive event.
 
-\begin{table}[h]
-\caption{Summary of at what levels should be swept during impulsive and non-impulsive events.}\label{tab:sweeping}
-\begin{tabular}{l|ccc}
-\textbf{Event} & \textbf{Position Sweeping} & \textbf{Velocity Sweeping} & \textbf{Acceleration Sweeping} \\ \hline
-Impulsive      &                            & $\boldsymbol{\times}$                   & $\boldsymbol{\times}$                       \\
-Non-impulsive  &                            &                            & $\boldsymbol{\times}$                      
-\end{tabular}
-\end{table}
+An impulsive event is an event at velocity level. This means that guard functions defined at velocity level can change value, and therefore sign, during an impulsive event. The guard functions that determine the feasibility in an impulsive event are
+\begin{align}
+\Gamma^{\text{cl}\rightarrow\text{op}}_{i_c}(\dot{\qb}) &= \Lambda_{n,i_c},\\
+\Gamma^{\text{sl}\rightarrow\text{st}}_{i_c}(\dot{\qb}) &= \zetab_{t,i_c}\zetab_{t,i_c}^T,\\
+\Gamma^{\text{st}\rightarrow\text{sl}}_{i_c}(\dot{\qb}) &= \mu^2\Lambda_{n,i_c}^2 - \Lambdab_{t,i_c}\Lambdab_{t,i_c}^T.
+\end{align}
+Again, contact points in open contact can only activate position level guard and therefore need not to be considered. That the post-event state that is a result from the impulsive event is determined on velocity level, also means that the acceleration is free in this case. That means that the post-event accelerations of an impulsive event can instantly trigger a non-impulsive event guard. The post-event mode therefore should instantly go through a non-impulsive mode selection to find the correct post-event mode. This is illustrated in Figure~\ref{fig:2eventflowchart}.
 
-Since only contact points closing contact can generate impulsive forces, impulsive events only happen when $\gamma_{\text{op}\rightarrow\text{cl}}$ is activated. This is convenient, because $\gamma_{\text{op}\rightarrow\text{cl}}$ is defined on position level. Therefore sweeping has no effect on whether an event is impulsive or not, and one knows based on the activated guard function over which guard functions should be swept. As can be seen in Table~\ref{tab:sweeping}, when $\gamma_{\text{op}\rightarrow\text{cl}}$ is activated (impulsive event) sweeping should be done on velocity and acceleration level. When other guard functions are activated (non-impulsive) sweeping should be done only on acceleration level.
-
-The sweeping process is now demonstrated with an example. Let's consider the segments $\alphab(t,0)$ and $\alphab(t,1)$ from Figure~\ref{fig:2exampletraj}. The system enters event set $D_1$ by activating $\gamma_{\text{op}\rightarrow\text{cl}}$, which indicates an infeasible state and that an impulsive event is triggered. One should therefore sweep over all possible velocity and acceleration guards. For contact point $i_1$ only a position level guard can be activated, from which can be concluded that this contact point will stay in the same mode. The contact point that is going through an open to closed transition
-
-\textbf{Image of event $\rightarrow$ event and where sweeping should be used}
+\begin{figure}[h]
+\centering
+\includegraphics[width=.6\textwidth]{eventflowchart.eps}\caption{The flowchart that describes the dynamics that should be solved when a discrete event is activated. When a contact point transitions from open to closed contact, an impulsive event takes place. When a contact point goes through any other transition, a non-impulsive event takes place.} \label{fig:2eventflowchart}
+\end{figure}
 
 \section{Summary}
 
