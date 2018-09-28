@@ -27,6 +27,7 @@
 \usepackage{textcomp}
 \usepackage{hyperref}
 \usepackage{amsmath,booktabs,cite,amssymb,bm,soul}
+\usepackage{amsthm}
 \usepackage{esvect}
 \usepackage{fancyhdr}
 \usepackage{float}
@@ -60,20 +61,11 @@
 \setlength{\TPHorizModule}{1mm}
 \setlength{\TPVertModule}{\TPHorizModule}
 % use option [showboxes] to package textpos to draw the box
-
 \definecolor{myblue}{rgb}{0,0,0.4}
 
-
-
-%\usepackage[pdftex]{hyperref}
-     %options for hyperref (hypersetup)
-%    \hypersetup{bookmarksopen=true}
-%    \hypersetup{bookmarksopenlevel=3}
-%    \hypersetup{bookmarks=true}
-%    \hypersetup{colorlinks=true,citecolor=blue,filecolor=black,linkcolor=myblue,urlcolor=blue}
-%    \hypersetup{pdffitwindow=false}
-%    \hypersetup{pdftoolbar=true}
-%    \hypersetup{pdfmenubar=false}
+% define Definition and Assumptions
+\newtheorem{mydef}{Definition}
+\newtheorem{myass}{Assumption}
 
 %% fixing the standard latex indentation style on new alinea.
 \setlength{\parskip}{1ex}
@@ -117,20 +109,10 @@
 }
 
 \usepackage{epsfig}   % To include Matlab figures
-%\usepackage{arydshln} % Dashed lines
-%\usepackage{wasysym}  % Diameter symbol
 \usepackage{graphicx} % To be able to edit graphics
 \usepackage{multirow} % to be able to use merged cells in tables
 \usepackage[latin1]{inputenc} % to be able to type things like é, ä, ù and ê.
 \usepackage{cite}
-
-% To include a PDF-file to Latex
-% \includegraphics{myfig.pdf}
-% \includegraphics[width=60mm]{myfig.png}
-% \includegraphics[height=60mm]{myfig.jpg}
-% \includegraphics[scale=0.75]{myfig.pdf}
-% \includegraphics[angle=45,width=52mm]{myfig.jpg}
-
 
 % Nicer lists
 \newenvironment{packed_item}{
@@ -140,23 +122,6 @@
   \setlength{\parskip}{0pt}
   \setlength{\parsep}{0pt}
 }{\end{itemize}}
-
-%\newenvironment{packed_enumerate}{
-%\begin{enumerate}
-%  \vspace*{0em}
-%  \setlength{\itemsep}{0pt}
-%  \setlength{\parskip}{0pt}
-%  \setlength{\parsep}{0pt}
-%}{\end{enumerate}}
-
-%\newenvironment{packed_enumerate2}{
-%\renewcommand{\labelenumi}{\Alph{enumi}}
-%\begin{enumerate}
-%  \vspace*{0em}
-%  \setlength{\itemsep}{0pt}
-%  \setlength{\parskip}{0pt}
-%  \setlength{\parsep}{0pt}
-%}{\end{enumerate}}
 
 % creating the fancy header
 \renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
