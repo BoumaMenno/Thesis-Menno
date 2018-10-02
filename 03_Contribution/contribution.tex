@@ -21,7 +21,7 @@ As presented in Section~\ref{sec:2hyb}, a mechanical system can be described by 
 \xb(t,i) = \gb_i(\xb(t,i-1),\ub(t,i-1),t),& \xb(t,i-1),\ub(t,i-1)\in D_i
 \end{array}\label{eq:3hybimp}
 \end{equation}
-where $\xb(t,i-1),\ub(t,i-1)\in D_i$ triggers the event $\xb(t,i) = \gb_i(\xb(t,i-1),\ub(t,i-1),t)$. The nominal trajectory of such a system is illustrated in Figure~\ref{fig:3perturbedtraj} in red. Now an initial state and input perturbation $\epsilon$ is introduced, which causes the state trajectory $\xb$ to differ from the reference trajectory $\alphab$. The goal is to write a control strategy, such that the perturbed state trajectory $\xb$ will converge to the reference trajectory $\alphab$. Although not made explicit, the state trajectory is also dependent on the initial state and input perturbation $\epsilon$, i.e., $\xb(t,i,\epsilon)$. This $\epsilon$ is left implicit in later uses of $\xb$.
+where $\xb(t,i-1),\ub(t,i-1)\in D_i$ triggers the event $\xb(t,i) = \gb_i(\xb(t,i-1),\ub(t,i-1),t)$. We refer to \eqref{eq:3hybimp} as a \textit{nonlinear state-input triggered hybrid system (NSITHS)}. The nominal trajectory of such a system is illustrated in Figure~\ref{fig:3perturbedtraj} in red. Now an initial state and input perturbation $\epsilon$ is introduced, which causes the state trajectory $\xb$ to differ from the reference trajectory $\alphab$. The goal is to write a control strategy, such that the perturbed state trajectory $\xb$ will converge to the reference trajectory $\alphab$. Although not made explicit, the state trajectory is also dependent on the initial state and input perturbation $\epsilon$, i.e., $\xb(t,i,\epsilon)$. This $\epsilon$ is left implicit in later uses of $\xb$.
 \begin{figure}[h]
 \centering
 \includegraphics[width=.8\textwidth]{perturbedtraj.eps}\caption{In orange the nominal (unperturbed) and in cyan the perturbed trajectory of a hybrid system with impulsive effects. Due to the perturbation in the cyan trajectory, a mismatch between the perturbed and the nominal event times arises.} \label{fig:3perturbedtraj}
@@ -35,13 +35,13 @@ For the nominal trajectory the state and input are known over the entire time-do
 \textbf{Stability definition from Rijnen2017, intuitive explantion of proof in Rijnen2017 that stability of LTTHS -> stability of NSITHS.} In the next section a solution to the peaking behavior is presented.
 
 \subsection{Reference-spreading}
-To avoid peaking behavior in the tracking error, in \cite{Saccon2014} a novel notion of error is presented which is named reference spreading in \cite{Rijnen2016}. This control strategy uses reference trajectories which are extended beyond event-times, such that an ante-event state trajectories can always be compared to an ante-event reference trajectory and a post-event state trajectories can always be compared to a post-event reference trajectory. This is illustrated in Figure~\ref{fig:3refspread}, where the reference trajectory segments $\alphab(t,i)$ are all extended resulting in $\overline{\alphab}(t,i)$. Each segment is defined over a domain $I^i_{\alphab} = [\tau_i,\tau_{i+1}]$, which together form the entire domain of $\alphab$ as
+To avoid peaking behavior in the tracking error, in \cite{Saccon2014} a novel notion of error is presented which is named reference spreading in \cite{Rijnen2016}. This control strategy uses reference trajectories which are extended beyond event-times, such that an ante-event state trajectories can always be compared to an ante-event reference trajectory and a post-event state trajectories can always be compared to a post-event reference trajectory. This is illustrated in Figure~\ref{fig:3refspread}, where the reference trajectory segments $\alphab(t,i)$ are all extended resulting in $\overline{\alphab}(t,i)$. The hybrid domain \cite{Goebel2009} of $\alphab$ is defined by segments $I^i_{\alphab} = [\tau_i,\tau_{i+1}]$, which together form the entire domain of $\alphab$ as
 \begin{align}
-I_{\alphab} = \bigcup^N_{i=0}I_{\alphab}^i.
+\dom\alphab = \bigcup^N_{i=0}I_{\alphab}^i.
 \end{align}
 Similarly the state segments $x(t,i)$ are defined on the domain $I^i_\xb = [t_i,t_{i+1}]$ with the entire domain defined as
 \begin{align}
-I_\xb = \bigcup^N_{i=0}I_{\xb}^i.
+\dom\xb = \bigcup^N_{i=0}I_{\xb}^i.
 \end{align}
 The domain of the extended reference trajectory segments is extended such that $I_{\xb}^i\subseteq I_{\overline{\alphab}}^i$.
 
@@ -63,8 +63,9 @@ In the lower plot of Figure~\ref{fig:3refspread} the domains of $\xb$, $\alphab$
 \end{figure}
 
 In the next section the error defined using reference spreading is used to make a first-order approximation of perturbed trajectories with ordered guard-activation.
-\section{First-order approximation of trajectories with ordered guard-activations}
 
+\section{First-order approximation of trajectories with ordered guard-activations}
+In \cite{Khalil1996} a sensitivity analysis is presented, where so-called sensitivity functions are used to provide first-order approximations of the effects of parameter variations on solutions. These sensitivity functions can also be used to approximate the solution under parameter variations, when the variations are close enough to zero. 
 
 Use Rijnen2017 alot
 \begin{itemize}
