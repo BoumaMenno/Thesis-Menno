@@ -1,0 +1,145 @@
+\begin{thenomenclature} 
+
+ \nomgroup{A}
+
+  \item [{$(.)_{\text{cl}}$}]\begingroup The closed-contact mode sub/superscript\nomeqref {2.1}
+		\nompageref{9}
+  \item [{$(.)_{\text{op}}$}]\begingroup The open-contact mode sub/superscript\nomeqref {2.1}
+		\nompageref{9}
+  \item [{$(.)_{\text{sl}}$}]\begingroup The slip-contact mode sub/superscript\nomeqref {2.1}
+		\nompageref{9}
+  \item [{$(.)_{\text{st}}$}]\begingroup The stick-contact mode sub/superscript\nomeqref {2.1}
+		\nompageref{9}
+  \item [{$o(.)$}]\begingroup Higher order terms\nomeqref {3.1}
+		\nompageref{22}
+  \item [{LTTHS}]\begingroup Linear Time Triggered Hybrid System\nomeqref {3.0}
+		\nompageref{21}
+  \item [{NCP}]\begingroup Nonlinear Complementarity Problem\nomeqref {2.51}
+		\nompageref{17}
+  \item [{NSITHS}]\begingroup Nonlinear State-Input Triggered Hybrid System\nomeqref {3.0}
+		\nompageref{21}
+  \item [{PHTTHS}]\begingroup Positively Homogeneous Time Triggered Hybrid System\nomeqref {4.0}
+		\nompageref{25}
+  \item [{RS}]\begingroup Reference-Spreading\nomeqref {3.0}
+		\nompageref{21}
+
+ \nomgroup{C}
+
+  \item [{$\iota$}]\begingroup The contact point counter\nomeqref {2.1}
+		\nompageref{9}
+  \item [{$i$}]\begingroup The macro-event counter\nomeqref {2.1}
+		\nompageref{9}
+  \item [{$j$}]\begingroup The classic hybrid-time event counter\nomeqref {4.0}
+		\nompageref{25}
+  \item [{$k$}]\begingroup The micro-event counter\nomeqref {4.0}
+		\nompageref{25}
+
+ \nomgroup{F}
+
+  \item [{$\Ab$}]\begingroup Linear state matrix\nomeqref {4.0}
+		\nompageref{25}
+  \item [{$\alphab$}]\begingroup The nominal reference trajectory\nomeqref {2.33}
+		\nompageref{14}
+  \item [{$\Bb$}]\begingroup Linear input matrix\nomeqref {4.0}
+		\nompageref{25}
+  \item [{$\Cb$}]\begingroup The column containing centripedal, Coriolis and gravitational effects\nomeqref {2.5}
+		\nompageref{10}
+  \item [{$\Db$}]\begingroup Delassus matrix\nomeqref {2.0}
+		\nompageref{9}
+  \item [{$\Delta$}]\begingroup The linearization of the perturbed event time around zero perturbation\nomeqref {3.1}
+		\nompageref{22}
+  \item [{$\fb$}]\begingroup A nonlinear continuous function\nomeqref {2.33}
+		\nompageref{14}
+  \item [{$\Gamma$}]\begingroup An impulsive guard function\nomeqref {2.33}
+		\nompageref{14}
+  \item [{$\gamma$}]\begingroup A flow guard function\nomeqref {2.33}
+		\nompageref{14}
+  \item [{$\gb$}]\begingroup A jump map\nomeqref {2.33}\nompageref{14}
+  \item [{$\Gb_{\vb,i}$}]\begingroup Positive homogeneous jump gain for the perturbed input direction\nomeqref {3.1}
+		\nompageref{22}
+  \item [{$\Gb_{\zb,i}$}]\begingroup Positive homogeneous jump gain for the perturbed state direction\nomeqref {3.1}
+		\nompageref{22}
+  \item [{$\Hb$}]\begingroup The positive homogeneous jump gain\nomeqref {4.0}
+		\nompageref{25}
+  \item [{$\Mb$}]\begingroup The mass matrix\nomeqref {2.5}
+		\nompageref{10}
+  \item [{$\mub$}]\begingroup The nominal reference input\nomeqref {2.33}
+		\nompageref{14}
+  \item [{$\Sb$}]\begingroup The matrix containing generalized directions of the actuator forces\nomeqref {2.5}
+		\nompageref{10}
+  \item [{$\wb_{n,\iota}$}]\begingroup The normal jacobian of contact point $\iota$\nomeqref {2.1}
+		\nompageref{9}
+  \item [{$\Wb_{t,\iota}$}]\begingroup The tangential jacobian of contact point $\iota$\nomeqref {2.1}
+		\nompageref{9}
+  \item [{$D$}]\begingroup A discrete event set\nomeqref {2.33}
+		\nompageref{14}
+
+ \nomgroup{P}
+
+  \item [{$\Ic$}]\begingroup A set of contact points\nomeqref {2.1}
+		\nompageref{9}
+  \item [{$\kappa_{\iota}$}]\begingroup Magnitude of the tangential velocity of contact point $\iota$\nomeqref {2.13}
+		\nompageref{12}
+  \item [{$\mu_{\iota}$}]\begingroup The friction coefficient of contact point $\iota$\nomeqref {2.12}
+		\nompageref{12}
+  \item [{$c$}]\begingroup The number of contact points\nomeqref {2.1}
+		\nompageref{9}
+  \item [{$c_i$}]\begingroup The event-character of macro-event $i$\nomeqref {4.0}
+		\nompageref{25}
+  \item [{$e_{n,\iota}$}]\begingroup \nomeqref {2.10}\nompageref{11}
+  \item [{$e_{t,\iota}$}]\begingroup \nomeqref {2.10}\nompageref{11}
+  \item [{$I$}]\begingroup Domain of a segment\nomeqref {3.2}
+		\nompageref{23}
+  \item [{$l_i$}]\begingroup The amount of simultaneous activations of macro-event $i$\nomeqref {4.0}
+		\nompageref{25}
+  \item [{$N$}]\begingroup The number of events\nomeqref {2.1}
+		\nompageref{9}
+
+ \nomgroup{V}
+
+  \item [{$(.)_{\epsilon}$}]\begingroup A variable dependent on the initial perturbation\nomeqref {3.1}
+		\nompageref{22}
+  \item [{$\chi$}]\begingroup The set of guard function identifiers of guards that can be activated\nomeqref {4.0}
+		\nompageref{25}
+  \item [{$\epsilon$}]\begingroup Initial state and input perturbation\nomeqref {3.1}
+		\nompageref{22}
+  \item [{$\eta$}]\begingroup A guard function identifier\nomeqref {4.0}
+		\nompageref{25}
+  \item [{$\Lambda_{n,\iota}$}]\begingroup The normal impulsive reaction force of contact point $\iota$\nomeqref {2.5}
+		\nompageref{10}
+  \item [{$\lambda_{n,\iota}$}]\begingroup The normal reaction force of contact point $\iota$\nomeqref {2.5}
+		\nompageref{10}
+  \item [{$\Lambdab_{t,\iota}$}]\begingroup The tangential impulsive reaction force of contact point $\iota$\nomeqref {2.5}
+		\nompageref{10}
+  \item [{$\lambdab_{t,\iota}$}]\begingroup The tangential reaction force of contact point $\iota$\nomeqref {2.5}
+		\nompageref{10}
+  \item [{$\qb$}]\begingroup The generalized coordinates\nomeqref {2.1}
+		\nompageref{9}
+  \item [{$\sigma_i$}]\begingroup The system-mode descriptor of event $i$\nomeqref {2.64}
+		\nompageref{19}
+  \item [{$\tau$}]\begingroup The nominal event time\nomeqref {2.1}
+		\nompageref{9}
+  \item [{$\ub$}]\begingroup The input\nomeqref {2.1}\nompageref{9}
+  \item [{$\vb$}]\begingroup The perturbed input direction\nomeqref {4.0}
+		\nompageref{25}
+  \item [{$\xb$}]\begingroup The state coordinates\nomeqref {2.1}
+		\nompageref{9}
+  \item [{$\xib$}]\begingroup The generalized coordinates defined on the continuous segments of a trajectory\nomeqref {2.1}
+		\nompageref{9}
+  \item [{$\zb$}]\begingroup The perturbed state direction\nomeqref {4.0}
+		\nompageref{25}
+  \item [{$\zeta_{n,\iota}$}]\begingroup Normal velocity of contact point $\iota$\nomeqref {2.1}
+		\nompageref{9}
+  \item [{$\zetab_{t,\iota}$}]\begingroup Tangential velocity of contact point $\iota$\nomeqref {2.1}
+		\nompageref{9}
+  \item [{$h_{n,\iota}$}]\begingroup Contact distance of contact point $\iota$\nomeqref {2.1}
+		\nompageref{9}
+  \item [{$S^k_i$}]\begingroup The historical notation of macro-event $i$ from micro-event $0$ up to $k$\nomeqref {4.0}
+		\nompageref{25}
+  \item [{$s^k_i$}]\begingroup The event-mode descriptor of macro-event $i$ and micro-event $k$\nomeqref {4.0}
+		\nompageref{25}
+  \item [{$t$}]\begingroup Regular time\nomeqref {2.1}\nompageref{9}
+  \item [{$t_i^k$}]\begingroup The perturbed event time of macro-event $i$ and micro-event $k$\nomeqref {4.0}
+		\nompageref{25}
+
+\end{thenomenclature}

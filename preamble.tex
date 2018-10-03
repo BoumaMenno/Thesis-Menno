@@ -57,6 +57,31 @@
 \usepackage{wrapfig}   % be able to put picture next to text
 \usepackage{xspace}    % check if a space is needed after \newcommand
 \usepackage[absolute]{textpos}
+
+% generate nomenclature
+\usepackage{nomencl}
+\makenomenclature
+
+\usepackage{xstring}
+\usepackage{xstring}
+\usepackage{xpatch}
+\patchcmd{\thenomenclature}
+  {\leftmargin\labelwidth}
+  {\leftmargin\labelwidth\itemindent 1em }
+  {}{}
+\newcommand{\nomenclheader}[1]{%
+  \item[\hspace*{-\itemindent}\normalfont\bfseries#1]}
+\renewcommand\nomgroup[1]{%
+  \IfStrEqCase{#1}{%
+   {V}{\nomenclheader{Variables}}%   V - Variables
+   {P}{\nomenclheader{Parameters}}% P - Parameters
+   {A}{\nomenclheader{Acronyms}}% A - Acronyms
+   {C}{\nomenclheader{Counters}}% A - Acronyms
+  }%
+} 
+\setlength{\nomitemsep}{1pt}
+\nomlabelwidth=30mm
+
 % textpos package arguments
 \setlength{\TPHorizModule}{1mm}
 \setlength{\TPVertModule}{\TPHorizModule}
