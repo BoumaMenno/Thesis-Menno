@@ -38,11 +38,11 @@ For the nominal trajectory the state and input are known over the entire time-do
 \end{figure}
 
 \textbf{Stability definition from Rijnen2017, intuitive explantion of proof in Rijnen2017 that stability of LTTHS -> stability of NSITHS.} In the next section a solution to the peaking behavior is presented.
-\nomenclature[F]{$\Delta$}{The linearization of the perturbed event time around zero perturbation}%
+\nomenclature[V]{$\Delta$}{The linearization of the perturbed event time around zero perturbation}%
 \nomenclature[A]{$o(.)$}{Higher order terms}%
-\nomenclature[F]{$\Gb_{\zb,i}$}{Positive homogeneous jump gain for the perturbed state direction}%
-\nomenclature[F]{$\Gb_{\vb,i}$}{Positive homogeneous jump gain for the perturbed input direction}%
-
+\nomenclature[V]{$\Gb_{\zb,i}$}{Positive homogeneous jump gain for the perturbed state direction}%
+\nomenclature[V]{$\Gb_{\vb,i}$}{Positive homogeneous jump gain for the perturbed input direction}%
+\nomenclature[V]{$D_i(.)$}{The derivative with respect to the $i$th term}%
 \subsection{Reference-spreading}
 To avoid peaking behavior in the tracking error, in \cite{Saccon2014} a novel notion of error is presented which is named reference spreading in \cite{Rijnen2016}. This control strategy uses reference trajectories which are extended beyond event-times, such that an ante-event state trajectories can always be compared to an ante-event reference trajectory and a post-event state trajectories can always be compared to a post-event reference trajectory. This is illustrated in Figure~\ref{fig:3refspread}, where the reference trajectory segments $\alphab(t,i)$ are all extended resulting in $\overline{\alphab}(t,i)$. The hybrid domain \cite{Goebel2009} of $\alphab$ is defined by segments $I^i_{\alphab} = [\tau_i,\tau_{i+1}]$, which together form the entire domain of $\alphab$ as
 \begin{align}
@@ -116,11 +116,11 @@ Use Rijnen2017 alot
 \item Positive homogeneous jump gain
 \item PHTTHS (Positive homogeneous time-triggered hybrid system)
 \end{itemize}
-\nomenclature[F]{$\Hb$}{The positive homogeneous jump gain}%
+\nomenclature[V]{$\Hb$}{The positive homogeneous jump gain}%
 \nomenclature[V]{$\zb$}{The perturbed state direction}%
 \nomenclature[V]{$\vb$}{The perturbed input direction}%
-\nomenclature[F]{$\Ab$}{Linear state matrix}%
-\nomenclature[F]{$\Bb$}{Linear input matrix}%
+\nomenclature[V]{$\Ab$}{Linear state matrix}%
+\nomenclature[V]{$\Bb$}{Linear input matrix}%
 \nomenclature[A]{PHTTHS}{Positively Homogeneous Time Triggered Hybrid System}%
 \section{Stability analysis for positively homogeneous time-triggered hybrid systems}
 
