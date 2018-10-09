@@ -63,7 +63,7 @@ Assumption~\ref{ass:nonzeno} guarantees that the number of events $N$ will only 
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.8\textwidth]{refspreaddom.eps}\caption{An illustration of the nominal reference trajectory (orange) and the perturbed trajectory (cyan), where the nominal reference trajectory is extended such that $\dom x\subseteq\dom \overline{\alpha}$.} \label{fig:3refspread}
+\includegraphics[width=.9\textwidth]{refspreaddom.eps}\caption{An illustration of the nominal reference trajectory (orange) and the perturbed trajectory (cyan), where the nominal reference trajectory is extended such that $\dom x\subseteq\dom \overline{\alpha}$.} \label{fig:3refspread}
 \end{figure}
 
 In the lower plot of Figure~\ref{fig:3refspread} the domains of $\xb$, $\alphab$ and $\overline{\alphab}$ are illustrated for each segment. Note that for every segment, $I_{\xb}^i\subseteq I_{\overline{\alphab}}^i$. This means that when the tracking error is defined as $||\xb-\overline{\alphab}||$, we can keep tracking the error $||\xb(t,i)-\overline{\alphab}(t,i)||$ until an event is detected. Even if the event-time $t_i>\tau_i$. When an event is detected, the error  $||\xb(t,i+1)-\overline{\alpha}(t,i+1)||$ can be tracked. Again, because $I_{\xb}^{i+1}\subseteq I_{\overline{\alphab}}^{i+1}$, this is also possible for the case where $t_i<\tau_i$. Using this notion of error leaves only one jump in the tracking error, even under the presence of event-time mismatches. More importantly, the peak in the tracking error is avoided, an ante-event state trajectory will not be compared to a post-event reference trajectory (and vice versa) anymore. In Figure~\ref{fig:3refspreaderrors} the tracking error with and without reference spreading are compared. Here it is clear that the tracking defined using reference spreading does not have the peak which the normal notion of error does have. It also jumps only once at the perturbed event-time $t_1$.
@@ -75,8 +75,40 @@ In the lower plot of Figure~\ref{fig:3refspread} the domains of $\xb$, $\alphab$
 In the next section the error defined using reference spreading is used to make a first-order approximation of perturbed trajectories with ordered guard-activation.
 
 \section{First-order approximation of trajectories with ordered guard-activations}
-In \cite{Khalil1996} a sensitivity analysis is presented, where so-called sensitivity functions are used to provide first-order approximations of the effects of parameter variations on solutions. These sensitivity functions can also be used to approximate the solution under parameter variations, when the variations are close enough to zero. 
+In \cite{Khalil1996} a sensitivity analysis is presented, where so-called sensitivity functions are used to provide first-order approximations of the effects of parameter variations on solutions. These sensitivity functions can also be used to approximate the solution under parameter variations, when the variations are close enough to zero. In the case of mechanical systems experiencing perturbations, the sensitivity equations describe the system's response the initial state-input perturbations. These perturbation dynamics can be used to formulate a first-order approximation of the perturbed state of the system. To find a first-order approximation of state reinitializations in nonsmooth trajectories, an extension to this sensitivity analysis is necessary in the form of a linearized jump gain. The linearized jump gain and the linearized perturbation dynamics together define an LTTHS, which can guarantee local asymptotic stability of the NSITHS when the LTTHS is stable \cite{Rijnen2017}. A more thorough derivation of the analysis performed in this section can be found in Appendix~\ref{app:Csensitivity}.
 
+\subsection{Sensitivity analysis for continuous segments}
+The sensitivity analysis for the continuous segments of a perturbed trajectory, gives a set of equations which describe the systems reaction to an initial state-input perturbation. The perturbed state is defined as
+\begin{align}
+\xb(t,i,\epsilon) = \xb(t_0,i,\epsilon) + \int_{t_0}^{t}\fb^i(\xb(s,i,\epsilon),\ub(s,i,\epsilon),s)ds.\label{eq:3xpert}
+\end{align}
+To find a first-order approximation of the perturbed state, the perturbed state direction $\zb(t)$ and the perturbed input direction $\vb(t)$ are defined as
+\begin{align}
+\zb(t,i) = \left.\frac{\partial\xb(t,i,\epsilon)}{\partial\epsilon}\right|_{\epsilon=0},\text{ and } \vb(t,i) = \left.\frac{\partial\ub(t,i,\epsilon)}{\partial\epsilon}\right|_{\epsilon=0}.
+\end{align}
+Then the sensitivity analysis in \cite{Khalil1996} gives a first-order approximation of the state based on a Taylor series of $\xb^i(t,\epsilon)$ with respect to $\epsilon$ as
+\begin{align}
+\xb(t,i,\epsilon) &= \xb(t,i,0) + \epsilon\left.\frac{\partial\xb(t,i,\epsilon)}{\partial\epsilon}\right|_{\epsilon=0} + o(\epsilon),\\
+&= \alphab(t,i) + \epsilon\zb(t,i) + o(\epsilon).
+\end{align}
+To find a first order approximation of the $\dot{\xb}(t,i,\epsilon)$, an expression for $\dot{\zb}(t,i)$ should be found. By first taking the partial derivative with respect to $\epsilon$ and then with respect to $t$ of $\eqref{eq:3xpert}$, the perturbation dynamics are found to be
+\begin{align}
+\dot{\zb}(t,i) = \Ab(t)\zb(t,i) +\Bb(t)\vb(t,i),
+\end{align}
+with
+\begin{align}
+\Ab &= D_1\fb^i(\alphab(t,i),\mub(t,i),t),\\
+\Bb &= D_2\fb^i(\alphab(t,i),\mub(t,i),t),
+\end{align}
+where $D_a$ is defined as the partial derivative of the function that follows with respect to the $a^{\text{th}}$ argument of that function evaluated at $\epsilon = 0$. The first order approximation of the perturbed state dynamics in continuous time is then defined as
+\begin{align}
+\dot{\xb}(t,i,\epsilon) \approx \dot{\alphab}(t,i) + \epsilon\dot{\zb}(t,i),
+\end{align}
+where $\dot{\alphab}(t,i)$ is known from the tracked reference trajectory and $\dot{\zb}(t,i)$ is known from the sensitivity analysis performed on the system.
+
+\subsection{Sensitivity analysis for the state reinitialization}
+
+\subsection{Linear time triggered hybrid system}
 Use Rijnen2017 alot
 \begin{itemize}
 \item LTTHS (Rijnen2017)
