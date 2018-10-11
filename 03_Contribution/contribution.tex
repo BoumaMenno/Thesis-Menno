@@ -8,7 +8,7 @@
 \cleartooddpage
 \pagestyle{fancyreport}
 \chapter{Tracking for Hybrid Systems: Ordered State-Input-Triggered Events}\label{ch:order}
-In this chapter a control strategy is presented for trajectories of hybrid systems which, due to the introduction of perturbations, experience ordered state-input-triggered events. Such systems are called \textit{nonlinear state-input triggered hybrid systems} (NSITHS). In this chapter ordered state-input-triggered events are considered, which means that the order of events is always known and that there is flow between two events. The perturbations can cause the state trajectory to jump at a different time than the nominal reference trajectory, resulting in \textit{peaking behavior} of the tracking error \cite{Menini2001,Biemond2013}. First a notion of error \cite{Rijnen2017} is presented, which is used to avoid peaking behavior. After that, similar to the linearization presented in \cite{Rijnen2017}, a first-order approximation of the NSITHS is presented in the form of a \textit{linear time triggered hybrid system} (LTTHS). A proof is given in \cite{Rijnen2017}, which shows that the stability of the LTTHS can be used to asses the local stability of the original NSITHS. Consequentially, conventional stability analysis tools for LTTHS can be used to asses the local stability of te NSITHS. Finally, a short summary of the findings in this chapter is given.
+In this chapter a control strategy is presented for trajectories of hybrid systems which, due to the introduction of perturbations, experience ordered state-input-triggered events. Such systems are called \textit{nonlinear state-input triggered hybrid systems} (NSITHS). In this chapter ordered state-input-triggered events are considered, which means that the order of events is always known and that there is flow between two events. The perturbations can cause the state trajectory to jump at a different time than the nominal reference trajectory, resulting in \textit{peaking behavior} of the tracking error \cite{Menini2001,Biemond2013}. The work in this chapter is an extension on the work in \cite{Rijnen2017}. First a notion of error is presented, which is used to avoid peaking behavior. After that a first-order approximation of the NSITHS is presented in the form of a \textit{linear time triggered hybrid system} (LTTHS). A proof is given in \cite{Rijnen2017}, which shows that the stability of the LTTHS can be used to asses the local stability of the original NSITHS. Consequentially, conventional stability analysis tools for LTTHS can be used to asses the local stability of te NSITHS. Finally, a short summary of the findings in this chapter is given.
 \nomenclature[A]{NSITHS}{Nonlinear State-Input Triggered Hybrid System}%
 \nomenclature[A]{LTTHS}{Linear Time Triggered Hybrid System}%
 
@@ -17,27 +17,44 @@ This section presents \textit{reference-spreading} (RS) for ordered guard activa
 \nomenclature[A]{RS}{Reference-Spreading}%
 
 \subsection{Nonlinear state-input triggered hybrid systems}
-As presented in Section~\ref{sec:2hyb}, a mechanical system can be described by the hybrid system with impulsive effects framework. Such a system is given by
+As presented in Section~\ref{sec:2hyb}, a mechanical system can be described by the hybrid system with impulsive effects framework. Such a system is a nonlinear state-input triggered hybrid system. The NSITHS is now formally defined.
+
+\begin{mydef}[NSITHS]\label{def:3nsiths}
+The nonlinear state-input triggered hybrid system is given by
 \begin{equation}
 \begin{array}{ll}
-\dot{\xb}(t,i) =\fb_i(\xb(t,i),\ub(t,i),t),& \xb(t,i),\ub(t,i)\notin D_i\\
-\xb(t,i) = \gb_i(\xb(t,i-1),\ub(t,i-1),t),& \xb(t,i-1),\ub(t,i-1)\in D_i
+\dot{\xb}(t,i) =\fb^i(\xb(t,i),\ub(t,i),t),& \xb(t,i),\ub(t,i)\notin D^i\\
+\xb(t,i) = \gb^i(\xb(t,i-1),\ub(t,i-1),t),& \xb(t,i-1),\ub(t,i-1)\in D^i
 \end{array}\label{eq:3hybimp}
 \end{equation}
-where $\xb(t,i-1),\ub(t,i-1)\in D_i$ triggers the event $\xb(t,i) = \gb_i(\xb(t,i-1),\ub(t,i-1),t)$. We refer to \eqref{eq:3hybimp} as a \textit{nonlinear state-input triggered hybrid system (NSITHS)}. The nominal trajectory of such a system is illustrated in Figure~\ref{fig:3perturbedtraj} in red. Now an initial state and input perturbation $\epsilon$ is introduced, which causes the state trajectory $\xb$ to differ from the reference trajectory $\alphab$. The goal is to write a control strategy, such that the perturbed state trajectory $\xb$ will converge to the reference trajectory $\alphab$. Although not made explicit, the state trajectory is also dependent on the initial state and input perturbation $\epsilon$, i.e., $\xb(t,i,\epsilon)$. This $\epsilon$ is left implicit in later uses of $\xb$. \textbf{Properly introduce $\epsilon$}
+where $\fb^i$ is a nonlinear Lipschitz continuous function. $D^i$ is a state-input set, with when $\xb(t,i-1),\ub(t,i-1)\in D^i$ a state reinitialization is triggered according to $\xb(t,i) = \gb^i(\xb(t,i-1),\ub(t,i-1),t)$.
+\end{mydef} 
+
+The nominal trajectory of an NSITHS is illustrated in Figure~\ref{fig:3perturbedtraj} in red. Now an initial state and input perturbation $\epsilon$ is introduced, which causes the state trajectory $\xb$ to differ from the reference trajectory $\alphab$. The goal is to write a control strategy, such that the perturbed state trajectory $\xb$ will converge to the reference trajectory $\alphab$. Although not made explicit, the state trajectory is also dependent on the initial state and input perturbation $\epsilon$, i.e., $\xb(t,i,\epsilon)$. This $\epsilon$ is left implicit in later uses of $\xb$. \textbf{Properly introduce $\epsilon$}
 \nomenclature[V]{$\epsilon$}{Initial state and input perturbation}%
 \nomenclature[V]{$(.)_{\epsilon}$}{A variable dependent on the initial perturbation}%
 \begin{figure}[h]
 \centering
 \includegraphics[width=.8\textwidth]{perturbedtraj.eps}\caption{In orange the nominal (unperturbed) and in cyan the perturbed trajectory of a hybrid system with impulsive effects. Due to the perturbation in the cyan trajectory, a mismatch between the perturbed and the nominal event times arises.} \label{fig:3perturbedtraj}
 \end{figure}
-For the nominal trajectory the state and input are known over the entire time-domain, meaning that the event-times are also known. For the perturbed trajectory this is not the case. Due to the uncertainty in the state and input, there is an uncertainty in the event-times as well. This uncertainty can cause a mismatch between the nominal event times $\tau_1$,$\tau_2$ and the perturbed event times $t_1$,$t_2$. Now we take a closer look at the first event, to illustrate the peaking behavior as a result of a jump mismatch. In Figure~\ref{fig:3peakerror} the state evolution $x$ of the first event is depicted besides the tracking error $||x-\alphab||$. Here on can clearly see that a peak arises in the tracking error when the jump times do not coincide. At $t_1$ the state trajectory jumps, while the reference trajectory does not. At $\tau_1$ the reference trajectory jumps as well. This means that in $[t_1,\tau_1]$, a post-event state trajectory is compared to a ante-event reference trajectory, resulting in a large peak in the tracking error. This is undesirable, as it will lead to large and unnecessary actuation forces.
+For the nominal trajectory the state and input are known over the entire time-domain, meaning that the event-times are also known. For the perturbed trajectory this is not the case. Due to the uncertainty in the state and input, there is an uncertainty in the event-times as well. This uncertainty can cause a mismatch between the nominal event times $\tau_1$,$\tau_2$ and the perturbed event times $t_1$,$t_2$. Now we take a closer look at the first event, to illustrate the peaking behavior as a result of a jump mismatch. In Figure~\ref{fig:3peakerror} the state evolution $x$ of the first event is depicted besides the tracking error $||\xb-\alphab||$. Here on can clearly see that a peak arises in the tracking error when the jump times do not coincide. At $t_1$ the state trajectory jumps, while the reference trajectory does not. At $\tau_1$ the reference trajectory jumps as well. This means that in $[t_1,\tau_1]$, a post-event state trajectory is compared to a ante-event reference trajectory, resulting in a large peak in the tracking error. This is undesirable, as it will lead to large and unnecessary actuation forces.
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=.66\textwidth]{peakerror.eps}\caption{A closer look at the first event of the trajectory in Figure~\ref{fig:3perturbedtraj}. On the left the state-evolution $x$ is depicted and on the right the tracking error $||x-\alphab||$. A clear peak can be noticed in the tracking error as a result from the event-time mismatch.} \label{fig:3peakerror}
 \end{figure}
 
-\textbf{Stability definition from Rijnen2017, intuitive explantion of proof in Rijnen2017 that stability of LTTHS -> stability of NSITHS.} In the next section a solution to the peaking behavior is presented.
+In the next section a solution to the peaking behavior is presented.
+
+\textbf{Existence of guard function assumption (rijnen2017)}
+
+\textbf{Locally differentiable jump map assumption (rijnen2017)}.
+
+\begin{myass}[Lipschitz continuity of $\fb$]
+We assume that in a neighborhood of the reference trajectory $\alphab$, $\fb$ is Lipschitz with respect to $\xb$ uniformly in $t$ and $i$. I.e., $\exists\varepsilon>0$ and $\exists L$, independent of $t,i$, such that $\forall i$, $||\fb(\ab,t,i) - \fb(\bb,t,i)||<L||a-b||$, $\forall t\in [\tau_i - \varepsilon,\tau_i + \varepsilon]$ and $\forall \ab,\bb\in B_\varepsilon(\overline{\alphab}(t,i))$, where $B_\varepsilon(\overline{\alphab}(t,i))$ is a ball with radius $\epsilon$ around $\overline{\alphab}(t,i))$.
+\end{myass}
+
+
 \nomenclature[V]{$\Delta$}{The linearization of the perturbed event time around zero perturbation}%
 \nomenclature[A]{$o(.)$}{Higher order terms}%
 \nomenclature[V]{$\Gb_{\zb,i}$}{Positive homogeneous jump gain for the perturbed state direction}%
@@ -53,13 +70,7 @@ Similarly the state segments $x(t,i)$ are defined on the domain $I^i_\xb = [t_i,
 \begin{align}
 \dom\xb = \bigcup^N_{i=0}I_{\xb}^i.
 \end{align}
-The domain of the extended reference trajectory segments is extended such that $I_{\xb}^i\subseteq I_{\overline{\alphab}}^i$.
-
-\begin{myass}[non-Zeno behavior of $\alphab$]
-The reference trajectory segments $\alphab(t,i)$ have non-vanishing time-domains $I_{\alphab}^i$.\label{ass:nonzeno}
-\end{myass}
-
-Assumption~\ref{ass:nonzeno} guarantees that the number of events $N$ will only go to infinity if time $t$ goes to infinity as well. This assumption is often made in analysis using hybrid systems.
+The domain of the extended reference trajectory segments is extended such that $I_{\xb}^i\subseteq I_{\overline{\alphab}}^i$. \textbf{Define the domain of event times of $\alphab$ (eq 10 of rijnen 2017).}
 
 \begin{figure}[h]
 \centering
@@ -71,6 +82,18 @@ In the lower plot of Figure~\ref{fig:3refspread} the domains of $\xb$, $\alphab$
 \centering
 \includegraphics[width=\textwidth]{refspreaderrors.eps}\caption{} \label{fig:3refspreaderrors}
 \end{figure}
+
+\textbf{Stability definition from Rijnen2017}
+
+\begin{myass}[non-Zeno behavior of $\alphab$, stability of $\alphab$]
+The reference trajectory segments $\alphab(t,i)$ have non-vanishing time-domains $I_{\alphab}^i$.\label{ass:nonzeno}
+\end{myass}
+
+\textbf{Transversality assumption (rijnen2017)}
+
+\textbf{TALK ABOUT STABILITY OF $\alphab$ AND HOW $\alphab$ AND $\mub$ ARE DEFINED. ALSO TALK ABOUT HOW TRANSVERSALITY PUSHES THOURGH THE GUARD AND THAT GRAZING INCIDENTS ARE AVOIDED.}
+
+Assumption~\ref{ass:nonzeno} guarantees that the number of events $N$ will only go to infinity if time $t$ goes to infinity as well. This assumption is often made in analysis using hybrid systems.
 
 In the next section the error defined using reference spreading is used to make a first-order approximation of perturbed trajectories with ordered guard-activation.
 
@@ -109,6 +132,7 @@ where $\dot{\alphab}(t,i)$ is known from the tracked reference trajectory and $\
 \alphab(\tau,i) = \gb(\alphab(\tau,i-1),\tau),\label{eq:3g}
 \end{align}
 and the reinitialization of the perturbed state is described by
+\textbf{Refer to assumption of locally differentiable guard functions and f lipschitz assumption}
 \begin{align}
 \xb(t^{i},i,\epsilon) = \gb^i(\xb(t^{i},i-1,\epsilon),t^{i}).
 \end{align}
@@ -127,40 +151,74 @@ with
 \Delta^{i} = \left.\frac{\partial t^{i}}{\partial\epsilon}\right|_{\epsilon=0}.\label{eq:3Delta}
 \end{align}
 To find $\Delta^{i}$ we evaluate the ante-event guard function
+\textbf{Refer to existence of guard function assumption and f lipschitz assumption}
 \begin{align}
-\gamma^{i}(\xb(t^{i},i-1,\epsilon),\ub(t^{i},i-1,\epsilon),t^{i}) = 0,\label{eq:3gamma}
+\gamma(\xb(t^{i},i-1,\epsilon),\ub(t^{i},i-1,\epsilon),t^{i},i) = 0,\label{eq:3gamma}
 \end{align}
-where $\gamma^{i}$ is the guard function that is activated during event $i$. Note that $\gamma^{i}$ is dependent on the input $\ub$, whereas in \cite{Chen2018a} the sensitivity analysis is performed for guard functions which solely depend on state $\xb$ and time $t$. From \eqref{eq:3gamma} the expression for $\Delta^{i}$ is found to be
+where $\gamma$ is evaluated at the left limit of event $i$. Note that $\gamma$ is dependent on the input $\ub$, whereas in \cite{Chen2018a} the sensitivity analysis is performed for guard functions which solely depend on state $\xb$ and time $t$. From \eqref{eq:3gamma} the expression for $\Delta^{i}$ is found to be
 \begin{align}
-\Delta^{i} = -\frac{D_1\gamma^-\cdot\zb(\tau,i-1) + D_2\gamma^-\cdot\vb(\tau,i-1)}{\dot{\gamma}^-},\label{eq}
+\Delta^{i} = -\frac{D_1\gamma^{i}\cdot\zb(\tau,i-1) + D_2\gamma^{i-1}\cdot\vb(\tau,i-1)}{\dot{\gamma}^{i}},\label{eq}
 \end{align}
 with
 \begin{align}
-\gamma^- &= \gamma^{i}(\xb^-,\ub^-,t^i),\\
-\dot{\gamma}^- &= D_1\gamma^-\cdot\dot{\alphab}(\tau,i-1) + D_2\gamma^-\cdot\dot{\mub}(\tau,i-1) + D_3\gamma^-,
+\gamma^i &= \gamma(\alphab(\tau,i-1),\mub(\tau,i-1),\tau,i),\\
+\dot{\gamma}^i &= D_1\gamma^i\cdot\dot{\alphab}(\tau,i-1) + D_2\gamma^i\cdot\dot{\mub}(\tau,i-1) + D_3\gamma^i.
 \end{align}
-where $\xb^-,\ub^-$ are short for $\xb(t^{i},i-1,\epsilon),\ub(t^{i},i-1,\epsilon)$ respectively. Now \eqref{eq:3g} is expanded and substituted  into \eqref{eq:3xexpand2} to find
+Now \eqref{eq:3g} is expanded and substituted  into \eqref{eq:3xexpand2} to find
 \begin{align}
 \zb(\tau,i) = D_1\gb^i\cdot\left(\zb^- + \dot{\alphab}(\tau,i-1)\Delta^i\right) + D_2\gb^i\cdot\left(\vb^- + \dot{\mub}(\tau,i-1)\Delta^i\right) + D_3\gb^i\cdot\Delta^i - \dot{\alphab}(\tau,i)\Delta^i.
 \end{align}
 This can finally be rewritten to
 \begin{align}
-\zb(\tau,i) = \Gb\begin{bmatrix}
-\overline{\zb}(\tau,i-1) \\ \overline{\vb}(\tau,i-1)
+\zb(\tau,i) = \Gb(\tau,i)\begin{bmatrix}
+\zb(\tau,i-1) \\ \vb(\tau,i-1)
 \end{bmatrix},
 \end{align}
 with 
-\textbf{CONTINUE HERE USING D.35-D.38}
+\begin{align}
+\Gb(\tau,i) &= \begin{bmatrix}
+\Gb_{\zb}(\tau,i) & \Gb_{\vb}(\tau,i)
+\end{bmatrix},\\
+\Gb_{\zb}(\tau,i) & = \frac{\fb^i - \dot{\gb}^i}{\dot{\gamma}^i}D_1\gamma^i\cdot 1 + D_1\gb^i\cdot 1,\\
+\Gb_{\vb}(\tau,i) & = \frac{\fb^i - \dot{\gb}^i}{\dot{\gamma}^i}D_2\gamma^i\cdot 1 + D_2\gb^i\cdot 1,
+\end{align}
+where
+\begin{align}
+\dot{\gb}^i &= D_1\gb^i\cdot \fb^{i-1} + D_2\gb^i\cdot \dot{\mub}^{i-1} + D_3\gb^i\cdot 1,\\
+\fb^i &= \fb^i(\alphab(\tau,i),\mub(\tau,i),\tau).
+\end{align}
 
 \subsection{Linear time triggered hybrid system}
-Use Rijnen2017 alot
+Now the sensitivity analysis performed in previous section is used to define the LTTHS associated to reference trajectory $\alphab$ and the NSITHS defined in Definition~\ref{def:3nsiths}. The LTTHS converts the state-triggered behavior of the NSITHS to a time-triggered behavior using a first order approximation of the state jumps. Where the jump times for NSITHS are unknown for perturbed trajectories, the LTTHS jumps at the same event-times as the nominal trajectory $\alphab$. In \cite{Rijnen2017} a proof is given that the stability of the LTTHS implies local asymptotic stability of the NSITHS under the assumption that $\alphab$ is stable in the sense of \textbf{STABILITY ASSUMPTION REFERENCE}. Since the stability assessment of LTTHS is well established in literature, the LTTHS can be used to conveniently assess the local asymptotic stability of the NSITHS. Now the LTTHS is formally defined.
+\begin{mydef}[LTTHS]
+The linear time-triggered hybrid system associated with the reference trajectory $\alpha$, stable in the sense of Definition~\ref{def:3stability}, and the NSITHS is given by
+\begin{align}
+\dot{\zb}(t,i) &= \Ab(t,i)\zb(t,i) + \Bb(t,i)\vb(t,i) &(t,i)\in I_{\alphab}\\
+\dot{\zb}(t,i+1) &= \Gb_{\zb}(t,i+1)\zb(t,i) +  \Gb_{\vb}(t,i+1)\vb(t,i) &(t,i)\in E_{\alphab}
+\end{align}
+with initial condition $\zb(t_0,0)=z_0$,
+\begin{align}
+\Ab(t,i) &= D_1\fb(\alphab(t,i),\mub(t,i),t,i)\\
+\Bb(t,i) &= D_2\fb(\alphab(t,i),\mub(t,i),t,i)\\
+\Gb_{\zb}(t,i) & = \frac{\fb^i - \dot{\gb}^i}{\dot{\gamma}^i}D_1\gamma^i\cdot 1 + D_1\gb^i\cdot 1,\\
+\Gb_{\vb}(t,i) & = \frac{\fb^i - \dot{\gb}^i}{\dot{\gamma}^i}D_2\gamma^i\cdot 1 + D_2\gb^i\cdot 1,
+\end{align}
+and
+\begin{align}
+\fb^i &= \fb(\alphab(\tau,i),\mub(\tau,i),\tau,i)\\
+\gb^i &= \gb(\alphab(\tau,i),\mub(\tau,i),\tau,i)\\
+\dot{\gb}^i &= D_1\gb^i\cdot \fb^{i-1} + D_2\gb^i\cdot \dot{\mub}^{i-1} + D_3\gb^i\cdot 1,\\
+\gamma^i &= \gamma(\alphab(\tau,i-1),\mub(\tau,i-1),\tau,i),\\
+\dot{\gamma}^i &= D_1\gamma^i\cdot\dot{\alphab}(\tau,i-1) + D_2\gamma^i\cdot\dot{\mub}(\tau,i-1) + D_3\gamma^i,
+\end{align}
+where $\tau = \tau^i$.
+\end{mydef}
+
 \begin{itemize}
-\item LTTHS (Rijnen2017)
 \item Jumps at $\tau$ instead of $t$ (also, generally infeasible)
-\item First-order accuracy (Rijnen2017)
-\item Transversality assumption
-\item Existence of a guard function assumption
-\item Locally differentiable jump map
+\item First-order accuracy (ACC)
+\item Say something about stability assumption of $\alpha$, stability of LTTHS implies tracking, leading to a stable NSITHS
+\item refer the previously made assumptions and what their consequences are
 \end{itemize}
 \section{Stability analysis for linear time-triggered hybrid systems}
 
