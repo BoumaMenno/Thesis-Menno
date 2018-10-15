@@ -219,10 +219,11 @@ According to \cite{Haddad2006} an impulsive dynamical system can be described by
 Therefore, a hybrid system with impulsive effects is given by
 \begin{equation}
 \begin{array}{ll}
-\dot{\xb}(t,i) =\fb_i(\xb(t,i),\ub(t,i),t),& \xb(t,i),\ub(t,i)\notin D_i\\
-\xb(t,i) = \gb_i(\xb(t,i-1),\ub(t,i-1),t),& \xb(t,i-1),\ub(t,i-1)\in D_i
+\dot{\xb}(t,i) =\fb^i(\xb(t,i),\ub(t,i),t),& \xb(t,i),\ub(t,i)\notin D^i\\
+\xb(t,i) = \gb^i(\xb(t,i-1),\ub(t,i-1),t),& \xb(t,i-1),\ub(t,i-1)\in D^i
 \end{array}\label{eq:hybimp}
 \end{equation}
+\textbf{DEFINE $C^{i-1}$ AND $D^i = \partial C^{i-1}$}\\
 \nomenclature[V]{$\fb$}{A nonlinear continuous function}%
 \nomenclature[V]{$\gb$}{A jump map}%
 \nomenclature[V]{$D$}{A discrete event set}%

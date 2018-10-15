@@ -30,8 +30,8 @@ The nonlinear state-input triggered hybrid system is given by
 where $\fb^i$ is a nonlinear Lipschitz continuous function. $D^i$ is a state-input set, with when $\xb(t,i-1),\ub(t,i-1)\in D^i$ a state reinitialization is triggered according to $\xb(t,i) = \gb^i(\xb(t,i-1),\ub(t,i-1),t)$.
 \end{mydef} 
 
-The nominal trajectory of an NSITHS is illustrated in Figure~\ref{fig:3perturbedtraj} in red. Now an initial state and input perturbation $\epsilon$ is introduced, which causes the state trajectory $\xb$ to differ from the reference trajectory $\alphab$. The goal is to write a control strategy, such that the perturbed state trajectory $\xb$ will converge to the reference trajectory $\alphab$. Although not made explicit, the state trajectory is also dependent on the initial state and input perturbation $\epsilon$, i.e., $\xb(t,i,\epsilon)$. This $\epsilon$ is left implicit in later uses of $\xb$. \textbf{Properly introduce $\epsilon$}
-\nomenclature[V]{$\epsilon$}{Initial state and input perturbation}%
+The nominal trajectory of an NSITHS is illustrated in Figure~\ref{fig:3perturbedtraj} in red. Now an initial state and input perturbation $\epsilon$ is introduced, which causes the state trajectory $\xb$ to differ from the reference trajectory $\alphab$. The goal is to write a control strategy, such that the perturbed state trajectory $\xb$ will converge to the reference trajectory $\alphab$. Now an initial state-input perturbation $z_0 = \frac{\partial\xb}{\partial\epsilon}$ is introduced, where $\epsilon$ is a scalar perturbation parameter. The initial state $\alphab_0$ and input $\mub_0$ of the reference trajectory $\alphab$ is perturbed, resulting in $\xb_0(\epsilon) = \alphab_0 + \epsilon\zb_0$ and $\ub(t,i,\epsilon) = \mub(t,i) + \epsilon\vb(t,i)$. This generates a trajectory close to the reference trajectory $\alphab$, which is also dependent on the initial state and input perturbation $\epsilon$, i.e., $\xb(t,i,\epsilon)$.
+\nomenclature[V]{$\epsilon$}{The scalar perturbation parameter}%
 \nomenclature[V]{$(.)_{\epsilon}$}{A variable dependent on the initial perturbation}%
 \begin{figure}[h]
 \centering
@@ -47,11 +47,22 @@ For the nominal trajectory the state and input are known over the entire time-do
 In the next section a solution to the peaking behavior is presented.
 
 \textbf{Existence of guard function assumption (rijnen2017)}
+\begin{myass}[Existance of a guard function]
+We assume that there exist constants $\varepsilon_\gamma$, and real valued guard function $\gamma(\xb,\ub,t,i)$ which is continuously differentiable with respect to $\xb$, $\ub$, and $t$, for each $i\in \{1,2,...,N\}$, such that
+\begin{equation}
+\begin{array}{llll}
+\gamma(\xb,\ub,t,i) > 0 & &	&(\xb,\ub,t) \in B_{\varepsilon_\gamma}(\alphab(\tau,i),\tau)\cap C^i\\
+\gamma(\xb,\ub,t,i) = 0 & &	&(\xb,\ub,t) \in B_{\varepsilon_\gamma}(\alphab(\tau,i),\tau)\cap D^{i+1}\\
+\gamma(\xb,\ub,t,i) < 0 & &	&(\xb,\ub,t) \in B_{\varepsilon_\gamma}(\alphab(\tau,i),\tau)\cap (\Rbb^n \times \Rbb^m \times \Rbb)\setminus C^i
+\end{array}
+\end{equation}
+where $B_{\varepsilon_{\gamma}}(\alphab(\tau,i),\tau)$ is a ball with radius $\epsilon_{\gamma}$ around $\alphab(\tau,i)$ with $\tau = \tau^{i+1}$. $C^i$ is the flow set of a trajectory after event $i$ and $D^{i+1}$ is the event set which triggers event $i+1$, which is defined as $\partial C^i$, where $\partial C^i$ represents the boundary of flow set $C^i$.
+\end{myass}
 
 \textbf{Locally differentiable jump map assumption (rijnen2017)}.
 
 \begin{myass}[Lipschitz continuity of $\fb$]
-We assume that in a neighborhood of the reference trajectory $\alphab$, $\fb$ is Lipschitz with respect to $\xb$ uniformly in $t$ and $i$. I.e., $\exists\varepsilon>0$ and $\exists L$, independent of $t,i$, such that $\forall i$, $||\fb(\ab,t,i) - \fb(\bb,t,i)||<L||a-b||$, $\forall t\in [\tau_i - \varepsilon,\tau_i + \varepsilon]$ and $\forall \ab,\bb\in B_\varepsilon(\overline{\alphab}(t,i))$, where $B_\varepsilon(\overline{\alphab}(t,i))$ is a ball with radius $\epsilon$ around $\overline{\alphab}(t,i))$.
+We assume that in a neighborhood of the reference trajectory $\alphab$, $\fb$ is Lipschitz with respect to $\xb$ uniformly in $t$ and $i$. I.e., $\exists\varepsilon_{\fb}>0$ and $\exists L$, independent of $t,i$, such that $\forall i$, $||\fb(\ab,t,i) - \fb(\bb,t,i)||<L||a-b||$, $\forall t\in [\tau_i - \varepsilon_{\fb},\tau_i + \varepsilon_{\fb}]$ and $\forall \ab,\bb\in B_{\varepsilon_{\fb}}(\overline{\alphab}(t,i))$, where $B_{\varepsilon_{\fb}}(\overline{\alphab}(t,i))$ is a ball with radius $\epsilon_{\fb}$ around $\overline{\alphab}(t,i))$.
 \end{myass}
 
 
@@ -80,7 +91,7 @@ The domain of the extended reference trajectory segments is extended such that $
 In the lower plot of Figure~\ref{fig:3refspread} the domains of $\xb$, $\alphab$ and $\overline{\alphab}$ are illustrated for each segment. Note that for every segment, $I_{\xb}^i\subseteq I_{\overline{\alphab}}^i$. This means that when the tracking error is defined as $||\xb-\overline{\alphab}||$, we can keep tracking the error $||\xb(t,i)-\overline{\alphab}(t,i)||$ until an event is detected. Even if the event-time $t_i>\tau_i$. When an event is detected, the error  $||\xb(t,i+1)-\overline{\alpha}(t,i+1)||$ can be tracked. Again, because $I_{\xb}^{i+1}\subseteq I_{\overline{\alphab}}^{i+1}$, this is also possible for the case where $t_i<\tau_i$. Using this notion of error leaves only one jump in the tracking error, even under the presence of event-time mismatches. More importantly, the peak in the tracking error is avoided, an ante-event state trajectory will not be compared to a post-event reference trajectory (and vice versa) anymore. In Figure~\ref{fig:3refspreaderrors} the tracking error with and without reference spreading are compared. Here it is clear that the tracking defined using reference spreading does not have the peak which the normal notion of error does have. It also jumps only once at the perturbed event-time $t_1$.
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{refspreaderrors.eps}\caption{} \label{fig:3refspreaderrors}
+\includegraphics[width=\textwidth]{refspreaderrors.eps}\caption{A close up of the  first event of the reference trajectory, in which the peaking behavior is cleary removed by evaluating the extended reference trajectory.} \label{fig:3refspreaderrors}
 \end{figure}
 
 \textbf{Stability definition from Rijnen2017}
@@ -250,8 +261,8 @@ where $\tau = \tau^i$.
 \item PHTTHS (Positive homogeneous time-triggered hybrid system)
 \end{itemize}
 \nomenclature[V]{$\Hb$}{The positive homogeneous jump gain}%
-\nomenclature[V]{$\zb$}{The perturbed state direction}%
-\nomenclature[V]{$\vb$}{The perturbed input direction}%
+\nomenclature[V]{$\zb$}{The state perturbation}%
+\nomenclature[V]{$\vb$}{The input perturbation}%
 \nomenclature[V]{$\Ab$}{Linear state matrix}%
 \nomenclature[V]{$\Bb$}{Linear input matrix}%
 \nomenclature[A]{PHTTHS}{Positively Homogeneous Time Triggered Hybrid System}%
