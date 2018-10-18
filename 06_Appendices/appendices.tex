@@ -663,6 +663,8 @@ and
 ^{b\leftarrow a}\Gb_\vb &=\ ^{b\leftarrow (b-1)}\Gb_\vb\cdots\ ^{(a+2)\leftarrow (a+1)}\Gb_\vb^{(a+1)\leftarrow a}\Gb_\vb.
 \end{align}
 
+\section{Stability analysis of LTTHS}\label{app:LTTHSstab}
+\textbf{DEFINITION 1 AND 5 OF \cite{Rijnen2017}}
 %% New chapter %%
 \pagestyle{fancyreport}
 \cleartooddpage
@@ -776,6 +778,8 @@ Here we see that the solution of $^{s^{k-1}}\zb_3(t_0) = ^{s^{k-1}}\zb_1(t_0) + 
 ^{s^{k}}\zb_1(\tau) &= \alpha \ ^{s^{k}}\phib(t,t_0)\ \left(\Gb_\zb^1 \ ^{s^{k-1}}\zb_1 + \Gb_\vb^1\ ^{s^{k-1}}\vb_1\right) + \alpha\int_{t_0}^\tau \left[\ ^{s^{k}}\phib(t,s)\ ^{s^{k-1}}\Bb(s)\vb_1(s)\right]ds.\label{eq:alphaz1sol}
 \end{align}
 If we now look at the solution for $\zb_4(t_0) = \alpha\zb_1(t_0)$ with $\vb_4(t) = \alpha\vb_1(t)$ jumping with $\Gb^4(\tau)$, and using the fact that $\Gb^4(\tau) = \Gb^1(\tau)$ since the gains are conewise constant as illustrated in Figure~\ref{fig:cone}, we find the same solution as \eqref{eq:alphaz1sol}. This shows that \eqref{eq:PHdyn} is positive homogeneous for any conewise constant jump gain $^{s^{k}\leftarrow s^{k-1}}\Hb\left(^{s^{k-1}}\zb,t\right)$. Hence the name, positive homogenization. 
+
+\section{Stability analysis of PHTTHS}
 
 %% New chapter %%
 \pagestyle{fancyreport}
