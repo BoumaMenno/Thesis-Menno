@@ -44,7 +44,7 @@ with $\wb_{n,\iota}$ representing the Jacobian of the normal velocity $\zeta_{n,
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.5\textwidth]{contactplanes.eps}\caption{An illustration of a body impacting the fixed world. A contact point $\iota$ is defined on the body, which can make contact with the fixed world at $i_{FW}$. The points $\iota$ and $i_{FW}$ are connected by a line which is perpendicular to their respective bodies, which is used to define the contact distance $h_{n,\iota}$ and normal contact velocity $\zeta_{n,\iota}$. In the plane tangent to the body's surface, the tangential contact velocity $\zetab_{t,\iota}$ is defined.} \label{fig:contactplanes}
+\includegraphics[width=.5\textwidth]{contactplanes.eps}\caption{An illustration of a body impacting the fixed world. A contact point $\iota$ is defined on the body, which can make contact with the fixed world at $i_{FW}$. The points $\iota$ and $i_{FW}$ are connected by a line which is perpendicular to their respective bodies, which is used to define the contact distance $h_{n,\iota}$ and normal contact velocity $\zeta_{n,\iota}$. In the plane tangent to the body's surface, the tangential contact velocity $\zetab_{tw,\iota}$ is defined.} \label{fig:contactplanes}
 \end{figure}
 
 Then, the continuous dynamics of a mechanical system with unilateral constraints and spatial friction are of the form
@@ -205,7 +205,7 @@ with
 \end{align}
 
 \section{Hybrid system formulation}
-In this section the dynamics of the complementarity system defined in Section~\ref{sec:comp} is written to a hybrid formulation, resulting in a hybrid framework for mechanical systems with unilateral constraints and spatial friction. The hybrid system formulation only holds for trajectories where only the contact points activating a guard function are allowed to change mode, i.e. no superfluous contacts. More information on the considered trajectories in this work is given in Section~\ref{app:trajectories}.
+In this section the dynamics of the complementarity system defined in Section~\ref{sec:comp} is written to a hybrid formulation, resulting in a hybrid framework for mechanical systems with unilateral constraints and spatial friction. In \cite{Acary2008} event driven numerical methods are presented for mechanical systems with spatial friction. However, these methods do not apply to the hybrid system framework. To the best of our knowledge, this work is first in presenting a model suitable for event driven simulation methods for the hybrid system framework with spatial friction.
 
 \nomenclature[V]{$\sigma_i$}{The system-mode descriptor of event $i$}%
 \subsection{Hybrid systems with impulsive effects}\label{sec:2hyb}
@@ -219,58 +219,57 @@ According to \cite{Haddad2006} an impulsive dynamical system can be described by
 Therefore, a hybrid system with impulsive effects is given by
 \begin{equation}
 \begin{array}{ll}
-\dot{\xb}(t,i) =\fb^i(\xb(t,i),\ub(t,i),t),& \xb(t,i),\ub(t,i)\notin D^i\\
-\xb(t,i) = \gb^i(\xb(t,i-1),\ub(t,i-1),t),& \xb(t,i-1),\ub(t,i-1)\in D^i
+\dot{\xb}(t,i) =\fb^i(\xb(t,i),\ub(t,i),t),& \xb(t,i),\ub(t,i)\in \mathcal{C}^i\\
+\xb(t,i+1) = \gb^{i+1}(\xb(t,i),\ub(t,i),t),& \xb(t,i),\ub(t,i)\in \mathcal{D}^{i+1}
 \end{array}\label{eq:hybimp}
 \end{equation}
-\textbf{DEFINE $C^{i-1}$ AND $D^i = \partial C^{i-1}$}\\
 \nomenclature[V]{$\fb$}{A nonlinear continuous function}%
 \nomenclature[V]{$\gb$}{A jump map}%
-\nomenclature[V]{$D$}{A discrete event set}%
+\nomenclature[V]{$\mathcal{D}$}{A discrete event set}%
 \nomenclature[V]{$\gamma$}{A flow guard function}%
 \nomenclature[V]{$\Gamma$}{An impulsive guard function}%
 \nomenclature[V]{$\alphab$}{The nominal reference trajectory}%
 \nomenclature[V]{$\mub$}{The nominal reference input}%
-with $\xb(t,i)\in\Rbb^{n(i)}$, $\ub(t,i)\in\Rbb^{m(i)}$, $\fb_i(t,i)\ :\ \Rbb^{n(i)}\ \times\ \Rbb^{m(i)}\ \times\ \Rbb\rightarrow \Rbb^{n(i)}$. Note that the state dimension $n(i)$ and the input dimension $m(i)$ can vary in different modes $i$. For the difference equation we have $\gb_i\ :\ \Rbb^{n(i-1)}\ \times\ \Rbb^{m(i-1)}\ \times\ \Rbb\rightarrow \Rbb^{n(i)}$. The set $D_i = D_i(t) := \{\xb(t,i)\in\Rbb^{n(i)},\ \ub(t,i)\in\Rbb^{m(i)}\ |\ \gamma^{=}_i(\xb^{\wedge},\ub^{\wedge},t) = 0, \ \gamma^{\geq}_i(\xb^{\wedge},\ub^{\wedge},t) \geq 0\}$, where $\gamma^{=}_i$ and $\gamma^{\geq}_i$ are some sets of guard functions that are activated at event $i$, and $\xb^{\wedge}$,$\ub^{\wedge}$ are some virtual state and input that are not necessarily physically realistic.
+with $\xb(t,i)\in\Rbb^{n(i)}$, $\ub(t,i)\in\Rbb^{m(i)}$, $\fb_i(t,i)\ :\ \Rbb^{n(i)}\ \times\ \Rbb^{m(i)}\ \times\ \Rbb\rightarrow \Rbb^{n(i)}$. Note that the state dimension $n(i)$ and the input dimension $m(i)$ can vary in different modes $i$. For the difference equation we have $\gb_i\ :\ \Rbb^{n(i-1)}\ \times\ \Rbb^{m(i-1)}\ \times\ \Rbb\rightarrow \Rbb^{n(i)}$. $\mathcal{C}^i$ is the flow set of the system, and $\mathcal{D}^i(t) \subseteq \partial \mathcal{C}^i := \{\xb(t,i)\in\Rbb^{n(i)},\ \ub(t,i)\in\Rbb^{m(i)}\ |\ \gamma^{=}_i(\xb^{\wedge},\ub^{\wedge},t) = 0, \ \gamma^{\geq}_i(\xb^{\wedge},\ub^{\wedge},t) \geq 0\}$, where $\gamma^{=}_i$ and $\gamma^{\geq}_i$ are some sets of guard functions that are activated at event $i$, $\xb^{\wedge}$,$\ub^{\wedge}$ are some virtual state and input that are not necessarily physically realistic, and $\partial \mathcal{C}^i$ indicates the border of $\mathcal{C}^i$.
 
-The dynamics given in \eqref{eq:hybimp} will be used to describe a tracking problem for mechanical systems with unilateral constraints and spatial friction. A nominal state-input trajectory is considered consisting of absolutely continuous segments $(\alphab(t,i),\mub(t,i))$, with $t\in\left[\tau_i,\tau_{i+1}\right]$ and $i\in\{0,1,...,N\}$ the event counter. $\alphab(t,i)$ and $\mub(t,i)$ are the nominal state and input, respectively, that define the nominal trajectory with $N$ events. $\tau_i$ is referred to as the nominal event time of event $i$ and $t$ is referred to as regular time. Every segment of the nominal trajectory $(\alphab(t,i),\mub(t,i))$ and every event $i\in\{0,1,...,N\}$ satisfy the dynamics in \eqref{eq:hybimp}, where an event happens when $(\alphab(t,i),\mub(t,i))$ enters $D_{i+1}$. Such a nominal trajectory existing of absolutely continuous segments experiencing events according to \eqref{eq:hybimp} is illustrated in Figure~\ref{fig:2exampletraj}.
+The dynamics given in \eqref{eq:hybimp} will be used to describe a tracking problem for mechanical systems with unilateral constraints and spatial friction. A nominal state-input trajectory is considered consisting of absolutely continuous segments $(\alphab(t,i),\mub(t,i))$, with $t\in\left[\tau_i,\tau_{i+1}\right]$ and $i\in\{0,1,...,N\}$ the event counter. $\alphab(t,i)$ and $\mub(t,i)$ are the nominal state and input, respectively, that define the nominal trajectory with $N$ events. $\tau_i$ is referred to as the nominal event time of event $i$ and $t$ is referred to as regular time. Every segment of the nominal trajectory $(\alphab(t,i),\mub(t,i))$ and every event $i\in\{0,1,...,N\}$ satisfy the dynamics in \eqref{eq:hybimp}, where an event happens when $(\alphab(t,i),\mub(t,i))$ enters $\mathcal{D}^{i+1}$. Such a nominal trajectory existing of absolutely continuous segments experiencing events according to \eqref{eq:hybimp} is illustrated in Figure~\ref{fig:2exampletraj}.
 
-In \ref{fig:2example} an example trajectory of a block pushing towards a surface is illustrated. The block has two contact points on its edges $i_1$ and $i_2$. It starts with both contact points in open contact as can be seen in Figure~\ref{fig:2example1}. The flow is described by $\dot{\alphab}(t,0) = \fb_0(\alphab(t,0),\mub(t,0),t)$ for $t\in[t_0,\tau_1]$. Then $i_2$ makes impact with the surface at $\tau_1$, causing a jump in the state and a change in continuous dynamics $\dot{\alphab}(t,1) = \fb_1(\alphab(t,1),\mub(t,1),t)$ for $t\in[\tau_1,\tau_2]$. This is illustrated in Figure~\ref{fig:2example2}, where $i_2$ is in closed contact and slipping over the contact surface. At $\tau_2$, $i_1$ makes impact as well causing another jump and another change in continuous dynamics. The block now has both contact points slipping over the contact surface. After this both contact points release contact one by one. Since there are no impulsive forces present in this transition, the state does not jump when a contact point releases. However, a jump in the time-derivate of the state is possible, which makes these transitions continuous but nonsmooth.
+In \ref{fig:2example} an example trajectory of a block pushing towards a surface is illustrated. The block has two contact points on its edges $\iota_1$ and $\iota_2$. It starts with both contact points in open contact as can be seen in Figure~\ref{fig:2example1}. The flow is described by $\dot{\alphab}(t,0) = \fb^0(\alphab(t,0),\mub(t,0),t)$ for $t\in[t_0,\tau^1]$. Then $i_2$ makes impact with the surface at $\tau^1$, causing a jump in the state and a change in continuous dynamics $\dot{\alphab}(t,1) = \fb^1(\alphab(t,1),\mub(t,1),t)$ for $t\in[\tau^1,\tau^2]$. This is illustrated in Figure~\ref{fig:2example2}, where $i_2$ is in closed contact and slipping over the contact surface. At $\tau^2$, $i^1$ makes impact as well causing another jump and another change in continuous dynamics. The block now has both contact points slipping over the contact surface. After this both contact points release contact one by one. Since there are no impulsive forces present in this transition, the state does not jump when a contact point releases. However, a jump in the time-derivate of the state is possible, which makes these transitions continuous but nonsmooth.
 
 \begin{figure}[h]
 \centering
 \begin{subfigure}[b]{0.17\textwidth}
 \centering
 \includegraphics[width=\textwidth]{example1.eps}
-\caption{$i_1,i_2\in\Ic_{\text{op}}$}
+\caption{$\iota_1,\iota_2\in\Ic_{\text{op}}$}
 \label{fig:2example1}
 \end{subfigure}
 \quad
 \begin{subfigure}[b]{0.17\textwidth}  
 \centering 
 \includegraphics[width=\textwidth]{example2.eps}
-\caption{$i_2\in\Ic_{\text{sl}}$}
+\caption{$\iota_2\in\Ic_{\text{sl}}$}
 \label{fig:2example2}
 \end{subfigure}
 \quad
 \begin{subfigure}[b]{0.17\textwidth}   
 \centering 
 \includegraphics[width=\textwidth]{example3.eps}
-\caption{$i_1,i_2\in\Ic_{\text{sl}}$}
+\caption{$\iota_1,\iota_2\in\Ic_{\text{sl}}$}
 \label{fig:2example3}
 \end{subfigure}
 \quad
 \begin{subfigure}[b]{0.17\textwidth}  
 \centering 
 \includegraphics[width=\textwidth]{example4.eps}
-\caption{$i_1\in\Ic_{\text{sl}}$}
+\caption{$\iota_1\in\Ic_{\text{sl}}$}
 \label{fig:2example4}
 \end{subfigure}
 \quad
 \begin{subfigure}[b]{0.17\textwidth}   
 \centering 
 \includegraphics[width=\textwidth]{example5.eps}
-\caption{$i_1,i_2\in\Ic_{\text{op}}$}
+\caption{$\iota_1,\iota_2\in\Ic_{\text{op}}$}
 \label{fig:2example5}
 \end{subfigure}
 \vskip\baselineskip
@@ -284,7 +283,7 @@ In \ref{fig:2example} an example trajectory of a block pushing towards a surface
 \label{fig:2example}
 \end{figure}
 
-The following sections will be used to write the complementarity system defined in Section~\ref{sec:comp} into a hybrid system with impulsive effects as in \eqref{eq:hybimp}. In \ref{sec:2contdyn} the continuous dynamics $\fb_i$ will be derived for mechanical systems with unilateral constraints and spatial friction. Then, in Section~\ref{sec:2event} the reset set $D_i$ will be defined. Finally, in Section~\ref{sec:2discdyn} the discrete dynamics $\gb_i$ will be derived. This will fully define the hybrid system with impulsive effects formulation of mechanical systems with unilateral constraints and spatial friction.
+The following sections will be used to write the complementarity system defined in Section~\ref{sec:comp} into a hybrid system with impulsive effects as in \eqref{eq:hybimp}. In \ref{sec:2contdyn} the continuous dynamics $\fb_i$ will be derived for mechanical systems with unilateral constraints and spatial friction. Then, in Section~\ref{sec:2event} the reset set $\mathcal{D}^i$ will be defined. Finally, in Section~\ref{sec:2discdyn} the discrete dynamics $\gb_i$ will be derived. This will fully define the hybrid system with impulsive effects formulation of mechanical systems with unilateral constraints and spatial friction.
 
 \subsection{Continuous dynamics}\label{sec:2contdyn}
 When describing mechanical systems, we take 
@@ -319,7 +318,7 @@ with
 \lambdab_{t,\iota_1};\lambdab_{t,\iota_2};...;\lambdab_{t,\iota_c} 
 \end{bmatrix}\in\Rbb^{2c},
 \end{align}
-Note that since $\fb_i$ is only defined on $\xb(t,i),\ub(t,i)\notin D_i$, it is not necessary to use $\xib$ to define the equations of motion as done in \eqref{eq:appcont1}. Now $\fb_i$ can be written as
+Note that since $\fb^i$ is only defined on $\xb(t,i),\ub(t,i)\notin \mathcal{D}^i$, it is not necessary to use $\xib$ to define the equations of motion as done in \eqref{eq:appcont1}. Now $\fb^i$ can be written as
 \begin{align}
 \dot{\xb}(t,i) =\begin{bmatrix}
 \dot{\qb}\\ \Mb^{-1}(\qb)\left[ \Sb(\qb)\ub - \Cb(\qb,\dot{\qb}) + \Wb_{n}(\qb)\lambdab_{n} + \Wb_{t}(\qb)\lambdab_{t}\right]
@@ -336,12 +335,12 @@ The closed contact points in $\Ic_{\text{cl}}$ experience reaction forces $\lamb
 where $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$ are the sets of closed contacts in slip and closed contacts in stick respectively. Now, with \eqref{eq:fcont} and \eqref{eq:fcontconst}, the continuous dynamics of the hybrid system with impulsive dynamics are correctly defined. A more thorough derivation of these dynamics can be found in Appendix~\ref{app:hybrid}.
 
 \textbf{System mode descriptor}\\
-A system will have different flow dynamics as the system mode changes, as can be seen in \eqref{eq:fcontconst}. Also the guard functions that can be activated will change with the mode, as will be shown in Section~\ref{sec:2event}. Therefore it is necessary to keep track of the mode the system is in. The system mode descriptor $\sigma_i$ is introduced to conveniently describe the current system mode. Each contact point can either be in open-contact, closed-contact slip or closed-contact stick. The system mode descriptor is therefore defined as
+A system will have different flow dynamics as the system mode changes, as can be seen in \eqref{eq:fcontconst}. Also the guard functions that can be activated will change with the mode, as will be shown in Section~\ref{sec:2event}. Therefore it is necessary to keep track of the mode the system is in. The system mode descriptor $\sigma_i$ is introduced to conveniently describe the current system mode. Each contact point can either be in open-contact, closed-contact slip or closed-contact stick. The system mode descriptor is therefore defined as the ordered set
 \begin{align}
-\Upsilon = \bigcup_{\iota = 1}^c\Upsilon_\iota,
+\sigma = (\sigma_1,\sigma_2,...,\sigma_\iota),
 \end{align}
-\nomenclature[V]{$\Upsilon$}{The system mode descriptor}
-where $\Upsilon_\iota$ is the mode of contact point $\iota$. $\Upsilon_\iota$ can either have the value 'op' for a contact point in open-contact, 'sl' for a contact point in closed-contact slip, or 'st' for a contact point in closed-contact stick. For example, the system mode descriptor of the mode in Figure~\ref{fig:2example2} is $\Upsilon = \{\text{op},\text{sl}\}$.
+\nomenclature[V]{$\sigma$}{The system mode descriptor}
+where $\sigma_\iota$ is the mode of contact point $\iota$. $\sigma_\iota$ can either have the value 'op' for a contact point in open-contact, 'sl' for a contact point in closed-contact slip, or 'st' for a contact point in closed-contact stick. For example, the system mode descriptor of the mode in Figure~\ref{fig:2example2} is $\sigma = \{\text{op},\text{sl}\}$.
 
 \subsection{Discrete event sets}\label{sec:2event}
 When the continuous dynamics enter an event set $D$, an event will take place. Such an event can cause a contact point to enter a different set. This will lead to different post-event continuous dynamics, and it can cause the state to reinitialize according to the discrete dynamics presented in Section~\ref{sec:2discdyn}. For each set of contact points these sets are defined differently. In this section the sets $D$ are defined for each set of contact points. The derivation of the discrete event sets can be found in Appendix~\ref{app:hybrid}.
@@ -366,7 +365,7 @@ For all contact points $\iota\in\Ic_{\text{sl}}$ the discrete event sets are def
 \end{align}
 with 
 \begin{align}
-\gamma^{\text{sl}\rightarrow\text{st}}_{\iota} &= \zetab_{t,\iota}\zetab_{t,\iota}^T\\
+\gamma^{\text{sl}\rightarrow\text{st}}_{\iota} &= \sqrt{\zetab_{t,\iota}\zetab_{t,\iota}^T},\\
 \gamma^{\text{cl}\rightarrow\text{op}}_{\iota} &= \lambda_{n,\iota}.
 \end{align}
 
@@ -378,13 +377,13 @@ For all contact points $\iota\in\Ic_{\text{st}}$ the discrete event sets are def
 \end{align}
 with 
 \begin{align}
-\gamma^{\text{st}\rightarrow\text{sl}}_{\iota} &= \mu^2\lambda_{n,\iota}^2-\lambdab_{t,\iota}\lambdab_{t,\iota}^T\\
+\gamma^{\text{st}\rightarrow\text{sl}}_{\iota} &= \mu^2\lambda_{n,\iota}^2-\lambdab_{t,\iota}\lambdab_{t,\iota}^T,\\
 \gamma^{\text{cl}\rightarrow\text{op}}_{\iota} &= \lambda_{n,\iota}.
 \end{align}
 These event sets lead to a non-impulsive event, which is described in Section~\ref{sec:2discdyn}.
 
 \subsection{Discrete dynamics}\label{sec:2discdyn}
-A contact point entering a discrete event set $\mathcal{D}$ indicates that the system in its current mode is infeasible. The system should therefore go through a discrete event, in which the state can be reinitialized and the mode can be changed to a feasible system. One contact point entering a discrete event set can lead to other contact points experiencing infeasible reaction forces, making it difficult to determine in what mode each contact point should be. The reinitialization of the state and selection of a post-event mode is described by the discrete dynamics in this section. First a \textit{nonlinear complementarity problem} (NCP) is solved to reinitialize the state. The NCP generates a unique feasible solution \cite{Delassus1917}, which for simple systems can be found by iterating over all solutions until the feasible solution is found. Then a mode selection algorithm is presented to find a feasible post-event mode, which defines the continuous dynamics to be integrated after the event.
+A contact point entering a discrete event set $\mathcal{D}$ indicates that the system in its current mode is infeasible. The system should therefore go through a discrete event, in which the state can be reinitialized and the mode can be changed to a feasible system. One contact point entering a discrete event set can lead to other contact points experiencing infeasible reaction forces, making it difficult to determine in what mode each contact point should be. The reinitialization of the state and selection of a post-event mode is described by the discrete dynamics in this section. First a \textit{nonlinear complementarity problem} (NCP) is solved to reinitialize the state. The NCP generates a unique feasible solution \cite{Delassus1917}, which for simple systems can be found by iterating over all solutions until the feasible solution is found. Then a mode selection algorithm is presented to find a feasible post-event mode, which defines the continuous dynamics to be integrated after the event. 
 \nomenclature[A]{NCP}{Nonlinear Complementarity Problem}%
 
 \textbf{State reinitialization}\\
@@ -397,7 +396,7 @@ From the impulsive dynamics \eqref{eq:ncpimpact1}-\eqref{eq:ncpimpact4}, the dis
 \end{align}
 Here the unknown variables are $\dot{\qb}^+\in\Rbb^{n}$, $\Lambdab_{n}\in\Rbb^{c_{\text{cl}}}$ and $\Lambdab_{t}\in\Rbb^{2c_{\text{cl}}}$, which means that there are $n+3c_{\text{cl}}$ unknown variables. From \eqref{eq:2ncp1} we get $n$ equations, from \eqref{eq:2ncp2} we get $c_{\text{cl}}$ equations and since $\Ic_{\text{sl}}\cup\Ic_{\text{st}}=\Ic_{\text{cl}}$, $\lambdab_{t,\iota}\in\Rbb^2$, and $\Wb^T_{t,\iota}\ddot{\qb}^+ + \dot{\Wb}^T_{t,\iota}\dot{\qb}^+ \in\Rbb^2$ we get $2c_{\text{cl}}$ equations from \eqref{eq:2ncp3}-\eqref{eq:2ncp4}. Since we have $n+3c_{\text{cl}}$ unknown variables and $n+3c_{\text{cl}}$ equations, the system is solvable.
 
-The problem that remains is that it is not straightforward to know which dynamics to solve, because the dynamics change as the system-mode changes. The set of equations that should be solved is the set of equations that corresponds to the system-mode which generates a feasible post-event state. When a contact point enters a discrete event set, and thus generates an infeasible state, it can be concluded that the system will go through an event because in it's current mode the system is infeasible. However, it is not guaranteed that the contact point which entered the event set will change their mode. Actually any contact point, or even several contact points, can change their mode. Therefore the dynamics should be solved for several modes, until a feasible post-event state is found. A feasible post-event state is a post-event state solved for a certain system-mode $\Upsilon$, such that the all corresponding guard functions are in its unactivated state, i.e., all $\Gamma_{\iota}>0$. As mentioned earlier, there will exist a unique system-mode where the system has a feasible post-impact state. Similar to the non-impulsive guard functions defined in Section~\ref{sec:2event}, the impulsive guard functions are given by
+The problem that remains is that it is not straightforward to know which dynamics to solve, because the dynamics change as the system-mode changes. The set of equations that should be solved is the set of equations that corresponds to the system-mode which generates a feasible post-event state. When a contact point enters a discrete event set, and thus generates an infeasible state, it can be concluded that the system will go through an event because in it's current mode the system is infeasible. However, it is not guaranteed that the contact point which entered the event set will change their mode. Actually any contact point, or even several contact points, can change their mode. Therefore the dynamics should be solved for several modes, until a feasible post-event state is found. A feasible post-event state is a post-event state solved for a certain system-mode $\sigma$, such that the all corresponding guard functions are in its unactivated state, i.e., all $\Gamma_{\iota}>0$. As mentioned earlier, there will exist a unique system-mode where the system has a feasible post-impact state. Similar to the non-impulsive guard functions defined in Section~\ref{sec:2event}, the impulsive guard functions are given by
 \begin{align}
 \Gamma^{\text{cl}\rightarrow\text{op}}_{\iota} &= \Lambda_{n,\iota},\\
 \Gamma^{\text{sl}\rightarrow\text{st}}_{\iota} &= \zetab^+_{t,\iota}(\zetab^+_{t,\iota})^T,\\
@@ -406,7 +405,7 @@ The problem that remains is that it is not straightforward to know which dynamic
 Note that all guard functions are defined at velocity level during the state reinitialization. The NCP is defined at velocity level, meaning that only guard functions on velocity level need to be considered. For example, it is impossible for the state reinitialization to generate an infeasible position because the position of the system is not updated during the state reinitialization. When $\Lambda_{n,\iota} = 0$ and $\Lambdab_{t,\iota} = 0$ during an event, one speaks of a non-impulsive event. In this case the state is not reinitialized during the event. However, the system will enter a different mode however. For both impulsive and non-impulsive events the post-event mode is determined during the mode selection, which is described below.
 
 \textbf{Mode selection}\\
-The mode $\Upsilon$ of a system is determined by the guard functions defined in Section~\ref{sec:2event}. All guard functions $\gamma_\iota$ should be greater than zero for the system to be in a feasible mode. Because some of these guard functions are defined on acceleration level and the post-event acceleration is not constrained by the NCP, we should first find a post-event mode $\Upsilon^+$ where the accelerations $\ddot{\qb}$ and reaction forces $\lambdab_{n},\lambdab_{t}$ are feasible before we know which continuous dynamics describe a feasible system. From the continuous dynamics \eqref{eq:ncpcontact1}-\eqref{eq:ncpcontact4}, post-event accelerations and reaction forces are defined by
+The mode $\sigma$ of a system is determined by the guard functions defined in Section~\ref{sec:2event}. All guard functions $\gamma_\iota$ should be greater than zero for the system to be in a feasible mode. Because some of these guard functions are defined on acceleration level and the post-event acceleration is not constrained by the NCP, we should first find a post-event mode $\sigma^+$ where the accelerations $\ddot{\qb}$ and reaction forces $\lambdab_{n},\lambdab_{t}$ are feasible before we know which continuous dynamics describe a feasible system. From the continuous dynamics \eqref{eq:ncpcontact1}-\eqref{eq:ncpcontact4}, post-event accelerations and reaction forces are defined by
 \begin{align}
 \ddot{\qb}^+ &= \Mb^{-1}\left[\Sb\ub^+ - \Cb + \Wb_{n}\lambdab^+_{n} + \Wb_{t}\lambdab^+_{t}\right], &  \label{eq:2nonimp1}\\
 \wb^T_{n,\iota}\ddot{\qb}^+ + \dot{\wb}^T_{n,\iota}\dot{\qb}^+ &= 0, & \forall \iota\in\Ic_{\text{cl}},\label{eq:2nonimp2}\\
@@ -420,11 +419,11 @@ where $\Mb$, $\Sb$, $\Cb$, $\wb_{n,\iota}$ and $\Wb_{t,\iota}$ are evaluated at 
 \end{align}
 with $\Ic_{\text{sl}}\cup\Ic_{\text{st}}=\Ic_{\text{cl}}$. Note that the guard functions $\gamma_{\iota}^{\text{op}\rightarrow\text{cl}}$ and $\gamma_{\iota}^{\text{sl}\rightarrow\text{st}}$ are not evaluated. This is unnecessary, because contact points in open contact can only activate guard functions defined at position level. Since the non-impulsive dynamics only update the acceleration, it is impossible for a contact point in open contact to change mode during an impulsive event. This also holds for the guard function from slip to stick, which is defined on velocity level.
 
-The process of solving a hybrid system with impulsive effects is illustrated in Figure~\ref{fig:2hybridalg}. The system first flows according to some continuous dynamics. When an event set $\mathcal{D}$ is entered, the system gives a ante-event state $\xb^-$. Then during the state reinitialization an NCP is solved using the ante-event state, which determines the post-event state $\xb^+$. Then finally the mode selection is solved which finds a feasible post-event mode $\Upsilon^+$ for that post-event state $\xb^+$. $\Upsilon^+$ defines the continuous dynamics for the next flow segment of which $\xb^+$ is the initial condition.
+The process of solving a hybrid system with impulsive effects is illustrated in Figure~\ref{fig:2hybridalg}. The system first flows according to some continuous dynamics. When an event set $\mathcal{D}$ is entered, the system gives a ante-event state $\xb^-$. Then during the state reinitialization an NCP is solved using the ante-event state, which determines the post-event state $\xb^+$. Then finally the mode selection is solved which finds a feasible post-event mode $\sigma^+$ for that post-event state $\xb^+$. $\sigma^+$ defines the continuous dynamics for the next flow segment of which $\xb^+$ is the initial condition.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.4\textwidth]{hybridalg.eps}\caption{The algorithm used to solve a hybrid system with impulsive effects depicted in a flowchart.} \label{fig:2hybridalg}
+\includegraphics[width=.35\textwidth]{hybridalg.eps}\caption{The algorithm used to solve a hybrid system with impulsive effects depicted in a flowchart.} \label{fig:2hybridalg}
 \end{figure}
 
 \section{Summary}

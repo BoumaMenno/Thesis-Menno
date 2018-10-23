@@ -115,13 +115,32 @@ The matrix $\Db$ is often called a Delassus-matrix. We now have expressions for 
 \textbf{Slip to stick/open}\\
 When a contact point is in closed-contact slip, it can transition to closed-contact stick and it can transition to open-contact. A slipping contact transitions to sticking when the tangential velocity of the contact point is zero, i.e.,
 \begin{align}
-||\zetab_{t,i_c}|| = 0.
+||\zetab_{t,\iota}|| = 0.
 \end{align}
 A guard function that can be used to describe this set is
 \begin{align}
-\gamma_{\text{sl}\rightarrow\text{st}} = \zetab_{t,i_c}\zetab_{t,i_c}^T,
+\gamma_{\text{sl}\rightarrow\text{st}} = \zetab_{t,\iota}^T\zetab_{t,\iota},
 \end{align}
-which is equal to zero when $||\zetab_{t,i_c}|| = 0$, greater than zero when $||\zetab_{t,i_c}|| > 0$, smaller than zero when $||\zetab_{t,i_c}|| < 0$, and it is globally differentiable. For a slipping contact transitioning to open-contact an acceleration based guard function is necessary, since the normal velocity of the contact point is constrained in the continuous dynamics of a slipping contact. Therefore, a slipping contact point transitions to open-contact when
+which is equal to zero when $||\zetab_{t,i_c}|| = 0$, greater than zero when $||\zetab_{t,i_c}|| > 0$, smaller than zero when $||\zetab_{t,i_c}|| < 0$, and it is globally differentiable. The time derivative of the guard function is then given by
+\begin{align}
+\dot{\gamma}^{\text{sl}\rightarrow\text{st}} = \frac{\dot{\zetab}_{t,1} + \dot{\zetab}_{t,2}}{\sqrt{\zetab_{t,1}^2 + \zetab_{t,2}^2}}.
+\end{align}
+For $\gamma^{\text{sl}\rightarrow\text{st}} = 0$, $\dot{\gamma}^{\text{sl}\rightarrow\text{st}}$ is undefined because of a division by zero. But we can take the left limit of $\dot{\gamma}^{\text{sl}\rightarrow\text{st}}$ to find the direction at which the guard is activated. Using a Taylor expansion w.r.t. the time we can define the limits
+\begin{align}
+\dot{\zetab}_{t,1}(\tau + s) = a_1 s + o(s),\\
+\dot{\zetab}_{t,2}(\tau + s) = a_2 s + o(s),
+\end{align}
+where $\tau$ is the event time where $\gamma = 0$. Note that the Taylor expansions are only physically realistic for $s < 0$. We can then write
+\begin{align}
+\dot{\gamma}^{\text{sl}\rightarrow\text{st}}(\tau+s) = \frac{(a_1 + a_2)s + o(s)}{\sqrt{(a_1^2 + a_2^2)s^2 + o(s^2)}} \approx \Sign(s)(a_1 + a_2).
+\end{align}
+Since we're interested in the left limit, we get
+\begin{align}
+\lim\limits_{s\rightarrow 0^-}\dot{\gamma}^{\text{sl}\rightarrow\text{st}}(\tau+s) = -(a^2_1 + a^2_2),
+\end{align}
+which will be non-zero when the guard is activated transversally. This guard function can be used to perform the positive homogenization. For simulations we have to find another solution, because $\gamma^{\text{sl}\rightarrow\text{st}}$ cannot become negative. This will lead to problems when we use zero-border crossing detection.
+
+For a slipping contact transitioning to open-contact an acceleration based guard function is necessary, since the normal velocity of the contact point is constrained in the continuous dynamics of a slipping contact. Therefore, a slipping contact point transitions to open-contact when
 \begin{align}
 \lambda_{n,i_c} = 0.\label{eq:applambdanguard}
 \end{align}
@@ -779,7 +798,7 @@ Here we see that the solution of $^{s^{k-1}}\zb_3(t_0) = ^{s^{k-1}}\zb_1(t_0) + 
 \end{align}
 If we now look at the solution for $\zb_4(t_0) = \alpha\zb_1(t_0)$ with $\vb_4(t) = \alpha\vb_1(t)$ jumping with $\Gb^4(\tau)$, and using the fact that $\Gb^4(\tau) = \Gb^1(\tau)$ since the gains are conewise constant as illustrated in Figure~\ref{fig:cone}, we find the same solution as \eqref{eq:alphaz1sol}. This shows that \eqref{eq:PHdyn} is positive homogeneous for any conewise constant jump gain $^{s^{k}\leftarrow s^{k-1}}\Hb\left(^{s^{k-1}}\zb,t\right)$. Hence the name, positive homogenization. 
 
-\section{Stability analysis of PHTTHS}
+\section{Stability analysis of PTTHS}
 
 %% New chapter %%
 \pagestyle{fancyreport}
@@ -868,6 +887,7 @@ m_B\left(x_l{\dot{\varphi}}^2+2\dot{y}_l\dot{\varphi}-g\sin\left(\varphi \right)
 \cos\left(\varphi \right) & \sin\left(\varphi \right) & 0\\ -\sin\left(\varphi \right) & \cos\left(\varphi \right) & 0\\ 0 & 0 & 1\\ -y_l\cos\left(\varphi \right)-x_l\sin\left(\varphi \right) & x_l\cos\left(\varphi \right)-y_l\sin\left(\varphi \right) & 1
 \end{bmatrix}.
 \end{align}
+
 \subsection*{Local constrained dynamics}
 First we have to determine the position vectors of the points $C_L$ and $C_R$ using Figure~\ref{fig:plankboxgeo}. First we define the position vector of $C_R$,
 \begin{align}
