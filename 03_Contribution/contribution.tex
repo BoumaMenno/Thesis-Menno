@@ -7,7 +7,7 @@
 \pagestyle{fancyreport}
 \cleartooddpage
 \pagestyle{fancyreport}
-\chapter{Tracking for Hybrid Systems: Ordered State-Input-Triggered Events}\label{ch:order}
+\chapter{Tracking for Hybrid Systems: Isolated State-and-Input-Triggered Events}\label{ch:order}
 In this chapter a control strategy is presented for trajectories of hybrid systems which, due to the introduction of perturbations, experience ordered state-input-triggered events. Such systems are called \textit{nonlinear state-and-input-triggered hybrid systems} (NSITHS). In this chapter ordered state-input-triggered events are considered, which means that the order of events is always known and that there is flow between two events. The perturbations can cause the state trajectory to jump at a different time than the nominal reference trajectory, resulting in \textit{peaking behavior} of the tracking error \cite{Menini2001,Biemond2013}. The work in this chapter is an extension on the work in \cite{Rijnen2017}. First a notion of error is presented, which is used to avoid peaking behavior. After that a first-order approximation of the NSITHS is presented in the form of a \textit{linear time triggered hybrid system} (LTTHS). A proof is given in \cite{Rijnen2017}, which shows that the stability of the LTTHS can be used to asses the local stability of the original NSITHS. Consequentially, conventional stability analysis tools for LTTHS can be used to asses the local stability of te NSITHS. Finally, a short summary of the findings in this chapter is given.
 \nomenclature[A]{NSITHS}{Nonlinear state-and-input-triggered Hybrid System}%
 \nomenclature[A]{LTTHS}{Linear Time Triggered Hybrid System}%
@@ -269,6 +269,7 @@ In this chapter a control strategy is presented to achieve tracking of trajector
 \section{Simultaneous guard-activation}
 \begin{itemize}
 \item Simultaneous activations
+\item Phantom modes and extensions
 \item Guard function index
 \item Event character
 \item Mode descriptor
@@ -290,8 +291,10 @@ In this chapter a control strategy is presented to achieve tracking of trajector
 \item Positive homogeneity
 \item Unidirectional event completion
 \item Associativity
-\item Positive homogeneous jump gain
+\item Positive homogeneous jump gain derivation
+\item Pushing and withdrawing segments, and effect of pos hom jump gain (v during event is 0)
 \item PTTHS (Positive homogeneous time-triggered hybrid system)
+\item Note that the sensitivity analysis does take micro-events into consideration, but resulting controller does not
 \end{itemize}
 \nomenclature[V]{$\Hb$}{The positive homogeneous jump gain}%
 \nomenclature[V]{$\zb$}{The state perturbation}%
