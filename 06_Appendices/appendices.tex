@@ -37,7 +37,7 @@ When a contact point is "open", it can trigger a guard function $\gamma_{\text{o
 \gamma_{\text{op}\rightarrow\text{cl}} = h_{n,i_c}(\qb).
 \end{align}
 
-The plane that spans $\gamma = 0$ is divided in two regions: a region where the post-impact state is in slip and a region where the post-impact state is in stick. This region is defined by $\Gamma_{i_c}$, where $\Gamma_{i_c}<0$ in the region where the contact point goes to slip and $\Gamma_{i_c} > 0$ in the region where the contact point goes to stick. When $\Gamma_{i_c} = 0$ the system is right at the border between a slip post-impact state and a stick post-impact state. This is illustrated in Figure~\ref{fig:guardopcl}. 
+The plane that spans $\gamma = 0$ is divided in two regions: a region where the post-impact state is in slip and a region where the post-impact state is in stick. $\boldsymbol{I}$ This region is defined by $\Gamma_{i_c}$, where $\Gamma_{i_c}<0$ in the region where the contact point goes to slip and $\Gamma_{i_c} > 0$ in the region where the contact point goes to stick. When $\Gamma_{i_c} = 0$ the system is right at the border between a slip post-impact state and a stick post-impact state. This is illustrated in Figure~\ref{fig:guardopcl}. 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.7\textwidth]{guardopcl.eps}\caption{The functions $\gammab(\qb,\dot{\qb})$ and $\Gammab(\qb,\dot{\qb})$ illustrated in the state space of $\qb\in\mathbb{R}^{2}$. The light blue area is the state space where the contact is open, and goes the closed when it triggers $\gamma = 0$. If it triggers $\gamma = 0$ in the area where $\Gamma<0$ (orange), then the contact will go to slip. If it triggers $\gamma=0$ in the area where $\Gamma\geq 0$ (green), then the contact will go to stick.}\label{fig:guardopcl}
@@ -668,8 +668,9 @@ When we take $k = 1$, we show that the jumps from $0$ to $2$ can be described by
 For $l$ simultaneous jumps, we can find the first-order approximation of the post-impact state using
 
 \begin{align}
-\ ^{l\leftarrow 0}\zb(\tau) = \ ^{l \leftarrow 0}\Gb(\zb^{0}(\tau),\vb(\tau),\tau) = \ ^{l\leftarrow 0}\Gb_\zb\zb^{0}(\tau) + \sum_{i=0}^{l-1}\left(\ ^{l\leftarrow i+1}\Gb_\zb\ ^{i+1 \leftarrow i}\Gb_\vb\vb^{i}(\tau)\right),\label{eq:ljumps}
+\ ^{l\leftarrow 0}\zb(\tau) = \ ^{l \leftarrow 0}\Lb(\zb^{0}(\tau),\vb(\tau),\tau) = \ ^{l\leftarrow 0}\Gb\zb^{0}(\tau) + \sum_{i=0}^{l-1}\left(\ ^{l\leftarrow i+1}\Gb\ ^{i+1 \leftarrow i}\boldsymbol{J}\vb^{i}(\tau)\right),\label{eq:ljumps}
 \end{align}
+
 
 where the superscript
 \begin{align}

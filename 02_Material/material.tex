@@ -9,20 +9,20 @@
 \pagestyle{fancyreport}
 \chapter{Mechanical Systems with Unilateral Constraints and Spatial Friction}\label{ch:model}
 \nomenclature[V]{$\Db$}{Delassus matrix}
-In this chapter several modeling approaches of mechanical systems with unilateral constraints and spatial friction are presented. First a general representation of such a system is given, which is followed by sections introducing several formulations of the contact and friction laws in these systems. First a complementarity problem formulation is given, which is a complete and often used formulation for mechanical systems with unilateral constraints. From the complementarity formulation a hybrid system formulation is derived, which although less complete is a more intuitive formulation from a control point-of-view.
+In this chapter several modeling approaches of mechanical systems with unilateral constraints and spatial friction are presented. First, a general representation of such a system is given, which is followed by sections introducing several formulations of the contact and friction laws in these systems. A complementarity problem formulation is given, which is a complete and often used formulation for mechanical systems with unilateral constraints. From the complementarity formulation a hybrid system formulation is derived, which is a more intuitive formulation from a control point-of-view.
 \section{General system definition}
-For mechanical systems a set of contact points $\iota\in\{\iota_1,\iota_2,...,\iota_c\}$ is defined, with $c$ being the number of considered contact points. A set $\Ic_{\text{cl}}$ is defined as the set of $c_{\text{cl}}$ closed contact points, such that a contact $\iota\in\Ic_{\text{cl}}$ has closed a unilateral constraint. The set of contact points in open contact is defined as $\Ic_{\text{op}} := \{\iota\ |\ \iota\notin\Ic_{\text{cl}}\}$. When a unilateral constraint is activated at a nonzero velocity impact happens, meaning a jump in the velocity will appear. Therefore the generalized velocity $\dot{\qb}$ is not continuously defined over the entire domain of a trajectory with impacts. Therefore $\xib:=\dot{\qb}$ is defined, except at impact-times $\tau_i$. Here $i$ is a counter for unilateral constraint activations where $i\in \{1,2,...,N\}$, with $N$ the amount of jumps in a trajectory. $h_{n,\iota}$ is the normal contact distance and $\zeta_{n,\iota}$ and $\zetab_{t,\iota}$ represent the relative velocities in normal and tangential direction,  respectively. 
+For mechanical systems, a set of contact points $\iota\in\{\iota_1,\iota_2,...,\iota_c\}$ is defined, with $c$ being the number of considered contact points. A set $\Ic_{\text{cl}}$ is defined as the set of $c_{\text{cl}}$ closed contact points, such that a contact $\iota\in\Ic_{\text{cl}}$ has closed a unilateral constraint. The set of contact points in open contact is defined as $\Ic_{\text{op}} := \{\iota\ |\ \iota\notin\Ic_{\text{cl}}\}$. Note that in a physics-based engine the set $\Ic_{\text{op}}$ is often undefined, because not all contact points are tracked. Only the contact points generating reaction forces are tracked. The set $\Ic_{\text{op}}$ is only defined for convenience when the mode of the system is discussed. When a unilateral constraint is activated at a nonzero velocity impact happens, meaning a jump in the velocity will appear. The result is that the generalized velocity $\dot{\qb}$ is not continuously defined over the entire domain of a trajectory with impacts. Therefore $\xib:=\dot{\qb}$ is defined, except at impact-times $\tau^j$. Here $j$ is a counter for unilateral constraint activations where $j\in \{1,2,...,N\}$, with $N$ the number of jumps in a trajectory. $h_{n,\iota}$ is the normal contact distance and $\zeta_{n,\iota}$ and $\zetab_{t,\iota}$ represent the relative velocities in normal and tangential direction,  respectively. 
 
 In Figure~\ref{fig:contactplanes} a body and a fixed world surface are illustrated. A contact point $\iota$ is defined on the body, on which a plane tangent to the surface of the body is spanned. On the normal direction of this plane, the contact distance $h_{n,\iota}(\qb)$ is defined. This is the distance between the contact point and the surface that it can make contact with. By taking the time derivative of $h_{n,\iota}(\qb)$, the relative normal velocity of contact point $\iota$ is found to be
 \begin{align}
 \zeta_{n,\iota} = \frac{\partial h_{n,\iota}}{\partial\qb}\frac{\text{d}\qb}{\text{d} t} = \wb_{n,\iota}^T\dot{\qb},
 \end{align}
 \nomenclature[C]{$\iota$}{The contact point counter}%
-\nomenclature[C]{$i$}{The macro-event counter}%
+\nomenclature[C]{$j$}{Event counter and hybrid time}%
 \nomenclature[P]{$c$}{The number of contact points}%
 \nomenclature[P]{$N$}{The number of events}%
-\nomenclature[V]{$\wb_{n,\iota}$}{The normal jacobian of contact point $\iota$}%
-\nomenclature[V]{$\Wb_{t,\iota}$}{The tangential jacobian of contact point $\iota$}%
+\nomenclature[V]{$\wb^T_{n,\iota}$}{The normal Jacobian of contact point $\iota$}%
+\nomenclature[V]{$\Wb^T_{t,\iota}$}{The tangential Jacobian of contact point $\iota$}%
 \nomenclature[A]{$(.)_{\text{cl}}$}{The closed-contact mode sub/superscript}%
 \nomenclature[A]{$(.)_{\text{op}}$}{The open-contact mode sub/superscript}%
 \nomenclature[A]{$(.)_{\text{sl}}$}{The slip-contact mode sub/superscript}%
@@ -37,7 +37,7 @@ In Figure~\ref{fig:contactplanes} a body and a fixed world surface are illustrat
 \nomenclature[V]{$h_{n,\iota}$}{Contact distance of contact point $\iota$}%
 \nomenclature[V]{$\zeta_{n,\iota}$}{Normal velocity of contact point $\iota$}%
 \nomenclature[V]{$\zetab_{t,\iota}$}{Tangential velocity of contact point $\iota$}%
-with $\wb_{n,\iota}$ representing the Jacobian of the normal velocity $\zeta_{n,\iota}$. The relative tangential velocity $\zetab_{t,\iota}$ is defined in the tangent plane of $\iota$, and thus lies perpendicular to $\zeta_{n,\iota}$. Using the tangential velocity jacobian $\Wb_{t,\iota}$, the relative tangential velocity is defined as
+with $\wb_{n,\iota}$ representing the Jacobian of the normal velocity $\zeta_{n,\iota}$. The relative tangential velocity $\zetab_{t,\iota}$ is defined in the tangent plane of $\iota$, and thus lies perpendicular to $\zeta_{n,\iota}$. Using the tangential velocity Jacobian $\Wb_{t,\iota}$, the relative tangential velocity is defined as
 \begin{align}
 \zetab_{t,\iota} = \Wb_{t,\iota}^T\dot{\qb}.
 \end{align}
@@ -49,9 +49,9 @@ with $\wb_{n,\iota}$ representing the Jacobian of the normal velocity $\zeta_{n,
 
 Then, the continuous dynamics of a mechanical system with unilateral constraints and spatial friction are of the form
 \begin{align}
-&\Mb(\qb)\dot{\xib} + \Cb(\qb,\xib) = \Sb(\qb)\ub + \sum_{\iota\in\Ic_{\text{cl}}}\left(\wb_{n,\iota}(\qb)\lambda_{n,\iota} + \Wb_{t,\iota}(\qb)\lambdab_{t,\iota} \right), \label{eq:appcont1}\\
-&\text{(Contact Law)},\label{eq:appcont2}\\
-&\text{(Friction Law)},\label{eq:appcont3}
+&\Mb(\qb)\dot{\xib} + \Cb(\qb,\xib) = \Sb(\qb)\ub + \sum_{\iota\in\Ic_{\text{cl}}}\wb_{n,\iota}(\qb)\lambda_{n,\iota} + \Wb_{t,\iota}(\qb)\lambdab_{t,\iota}, \label{eq:appcont1}\\
+&\text{(Contact Law)},\nonumber\\
+&\text{(Friction Law)},\nonumber
 \end{align}
 \nomenclature[V]{$\lambda_{n,\iota}$}{The normal reaction force of contact point $\iota$}%
 \nomenclature[V]{$\lambdab_{t,\iota}$}{The tangential reaction force of contact point $\iota$}%
@@ -60,14 +60,14 @@ Then, the continuous dynamics of a mechanical system with unilateral constraints
 \nomenclature[V]{$\Mb$}{The mass matrix}%
 \nomenclature[V]{$\Cb$}{The column containing centripedal, Coriolis and gravitational effects}%
 \nomenclature[V]{$\Sb$}{The matrix containing generalized directions of the actuator forces}%
-with $\qb,\xib\in\Rbb^{n}$ and $\ub\in\Rbb^m$. Here $\Mb(\qb)\in\Rbb^{n\times n}$ is the mass matrix of the system, $\Cb(\qb,\xib)\in\Rbb^{n}$ contains the centripetal, Coriolis and gravitational forces in the system and $\Sb(\qb)\in\Rbb^{n\times m}$ represents the generalized directions of the forces. $\lambda_{n,\iota}\in\Rbb$ and $\lambdab_{t,\iota}\in\Rbb^{2}$ are the normal and tangential reaction forces, respectively, of contact point $\iota$ with $\wb_{n,\iota}\in\Rbb^{n}$ and $\Wb_{t,\iota}\in\Rbb^{n\times 2}$ the corresponding reaction force jacobians. When a contact point activates a unilateral constraint, impulsive dynamics can cause the state of the system to jump. These dynamics are of the form
+with $\qb,\xib\in\Rbb^{n}$ and $\ub\in\Rbb^m$. Here $\Mb(\qb)\in\Rbb^{n\times n}$ is the mass matrix of the system, $\Cb(\qb,\xib)\in\Rbb^{n}$ contains the centripetal, Coriolis and gravitational forces in the system and $\Sb(\qb)\in\Rbb^{n\times m}$ represents the generalized directions of the forces. $\lambda_{n,\iota}\in\Rbb$ and $\lambdab_{t,\iota}\in\Rbb^{2}$ are the normal and tangential reaction forces, respectively, of contact point $\iota$ with $\wb_{n,\iota}\in\Rbb^{n}$ and $\Wb_{t,\iota}\in\Rbb^{n\times 2}$ the corresponding reaction force Jacobians. When a contact point activates a unilateral constraint, impulsive dynamics can cause the state of the system to jump. These dynamics are of the form
 
 \begin{align}
-&\Mb(\qb)(\xib^+ - \xib^-) = \sum_{\iota\in\Ic_{\text{cl}}}\left( \wb_{n,\iota}(\qb)\Lambda_{n,\iota} + \Wb_{t,\iota}(\qb)\Lambdab_{t,\iota}\right), \label{eq:appimp1}\\
-&\text{(Impulsive Contact Law)},\label{eq:appimp2}\\
-&\text{(Impulsive Friction Law)}.\label{eq:appimp3}
+&\Mb(\qb)(\xib^+ - \xib^-) = \sum_{\iota\in\Ic_{\text{cl}}} \wb_{n,\iota}(\qb)\Lambda_{n,\iota} + \Wb_{t,\iota}(\qb)\Lambdab_{t,\iota}, \label{eq:appimp1}\\
+&\text{(Impulsive Contact Law)},\nonumber\\
+&\text{(Impulsive Friction Law)}.\nonumber
 \end{align}
-Here $\Lambda_{n,\iota}$ and $\Lambdab_{t,\iota}$ the normal and tangential impulsive reaction forces, respectively, of contact point $\iota$. These dynamics are impulsive, and happen at one instance in time. The $^-$ superscript indicates the ante-event state and the $^+$ superscript indicates the post-event state. In the following sections three different methods of describing the contact and friction laws are presented. First a complementarity problem formulation of mechanical systems with unilateral constraints is given, from which later a proximal point formulation and a hybrid system formulation are derived. For more information on modeling of multibody systems one can refer to \cite{Leine2008} and \cite{Wouw2016}. \textbf{Modes vs states}
+Here $\Lambda_{n,\iota}$ and $\Lambdab_{t,\iota}$ the normal and tangential impulsive reaction forces, respectively, of contact point $\iota$. These dynamics are impulsive, and happen at one instance in time. The $^-$ superscript indicates the ante-event state and the $^+$ superscript indicates the post-event state. In the following sections three different methods of describing the contact and friction laws are presented. First a complementarity problem formulation of mechanical systems with unilateral constraints is given, from which later a proximal point formulation and a hybrid system formulation are derived. For more information on modeling of multibody systems one can refer to \cite{Leine2008} and \cite{Wouw2016}.
 
 \section{Complementarity problem formulation}\label{sec:comp}
 \subsection{Signorini's contact law and Poisson's impact law}
@@ -112,7 +112,7 @@ When contact happens at nonzero velocity, impact occurs. Newton's impact law is 
 \end{align}
 \nomenclature[P]{$e_{n,\iota}$}{}%
 \nomenclature[P]{$e_{t,\iota}$}{}%
-In this work the coefficient of restitution $e_{n,\iota}$ is assumed to be $0$, describing a completely inelastic contact. For closed contact an impact law can be defined that relates the impulsive contact force $\Lambda_{n,\iota}$ to the post-impact normal velocity $\zeta_{n,\iota}$. When considering multi-contact systems, when a contact is closed two situations can occur:
+In this work the coefficient of restitution $e_{n,\iota}$ is assumed to be $0$, describing a completely inelastic contact. For closed contacts, an impact law can be defined that relates the impulsive contact force $\Lambda_{n,\iota}$ to the post-impact normal velocity $\zeta_{n,\iota}$. Considering multi-contact systems, two situations can occur when a contact is closed:
 \begin{enumerate}
 \item $\Lambda_{n,\iota} > 0\ \wedge\ \zeta^+_{n,\iota} = 0$ (impact)
 \item $\Lambda_{n,\iota} = 0\ \wedge\ \zeta^+_{n,\iota} \geq 0$ (no impact)
@@ -144,7 +144,7 @@ with $\kappa_{\iota}>0$ and
 0 & a = 0
 \end{array},\right.
 \end{equation}
-for some vector $a$ as defined in \cite{Studer2006}. \eqref{eq:frictionlen} can be considered as a relation between the magnitude of the tangential velocity $\zetab_{t,\iota}$ and the reaction friction force $\lambdab_{t,\iota}$. \eqref{eq:frictiondir} can be considered as a relation between the direction of $\zetab_{t,\iota}$ and $\lambdab_{t,\iota}$, namely that $\zetab_{t,\iota}$ and $\lambdab_{t,\iota}$ are always in opposite directions. The constant $\kappa_{\iota}$ can then be interpreted as the magnitude of the tangential velocity. Coulomb's friction law is illustrated in Figure~\ref{fig:coulombfriction}. In Figure~\ref{fig:coulombort} the same law is illustrated, but now as orthogonal vectors. As noticed earlier, this is convenient for writing the law in a complementarity form.
+for some vector $a$ as defined in \cite{Studer2006}. \eqref{eq:frictionlen} can be considered as a relation between the magnitude of the tangential velocity $\zetab_{t,\iota}$ and the reaction friction force $\lambdab_{t,\iota}$. \eqref{eq:frictiondir} can be considered as a relation between the direction of $\zetab_{t,\iota}$ and $\lambdab_{t,\iota}$, namely that $\zetab_{t,\iota}$ and $\lambdab_{t,\iota}$ are always in opposite directions. The constant $\kappa_{\iota}$ can then be interpreted as the magnitude of the tangential velocity. Coulomb's friction law is illustrated in Figure~\ref{fig:coulombfriction}. In Figure~\ref{fig:coulombort} the same law is illustrated, but now as orthogonal vectors. As mentioned before, this is convenient for writing the law in a complementarity form.
 
 \begin{figure}[h]
 \centering
@@ -163,7 +163,7 @@ for some vector $a$ as defined in \cite{Studer2006}. \eqref{eq:frictionlen} can 
 The complementarity formulation of the Coulomb's law is therefore defined as
 
 \begin{align}
-&0\leq \left(\mu_{\iota}\lambda_{n,\iota} - ||\lambdab_{t,\iota}||\right)\ \bot\ \kappa_{\iota} \geq 0,\label{eq:coulomb1}\\
+&0\leq \mu_{\iota}\lambda_{n,\iota} - ||\lambdab_{t,\iota}||\ \bot\ \kappa_{\iota} \geq 0,\label{eq:coulomb1}\\
 &\zetab_{t,\iota} = -\kappa_{\iota}\SgnSp(\lambdab_{t,\iota}).\label{eq:coulomb2}
 \end{align}
 
@@ -173,16 +173,16 @@ The complementarity formulation of the Coulomb's law is therefore defined as
 \end{align}
 where in this work $e_{t,\iota}=0$ is assumed. Then, similarly to the non-impulsive case, the impulsive Coulomb's friction law can be defined as
 \begin{align}
-&0 \leq (\mu\Lambda_{n,\iota} - ||\Lambdab_{t,\iota}||)\ \bot\ \kappa_{\iota} \geq 0. \qquad \forall \iota\in\Ic_{\text{cl}},\label{eq:coulombimp1}\\
+&0 \leq \mu\Lambda_{n,\iota} - ||\Lambdab_{t,\iota}||\ \bot\ \kappa_{\iota} \geq 0. \qquad \forall \iota\in\Ic_{\text{cl}},\label{eq:coulombimp1}\\
 &\zetab_{t,\iota}^+ = \kappa_{\iota}\SgnSp(\Lambdab_{t,\iota}),\qquad \forall \iota\in\Ic_{\text{cl}}.\label{eq:coulombimp2}
 \end{align}
 Note that just as the contact case, the impulsive friction law only holds for closed contacts.
 \subsection{System dynamics with contact and friction law}
 The flow dynamics are then described by
 \begin{align}
-&\Mb(\qb)\dot{\xib} + \Cb(\qb,\xib) = \Sb(\qb)\ub + \sum_{\iota\in\Ic_{\text{cl}}}\left(\wb_{n,\iota}(\qb)\lambda_{n,\iota} + \Wb_{t,\iota}(\qb)\lambdab_{t,\iota} \right), \label{eq:ncpcontact1}\\
+&\Mb(\qb)\dot{\xib} + \Cb(\qb,\xib) = \Sb(\qb)\ub + \sum_{\iota\in\Ic_{\text{cl}}}\wb_{n,\iota}(\qb)\lambda_{n,\iota} + \Wb_{t,\iota}(\qb)\lambdab_{t,\iota}, \label{eq:ncpcontact1}\\
 &0\leq h_{n,\iota}\ \bot\ \lambda_{n,\iota} \geq 0,\label{eq:ncpcontact2}\\
-&0\leq \left(\mu\lambda_{n,\iota} - ||\lambdab_{t,\iota}||\right)\ \bot\ \kappa_{\iota} \geq 0,\label{eq:ncpcontact3}\\
+&0\leq \mu\lambda_{n,\iota} - ||\lambdab_{t,\iota}||\ \bot\ \kappa_{\iota} \geq 0,\label{eq:ncpcontact3}\\
 &\zetab_{t,\iota} = -\kappa_{\iota}\SgnSp(\lambdab_{t,\iota}),\label{eq:ncpcontact4}
 \end{align}
 with 
@@ -193,10 +193,10 @@ with
 \end{align}
 The discrete dynamics, which take place when a contact point goes through an event, are described by
 \begin{align}
-&\Mb(\qb)(\xib^+ - \xib^-) = \sum_{\iota\in\Ic_{\text{cl}}}\left( \wb_{n,\iota}(\qb)\Lambda_{n,\iota} + \Wb_{t,\iota}(\qb)\Lambdab_{t,\iota}\right), \label{eq:ncpimpact1}\\
+&\Mb(\qb)(\xib^+ - \xib^-) = \sum_{\iota\in\Ic_{\text{cl}}} \wb_{n,\iota}(\qb)\Lambda_{n,\iota} + \Wb_{t,\iota}(\qb)\Lambdab_{t,\iota}, \label{eq:ncpimpact1}\\
 &0\leq \zeta_{n,\iota}^+\ \bot\ \Lambda_{n,\iota} \geq 0, \qquad \forall \iota\in\Ic_{\text{cl}},\label{eq:ncpimpact2}\\
-&0 \leq (\mu\Lambda_{n,\iota} - ||\Lambdab_{t,\iota}||)\ \bot\ \kappa_{\iota} \geq 0. \qquad \forall \iota\in\Ic_{\text{cl}},\label{eq:ncpimpact3}\\
-&\zetab_{t,\iota}^+ = -\kappa_i\SgnSp(\Lambdab_{t,\iota}),\qquad \forall \iota\in\Ic_{\text{cl}},\label{eq:ncpimpact4}
+&0 \leq \mu\Lambda_{n,\iota} - ||\Lambdab_{t,\iota}||\ \bot\ \kappa_{\iota} \geq 0. \qquad \forall \iota\in\Ic_{\text{cl}},\label{eq:ncpimpact3}\\
+&\zetab_{t,\iota}^+ = -\kappa^j\SgnSp(\Lambdab_{t,\iota}),\qquad \forall \iota\in\Ic_{\text{cl}},\label{eq:ncpimpact4}
 \end{align}
 with 
 \begin{align}
@@ -205,11 +205,11 @@ with
 \end{align}
 
 \section{Hybrid system formulation}
-In this section the dynamics of the complementarity system defined in Section~\ref{sec:comp} is written to a hybrid formulation, resulting in a hybrid framework for mechanical systems with unilateral constraints and spatial friction. In \cite{Acary2008} event driven numerical methods are presented for mechanical systems with spatial friction. However, these methods do not apply to the hybrid system framework. To the best of our knowledge, this work is first in presenting a model suitable for event driven simulation methods for the hybrid system framework with spatial friction.
+In this section the dynamics of the complementarity system defined in Section~\ref{sec:comp} is written to a hybrid formulation, resulting in a hybrid framework for mechanical systems with unilateral constraints and spatial friction. In \cite[p. 222]{Acary2008} event driven numerical methods are presented for mechanical systems with spatial friction. However, these methods do not apply to the hybrid system framework. To the best of our knowledge, this work is first in presenting a model suitable for event driven simulation methods for the hybrid system framework with spatial friction.
 
-\nomenclature[V]{$\sigma_i$}{The system-mode descriptor of event $i$}%
+\nomenclature[V]{$\sigma_j$}{The system-mode descriptor of event $j$}%
 \subsection{Hybrid systems with impulsive effects}\label{sec:2hyb}
-According to \cite{Haddad2006} an impulsive dynamical system can be described by a hybrid system with impulsive effects. This makes it a valid framework for mechanical systems with unilateral constraints and spatial friction. The notation given in \cite{Haddad2006} is convenient from a tracking point-of-view, in that only the dynamics encountered during the trajectory need to be described. A hybrid system with impulsive effects consists of three elements:
+According to \cite{Haddad2006}, an impulsive dynamical system can be described by a hybrid system with impulsive effects. This makes it a valid framework for mechanical systems with unilateral constraints and spatial friction. The notation given in \cite{Haddad2006} is convenient from a tracking point-of-view, considering that only the dynamics encountered during the trajectory need to be described. A hybrid system with impulsive effects consists of three elements:
 \begin{enumerate}
 \item Continuous dynamics, a continuous-time differential equation which defines the behavior of the system in between events
 \item Discrete dynamics, which defines the way the state of the system is reset during events
@@ -219,8 +219,8 @@ According to \cite{Haddad2006} an impulsive dynamical system can be described by
 Therefore, a hybrid system with impulsive effects is given by
 \begin{equation}
 \begin{array}{ll}
-\dot{\xb}(t,i) =\fb^i(\xb(t,i),\ub(t,i),t),& \xb(t,i),\ub(t,i)\in \mathcal{C}^i\\
-\xb(t,i+1) = \gb^{i+1}(\xb(t,i),\ub(t,i),t),& \xb(t,i),\ub(t,i)\in \mathcal{D}^{i+1}
+\dot{\xb}(t,j) =\fb(\xb(t,j),\ub(t,j),t,j),& \xb(t,j),\ub(t,j)\in \mathcal{C}^j\\
+\xb(t,j+1) = \gb(\xb(t,j),\ub(t,j),t,j),& \xb(t,j),\ub(t,j)\in \mathcal{D}^{j+1}
 \end{array}\label{eq:hybimp}
 \end{equation}
 \nomenclature[V]{$\fb$}{A nonlinear continuous function}%
@@ -230,9 +230,9 @@ Therefore, a hybrid system with impulsive effects is given by
 \nomenclature[V]{$\Gamma$}{An impulsive guard function}%
 \nomenclature[V]{$\alphab$}{The nominal reference trajectory}%
 \nomenclature[V]{$\mub$}{The nominal reference input}%
-with $\xb(t,i)\in\Rbb^{n(i)}$, $\ub(t,i)\in\Rbb^{m(i)}$, $\fb_i(t,i)\ :\ \Rbb^{n(i)}\ \times\ \Rbb^{m(i)}\ \times\ \Rbb\rightarrow \Rbb^{n(i)}$. Note that the state dimension $n(i)$ and the input dimension $m(i)$ can vary in different modes $i$. For the difference equation we have $\gb_i\ :\ \Rbb^{n(i-1)}\ \times\ \Rbb^{m(i-1)}\ \times\ \Rbb\rightarrow \Rbb^{n(i)}$. $\mathcal{C}^i$ is the flow set of the system, and $\mathcal{D}^i(t) \subseteq \partial \mathcal{C}^i := \{\xb(t,i)\in\Rbb^{n(i)},\ \ub(t,i)\in\Rbb^{m(i)}\ |\ \gamma^{=}_i(\xb^{\wedge},\ub^{\wedge},t) = 0, \ \gamma^{\geq}_i(\xb^{\wedge},\ub^{\wedge},t) \geq 0\}$, where $\gamma^{=}_i$ and $\gamma^{\geq}_i$ are some sets of guard functions that are activated at event $i$, $\xb^{\wedge}$,$\ub^{\wedge}$ are some virtual state and input that are not necessarily physically realistic, and $\partial \mathcal{C}^i$ indicates the border of $\mathcal{C}^i$.
+with $\xb(t,j)\in\Rbb^{n(j)}$, $\ub(t,j)\in\Rbb^{m(j)}$, $\fb\ :\ \Rbb^{n(j)}\ \times\ \Rbb^{m(j)}\ \times\ \Rbb\rightarrow \Rbb^{n(j)}$. Note that the state dimension $n(j)$ and the input dimension $m(j)$ can vary in different modes $j$. For the difference equation we have $\gb\ :\ \Rbb^{n(j-1)}\ \times\ \Rbb^{m(j-1)}\ \times\ \Rbb\rightarrow \Rbb^{n(j)}$. $\mathcal{C}^j$ is the flow set of the system, and $\mathcal{D}^j(t) \subseteq \partial \mathcal{C}^j := \{\xb(t,j)\in\Rbb^{n(j)},\ \ub(t,j)\in\Rbb^{m(i)}\ |\ \gamma_{=}^j(\xb^{\wedge},\ub^{\wedge},t) = 0, \ \gamma_{\geq}^j(\xb^{\wedge},\ub^{\wedge},t) \geq 0\}$, where $\gamma_{=}^j$ and $\gamma_{\geq}^j$ are some sets of guard functions that are activated at event $j$, $\xb^{\wedge}$,$\ub^{\wedge}$ are some virtual state and input that are not necessarily physically realistic, and $\partial \mathcal{C}^j$ indicates the border of $\mathcal{C}^j$.
 
-The dynamics given in \eqref{eq:hybimp} will be used to describe a tracking problem for mechanical systems with unilateral constraints and spatial friction. A nominal state-input trajectory is considered consisting of absolutely continuous segments $(\alphab(t,i),\mub(t,i))$, with $t\in\left[\tau_i,\tau_{i+1}\right]$ and $i\in\{0,1,...,N\}$ the event counter. $\alphab(t,i)$ and $\mub(t,i)$ are the nominal state and input, respectively, that define the nominal trajectory with $N$ events. $\tau_i$ is referred to as the nominal event time of event $i$ and $t$ is referred to as regular time. Every segment of the nominal trajectory $(\alphab(t,i),\mub(t,i))$ and every event $i\in\{0,1,...,N\}$ satisfy the dynamics in \eqref{eq:hybimp}, where an event happens when $(\alphab(t,i),\mub(t,i))$ enters $\mathcal{D}^{i+1}$. Such a nominal trajectory existing of absolutely continuous segments experiencing events according to \eqref{eq:hybimp} is illustrated in Figure~\ref{fig:2exampletraj}.
+The dynamics given in \eqref{eq:hybimp} will be used to describe a tracking problem for mechanical systems with unilateral constraints and spatial friction. A nominal state-input trajectory is considered consisting of absolutely continuous segments $(\alphab(t,j),\mub(t,j))$, with $t\in\left[\tau^j,\tau^{j+1}\right]$ and $j\in\{0,1,...,N\}$ the event counter. The nominal state and input, $\alphab(t,j)$ and $\mub(t,j)$ respectively, define the nominal trajectory with $N$ events. The nominal event time of event $j$ is denoted by $\tau^j$ and regular time is denoted by $t$. Every segment of the nominal trajectory $(\alphab(t,j),\mub(t,j))$ and every event $j\in\{1,2,...,N\}$ satisfy the dynamics in \eqref{eq:hybimp}, where an event happens when $(\alphab(t,j),\mub(t,j))$ enters $\mathcal{D}^{j+1}$. Such a nominal trajectory existing of absolutely continuous segments experiencing events according to \eqref{eq:hybimp} is illustrated in Figure~\ref{fig:2exampletraj}.
 
 In \ref{fig:2example} an example trajectory of a block pushing towards a surface is illustrated. The block has two contact points on its edges $\iota_1$ and $\iota_2$. It starts with both contact points in open contact as can be seen in Figure~\ref{fig:2example1}. The flow is described by $\dot{\alphab}(t,0) = \fb^0(\alphab(t,0),\mub(t,0),t)$ for $t\in[t_0,\tau^1]$. Then $i_2$ makes impact with the surface at $\tau^1$, causing a jump in the state and a change in continuous dynamics $\dot{\alphab}(t,1) = \fb^1(\alphab(t,1),\mub(t,1),t)$ for $t\in[\tau^1,\tau^2]$. This is illustrated in Figure~\ref{fig:2example2}, where $i_2$ is in closed contact and slipping over the contact surface. At $\tau^2$, $i^1$ makes impact as well causing another jump and another change in continuous dynamics. The block now has both contact points slipping over the contact surface. After this both contact points release contact one by one. Since there are no impulsive forces present in this transition, the state does not jump when a contact point releases. However, a jump in the time-derivate of the state is possible, which makes these transitions continuous but nonsmooth.
 
@@ -276,14 +276,13 @@ In \ref{fig:2example} an example trajectory of a block pushing towards a surface
 \begin{subfigure}[b]{\textwidth}   
 \centering 
 \includegraphics[width=.85\textwidth]{exampletraj1.eps}
-\caption{The state-trajectory of a block pushing towards a surface, then sliding across that surface and finally releasing from the surface.}
 \label{fig:2exampletraj}
 \end{subfigure}
 \caption{An example trajectory, which satisfies the dynamics \eqref{eq:hybimp}, of a block pushing towards and withdrawing from a surface with velocity $v$.  Note that the sets $D$ besides being dependent on $\xb$, are also dependent on $\ub$. Also, although not depicted in this image, the state space of the system varies with every event.}
 \label{fig:2example}
 \end{figure}
 
-The following sections will be used to write the complementarity system defined in Section~\ref{sec:comp} into a hybrid system with impulsive effects as in \eqref{eq:hybimp}. In \ref{sec:2contdyn} the continuous dynamics $\fb_i$ will be derived for mechanical systems with unilateral constraints and spatial friction. Then, in Section~\ref{sec:2event} the reset set $\mathcal{D}^i$ will be defined. Finally, in Section~\ref{sec:2discdyn} the discrete dynamics $\gb_i$ will be derived. This will fully define the hybrid system with impulsive effects formulation of mechanical systems with unilateral constraints and spatial friction.
+The following sections will be used to write the complementarity system defined in Section~\ref{sec:comp} into a hybrid system with impulsive effects as in \eqref{eq:hybimp}. In \ref{sec:2contdyn} the continuous dynamics $\fb^j$ will be derived for mechanical systems with unilateral constraints and spatial friction. Then, in Section~\ref{sec:2event} the reset set $\mathcal{D}^j$ will be defined. Finally, in Section~\ref{sec:2discdyn} the discrete dynamics $\gb^j$ will be derived. This will fully define the hybrid system with impulsive effects formulation of mechanical systems with unilateral constraints and spatial friction.
 
 \subsection{Continuous dynamics}\label{sec:2contdyn}
 When describing mechanical systems, we take 
@@ -297,7 +296,7 @@ When describing mechanical systems, we take
 \end{bmatrix},
 \end{align}
 
-where $\qb$ and $\dot{\qb}$ are the joint positions, velocities and accelerations respectively. As described in Section~\ref{sec:comp}, for mechanical systems a set of contact points $\iota\in\{\iota_1,\iota_2,...,\iota_c\}$ is defined. Here $c$ is the number of considered contact points. A set $\Ic_{\text{cl}}$ is defined as the set of closed contact points, such that a contact $i\in\Ic_{\text{cl}}$ has closed a unilateral constraint. The set of contact points in open contact is defined as $\Ic_{\text{op}} := \{\iota\ |\ \iota\notin\Ic_{\text{cl}}\}$. The set $\Ic_{\text{cl}}$ is subdivided in two subsets $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$, where $\Ic_{\text{sl}}$ is the set of closed contact points in slip and $\Ic_{\text{st}}$ the set of closed contact points in stick. Here $\Ic_{\text{cl}} =\Ic_{\text{sl}}\cup\Ic_{\text{st}}$ and $\Ic_{\text{sl}}\cup\Ic_{\text{st}}=\emptyset$. 
+where $\qb$ and $\dot{\qb}$ are the joint positions, velocities and accelerations respectively. As described in Section~\ref{sec:comp}, for mechanical systems a set of contact points $\iota\in\{\iota_1,\iota_2,...,\iota_c\}$ is defined. Here $c$ is the number of considered contact points. A set $\Ic_{\text{cl}}$ is defined as the set of closed contact points, such that a contact $\iota\in\Ic_{\text{cl}}$ has closed a unilateral constraint. The set of contact points in open contact is defined as $\Ic_{\text{op}} := \{\iota\ |\ \iota\notin\Ic_{\text{cl}}\}$. The set $\Ic_{\text{cl}}$ is subdivided in two subsets $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$, where $\Ic_{\text{sl}}$ is the set of closed contact points in slip and $\Ic_{\text{st}}$ the set of closed contact points in stick. Here $\Ic_{\text{cl}} =\Ic_{\text{sl}}\cup\Ic_{\text{st}}$ and $\Ic_{\text{sl}}\cup\Ic_{\text{st}}=\emptyset$. 
 
 The equations of motion, given in \eqref{eq:appcont1}, can be rewritten to
 \begin{align}
@@ -318,24 +317,22 @@ with
 \lambdab_{t,\iota_1};\lambdab_{t,\iota_2};...;\lambdab_{t,\iota_c} 
 \end{bmatrix}\in\Rbb^{2c},
 \end{align}
-Note that since $\fb^i$ is only defined on $\xb(t,i),\ub(t,i)\notin \mathcal{D}^i$, it is not necessary to use $\xib$ to define the equations of motion as done in \eqref{eq:appcont1}. Now $\fb^i$ can be written as
+Note that since $\fb^j$ is only defined on $\xb(t,j),\ub(t,j)\notin \mathcal{D}^j$, it is not necessary to use $\xib$ to define the equations of motion as done in \eqref{eq:appcont1}. Now $\fb^j$ can be written as
 \begin{align}
-\dot{\xb}(t,i) =\begin{bmatrix}
+\dot{\xb}(t,j) =\begin{bmatrix}
 \dot{\qb}\\ \Mb^{-1}(\qb)\left[ \Sb(\qb)\ub - \Cb(\qb,\dot{\qb}) + \Wb_{n}(\qb)\lambdab_{n} + \Wb_{t}(\qb)\lambdab_{t}\right]
 \end{bmatrix}.\label{eq:fcont}
 \end{align}
 The closed contact points in $\Ic_{\text{cl}}$ experience reaction forces $\lambda_{n,\iota}$ and $\lambdab_{t,\iota}$, as can be seen in \eqref{eq:qddot}. Therefore for all closed contact points $\iota\in\Ic_{\text{cl}}$ constraints are given which define these reaction forces. These constraints are given by
-\begin{equation}
-\begin{array}{ll}
-\wb^T_{n,\iota}(\qb)\ddot{\qb} + \dot{\wb}^T_{n,\iota}(\qb)\dot{\qb} = 0, & \forall \iota\in\Ic_{\text{cl}},\\
-\lambdab_{t,\iota} + \mu_{\iota}\lambda_{n,\iota}\SgnSp(\Wb_{t,\iota}^T\dot{\qb}) = 0, & \forall \iota\in\Ic_{\text{sl}},\\
-\Wb^T_{t,\iota}(\qb)\ddot{\qb} + \dot{\Wb}^T_{t,\iota}(\qb)\dot{\qb} = 0, & \forall \iota\in\Ic_{\text{st}},
-\end{array}\label{eq:fcontconst}
-\end{equation}
-where $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$ are the sets of closed contacts in slip and closed contacts in stick respectively. Now, with \eqref{eq:fcont} and \eqref{eq:fcontconst}, the continuous dynamics of the hybrid system with impulsive dynamics are correctly defined. A more thorough derivation of these dynamics can be found in Appendix~\ref{app:hybrid}.
+\begin{align}
+&\wb^T_{n,\iota}(\qb)\ddot{\qb} + \dot{\wb}^T_{n,\iota}(\qb)\dot{\qb} = 0, &\forall \iota\in\Ic_{\text{cl}},\label{eq:fcontconst1}\\
+&\lambdab_{t,\iota} + \mu_{\iota}\lambda_{n,\iota}\SgnSp(\Wb_{t,\iota}^T\dot{\qb}) = 0, &\forall \iota\in\Ic_{\text{sl}},\label{eq:fcontconst2}\\
+&\Wb^T_{t,\iota}(\qb)\ddot{\qb} + \dot{\Wb}^T_{t,\iota}(\qb)\dot{\qb} = 0, &\forall \iota\in\Ic_{\text{st}},\label{eq:fcontconst3}
+\end{align}
+where $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$ are the sets of closed contacts in slip and closed contacts in stick respectively. Now, with \eqref{eq:fcont} and \eqref{eq:fcontconst1}-\eqref{eq:fcontconst3}, the continuous dynamics of the hybrid system with impulsive dynamics are correctly defined. A more thorough derivation of these dynamics can be found in Appendix~\ref{app:hybrid}.
 
 \textbf{System mode descriptor}\\
-A system will have different flow dynamics as the system mode changes, as can be seen in \eqref{eq:fcontconst}. Also the guard functions that can be activated will change with the mode, as will be shown in Section~\ref{sec:2event}. Therefore it is necessary to keep track of the mode the system is in. The system mode descriptor $\sigma_i$ is introduced to conveniently describe the current system mode. Each contact point can either be in open-contact, closed-contact slip or closed-contact stick. The system mode descriptor is therefore defined as the ordered set
+A system will have different flow dynamics as the system mode changes, as can be seen in \eqref{eq:fcontconst}. Also the guard functions that can be activated will change with the mode, as will be shown in Section~\ref{sec:2event}. Therefore it is necessary to keep track of the mode the system is in. The system mode descriptor $\sigma^j$ is introduced to conveniently describe the current system mode. Each contact point can either be in open-contact, closed-contact slip or closed-contact stick. The system mode descriptor is therefore defined as the ordered set
 \begin{align}
 \sigma = (\sigma_1,\sigma_2,...,\sigma_\iota),
 \end{align}
@@ -350,7 +347,7 @@ For all contact points $\iota\in\Ic_{\text{op}}$ the discrete event sets are def
 \begin{align}
 \mathcal{D}^{\text{op}\rightarrow\text{cl}}_{\iota} &= \{ \qb\ |\ \gamma^{\text{op}\rightarrow\text{cl}}_{\iota} = 0,\ \dot{\gamma}^{\text{op}\rightarrow\text{cl}}_{\iota} < 0 \},\label{eq:2Dopcl}
 \end{align}
-\nomenclature[V]{$\mathcal{D}_i$}{The discrete event set of event $i$}%
+\nomenclature[V]{$\mathcal{D}^j$}{The discrete event set of event $j$}%
 with
 \begin{align}
 \gamma^{\text{op}\rightarrow\text{cl}}_{\iota} &= h_{n,\iota}(\qb).
@@ -419,7 +416,7 @@ where $\Mb$, $\Sb$, $\Cb$, $\wb_{n,\iota}$ and $\Wb_{t,\iota}$ are evaluated at 
 \end{align}
 with $\Ic_{\text{sl}}\cup\Ic_{\text{st}}=\Ic_{\text{cl}}$. Note that the guard functions $\gamma_{\iota}^{\text{op}\rightarrow\text{cl}}$ and $\gamma_{\iota}^{\text{sl}\rightarrow\text{st}}$ are not evaluated. This is unnecessary, because contact points in open contact can only activate guard functions defined at position level. Since the non-impulsive dynamics only update the acceleration, it is impossible for a contact point in open contact to change mode during an impulsive event. This also holds for the guard function from slip to stick, which is defined on velocity level.
 
-The process of solving a hybrid system with impulsive effects is illustrated in Figure~\ref{fig:2hybridalg}. The system first flows according to some continuous dynamics. When an event set $\mathcal{D}$ is entered, the system gives a ante-event state $\xb^-$. Then during the state reinitialization an NCP is solved using the ante-event state, which determines the post-event state $\xb^+$. Then finally the mode selection is solved which finds a feasible post-event mode $\sigma^+$ for that post-event state $\xb^+$. $\sigma^+$ defines the continuous dynamics for the next flow segment of which $\xb^+$ is the initial condition.
+The process of solving a hybrid system with impulsive effects is illustrated in Figure~\ref{fig:2hybridalg}. The system first flows according to some continuous dynamics. When an event set $\mathcal{D}$ is entered, the system gives a ante-event state $\xb^-$. Then during the state reinitialization an NCP is solved using the ante-event state, which determines the post-event state $\xb^+$. Finally, the mode selection is solved, which finds a feasible post-event mode $\sigma^+$ for that post-event state $\xb^+$. The continuous dynamics for the next flow segment is defined by $\sigma^+$ with $\xb^+$ the initial condition.
 
 \begin{figure}[h]
 \centering
