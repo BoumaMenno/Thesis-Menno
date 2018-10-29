@@ -97,25 +97,18 @@ In the lower plot of Figure~\ref{fig:3refspread} the domains of $\xb$, $\alphab$
 In the next section the error defined using reference spreading is used to make a first-order approximation of perturbed trajectories with ordered guard-activation.
 
 \section{First-order approximation of trajectories with ordered guard-activations}\label{sec:3approx}
-In \cite{Khalil1996} a sensitivity analysis is presented, where so-called sensitivity functions are used to provide first-order approximations of the effects of parameter variations on solutions. These sensitivity functions can also be used to approximate the solution under parameter variations, when the variations are close enough to zero. In the case of mechanical systems experiencing perturbations, the sensitivity equations describe the system's response the initial state-input perturbations. These perturbation dynamics can be used to formulate a first-order approximation of the perturbed state of the system. To find a first-order approximation of state reinitializations in nonsmooth trajectories, an extension to this sensitivity analysis is necessary in the form of a linearized jump gain. The linearized jump gain and the linearized perturbation dynamics together define an LTTHS, which can guarantee local asymptotic stability of the NSITHS when the LTTHS is stable \cite{Rijnen2017}. For a more thorough derivation of the analysis performed in this section, Appendix~\ref{app:Csensitivity} should be consulted.
+In \cite{Khalil1996} a sensitivity analysis is presented, where so-called sensitivity functions are used to provide first-order approximations of the effects of parameter variations on solutions. These sensitivity functions can also be used to approximate the solution under parameter variations, when the variations are close enough to zero. In the case of mechanical systems experiencing perturbations, the sensitivity equations describe the system's response the initial state-input perturbations. These perturbation dynamics can be used to formulate a first-order approximation of the perturbed state of the system. To find a first-order approximation of state reinitializations in nonsmooth trajectories, an extension to this sensitivity analysis is necessary in the form of a linearized jump gain. The linearized jump gain and the linearized perturbation dynamics together define an LTTHS, which can guarantee local asymptotic stability of the NSITHS when the LTTHS is stable \cite{Rijnen2017}. For a more thorough derivation of the analysis performed in this section, Appendix~\ref{app:Csensitivity} should be consulted. Now some assumptions are defined, which are necessary to be able to perform the sensitivity analysis.
 
-\begin{myass}[Existence of a guard function, perturbation-independent guard-event pairs]\label{ass:existence}
+\begin{myass}[Existence of a guard function]\label{ass:existence}
 We assume that there exist constants $\varepsilon_\gamma$, and real valued guard function $\gamma(\xb,\ub,t,j)$ which is continuously differentiable with respect to $\xb$, $\ub$, and $t$, for each $j\in \{1,2,...,N\}$, such that
 \begin{equation}
 \begin{array}{llll}
-\gamma(\xb,\ub,t,j) > 0 & &	&(\xb,\ub,t) \in B_{\varepsilon_\gamma}(\alphab(\tau,j),\tau)\cap \mathcal{C}^j\setminus\partial \mathcal{C}^j\\
-\gamma(\xb,\ub,t,j) = 0 & &	&(\xb,\ub,t) \in B_{\varepsilon_\gamma}(\alphab(\tau,j),\tau)\cap \mathcal{D}^{j+1}\\
-\gamma(\xb,\ub,t,j) < 0 & &	&(\xb,\ub,t) \in B_{\varepsilon_\gamma}(\alphab(\tau,j),\tau)\cap (\Rbb^n \times \Rbb^m \times \Rbb)\setminus \mathcal{C}^j
+\gamma(\xb,\ub,t,j) > 0 & &	&(\xb,\ub,t) \in B_{\varepsilon_\gamma}(\alphab(\tau,j),\mub(\tau,j),\tau)\cap \mathcal{C}^j\setminus\partial \mathcal{C}^j\\
+\gamma(\xb,\ub,t,j) = 0 & &	&(\xb,\ub,t) \in B_{\varepsilon_\gamma}(\alphab(\tau,j),\mub(\tau,j),\tau)\cap \mathcal{D}^{j+1}\\
+\gamma(\xb,\ub,t,j) < 0 & &	&(\xb,\ub,t) \in B_{\varepsilon_\gamma}(\alphab(\tau,j),\mub(\tau,j),\tau)\cap (\Rbb^n \times \Rbb^m \times \Rbb)\setminus \mathcal{C}^j
 \end{array}
 \end{equation}
-where $B_{\varepsilon_{\gamma}}(\alphab(\tau,j),\tau)$ is a ball with radius $\varepsilon_{\gamma}$ around $\alphab(\tau,j)$ with $\tau = \tau^{j+1}$. $\mathcal{C}^j$ is the flow set of a trajectory after event $j$ and $\mathcal{D}^{j+1}$ is the event set which triggers event $i+1$, which is defined as $\partial \mathcal{C}^j$, where $\partial \mathcal{C}^j$ represents the boundary of flow set $\mathcal{C}^j$ (existence of a guard function).
-\end{myass}
-
-\begin{myass}[Perturbation-independent guard-event pairs]
-We assume that there exist constants $\varepsilon_\gamma$, and real valued guard function $\gamma(\xb,\ub,t,j)$ which is continuously differentiable with respect to $\xb$, $\ub$, and $t$, for each $j\in \{1,2,...,N\}$, such that We now define the set of open guard functions $\gamma_{\text{open}}$.
-\begin{align}
-\gamma_{\text{open}}\setminus\gamma(\xb,\ub,t,j)
-\end{align}
+where $B_{\varepsilon_{\gamma}}(\alphab(\tau,j),\tau)$ is a ball with radius $\varepsilon_{\gamma}$ around $\alphab(\tau,j)$ with $\tau = \tau^{j+1}$. $\mathcal{C}^j$ is the flow set of a trajectory after event $j$ and $\mathcal{D}^{j+1}$ is the event set which triggers event $j+1$, which is defined as $\partial \mathcal{C}^j$, where $\partial \mathcal{C}^j$ represents the boundary of flow set $\mathcal{C}^j$ (existence of a guard function).
 \end{myass}
 
 \begin{myass}[Transversal guard activations]\label{ass:transversality}
@@ -130,7 +123,15 @@ for every event time $(t,j) \in E_{\alphab}$.
 The guard function time derivative of $\gamma^{\text{sl}\rightarrow\text{st}} = \sqrt{\zetab_t^T\zetab_t}$, i.e. $\dot{\gamma}^{\text{sl}\rightarrow\text{st}} = $ is undefined for $\gamma^{\text{sl}\rightarrow\text{st}}$. Therefore a Taylor expansion is used to create a first order approximation of the left limit of $\dot{\gamma}^{\text{sl}\rightarrow\text{st}}$ at $t = \tau^j$, to check whether the guard is activated transversally. More information on this can be found in Appendix~\ref{app:hybriddisc}. 
 \end{myremark}
 
-Assumption~\ref{ass:existence} guarantees that the guard function exists in a ball around the nominal ante-event state. In other words, it assumes that the properties of a guard function, i.e., $\gamma>0$ in the flow set, $\gamma=0$ in the event set, and $\gamma<0$ outside of the flow set, are maintained in a ball around the nominal ante-event state $B_{\varepsilon_\gamma}(\alphab(\tau,j),\tau)$.  $\gamma(\xb,\ub,t,j) = 0$ represents the set where an event will happen, which together with Assumption~\ref{ass:transversality} guarantees that an event will happen, even under perturbations. Assumption~\ref{ass:transversality} assumes that the vector field pushes the reference trajectory out of the flow set $\mathcal{C}^j$, and that grazing incidents are avoided. The combination of the existence of a guard function in an area around the nominal ante-event state and the transversal guard activation guarantees that there exists a range of perturbations where the guard is activated as well. Now an assumption of the jump maps $\gb$ is defined.
+\begin{myass}[Perturbation-independent guard-event pairs]\label{ass:guardeventpair}
+With the set of all active guard functions $\gamma^{\text{all}}$, we assume that there exist a constant $\varepsilon_\gamma$, and real valued guard function $\gamma(\xb,\ub,t,j)$, such that
+\begin{align}
+\gamma^{\text{all}}\setminus\gamma^j > 0,\quad \forall \xb,\ub\in B_{\varepsilon_\gamma}(\alphab(\tau,j),\mub(\tau,j),\tau),
+\end{align}
+where $\gamma^j = \gamma(\xb,\ub,t,j)$, and $B_{\varepsilon_\gamma}(\alphab(\tau,j),\mub(\tau,j),\tau)$ is a ball with radius $\varepsilon_{\gamma}$ centered around the ante-event state and input $\alphab(\tau,j),\mub(\tau,j)$ of event $j$.
+\end{myass}
+
+Assumption~\ref{ass:existence} guarantees that the guard function exists in a ball around the nominal ante-event state. In other words, it assumes that the properties of a guard function, i.e., $\gamma>0$ in the flow set, $\gamma=0$ in the event set, and $\gamma<0$ outside of the flow set, are maintained in a ball around the nominal ante-event state $B_{\varepsilon_\gamma}(\alphab(\tau,j),\tau)$.  $\gamma(\xb,\ub,t,j) = 0$ represents the set where an event will happen, which together with Assumption~\ref{ass:transversality} guarantees that an event will happen, even under perturbations. Assumption~\ref{ass:transversality} assumes that the vector field pushes the reference trajectory out of the flow set $\mathcal{C}^j$, and that grazing incidents are avoided. The combination of the existence of a guard function in an area around the nominal ante-event state and the transversal guard activation guarantees that there exists a range of perturbations where the guard is activated as well. Assumption~\ref{ass:guardeventpair} makes sure that the perturbed trajectory will activate the same guard functions as the reference trajectory. Now an assumption of the jump maps $\gb$ is defined.
 
 \begin{myass}[Locally differentiable jump map]\label{ass:jump}
 We assume that for all $i \in [1,2,...,N]$ the jump map $\gb(\xb,\ub,j)$ is locally differentiable, in the sense that $D_1\gb(\xb,\ub,j)$ and $D_2\gb(\xb,\ub,j)$ exist in the ball $B_{\varepsilon_{\gamma}}(\alphab(\tau,j),\tau)$, where $B_{\varepsilon_{\gamma}}$ is the ball in which $\gamma$ exist and $\tau = \tau^{j+1}$.
@@ -169,7 +170,7 @@ where $\dot{\alphab}(t,j)$ is known from the tracked reference trajectory and $\
 \begin{align}
 \alphab(\tau^j,j) = \gb(\alphab(\tau^j,j-1),\mub(\tau^j,j-1),\tau^j,j),\label{eq:3g}
 \end{align}
-and the reinitialization of the perturbed state is described by (due to Assumption~\ref{ass:lipschitz} and \ref{ass:jump})
+and the reinitialization of the perturbed state is described by (due to Assumption~\ref{ass:lipschitz}, \ref{ass:guardeventpair}, and \ref{ass:jump})
 \begin{align}
 \xb(t^{j},j,\epsilon) = \gb(\xb(t^{j},j-1,\epsilon),\ub(t^{j},j-1,\epsilon),t^{j},j).
 \end{align}
