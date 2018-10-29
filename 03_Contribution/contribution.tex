@@ -99,7 +99,7 @@ In the next section the error defined using reference spreading is used to make 
 \section{First-order approximation of trajectories with ordered guard-activations}\label{sec:3approx}
 In \cite{Khalil1996} a sensitivity analysis is presented, where so-called sensitivity functions are used to provide first-order approximations of the effects of parameter variations on solutions. These sensitivity functions can also be used to approximate the solution under parameter variations, when the variations are close enough to zero. In the case of mechanical systems experiencing perturbations, the sensitivity equations describe the system's response the initial state-input perturbations. These perturbation dynamics can be used to formulate a first-order approximation of the perturbed state of the system. To find a first-order approximation of state reinitializations in nonsmooth trajectories, an extension to this sensitivity analysis is necessary in the form of a linearized jump gain. The linearized jump gain and the linearized perturbation dynamics together define an LTTHS, which can guarantee local asymptotic stability of the NSITHS when the LTTHS is stable \cite{Rijnen2017}. For a more thorough derivation of the analysis performed in this section, Appendix~\ref{app:Csensitivity} should be consulted.
 
-\begin{myass}[Existence of a guard function, perturbation-independent guard-event pairs]\label{ass:existence}
+\begin{myass}[Existence of a guard function]\label{ass:existence}
 We assume that there exist constants $\varepsilon_\gamma$, and real valued guard function $\gamma(\xb,\ub,t,j)$ which is continuously differentiable with respect to $\xb$, $\ub$, and $t$, for each $j\in \{1,2,...,N\}$, such that
 \begin{equation}
 \begin{array}{llll}
