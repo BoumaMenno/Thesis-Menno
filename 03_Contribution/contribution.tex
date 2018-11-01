@@ -124,9 +124,9 @@ The guard function time derivative of $\gamma^{\text{sl}\rightarrow\text{st}} = 
 \end{myremark}
 
 \begin{myass}[Perturbation-independent guard-event pairs]\label{ass:guardeventpair}
-With the set of all active guard functions $\gamma^{\text{all}}$, we assume that there exist a constant $\varepsilon_\gamma$, and real valued guard function $\gamma(\xb,\ub,t,j)$, such that
+With the set of all participating guard functions $\gamma_{\textnormal{part}}$, we assume that there exist a constant $\varepsilon_\gamma$, and set of nominal activated guard functions $\gamma_{\textnormal{nom}}^j$, such that
 \begin{align}
-\gamma^{\text{all}}\setminus\gamma^j > 0,\quad \forall \xb,\ub\in B_{\varepsilon_\gamma}(\alphab(\tau,j),\mub(\tau,j),\tau),
+\gamma_{\textnormal{part}}\setminus\gamma_{\textnormal{nom}}^j > 0,\quad \forall \xb,\ub\in B_{\varepsilon_\gamma}(\alphab(\tau,j),\mub(\tau,j),\tau),
 \end{align}
 where $\gamma^j = \gamma(\xb,\ub,t,j)$, and $B_{\varepsilon_\gamma}(\alphab(\tau,j),\mub(\tau,j),\tau)$ is a ball with radius $\varepsilon_{\gamma}$ centered around the ante-event state and input $\alphab(\tau,j),\mub(\tau,j)$ of event $j$.
 \end{myass}
@@ -296,20 +296,39 @@ where $l_I$ is the number of micro-events in macro-event $I$. The perturbed even
 \begin{align}
 \eta = 2^{\nu},\quad\text{with }\nu\in\{0,1,...,c^i\}.
 \end{align}
-$\eta$ is written in the binary numeral system for a more intuitive notation of the different guard functions. The mode that the system is in during a macro-event is indicated using the \textit{mode descriptor} $s_k^i$. Similar to $\eta$, the mode descriptor is written in the binary numeral system. For example, when the event character $c^i = 2$, the guard functions that are involved with that macro event are $\gamma^i_{10}$ and $\gamma^i_{01}$. The system begins in mode $s^i_0 = 00$, where $\gamma^i_{10},\gamma^i_{01}>0$. When the state activates one of the guard functions, for example $\gamma^i_{01}=0$, the next mode becomes $s^i_1 = 01$. When the other guard function is activated as well, $\gamma^i_{10} = 0$, the system completes its macro-event with $s^i_2 = 0$. This is illustrated in Figure~\ref{fig:4simulpert}.
+$\eta$ is written in the binary numeral system for a more intuitive notation of the different guard functions. The modes that the system is in, is indicated using the \textit{mode descriptor} $s_k^i$. The mode descriptor $s_k^i$ is associated to event $i$, similar to $\tau^i$. It should no be confused with the hybrid time $i$, which defines a segment rather than a point. The micro-segments around contact point $i$ can be described using
+\begin{align}
+\ls^{s_k^i}\xb(t) = \xb(t,i-1,k),
+\end{align}
+with $s_k^i$ the mode of the $k^{\text{th}}$ micro-event associated to macro-event $i$. Similar to $\eta$, the mode descriptor is written in the binary numeral system. For example, when the event character $c^i = 2$, the guard functions that are involved with that macro event are $\gamma^i_{10}$ and $\gamma^i_{01}$. The system begins in mode $s^i_0 = 00$, where $\gamma^i_{10},\gamma^i_{01}>0$. When the state activates one of the guard functions, for example $\gamma^i_{01}=0$, the next mode becomes $s^i_1 = 01$. When the other guard function is activated as well, $\gamma^i_{10} = 0$, the system completes its macro-event with $s^i_2 = 0$. This is illustrated in Figure~\ref{fig:4simulpert}. \textbf{MAKE EXAMPLE MORE CLEAR WITH BLOCK}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=.52\textwidth]{simulpert.eps}\caption{A reference trajectory going through a simultaneous event and a state trajectory experiencing loss of simultaneity are illustrated in this figure. Where the reference trajectory activates $\gamma^{10}$ and $\gamma^{01}$ simultaneously, the state trajectory first activates $\gamma^{01}$ at $t=t_1^1$, flows for $t\in [t_1^1,t_2^2]$, and then activates $\gamma^{10}$ at $t=t_2^1$.}\label{fig:4simulpert}
 \end{figure}
 
-\textbf{Historical Notation}
+Depending on the perturbation, several mode sequences can achieve the expected nominal end mode when simultaneity is lost. The different mode sequences can generate a different post-event state, since the differential equation that describes the micro-segments in between the micro-events change with their mode. Therefore, it is useful to be able to indicate an entire mode sequence with one variable. We call this notation the \textit{historical notation}. We define the growing sequence $S_k^i$ as 
+\begin{align}
+S_k^i = s_k^i\leftarrow s_{k-1}^i\leftarrow ... \leftarrow s_0^i,
+\end{align}
+where $s_0^i = 00...0$ with length $c^i$. A growing mode sequence is a sequence of micro-events, where at eacht micro-event another guard function is activated and no guard functions deactivated. We can now define $^{S_k^i}\xb(t)$ as $^{s_k^i}\xb(t)$ that is a result of the growing sequence $S_k^i$. The jump maps that are applied during such a sequence are given by
+\begin{align}
+\ls^{p}\xb = \ls^{p\leftarrow a}\gb(\ls^{a}\xb,\ls^{a}\ub,t),
+\end{align}
+where $p$ represents the post-event mode descriptor, and $a$ the ante-event mode descriptor. For example, the state jump from $s^i_k$ to $s^i_{k+1}$ is given by $\ls^{s^i_{k+1}}\xb = \ls^{s^i_{k+1}\leftarrow s^i_k}\gb(\ls^{s^i_k}\xb,\ls^{s^i_k}\ub,t)$. To denote growing sequences with a particular order of events, we define
+\begin{align}
+\ls^{\nu_k \nu_{k-1}...\nu_1}S_k = s_k \leftarrow s_{k-1} \leftarrow ... \leftarrow s_0,
+\end{align}
+where all mode descriptor entries are defined as $s_{\kappa} = s_{\kappa-1} + \eta_{\kappa}$, with $\eta_{\kappa} = 2^{\nu_{\kappa}}$ \textbf{mistake in ACC paper? Check again.}
+Now that the notation for trajectories with simultaneous guard activations is in place, the analysis of these systems can be discussed.
 
+\nomenclature[C]{$\kappa$}{Historical notation counter}%
 \subsection{Reference-spreading for simultaneous events}
+For trajectories with simultaneous activations, the perturbed state can experience more events than the reference trajectory. The perturbed state will enter micro-modes and micro-segments, which are undefined in the reference trajectory. To be able to define a physically realistic comparison between the reference trajectory and the state trajectory, the reference trajectory needs to be adjusted. This is done in the form of \textit{nominal phantom modes} and \textit{nominal phantom segments}. Phantom modes are modes defined in the reference trajectory, that do not physically exist.
 (phantom modes and segments, do not exist in reference, but they are necessary because state can make more jumps. Same idea behind RS, we want to compare reference and state that are in the same mode)\\
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{simulmicro.eps}\caption{}\label{fig:4simulmicro}
+\includegraphics[width=.8\textwidth]{simulmicro.eps}\caption{The state evolution of the reference trajectory and state trajectory. Phantom segments are added to the reference trajectory, to which the micro-segments of the state trajectory can be compared.}\label{fig:4simulmicro}
 \end{figure}
 
 \nomenclature[C]{$k$}{The micro-event counter}%
@@ -324,8 +343,8 @@ $\eta$ is written in the binary numeral system for a more intuitive notation of 
 \section{First-order approximation for trajectories with simultaneous guard-activation}
 \begin{itemize}
 \item Positive homogeneity
-\item Unidirectional event completion
-\item Associativity
+\item Growing mode sequences assumption
+\item Associativity assumption
 \item Positive homogeneous jump gain derivation
 \item Pushing and withdrawing segments, and effect of pos hom jump gain (v during event is 0)
 \item PTTHS (Positive homogeneous time-triggered hybrid system)
