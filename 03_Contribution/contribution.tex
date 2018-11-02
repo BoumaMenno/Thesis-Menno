@@ -133,7 +133,7 @@ where $\gamma^j = \gamma(\xb,\ub,t,j)$, and $B_{\varepsilon_\gamma}(\alphab(\tau
 
 Assumption~\ref{ass:existence} guarantees that the guard function exists in a ball around the nominal ante-event state. In other words, it assumes that the properties of a guard function, i.e., $\gamma>0$ in the flow set, $\gamma=0$ in the event set, and $\gamma<0$ outside of the flow set, are maintained in a ball around the nominal ante-event state $B_{\varepsilon_\gamma}(\alphab(\tau,j),\tau)$.  $\gamma(\xb,\ub,t,j) = 0$ represents the set where an event will happen, which together with Assumption~\ref{ass:transversality} guarantees that an event will happen, even under perturbations. Assumption~\ref{ass:transversality} assumes that the vector field pushes the reference trajectory out of the flow set $\mathcal{C}^j$, and that grazing incidents are avoided. The combination of the existence of a guard function in an area around the nominal ante-event state and the transversal guard activation guarantees that there exists a range of perturbations where the guard is activated as well. Assumption~\ref{ass:guardeventpair} makes sure that the perturbed trajectory will activate the same guard functions as the reference trajectory. Now an assumption of the jump maps $\gb$ is defined.
 
-\begin{myass}[Locally differentiable jump map]\label{ass:jump}
+\begin{myass}[Locally differentiability of jump maps]\label{ass:jump}
 We assume that for all $i \in [1,2,...,N]$ the jump map $\gb(\xb,\ub,j)$ is locally differentiable, in the sense that $D_1\gb(\xb,\ub,j)$ and $D_2\gb(\xb,\ub,j)$ exist in the ball $B_{\varepsilon_{\gamma}}(\alphab(\tau,j),\tau)$, where $B_{\varepsilon_{\gamma}}$ is the ball in which $\gamma$ exist and $\tau = \tau^{j+1}$.
 \end{myass}
 
@@ -315,17 +315,50 @@ where $s_0^i = 00...0$ with length $c^i$. A growing mode sequence is a sequence 
 \begin{align}
 \ls^{p}\xb = \ls^{p\leftarrow a}\gb(\ls^{a}\xb,\ls^{a}\ub,t),
 \end{align}
-where $p$ represents the post-event mode descriptor, and $a$ the ante-event mode descriptor. For example, the state jump from $s^i_k$ to $s^i_{k+1}$ is given by $\ls^{s^i_{k+1}}\xb = \ls^{s^i_{k+1}\leftarrow s^i_k}\gb(\ls^{s^i_k}\xb,\ls^{s^i_k}\ub,t)$. To denote growing sequences with a particular order of events, we define
+where $p$ represents the post-event mode descriptor, and $a$ the ante-event mode descriptor. For example, the state jump from $s^i_k$ to $s^i_{k+1}$ is given by $\ls^{s^i_{k+1}}\xb = \ls^{s^i_{k+1}\leftarrow s^i_k}\gb(\ls^{s^i_k}\xb,\ls^{s^i_k}\ub,t)$. When the considered macro-event is known form context, the macro-counter $i$ can be dropped to simplify the notation. Growing sequences with a particular order of events are now given by
 \begin{align}
-\ls^{\nu_k \nu_{k-1}...\nu_1}S_k = s_k \leftarrow s_{k-1} \leftarrow ... \leftarrow s_0,
+\ls^{\nu_k \nu_{k-1}...\nu_{1}}S_k = s_k \leftarrow s_{k-1} \leftarrow ... \leftarrow s_0,
 \end{align}
-where all mode descriptor entries are defined as $s_{\kappa} = s_{\kappa-1} + \eta_{\kappa}$, with $\eta_{\kappa} = 2^{\nu_{\kappa}}$ \textbf{mistake in ACC paper? Check again.}
+where all mode descriptor entries are defined as $s_{\kappa} = s_{\kappa-1} + \eta_{\kappa}$, with $\eta_{\kappa} = 2^{\nu_{\kappa}-1}$ and $\kappa = \{1,2,...,k\}$. For a simultaneous activation during a micro-event, the participating guard functions are placed withing brackets. For example, for a character-4 ($c^i = 4$) growing sequence, we write 
+\begin{align}
+\ls^{23(14)}S_3 = 1111 \leftarrow 1101 \leftarrow 1001 \leftarrow 0000.
+\end{align}
 Now that the notation for trajectories with simultaneous guard activations is in place, the analysis of these systems can be discussed.
-
 \nomenclature[C]{$\kappa$}{Historical notation counter}%
 \subsection{Reference-spreading for simultaneous events}
-For trajectories with simultaneous activations, the perturbed state can experience more events than the reference trajectory. The perturbed state will enter micro-modes and micro-segments, which are undefined in the reference trajectory. To be able to define a physically realistic comparison between the reference trajectory and the state trajectory, the reference trajectory needs to be adjusted. This is done in the form of \textit{nominal phantom modes} and \textit{nominal phantom segments}. Phantom modes are modes defined in the reference trajectory, that do not physically exist.
-(phantom modes and segments, do not exist in reference, but they are necessary because state can make more jumps. Same idea behind RS, we want to compare reference and state that are in the same mode)\\
+For trajectories with simultaneous activations, the perturbed state can experience more events than the reference trajectory. The perturbed state will enter micro-modes and micro-segments, which are undefined in the reference trajectory. To be able to define a physically realistic comparison between the reference trajectory and the state trajectory, the reference trajectory needs to be adjusted accordingly. This is done in the form of \textit{nominal phantom modes} and \textit{nominal phantom segments}. Phantom modes are modes defined in the reference trajectory, that do not physically exist. Before these phantom modes are defined, an assumption needs to be made on the jump maps. This assumption is now formally defined.
+\begin{myass}[Associativity of jump maps]\label{ass:associativity}
+We assume that the jump map $\ls^{p\leftarrow a}\gb(\ls^{a}\xb,\ls^{a}\ub,t)$ is associative, meaning that taking an arbitrary growing sequence $s_k\leftarrow s_{k-1} \leftarrow ... \leftarrow s_0$, where $p = s_k$ and $a = s_0$, one can say
+\begin{align}
+\ls^{p}\xb = \left(\ls^{p\leftarrow s_{k-1}}\gb \circ \ls^{s_{k-1} \leftarrow s_{k-2}}\gb \circ \cdots \circ \ls^{s_1 \leftarrow a}\gb \right).
+\end{align}
+Intuitively, this means that the simultaneous jump gain from $a$ to $p$ can be described with a sequence of jump gains evaluated on the same time instant.
+\end{myass}
+Using Assumption~\ref{ass:associativity}, the phantom modes can be defined. All micro-modes, which the state can enter as a result of loss of simultaneity, are defined in the nominal trajectory. These modes are called the phantom modes in the nominal trajectory. The initial states associated to these modes are found by applying the corresponding jump maps $\ls^{p\leftarrow a}\gb$ to the nominal ante-event state,
+\begin{align}
+\ls^{s^i_1}\alphab =&\ \ls^{s^i_1\leftarrow s^i_0}\gb(\ls^{s^i_0}\alphab,\ls^{s^i_0}\mub,\tau^i)\nonumber\\
+&\vdots\label{eq:4phantomini}\\
+\ls^{s^i_{k}}\alphab =&\ \ls^{s^i_k\leftarrow s^i_{k-1}}\gb(\ls^{s^i_{k-1}}\alphab,\ls^{s^i_{k-1}}\mub,\tau^i),\nonumber
+\end{align}
+resulting in a reference trajectory that goes through the same modes as the state trajectory. The feedforward term that defines the phantom modes can be chosen from two options. We define \textit{withdrawing phantom modes} and \textit{pushing phantom modes}, which are defined by the feedforwards
+\begin{equation}
+\ls^{S_k^i}_{\nearrow}\overline{\mub}(t) := \left\lbrace\begin{array}{ll}
+\overline{\mub}(t,i-1), & k = 0\\
+\overline{\mub}(t,i), & k \neq 0
+\end{array},\right.
+\end{equation}
+and
+\begin{equation}
+\ls^{S_k^i}_{\searrow}\overline{\mub}(t) := \left\lbrace\begin{array}{ll}
+\overline{\mub}(t,i-1), & k \neq l_i\\
+\overline{\mub}(t,i), & k = l_i
+\end{array},\right.\label{eq:4phantominp}
+\end{equation}
+\nomenclature[P]{$l_i$}{Number micro-events in macro-event $i$}%
+where $\nearrow$ indicates a withdrawing feedforward and $\searrow$ indicates a pushing feedforward, and $l_i$ the number of micro-events associated with macro-event $i$. For each event it should be defined whether a withdrawing or pushing phantom mode is used. 
+
+Since the events of the state trajectory happen at different time-instant than the events in the reference trajectory, the phantom modes should be extended similarly as in Section~\ref{ch:order}. 
+Using the initial states $\ls^{S^i_{k}}\alphab$ defined in \eqref{eq:4phantomini} and inputs $\ls^{S_k^i}\overline{\mub}$ defined in \eqref{eq:4phantominp}, the vector field $\ls^{s_k^i}\fb$ can be integrated forward and backward to find the (pushing or withdrawing) phantom segments corresponding to the phantom modes. These phantom modes and segments are illustrated in Figure~\ref{fig:4simulmicro}, where $\overline{\alphab}(t,0,1),\overline{\alphab}(t,1,1),\overline{\alphab}(t,1,2)$ are examples of phantom segments.
 \begin{figure}[h]
 \centering
 \includegraphics[width=.8\textwidth]{simulmicro.eps}\caption{The state evolution of the reference trajectory and state trajectory. Phantom segments are added to the reference trajectory, to which the micro-segments of the state trajectory can be compared.}\label{fig:4simulmicro}
@@ -341,12 +374,18 @@ For trajectories with simultaneous activations, the perturbed state can experien
 \nomenclature[V]{$\chi$}{The set of guard function identifiers of guards that can be activated}%
 \nomenclature[V]{$t_i^k$}{The perturbed event time of macro-event $i$ and micro-event $k$}%
 \section{First-order approximation for trajectories with simultaneous guard-activation}
+
+\begin{mydef}[Positive homogeneity]
+
+\end{mydef}
+
+\begin{myass}[Growing mode sequences]
+
+\end{myass}
+
 \begin{itemize}
-\item Positive homogeneity
-\item Growing mode sequences assumption
-\item Associativity assumption
 \item Positive homogeneous jump gain derivation
-\item Pushing and withdrawing segments, and effect of pos hom jump gain (v during event is 0)
+\item Effect of $\vb = 0$ on pos hom jump gain
 \item PTTHS (Positive homogeneous time-triggered hybrid system)
 \item Note that the sensitivity analysis does take micro-events into consideration, but resulting controller does not
 \end{itemize}
