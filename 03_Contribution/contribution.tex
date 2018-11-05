@@ -373,14 +373,48 @@ Using the initial states $\ls^{S^i_{k}}\alphab$ defined in \eqref{eq:4phantomini
 \nomenclature[V]{$\eta$}{A guard function identifier}%
 \nomenclature[V]{$\chi$}{The set of guard function identifiers of guards that can be activated}%
 \nomenclature[V]{$t_i^k$}{The perturbed event time of macro-event $i$ and micro-event $k$}%
+
 \section{First-order approximation for trajectories with simultaneous guard-activation}
+Now the sensitivity analysis for a trajectory with simultaneous events is presented. Similar to the sensitivity analysis for trajectories with isolated events, the continuous segments of the state can be approximated using
+\begin{align}
+\xb(t,i,\epsilon) = \alphab(t,i) + \epsilon\zb(t,i) + o(\epsilon),
+\end{align}
+where $\zb(t,i)$ is defined by
+\begin{align}
+\dot{\zb}(t,i) = \Ab(t,i)\zb(t,i) +\Bb(t,i)\vb(t,i),
+\end{align}
+with
+\begin{align}
+\Ab(t,i) &= D_1\fb(\alphab(t,i),\mub(t,i),t,i),\\
+\Bb(t,i) &= D_2\fb(\alphab(t,i),\mub(t,i),t,i).
+\end{align}
+Now we derive a first order approximation of the jump map of a simultaneous event with character $c^i = 2$. A more thorough description of this derivation can be found in Appendix~\ref{app:multjumps}. In this Chapter, the macro-counter $i$ is left out of the derivation as it is redundant. The jump map that describes this jump is given by
+\begin{align}
+\ls^{s^{k+1}}\xb_\epsilon(t^{k+1}) = \ls^{s^{k+1}\leftarrow s^k}\gb(\ls^{s^{k}}\xb_\epsilon(t^{k+1}),\ls^{s^{k}}\ub_\epsilon(t^{k+1}),t^{k+1}),\label{eq:4xe012}
+\end{align}
+with
+\begin{align}
+\ls^{s^{k}}\xb_\epsilon(t^{k+1}) = \int_{t^{k}}^{t^{k+1}}\left[\ls^{s^{k}}\fb\left(\ls^{s^{k}}\xb_\epsilon(t),\ls^{s^{k}}\ub_\epsilon(t),t\right)\right]dt + \ls^{s^{k}\leftarrow s^{k-1}}\gb(\ls^{s^{k-1}}\xb_\epsilon(t^{k}),\ls^{s^{k-1}}\ub_\epsilon(t^{k}),t^{k}).\label{eq:4xe01}
+\end{align}
+Here the subscript $(.)_\epsilon$ indicates that the variable is dependent on $\epsilon$, the left superscript $\ls^{s^k}(.)$ indicates that the variable is in micro-segment $k$, and $t^k$ represents the event-time of micro-event $k$. Now we expand the right-hand side of \eqref{eq:4xe012} with respect to $\epsilon$, to find
+\begin{align}
+\ls^{s^{k+1}}\xb_\epsilon(t^{k+1}) = \ls^{s^{k+1}}\alphab(\tau) + \epsilon\left.\frac{\partial}{\partial\epsilon}\ls^{s^{k+1}\leftarrow s^k}\gb\right|_{\epsilon=0} + o(\epsilon),\label{eq:4xe012exp}
+\end{align}
+where
+\begin{multline}
+\left.\frac{\partial}{\partial\epsilon}\ls^{s^{k+1}\leftarrow s^k}\gb\right|_{\epsilon=0} = D_1\ls^{s^{k+1}}\gb\cdot\left(\ls^{s^{k}}\fb(\Delta^{k+1}-\Delta^{k}) + D_1\ls^{s^{k}}\gb\cdot\left(\ls^{s^{k-1}}\zb+\ls^{s^{k-1}}\fb\Delta^{k}\right)\right. \\ \left.+ D_2\ls^{s^{k}}\gb\cdot\left(\ls^{s^{k-1}}\vb+\ls^{s^{k-1}}\dot{\mub}\Delta^{k}\right) + D_3\ls^{s^{k}}\gb\cdot\Delta^{k}\right)+D_3\ls^{s^{k+1}}\gb\cdot\Delta^{k+1}. \label{eq:4dg1de}
+\end{multline}
 
 \begin{mydef}[Positive homogeneity]
-
+Suppose that $\fb(\xb,\ub,t)$ is a continuously differentiable function. The function $\fb$ is called positive homogeneous to the degree $k$, if 
+\begin{align}
+\fb(a\xb,a\ub,t) = a^k\fb(\xb,\ub,t),
+\end{align}
+for all constants $a>0$.
 \end{mydef}
 
 \begin{myass}[Growing mode sequences]
-
+We assume that all considered mode sequences are growing, meaning that at each micro-event, one or more guard functions become active, without changing the status of any other guard-function. In other words, considering one macro-event, we assume that $s^0<s^1<...s^l$, where $s^0= 00...0$ and $s^l = 11...1$, and $l$ is the number of micro-events in the considered macro-event.
 \end{myass}
 
 \begin{itemize}
