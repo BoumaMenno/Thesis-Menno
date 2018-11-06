@@ -277,7 +277,7 @@ In this chapter a control strategy is presented to achieve tracking of trajector
 \chapter{Tracking for Hybrid Systems: Simultaneous State-and-Input-Triggered Events}\label{ch:simult}
 In this chapter the control strategy presented in Chapter~\ref{ch:order} is extended to be suitable for trajectories with simultaneous guard activations. Simultaneous guard activations are activations where a trajectory triggers two guard functions at the same time-instant. Take for example a box with two contact points, where the contact points make contact with a surface at the same time. When perturbations are introduced in these trajectories, the simultaneity of the event can get lost. Also, the order of activations can change depending on the perturbation. The box can first make contact with one contact point and then with the other, or the other way around. This complicates the definition of the first-order approximation. In this chapter, a novel notation from \cite{Rijnen2018} is presented to describe trajectories with simultaneous guard functions. Reference spreading is applied to trajectories with simultaneous events, which is used as basis to define a positive homogeneous jump gain which approximates the jump behavior of the perturbed trajectory. The positive homogeneous jump gain defines the \textit{positive homogeneous time-triggered hybrid system} (PTHHS), whose stability implies local asymptotic stability of the NSITHS. This chapter extends the work presented in \cite{Rijnen2018} to being suitable for input-dependent guard functions, and therefore mechanical systems experiencing dry friction and releasing motions.
 
-\section{Simultaneous guard-activation}
+\section{Simultaneous guard-activation}\label{sec:simguards}
 To be able to perform the sensitivity analysis presented in Chapter~\ref{ch:order} for trajectories with simultaneous guard activations, some adjustments need to be made to the notation. In this section a new notation, introduced in \cite{Rijnen2018}, is presented, namely: the event character, micro- and macro-events, multiscale hybrid time, guard function index, mode descriptor, phantom segments, and historical notation. After this, reference spreading for simultaneous guard-activations is discussed.
 
 \subsection{Adopted notation}
@@ -375,6 +375,8 @@ Using the initial states $\ls^{S^i_{k}}\alphab$ defined in \eqref{eq:4phantomini
 \nomenclature[V]{$t_i^k$}{The perturbed event time of macro-event $i$ and micro-event $k$}%
 
 \section{First-order approximation for trajectories with simultaneous guard-activation}
+
+\subsection{Sensitivity analysis for simultaneous guard-activation}
 Now the sensitivity analysis for a trajectory with simultaneous events is presented. Similar to the sensitivity analysis for trajectories with isolated events, the continuous segments of the state can be approximated using
 \begin{align}
 \xb(t,i,\epsilon) = \alphab(t,i) + \epsilon\zb(t,i) + o(\epsilon),
@@ -404,6 +406,57 @@ where
 \begin{multline}
 \left.\frac{\partial}{\partial\epsilon}\ls^{s^{k+1}\leftarrow s^k}\gb\right|_{\epsilon=0} = D_1\ls^{s^{k+1}}\gb\cdot\left(\ls^{s^{k}}\fb(\Delta^{k+1}-\Delta^{k}) + D_1\ls^{s^{k}}\gb\cdot\left(\ls^{s^{k-1}}\zb+\ls^{s^{k-1}}\fb\Delta^{k}\right)\right. \\ \left.+ D_2\ls^{s^{k}}\gb\cdot\left(\ls^{s^{k-1}}\vb+\ls^{s^{k-1}}\dot{\mub}\Delta^{k}\right) + D_3\ls^{s^{k}}\gb\cdot\Delta^{k}\right)+D_3\ls^{s^{k+1}}\gb\cdot\Delta^{k+1}. \label{eq:4dg1de}
 \end{multline}
+Now, by expanding $\ls^{s^{k+1}}\xb_\epsilon(t^{k+1})$ with respect to $\epsilon$, we find
+\begin{align}
+\ls^{s^{k+1}}\xb_\epsilon(t^{k+1}) &= \ls^{s^{k+1}}\alphab(t^{k+1})+\epsilon\ ^{s^{k+1}}\zb(t^{k+1}) + o(\epsilon),\\
+&= \ls^{s^{k+1}}\alphab(\tau) + \epsilon\ ^{s^{k+1}}\dot{\alphab}(\tau)\Delta^{k+1} + \epsilon\ ^{s^{k+1}}\zb(\tau) + o(\epsilon).\label{eq:4xexp}
+\end{align}
+Using \eqref{eq:4xe012exp} and \eqref{eq:4xexp}, an expression for $\ls^{s^{k+1}}\zb(\tau)$ is found, which is
+\begin{multline}
+\ls^{s^{k+1}}\zb(\tau) = D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb\Delta^{k+1} - D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k+1}}\fb\Delta^{k} + D_1\ls^{s^{k+1}}\gb\cdot\left[D_1\ls^{s^{k+1}}\gb\cdot\left(\ls^{s^{k-1}}\zb+\ls^{s^{k-1}}\fb\Delta^{k}\right)\right.\\
+\left.+D_2\ls^{s^{k}}\gb\cdot\left(\ls^{s^{k-1}}\vb+\ls^{s^{k-1}}\dot{\mub}\Delta^{k}\right)+D_3\ls^{s^{k}}\gb\cdot\Delta^{k}\right] + \left(D_3\ls^{s^{k+1}}\gb^{k} - \ls^{s^{k+1}}\fb\right)\Delta^{k+1},\label{eq:4ztau}
+\end{multline}
+which can be rewritten to 
+\begin{multline}
+\ls^{s^{k+1}}\zb(\tau) = \left(\frac{\ls^{s^{k+1}}\fb - D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb  - D_2\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\dot{\mub} - D_3\ls^{s^{k+1}}\gb}{\ls^{s^{k+1}}\dot{\gamma}}D_1\ls^{s^{k+1}}\gamma + D_1\ls^{s^{k+1}}\gb\right)\Gb^{k}\ ^{s^{k-1}}\zb\\
++ \left(\frac{\ls^{s^{k+1}}\fb - D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb - D_2\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\dot{\mub} - D_3\ls^{s^{k+1}}\gb}{\ls^{s^{k+1}}\dot{\gamma}}D_1\ls^{s^{k+1}}\gamma + D_1\ls^{s^{k+1}}\gb\right)\Jb^{k}\ ^{s^{k-1}}\vb\\
++ \left(\frac{\ls^{s^{k+1}}\fb-D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb - D_2\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\dot{\mub} - D_3\ls^{s^{k+1}}\gb}{\ls^{s^{k+1}}\dot{\gamma}}D_2\ls^{s^{k+1}}\gamma\right)\ls^{s^{k}}\vb,
+\end{multline}
+which is equal to
+\begin{align}
+&\ls^{s^{k+1}}\zb(\tau) = \Gb^{k+1}\Gb^k\ ^{s^{k-1}}\zb + \Gb^{k+1}\Jb^{k}\ ^{s^{k-1}}\vb + \Jb^{k+1}\ ^{s^{k}}\vb.\label{eq:4zkplusfinal}
+\end{align}
+For brevity, the derivation has been reduced to essential equations. For a more complete derivation, consult Appendix~\ref{app:multjumps}. Note that \eqref{eq:4zkplusfinal} is also found by taking the first order approximation of two single jumps
+\begin{align}
+\ls^{s^{k}}\zb(\tau) &= \Gb^k\ ^{s^{k-1}}\zb + \Jb^{k}\ ^{s^{k-1}}\vb,\\
+\ls^{s^{k+1}}\zb(\tau) &= \Gb^{k+1}\ ^{s^{k}}\zb + \Jb^{k+1}\ ^{s^{k}}\vb,
+\end{align}
+and substituting the one into the other. This implies that the first-order approximation of the post-impact state of two simultaneous jumps at $\tau$ can be found by evaluating the two jumps separately. For an arbitrary number of micro-events $k$, the first-order approximation of the post-event state can be found to be
+\begin{align}
+\ls^{S^k}\zb(\tau) = \ls^{s^k\leftarrow s^0}\Gb\ ^{s^0}\zb(\tau) + \sum_{\iota=0}^{k-1}\left(\ls^{s^{k}\leftarrow s^{\iota+1}}\Gb\ ^{s^{\iota+1}\leftarrow s^{\iota}}\Jb\ ^{s^{\iota}}\vb(\tau)\right),\label{eq:4ljumps}
+\end{align}
+where $\ls^{p\leftarrow a}\Gb$ and $\ls^{p\leftarrow a}\Jb$ are given by
+\begin{align}
+\ls^{p\leftarrow a}\Gb &:= \ls^{p}\Gb\ ^{p-1}\Gb\cdots\ls^{a}\Gb,\\
+\ls^{p\leftarrow a}\Jb &:= \ls^{p}\Jb\ ^{p-1}\Jb\cdots\ls^{a}\Jb,
+\end{align}
+for a sequence $p\leftarrow p-1 \leftarrow \cdots \leftarrow a$. Since feedback is often turned off when an event is detected, the first-order approximation of the post-event can be simplified to
+\begin{align}
+\ls^{S^k}\zb(\tau) &= \ls^{S^k}\Lb \begin{bmatrix}
+\ls^{s^0}\zb(\tau) \\ \ls^{s^0}\vb(\tau)
+\end{bmatrix}, \text{ with }\ls^{S^k}\Lb = \begin{bmatrix}
+\ls^{S^k}\Gb & \ls^{S^{k\leftarrow 1}}\Gb\ls^{S^{1\leftarrow 0}}\Jb
+\end{bmatrix},\label{eq:4ljumpssimp}
+\end{align}
+since only the ante-event feedback term will be non-zero. The jump gain defined in \eqref{eq:4ljumpssimp} is defined for a particular order of guard-activations.
+\subsection{The positive homogeneous jump gain}
+As mentioned in Section~\ref{sec:simguards}, an event with simultaneous guard activation will experience loss of simultaneity when perturbations are introduced. Due to the loss of simultaneity, the order of events is unknown. For that reason, one simultaneous event has several associated event sequences. For there to be a finite amount of possibilities of event sequences, all sequences a should be growing. This assumption is now formally defined.
+
+\begin{myass}[Growing mode sequences]
+We assume that all considered mode sequences are growing, meaning that at each micro-event, one or more guard functions become active, without changing the status of any other guard-function. In other words, considering one macro-event, we assume that $s^0<s^1<...s^l$, where $s^0= 00...0$ and $s^l = 11...1$, and $l$ is the number of micro-events in the considered macro-event.
+\end{myass}
+
+To define a jump gain for a simultaneous event, a multivalued jump map should be defined where the map changes with the order of micro-events.
 
 \begin{mydef}[Positive homogeneity]
 Suppose that $\fb(\xb,\ub,t)$ is a continuously differentiable function. The function $\fb$ is called positive homogeneous to the degree $k$, if 
@@ -413,13 +466,18 @@ Suppose that $\fb(\xb,\ub,t)$ is a continuously differentiable function. The fun
 for all constants $a>0$.
 \end{mydef}
 
-\begin{myass}[Growing mode sequences]
-We assume that all considered mode sequences are growing, meaning that at each micro-event, one or more guard functions become active, without changing the status of any other guard-function. In other words, considering one macro-event, we assume that $s^0<s^1<...s^l$, where $s^0= 00...0$ and $s^l = 11...1$, and $l$ is the number of micro-events in the considered macro-event.
-\end{myass}
+\begin{itemize}
+\item Explain multivalued jump gain
+\item Derive conditions that decide which jump gain is chosen
+\item Define Positive homogeneity
+\item Explain why the jump gain is positive homogeneous
+\end{itemize}
+\subsection{The positive homogeneous time-triggered hybrid system}
+
+
+
 
 \begin{itemize}
-\item Positive homogeneous jump gain derivation
-\item Effect of $\vb = 0$ on pos hom jump gain
 \item PTTHS (Positive homogeneous time-triggered hybrid system)
 \item Note that the sensitivity analysis does take micro-events into consideration, but resulting controller does not
 \end{itemize}

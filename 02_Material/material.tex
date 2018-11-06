@@ -378,7 +378,6 @@ with
 \gamma^{\text{st}\rightarrow\text{sl}}_{\iota} &= \mu^2\lambda_{n,\iota}^2-\lambdab_{t,\iota}\lambdab_{t,\iota}^T,\\
 \gamma^{\text{cl}\rightarrow\text{op}}_{\iota} &= \lambda_{n,\iota}.
 \end{align}
-These event sets lead to a non-impulsive event, which is described in Section~\ref{sec:2discdyn}.
 
 \subsection{Discrete dynamics}\label{sec:2discdyn}
 A contact point entering a discrete event set $\mathcal{D}$ indicates that the system in its current mode is infeasible. The system should therefore go through a discrete event, in which the state can be reinitialized and the mode can be changed to a feasible system. One contact point entering a discrete event set can lead to other contact points experiencing infeasible reaction forces, making it difficult to determine in what mode each contact point should be. The reinitialization of the state and selection of a post-event mode is described by the discrete dynamics in this section. First a \textit{nonlinear complementarity problem} (NCP) is solved to reinitialize the state. The NCP generates a unique feasible solution \cite{Delassus1917}, which for simple systems can be found by iterating over all solutions until the feasible solution is found. Then a mode selection algorithm is presented to find a feasible post-event mode, which defines the continuous dynamics to be integrated after the event. 
