@@ -58,6 +58,8 @@
 \usepackage{xspace}    % check if a space is needed after \newcommand
 \usepackage[absolute]{textpos}
 
+\usepackage{wasysym}
+
 % generate nomenclature
 \usepackage{nomencl}
 \makenomenclature
@@ -73,10 +75,10 @@
   \item[\hspace*{-\itemindent}\normalfont\bfseries#1]}
 \renewcommand\nomgroup[1]{%
   \IfStrEqCase{#1}{%
-   {V}{\nomenclheader{Variables}}%   V - Variables
-   {P}{\nomenclheader{Parameters}}% P - Parameters
-   {A}{\nomenclheader{Acronyms}}% A - Acronyms
-   {C}{\nomenclheader{Counters}}% C - Counters
+   {G}{\nomenclheader{Greek symbols}}% G - Greek symbols
+   {R}{\nomenclheader{Roman symbols}}% R - Roman symbols
+   {A}{\nomenclheader{Abbreviations}}% A - Abbreviations
+   {S}{\nomenclheader{Sub- and superscripts}}% S - Sub- and superscripts
   }%
 } 
 \setlength{\nomitemsep}{1pt}
