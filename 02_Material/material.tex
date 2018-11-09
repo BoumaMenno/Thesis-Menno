@@ -423,8 +423,8 @@ The mode $\sigma$ of a system is determined by the guard functions defined in Se
 \end{align}
 where $\Mb$, $\Sb$, $\Cb$, $\wb_{n,\iota}$ and $\Wb_{t,\iota}$ are evaluated at the post-event state $\qb^+$ and state time-derivative $\dot{\qb}^+$. Because we are interested in whether the accelerations and reaction forces are feasible, the guard functions defined on acceleration level are evaluated. The guard functions that determine the feasibility of a post-event mode are given by
 \begin{align}
-\gamma^{\text{cl}\rightarrow\text{op}}_{\iota}(\ddot{\qb}) &= \lambda_{n,\iota}, & \forall \iota\in\Ic_{\text{cl}},\\
-\gamma^{\text{st}\rightarrow\text{sl}}_{\iota}(\ddot{\qb}) &= \mu_{\iota}^2\lambda_{n,\iota}^2 - \lambdab_{t,\iota}\lambdab_{t,\iota}^T, & \forall \iota\in\Ic_{\text{st}},
+\gamma^{\text{cl}\rightarrow\text{op}}_{\iota} &= \lambda_{n,\iota}, & \forall \iota\in\Ic_{\text{cl}},\\
+\gamma^{\text{st}\rightarrow\text{sl}}_{\iota} &= \mu_{\iota}^2\lambda_{n,\iota}^2 - \lambdab_{t,\iota}\lambdab_{t,\iota}^T, & \forall \iota\in\Ic_{\text{st}},
 \end{align}
 with $\Ic_{\text{sl}}\cup\Ic_{\text{st}}=\Ic_{\text{cl}}$. Note that the guard functions $\gamma_{\iota}^{\text{op}\rightarrow\text{cl}}$ and $\gamma_{\iota}^{\text{sl}\rightarrow\text{st}}$ are not evaluated. This is unnecessary, because contact points in open contact can only activate guard functions defined at position level. Since the non-impulsive dynamics only update the acceleration, it is impossible for a contact point in open contact to change mode during an impulsive event. This also holds for the guard function from slip to stick, which is defined on velocity level.
 
