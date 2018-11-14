@@ -243,14 +243,15 @@ Now the sensitivity analysis performed in previous section is used to define the
 The linear time-triggered hybrid system associated with the reference trajectory $\alpha$ and the NSITHS is given by
 \begin{align}
 \dot{\zb}(t,j) &= \Ab(t,j)\zb(t,j) + \Bb(t,j)\vb(t,j) &(t,j)\in \dom\ \alphab\\
-\zb^+ &= \Gb(t,j)\zb^- + \Jb(t,j)\vb^- &(t,j)\in \eve\ \alphab
+\zb^+ &= \Lb(t,j) \begin{bmatrix}\zb^- \\ \vb^-\end{bmatrix} &(t,j)\in \eve\ \alphab
 \end{align}
 with initial condition $\zb(t_0,0)=z_0$, $\zb^+ = \zb(\tau_j,j)$, $\zb^- = \zb(\tau_j,j-1)$,
 \begin{align}
 \Ab(t,j) &= D_1\fb(\alphab(t,j),\mub(t,j),t,j)\\
 \Bb(t,j) &= D_2\fb(\alphab(t,j),\mub(t,j),t,j)\\
-\Gb(t,j) & = D_1\gb^- - \left(\dot{\gb}^- - \fb^+\right)\frac{D_1\gamma^-}{\dot{\gamma}^-},\\
-\Jb(t,j) & = D_2\gb^- - \left(\dot{\gb}^- - \fb^+\right)\frac{D_2\gamma^-}{\dot{\gamma}^-},
+\Lb(t,j) &= \begin{bmatrix}\Gb(t,j) & \Jb(t,j)\end{bmatrix},\\
+\Gb(t,j) &= D_1\gb^- - \left(\dot{\gb}^- - \fb^+\right)\frac{D_1\gamma^-}{\dot{\gamma}^-},\\
+\Jb(t,j) &= D_2\gb^- - \left(\dot{\gb}^- - \fb^+\right)\frac{D_2\gamma^-}{\dot{\gamma}^-},
 \end{align}
 and
 \begin{align}
@@ -271,11 +272,11 @@ The LTTHS defined in Definition~\ref{def:3ltths} gives a first order approximati
 
 
 \section{Summary}
-In this chapter a control strategy is presented to achieve tracking of trajectories with single guard activations for nonlinear state input triggered hybrid systems. The NSITHS is formally defined, which is a framework suitable for the dynamics defined in Chapter~\ref{ch:model}. An initial state and input perturbation is introduced into this system, generating perturbed trajectories of which the perturbed event times differ from the nominal event times, and are not known beforehand. This mismatch in event time leads to a behavior called peaking, generating undesirable actuation forces. Reference spreading is then presented to avoid peaking behavior, which leads to less and smaller jumps in the tracking error. Then, under certain assumptions, a sensitivity analysis is performed. The sensitivity analysis leads to an LTTHS describing the tracking error dynamics, which is used to generate a first order approximation of the perturbed state. Under the presumption that a proof exists that stability of the LTTHS implies local stability of the NSITHS, conventional stability analysis tools can be used to evaluate tracking of the nominal reference trajectory.
+In this chapter, a control strategy is presented to achieve tracking of trajectories with single guard activations for nonlinear state input triggered hybrid systems. The NSITHS is formally defined, which is a framework suitable for the dynamics defined in Chapter~\ref{ch:model}. An initial state and input perturbation is introduced into this system, generating perturbed trajectories of which the perturbed event times differ from the nominal event times, and are not known beforehand. This mismatch in event time leads to a behavior called peaking, generating undesirable actuation forces. Reference spreading is then presented to avoid peaking behavior, which leads to less and smaller jumps in the tracking error. Then, under certain assumptions, a sensitivity analysis is performed. The sensitivity analysis leads to an LTTHS describing the tracking error dynamics, which is used to generate a first order approximation of the perturbed state. Under the presumption that a proof exists that stability of the LTTHS implies local stability of the NSITHS, conventional stability analysis tools can be used to evaluate tracking of the nominal reference trajectory.
 %% new chapter %%
 \cleartooddpage
 \chapter{Tracking for Hybrid Systems: Simultaneous State-and-Input-Triggered Events}\label{ch:simult}
-In this chapter the control strategy presented in Chapter~\ref{ch:order} is extended to be suitable for trajectories with simultaneous guard activations. Simultaneous guard activations are activations where a trajectory triggers two guard functions at the same time-instant. Take for example a box with two contact points, where the contact points make contact with a surface at the same time. When perturbations are introduced in these trajectories, the simultaneity of the event can get lost. Also, the order of activations can change depending on the perturbation. The box can first make contact with one contact point and then with the other, or the other way around. This complicates the definition of the first-order approximation. In this chapter, a novel notation from \cite{Rijnen2018} is presented to describe trajectories with simultaneous guard functions. Reference spreading is applied to trajectories with simultaneous events, which is used as a basis to define a positive homogeneous jump gain which approximates the jump behavior of the perturbed trajectory. The positive homogeneous jump gain defines the \textit{positive homogeneous time-triggered hybrid system} (PTTHS), whose stability implies local asymptotic stability of the NSITHS. This chapter extends the work presented in \cite{Rijnen2018}, making the control strategy suitable for input-dependent guard functions, and therefore mechanical systems experiencing dry friction and releasing motions.
+The control strategy presented in Chapter~\ref{ch:order} is extended to be suitable for trajectories with simultaneous guard activations in this chapter. Simultaneous guard activations are activations where a trajectory triggers two guard functions at the same time-instant. Take for example a box with two contact points, where the contact points make contact with a surface at the same time. When perturbations are introduced in these trajectories, the simultaneity of the event can get lost. Also, the order of activations can change depending on the perturbation. The box can first make contact with one contact point and then with the other, or the other way around. This complicates the definition of the first-order approximation. In this chapter, a novel notation from \cite{Rijnen2018} is presented to describe trajectories with simultaneous guard functions. Reference spreading is applied to trajectories with simultaneous events, which is used as a basis to define a positive homogeneous jump gain which approximates the jump behavior of the perturbed trajectory. The positive homogeneous jump gain defines the \textit{positive homogeneous time-triggered hybrid system} (PTTHS), whose stability implies local asymptotic stability of the NSITHS. This chapter extends the work presented in \cite{Rijnen2018}, making the control strategy suitable for input-dependent guard functions, and therefore mechanical systems experiencing dry friction and releasing motions.
 
 \section{Simultaneous guard-activation}\label{sec:simguards}
 To be able to perform the sensitivity analysis presented in Chapter~\ref{ch:order} for trajectories with simultaneous guard activations, some adjustments need to be made to the notation. In this section a new notation, introduced in \cite{Rijnen2018}, is presented, namely: the event character, micro- and macro-events, multiscale hybrid time, guard function index, mode descriptor, phantom segments, and historical notation. After this, reference spreading for simultaneous guard-activations is discussed.
@@ -484,7 +485,7 @@ for a sequence $p\leftarrow p-1 \leftarrow \cdots \leftarrow a$. Since feedback 
 \ls^{S^k}\Gb & \ls^{S^{k\leftarrow 1}}\Gb\ls^{S^{1\leftarrow 0}}\Jb
 \end{bmatrix},\label{eq:4ljumpssimp}
 \end{align}
-since only the ante-event feedback term will be non-zero. The jump gain defined in \eqref{eq:4ljumpssimp} is defined for a particular order of guard-activations.
+since only the ante-event feedback term will be non-zero. The jump gain defined in \eqref{eq:4ljumpssimp} is defined for a particular order of guard-activations. Note that the description of a jump gain for a micro-event where feedback is non-zero is more extensive than the jump gain given in \eqref{eq:4ljumpssimp}. However, since in this work only situations with zero feedback during micro-event are considered, the jump gain in \eqref{eq:4ljumpssimp} is used from now on to define $\ls^{S^k}\Lb$.
 \subsection{The positive homogeneous jump gain}
 As mentioned in Section~\ref{sec:simguards}, an event with simultaneous guard activation will experience loss of simultaneity when perturbations are introduced. Due to the loss of simultaneity, the order of events is unknown. For that reason, one simultaneous event has several associated event sequences. For there to be a finite amount of possibilities of event sequences, all sequences a should be growing. This assumption is now formally defined.
 
@@ -497,10 +498,10 @@ For example, when we consider a block with two contact points $\iota_1$ and $\io
 Now a jump gain for a simultaneous event will be defined. This jump gain should consider all growing sequences that can take place for that range of perturbations. Therefore, a state-dependent matrix gain is defined, in the form of
 \begin{align}
 \ls^{p \leftarrow a}\zb(\tau)= \ls^{p \leftarrow a}\Lb(\ls^{a}\zb(\tau),\ls^{a}\vb(\tau),\tau) = \left\lbrace\begin{array}{ll}
-\Lb^1(\ls^{a}\zb,\ls^{a}\vb,\tau), & \text{if condition 1 is true},\\
-\Lb^2(\ls^{a}\zb,\ls^{a}\vb,\tau), & \text{if condition 1 is true},\\
+\Lb^1(\ls^{s^0}\zb,\ls^{s^0}\vb,\tau), & \text{if condition 1 is true},\\
+\Lb^2(\ls^{s^0}\zb,\ls^{s^0}\vb,\tau), & \text{if condition 2 is true},\\
 \vdots & \vdots\\
-\Lb^{r}(\zb^0,\vb^0,\tau), & \text{if condition }r\text{ is true},
+\Lb^{r}(\ls^{s^0}\zb,\ls^{s^0}\vb,\tau), & \text{if condition }r\text{ is true},
 \end{array}\right.\label{eq:4Hgeneral}
 \end{align}
 where $\Lb$ is in the form of \eqref{eq:4ljumpssimp} and $r$ the number of possible mode sequences in a macro-event. We will now derive the jump maps and associated conditions in \eqref{eq:4Hgeneral} to make the expression explicit.
@@ -521,47 +522,39 @@ s^{k+1} = \underset{s^{k+1}}{\argmin}\left(\Delta^{k+1}\right),
 \end{align}
 which can be written as
 \begin{align}
-s^{k+1} = s^k + \underset{\eta^*}{\argmin}\left(-\frac{D_1\gamma^{\eta^*}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau)\cdot\ls^{S^k}\overline{\zb} + D_2\gamma^{\eta^*}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau)\cdot\ls^{S^k}\overline{\vb}}{\dot{\gamma}^{\eta^*}}\right),
+s^{k+1} = s^k + \underset{\eta^*}{\argmin}\left(-\frac{D_1\gamma^{\eta^*}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau)\cdot\ls^{S^k}\zb + D_2\gamma^{\eta^*}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau)\cdot\ls^{S^k}\vb}{\dot{\gamma}^{\eta^*}}\right),
 \end{align}
 with $\eta$ the set of guard identifiers that are still open and $\eta^*$ the indexes of the guard functions in $\eta$. Then
 \begin{align}
-\eta^{k+1} = \underset{\eta^*}{\argmin}\left(-\frac{D_1\gamma^{\eta^*}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau)\cdot\ls^{S^k}\overline{\zb} + D_2\gamma^{\eta^*}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau)\cdot\ls^{S^k}\overline{\vb}}{\dot{\gamma}^{\eta^*}}\right),\label{eq:4argmin2}
+\eta^{k+1} = \underset{\eta^*}{\argmin}\left(-\frac{D_1\gamma^{\eta^*}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau)\cdot\ls^{S^k}\zb + D_2\gamma^{\eta^*}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau)\cdot\ls^{S^k}\vb}{\dot{\gamma}^{\eta^*}}\right),\label{eq:4argmin2}
 \end{align}
 with $s^{k+1} = s^k + \eta^{k+1}$ and $\eta^{k+1}$ the index of the guard function the will be activated during event $k+1$. Finally, with
 \begin{align}
-^{s^k}\ab = -\frac{D_1\gamma^{\eta}(^{s^k}\alphab,^{s^k}\mub,\tau)}{\dot{\gamma}^{\eta}},
-\quad
-^{s^k}\bb = -\frac{D_2\gamma^{\eta}(^{s^k}\alphab,^{s^k}\mub,\tau)}{\dot{\gamma}^{\eta}},
+\ls^{S^k}\ab &= -\frac{1}{\dot{\gamma}^{\eta^k}}D_1\gamma^{\eta^k}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau),\\
+\ls^{S^k}\bb &= -\frac{1}{\dot{\gamma}^{\eta^k}}D_2\gamma^{\eta^k}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau),
 \end{align}
 \eqref{eq:4argmin2} can be rewritten as
 \begin{align}
-\eta^{k+1} = \underset{\eta^*}{\argmin}\left(\ls^{s^k}\ab^T\ls^{S^k}\overline{\zb} +\ls^{s^k}\bb^T\ls^{S^k}\overline{\vb}\right).
+\eta^{k+1} = \underset{\eta^*}{\argmin}\left(\ls^{s^k}\ab^T\ls^{S^k}\zb +\ls^{s^k}\bb^T\ls^{S^k}\vb\right).
 \end{align}
 Now, by checking \eqref{eq:4argmin2} for every micro event, we know which jump gains we should take to substitute into \eqref{eq:4ljumps}.
-For example a system with $c_i = 2$ and $p = 3$, with a macro event starting in $s_0 = 00$ and ending in $s_l = 22$, this gives 
-\begin{multline}
-\ ^{ S^{2\leftarrow 0}}\Hb(\ ^{s^0}\zb(\tau),\ ^{S^2}\vb(\tau),\tau) =\\ \left\lbrace\begin{array}{ll}
-\ ^{^{(12)} S^{2\leftarrow 0}}\Gb_\zb\ ^{s^0}\zb + \ ^{^{(12)} S^{2\leftarrow 0}}\Gb_\vb\ ^{s^0}\vb, & \text{if }(\text{I}),\\
-\ ^{^{12} S^{2\leftarrow 1}}\Gb_\zb\ ^{^{1} S^{1\leftarrow 0}}\Gb_\zb\ ^{s^0}\zb + \ ^{^{12} S^{2\leftarrow 1}}\Gb_\zb\ ^{^{1} S^{1\leftarrow 0}}\Gb_\vb\ ^{s^0}\vb + \ ^{^{12} S^{2\leftarrow 1}}\Gb_\vb\ ^{^1 S^1}\vb, & \text{if }(\text{II}),\\
-\ ^{^{21} S^{2\leftarrow 1}}\Gb_\zb\ ^{^{2} S^{1\leftarrow 0}}\Gb_\zb\ ^{s^0}\zb + \ ^{^{21} S^{2\leftarrow 1}}\Gb_\zb\ ^{^{2} S^{1\leftarrow 0}}\Gb_\vb\ ^{s^0}\vb + \ ^{^{21} S^{2\leftarrow 1}}\Gb_\vb\ ^{^{2} S^1}\vb, & \text{if }(\text{III}),
-\end{array}\right.\label{eq:4H2200}
-\end{multline}
-
-with
-
+For example a system with $c_i = 2$, $\ls^{s^1}\vb=\ls^{s^2}\vb=...=\ls^{s^l}\vb=0$, and with a macro event starting in $s^0 = 00$ and ending in $s^l = 11$, this gives 
 \begin{align}
-(\text{I})&:\ ^{^2 S^1}\ab^T\ ^{^2 S^1}\zb +\  ^{^2 S^1}\bb^T\ ^{^2 S^1}\vb = \ ^{^1 S^1}\ab^T\ ^{^1 S^1}\zb +\  ^{^1 S^1}\bb^T\ ^{^1 S^1}\vb,\\
-(\text{II})&:\ ^{^2 S^1}\ab^T\ ^{^2 S^1}\zb +\  ^{^2 S^1}\bb^T\ ^{^2 S^1}\vb > \ ^{^1 S^1}\ab^T\ ^{^1 S^1}\zb +\  ^{^1 S^1}\bb^T\ ^{^1 S^1}\vb,\\
-(\text{III})&:\ ^{^2 S^1}\ab^T\ ^{^2 S^1}\zb +\  ^{^2 S^1}\bb^T\ ^{^2 S^1}\vb < \ ^{^1 S^1}\ab^T\ ^{^1 S^1}\zb +\  ^{^1 S^1}\bb^T\ ^{^1 S^1}\vb .
+\ls^{11\leftarrow 00}\Hb(\ls^{s^0}\zb(\tau),\ls^{s^0}\vb(\tau),\tau) = \left\lbrace\begin{array}{ll}
+\begin{bmatrix}\ls^{11\leftarrow 00}_{\ls^{(12)}S^1}\Gb, & \ls^{11\leftarrow 00}_{\ls^{(12)}S^1}\Jb\end{bmatrix}, & \text{if }(\text{I}),\\
+\begin{bmatrix}\ls^{11\leftarrow 01}_{\ls^{12}S^2}\Gb \ls^{01\leftarrow 00}_{\ls^{2}S^1}\Gb, & \ls^{11\leftarrow 01}_{\ls^{12}S^2}\Gb \ls^{01\leftarrow 00}_{\ls^{2}S^1}\Jb\end{bmatrix}, & \text{if }(\text{II}),\\
+\begin{bmatrix}\ls^{11\leftarrow 10}_{\ls^{12}S^2}\Gb \ls^{10\leftarrow 00}_{\ls^{2}S^1}\Gb, & \ls^{11\leftarrow 10}_{\ls^{12}S^2}\Gb \ls^{10\leftarrow 00}_{\ls^{2}S^1}\Jb\end{bmatrix}, & \text{if }(\text{III}),
+\end{array}\right.\label{eq:4H2200}
+\end{align}
+with
+\begin{align}
+(\text{I})&:\ls^{^2 S^1}\ab^T\ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ls^{^2 S^1}\vb = \ls^{^1 S^1}\ab^T\ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ls^{^1 S^1}\vb,\\
+(\text{II})&:\ls^{^2 S^1}\ab^T\ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ls^{^2 S^1}\vb > \ls^{^1 S^1}\ab^T\ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ls^{^1 S^1}\vb,\\
+(\text{III})&:\ls^{^2 S^1}\ab^T\ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ls^{^2 S^1}\vb < \ls^{^1 S^1}\ab^T\ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ls^{^1 S^1}\vb.\label{eq:4conds}
 \end{align}
 
-These conditions are illustrated in Figure~\ref{fig:4cone}. Since the conditions are linear in $\zb$ and $\vb$, they appear as lines in the state space of $\zb$ and $\vb$. When we introduce more conditions, we will find several cones that relate a certain jump gain to $\zb,\vb$ pair. When we look at the vector $r(\zb,\vb)$ in Figure~\ref{fig:4cone}, we notice that when $r$ is multiplied with a constant $\alpha$ we will always stay in the same cone, i.e. use the same jump gain. Hence the name, conewise constant jump gain.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=.5\textwidth]{4cone.eps}\caption{}\label{fig:4cone}
-\end{figure}
-
+The jump gain in \eqref{eq:4H2200} is called the positive homogeneous jump gain. Due to the behavior of the simultaneous events, the linearity property of the jump gain is lost. This is shown in Appendix~\ref{app:poshom}. Instead, the jump gain is positive homogeneous, which is now formally defined.
+ 
 \begin{mydef}[Positive homogeneity]
 Suppose that $\fb(\xb,\ub,t)$ is a continuously differentiable function. The function $\fb$ is called positive homogeneous to the degree $k$, if 
 \begin{align}
@@ -570,21 +563,69 @@ Suppose that $\fb(\xb,\ub,t)$ is a continuously differentiable function. The fun
 for all constants $a>0$.
 \end{mydef}
 
-\begin{itemize}
-\item Explain multivalued jump gain
-\item Derive conditions that decide which jump gain is chosen
-\item Define Positive homogeneity
-\item Explain why the jump gain is positive homogeneous
-\end{itemize}
-\subsection{The positive homogeneous time-triggered hybrid system}
+The conditions that decide which jump gain to use are illustrated in Figure~\ref{fig:4cone}. Since the conditions are linear in $\zb$ and $\vb$, they appear as lines in the state space of $\zb$ and $\vb$. When we introduce more conditions, we will find several cones that relate a certain jump gain to $\zb,\vb$ pair. When we look at the vector $r(\zb,\vb)$ in Figure~\ref{fig:4cone}, it is noticed that when $\rb$ is multiplied with a constant $a$, the same jump gain is applied. Therefore, the positive homogeneous jump gain \eqref{eq:4H2200} is positive homogeneous to the order zero.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{4cone.eps}\caption{An illustration of the positive homogeneity of order zero attribute of the positive homogeneous jump gain. The areas \textnormal{(I)}, \textnormal{(II)}, and \textnormal{(III)} coincide with the conditions defined in \eqref{eq:4conds}.}\label{fig:4cone}
+\end{figure}
+\subsection{The positive homogeneous time-triggered hybrid system}\label{def:4PTTHS}
+Now, with the positive homogeneous jump gain defined, the PTTHS can be defined. The PTTHS forms a first-order approximation of the NSITHS defined in Definition~\ref{def:3nsiths}. In \cite{Rijnen2018} a proof is given that stability of the PTTHS implies local asymptotic stability of the NSTHS. While this proof does not yet exist for the NSITHS, it is assumed that a similar proof exist for the stability of the PTTHS implying local asymptotic stability of NSITHS. The PTTHS will jump at the same time as the nominal trajectory $\alphab$, and will also experience the same number of jumps. This means that the controller resulting from the PTTHS will not act on micro-events. This is desired behavior, as the micro-events will happen to rapidly to control on. We now define the PTTHS formally, with the positive homogeneous jump gain being defined for a character-2 event ($c = 2$, with $a = 00$ and $p=11$) for brevity reasons.
 
+\begin{mydef}[PTTHS]
+The positive homogeneous time-triggered hybrid system associated with the NSITHS and the associative and transversal reference trajectory ($\alphab(t,i),\mub(t,i)$) is given by
+\begin{align}
+\dot{\zb}(t,i) &= \Ab(t,i)\zb(t,i) + \Bb(t,i)\vb(t,i), &(t,i) \in \dom\ \alphab,\\
+\ls^{p}\zb &= \ls^{p\leftarrow a}\Hb(\ls^a\zb,\ls^a\vb,t)\begin{bmatrix} \ls^a\zb \\ \ls^a\vb\end{bmatrix}, &(t,i) \in \eve\ \alphab,
+\end{align}
+where $\ls^{p\leftarrow a}\Hb(\ls^a\zb,\ls^a\vb,t)$ is the positive homogeneous jump gain of order zero,
+\begin{align}
+A(t,i) &= D_1\fb(\alphab(t,i),\mub(t,i),t,i),\\
+B(t,i) &= D_2\fb(\alphab(t,i),\mub(t,i),t,i),\\
+\ls^{a}\zb & = \zb(t,i-1),\\
+\ls^{a}\vb & = \vb(t,i-1),\\
+\ls^{p}\zb & = \zb(t,i),
+\end{align}
+with $a = s_i^0 = 00...0$ and $p = s_i^l = 11...1$ where $l$ is the amount of micro-events in the growing sequence $p\leftarrow...\leftarrow a$. The set $\dom\ \alphab$ and $\eve\ \alphab$ are defined as
+\begin{align}
+\dom\ \alphab &:= \bigcup_{i=0}^N[\tau_i,\tau_{i+1}]\times \{i\},\\
+\eve\ \alphab &:= \bigcup_{i=1}^N\{\tau_i\}\times \{i-1\},
+\end{align}
+and $\tau_0 = t_0$. The positive homogeneous jump gain $\ls^{p\leftarrow a}\Hb$ for a character-2 ($c_i=2$) is given by
+\begin{align}
+\ls^{11\leftarrow 00}\Hb(\ls^{s^0}\zb(\tau),\ls^{s^0}\vb(\tau),\tau) = \left\lbrace\begin{array}{ll}
+\begin{bmatrix}\ls^{11\leftarrow 00}_{\ls^{(12)}S^1}\Gb, & \ls^{11\leftarrow 00}_{\ls^{(12)}S^1}\Jb\end{bmatrix}, & \text{if }(\textnormal{I}),\\
+\begin{bmatrix}\ls^{11\leftarrow 01}_{\ls^{12}S^2}\Gb \ls^{01\leftarrow 00}_{\ls^{2}S^1}\Gb, & \ls^{11\leftarrow 01}_{\ls^{12}S^2}\Gb \ls^{01\leftarrow 00}_{\ls^{2}S^1}\Jb\end{bmatrix}, & \text{if }(\textnormal{II}),\\
+\begin{bmatrix}\ls^{11\leftarrow 10}_{\ls^{12}S^2}\Gb \ls^{10\leftarrow 00}_{\ls^{2}S^1}\Gb, & \ls^{11\leftarrow 10}_{\ls^{12}S^2}\Gb \ls^{10\leftarrow 00}_{\ls^{2}S^1}\Jb\end{bmatrix}, & \text{if }(\textnormal{III}),
+\end{array}\right.\label{eq:4PTTHS1}
+\end{align}
+with
+\begin{align}
+(\textnormal{I})&:\ls^{^2 S^1}\ab^T\ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ls^{^2 S^1}\vb = \ls^{^1 S^1}\ab^T\ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ls^{^1 S^1}\vb,\\
+(\textnormal{II})&:\ls^{^2 S^1}\ab^T\ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ls^{^2 S^1}\vb > \ls^{^1 S^1}\ab^T\ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ls^{^1 S^1}\vb,\\
+(\textnormal{III})&:\ls^{^2 S^1}\ab^T\ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ls^{^2 S^1}\vb < \ls^{^1 S^1}\ab^T\ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ls^{^1 S^1}\vb.\label{eq:4PTTHS2}
+\end{align}
+The jump gains $\ls^{s^+\leftarrow s^-}_{S^k}\Gb$ and $\ls^{s^+\leftarrow s^-}_{S^k}\Jb$ in \eqref{eq:4PTTHS1}, with $s^+ = s^k$ and $s^- = s^0$ and $S^k = s^k\leftarrow s^{k-1} \leftarrow \cdots \leftarrow s^0$, are defined as
+\begin{align}
+\ls^{s^+\leftarrow s^-}_{S^k}\Gb &:= D_1\gb^- - \left(\dot{\gb}^- - \fb^+\right)\frac{D_1\gamma^-}{\dot{\gamma}^-},\\
+\ls^{s^+\leftarrow s^-}_{S^k}\Jb &:= D_2\gb^- - \left(\dot{\gb}^- - \fb^+\right)\frac{D_2\gamma^-}{\dot{\gamma}^-},
+\end{align}
+and
+\begin{align}
+\fb^- &= \ls^{s^-}\fb\left(\ls^{S^-}\alphab(\tau_i),\ls^{S^-}_{\rightarrow}\mub(\tau_i),\tau_i\right),\\
+\fb^+ &= \ls^{s^+}\fb\left(\ls^{S^+}\alphab(\tau_i),\ls^{S^+}_{\rightarrow}\mub(\tau_i),\tau_i\right),\\
+\gb^- &= \ls^{s^+\leftarrow s^-}\gb\left(\ls^{S^-}\alphab(\tau_i),\ls^{S^-}_{\rightarrow}\mub(\tau_i),\tau_i\right),\\
+\gamma^- &= \gamma^{\eta(s^+\leftarrow s^-)}\left(\ls^{S^-}\alphab(\tau_i),\ls^{S^-}_{\rightarrow}\mub(\tau_i),\tau_i\right),\\
+\dot{\gb}^- &= D_1\gb^-\cdot \fb^- + D_2\gb^-\cdot \dot{\mub}^- + D_3\gb^-,\\
+\dot{\gamma}^- &= D_1\gamma^-\cdot\dot{\alphab}(\tau_i) + D_2\gamma^-\cdot\dot{\mub}(\tau_i) + D_3\gamma^-,
+\end{align}
+where the $\rightarrow$ left subscript should be interpreted as $\searrow$ or $\nearrow$ to indicate whether the feedforward is pushing or withdrawing, respectively. $\gamma^{\eta(s^+\leftarrow s^-)}$ is the guard function that is activated during the transition $s^+\leftarrow s^-$. If the transition $s^+\leftarrow s^-$ is associated with multiple guard functions, one of the guard functions can be chosen, as it will have no effect on the jump gain. For example, during the transition $11\leftarrow 00$, $\gamma^{01}$ or $\gamma^{10}$ should be used for defined the jump gain. Finally, the vectors $\ls^{S^k}\ab^T$ and $\ls^{S^k}\bb^T$ in \eqref{eq:4PTTHS2} are given by
+\begin{align}
+\ls^{S^k}\ab &= -\frac{1}{\dot{\gamma}^{-}}D_1\gamma^{-},\\
+\ls^{S^k}\bb &= -\frac{1}{\dot{\gamma}^{-}}D_2\gamma^{-}.
+\end{align}
+\end{mydef}
 
-
-\begin{itemize}
-\item PTTHS (Positive homogeneous time-triggered hybrid system)
-\item Note that the sensitivity analysis does take micro-events into consideration, but resulting controller does not
-\end{itemize}
 \nomenclature[R]{$\Hb$}{The positive homogeneous jump gain}%
 \nomenclature[R]{$\zb$}{The state perturbation}%
 \nomenclature[R]{$\vb$}{The input perturbation}%
@@ -593,4 +634,5 @@ for all constants $a>0$.
 \nomenclature[A]{PTTHS}{Positively homogeneous Time-Triggered Hybrid System}%
 
 \section{Summary}
+A control strategy is presented for nonlinear state-and-input-triggered systems with input-dependent guard experiencing simultaneous impacts. Simultaneous guard activations are introduced, and the adopted notation required to deal with such activations is presented and elaborated. Assumptions on the reference trajectory are presented, which reduce the complexity of the problem while maintaining practical usability. Then reference spreading is extended to transition with simultaneous events. After that a sensitivity analysis is performed, to find a first-order approximation of the behavior of a perturbed simultaneous activation, where so-called loss of simultaneity occurs. This multivalued state-and-input dependent jump gain, called the positive homogeneous jump gain, is used to define the positive homogeneous time-triggered hybrid system. This positive homogeneous hybrid system is expected to be suitable for assessing the local asymptotic stability of a nonlinear state-and-input triggered hybrid system with simultaneous guard activations.
 \end{document}
