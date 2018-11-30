@@ -281,7 +281,7 @@ The control strategy presented in Chapter~\ref{ch:order} is extended to be suita
 \section{Simultaneous guard-activation}\label{sec:simguards}
 To be able to perform the sensitivity analysis presented in Chapter~\ref{ch:order} for trajectories with simultaneous guard activations, some adjustments need to be made to the notation. In this section a new notation, introduced in \cite{Rijnen2018}, is presented, namely: the event character, micro- and macro-events, multiscale hybrid time, guard function index, mode descriptor, phantom segments, and historical notation. After this, reference spreading for simultaneous guard-activations is discussed.
 
-\subsection{Adopted notation}
+\subsection{Adopted notation}\label{sec:4not}
 In a simultaneous event, more than one guard function is activated in one event. In Figure~\ref{fig:4simulexample} an example of a simultaneous activation is illustrated. The ante-event reference trajectory, $\alphab(t,0)$, activates two guard functions, $\gamma_1$ and $\gamma_2$. The number of guard functions that are activated in a single nominal event is called the \textit{event character}. In the example in Figure~\ref{fig:4simulexample}, the event character $c = 2$.
 
 \begin{figure}[h]
@@ -305,13 +305,9 @@ meaning that the guard functions not only change with macro-events, but also wit
 \begin{align}
 \ls^{s^k_i}\xb(t) = \xb(t,i-1,k),
 \end{align}
-with $s^k_i$ the mode of the $k^{\text{th}}$ micro-event associated to macro-event $i$. When the considered macro-event is known from context, the macro-counter $i$ can be dropped to simplify the notation. Therefore, we will now write the mode descriptor as $s^k$, where the macro event is irrelevant. Similar to $\eta$, the mode descriptor is written in the binary numeral system. This binary numeral system is used as follows. When there is an event with character $c = 4$, four guard functions can be activated. When the mode in of the system is $s^k = 1010$, this means that two guard functions remain inactive. Namely, the guard functions with index $\eta = \{0100,0001\}$. The mode descriptor now intuitively shows which guard functions are inactive, as the zeros in the mode descriptor denote the inactive guard function indexes. The index of the guard function that is activated during event $k$ is denoted by $\eta_k$. Now an assumption related to the mode descriptor is defined.
+with $s^k_i$ the mode of the $k^{\text{th}}$ micro-event associated to macro-event $i$. When the considered macro-event is known from context, the macro-counter $i$ can be dropped to simplify the notation. Therefore, we will now write the mode descriptor as $s^k$, where the macro event is irrelevant. Similar to $\eta$, the mode descriptor is written in the binary numeral system. This binary numeral system is used as follows. When there is an event with character $c = 4$, four guard functions can be activated. When the mode in of the system is $s^k = 1010$, this means that two guard functions remain inactive. Namely, the guard functions with index $\eta = \{0100,0001\}$. The mode descriptor now intuitively shows which guard functions are inactive, as the zeros in the mode descriptor denote the inactive guard function indexes. The index of the guard function that is activated during event $k$ is denoted by $\eta_k$.
 
-\begin{myass}[Guard-transition pairing]\label{ass:guardtrans}
-We assume that activation of the guard associated to contact point $\iota$ will result in a transition of contact point $\iota$. With guard function $\gamma^{\eta_k}$ activated in mode $s^{k-1}$, the mode descriptor of the next mode is defined as $s^{k} = s^{k-1} + \eta_k$ under this assumption. Here $\eta_k$ is the index of the guard function that is activated during micro-event $k$.
-\end{myass}
-
-Since the post-event mode is directly related to the post-event input \textbf{SHOW WHY THIS IS TRUE}, the input can be chosen in such a way that Assumption~\ref{ass:guardtrans} is achieved. Under Assumption~\ref{ass:guardtrans}, the mode after the activation of $\gamma^{\eta_k}$ is given by $s^{k} = s^{k-1} + \eta_k$. For example, when the event character $c = 2$, the guard functions that are involved with that macro event are $\gamma^{10}$ and $\gamma^{01}$. The system begins in mode $s^0 = 00$, where $\gamma^{10},\gamma^{01}>0$. When the state activates one of the guard functions, for example $\gamma^{01}=0$, the next mode becomes $s^1 = 01$. When the other guard function is activated as well, $\gamma^{10} = 0$, the system completes its macro-event with $s^2 = 0$. Note that the guard function can change when the system is another mode, i.e., the guard function $\gamma^{10}$ defined in $s^0$ is different from the guard function $\gamma^{10}$ defined in $s^1$. The events discussed in this paragraph are illustrated in Figure~\ref{fig:4simulpert}.
+The adopted notation is now presented in an example. Let us consider a transition, depicted in Figure~\ref{fig:4simulpert}, with event character $c = 2$, and guard functions $\gamma^{10}$ and $\gamma^{01}$. The system's state evolution begins in mode $s^0 = 00$, where $\gamma^{10},\gamma^{01}>0$. When the state activates one of the guard functions, in this case $\gamma^{01}=0$, the next mode becomes $s^1 = 01$. When the other guard function is activated as well, $\gamma^{10} = 0$, the system completes its macro-event with $s^2 = 11$. Note that the guard function can change when the system is another mode, i.e., the guard function $\gamma^{10}$ defined in $s^0$ is different from the guard function $\gamma^{10}$ defined in $s^1$.
 
 \begin{figure}[h]
 \centering
@@ -461,13 +457,33 @@ for a sequence $p\leftarrow p-1 \leftarrow \cdots \leftarrow a$. Since feedback 
 \end{align}
 since only the ante-event feedback term will be non-zero. The jump gain defined in \eqref{eq:4ljumpssimp} is defined for a particular order of guard-activations. Note that the description of a jump gain for a micro-event where feedback is non-zero is more extensive than the jump gain given in \eqref{eq:4ljumpssimp}. However, since in this work only situations with zero feedback during micro-event are considered, the jump gain in \eqref{eq:4ljumpssimp} is used from now on to define $\ls^{S^k}\Lb$.
 \subsection{The positive homogeneous jump gain}
-As mentioned in Section~\ref{sec:simguards}, an event with simultaneous guard activation will experience loss of simultaneity when perturbations are introduced. Due to the loss of simultaneity, the order of events is unknown. For that reason, one simultaneous event has several associated event sequences. For there to be a finite amount of possibilities of event sequences, all sequences a should be growing. This assumption is now formally defined.
+As mentioned in Section~\ref{sec:simguards}, an event with simultaneous guard activation will experience loss of simultaneity when perturbations are introduced. Due to the loss of simultaneity, the order of events is unknown. For that reason, one simultaneous event has several associated event sequences. For there to be a finite amount of possibilities of event sequences, all sequences should be growing. This assumption is now formally defined.
 
-\begin{myass}[Unidirectional guard activation]\label{ass:unidirectional}
-We assume that all considered mode sequences are growing, meaning that at each micro-event, one or more guard functions become active, without changing the status of any other guard-function. In other words, considering one macro-event, we assume that $s^0<s^1<...<s^l$, where $s^0= 00...0$ and $s^l = 11...1$, and $l$ is the number of micro-events in the considered macro-event.
+\begin{myass}[Growing mode sequences]\label{ass:unidirectional}
+We assume that all considered mode sequences are growing, meaning that at each micro-event, one or more guard functions become active, without changing the status of any other guard-function. In other words, considering one macro-event, we assume that $s^0<s^1<...<s^l$, where $s^0= 00...0$ and $s^l = 11...1$, and $l$ the number of micro-events in the considered macro-event.
 \end{myass}
 
-For example, when we consider a block with two contact points $\iota_1$ and $\iota_2$ making a pushing motion towards a surface, with $s^0 = 00$ is both contact points open and $s^l = 11$ is both contact points in closed contact stick. Let's say we are in mode $s^1 = 10$, i.e. $\iota_1$ is in closed contact stick and $\iota_2$ still in open contact. Now the system goes through the second micro-event by activating $\gamma^01_2$. Under Assumption~\ref{ass:unidirectional}, the event can not cause $\iota_1$ to release contact, i.e., $\Gamma_{\iota_1}^{\text{cl}\rightarrow\text{op}}>0$, $\Gamma_{\iota_1}^{\text{st}\rightarrow\text{sl}}>0$, $\gamma_{\iota_1}^{\text{cl}\rightarrow\text{op}}>0$ and $\gamma_{\iota_1}^{\text{st}\rightarrow\text{sl}}>0$ when solving the state reinitialization and mode selection presented in Section~\ref{sec:2discdyn}. Under Assumption~\ref{ass:unidirectional}, all mode sequences will be growing and a finite number of jump gains are possible for a range of perturbations. 
+For example, when we consider a block with two contact points $\iota_1$ and $\iota_2$ making a pushing motion towards a surface, with $s^0 = 00$ is both contact points open and $s^l = 11$ is both contact points in closed contact stick. Let's say we are in mode $s^1 = 10$, i.e. $\iota_1$ is in closed contact stick and $\iota_2$ still in open contact. Now the system goes through the second micro-event by activating $\gamma^{01}_2$. Under Assumption~\ref{ass:unidirectional}, the event can not cause $\iota_1$ to release contact, i.e., $\Gamma_{\iota_1}^{\text{cl}\rightarrow\text{op}}>0$, $\Gamma_{\iota_1}^{\text{st}\rightarrow\text{sl}}>0$, $\gamma_{\iota_1}^{\text{cl}\rightarrow\text{op}}>0$ and $\gamma_{\iota_1}^{\text{st}\rightarrow\text{sl}}>0$ when solving the state reinitialization and mode selection presented in Section~\ref{sec:2discdyn}. Under Assumption~\ref{ass:unidirectional}, all mode sequences will be growing and a finite number of jump gains are possible for a range of perturbations. Now an assumption on the association between guard functions and transitions is given. This assumption is necessary to prevent notation issues in the mode descriptor introduced in Section~\ref{sec:4not}.
+
+\begin{myass}[Guard-transition association]\label{ass:guardtrans}
+We assume that activation of the guard associated to contact point $\iota$ will result in a transition of contact point $\iota$. With guard function $\gamma^{\eta_k}$ activated in mode $s^{k-1}$, the mode descriptor of the next mode is defined as $s^{k} = s^{k-1} + \eta_k$ under this assumption. Here $\eta_k$ is the index of the guard function that is activated during micro-event $k$.
+\end{myass}
+
+\begin{myremark}
+Assumption~\ref{ass:guardtrans} is trivial for most guard functions. Because $\gamma^{\text{op}\rightarrow\text{cl}}_{\iota} = h_{n,\iota}(\qb)$ is defined on position level, under Assumption~\ref{ass:unidirectional} it will always be contact point $\iota$ that will change mode when $\gamma^{\text{op}\rightarrow\text{cl}}_{\iota}$ is activated. For guard functions defined on acceleration level, i.e.,
+\begin{align}
+\gamma^{\textnormal{st}\rightarrow\textnormal{sl}} &= \mu_\iota^2\lambda_{n,\iota} - \lambdab^T_{t,\iota}\lambdab_{t,\iota}\nonumber\\
+\gamma^{\textnormal{cl}\rightarrow\textnormal{op}} &= \lambda_{n,\iota},\nonumber
+\end{align}
+the situation is different. The feasible post-event mode is determined by the post-event acceleration for these guard functions. It is therefore possible that a guard function is activated in mode $s^{k-1}$, but is inactive in mode $s^{k}$. Under Assumption~\ref{ass:guardtrans} this should not be possible. Therefore a constraint is introduced on the post-event acceleration, which can be determined by the set of equations, called the mode selection in Section~\ref{sec:2discdyn},
+\begin{align}
+\ddot{\qb}^+ &= \Mb^{-1}\left[\Sb\ub^+ - \Cb + \Wb_{n}\lambdab^+_{n} + \Wb_{t}\lambdab^+_{t}\right], &  \nonumber\\
+\wb^T_{n,\iota}\ddot{\qb}^+ + \dot{\wb}^T_{n,\iota}\dot{\qb}^+ &= 0, & \forall \iota\in\Ic_{\text{cl}},\nonumber\\
+\lambdab^+_{t,\iota} + \mu\lambda^+_{n,\iota}\SgnSp(\Wb_{t,\iota}^T\dot{\qb}^+) &= 0, & \forall \iota\in\Ic_{\text{sl}},\nonumber\\
+\Wb^T_{t,\iota}\ddot{\qb}^+ + \dot{\Wb}^T_{t,\iota}\dot{\qb}^+ &= 0. & \forall \iota\in\Ic_{\text{st}},\nonumber
+\end{align}
+From the mode selection we can conclude that the post-event joint acceleration $\ddot{\qb}$ is directly dependent on the post-event input $\ub^+$. Therefore, the post-event input $\ub^+$ should be chosen in such a way that Assumption~\ref{ass:guardtrans} is met.
+\end{myremark}
 
 Now a jump gain for a simultaneous event will be defined. This jump gain should consider all growing sequences that can take place for that range of perturbations. Therefore, a state-dependent matrix gain is defined, in the form of
 \begin{align}
@@ -544,30 +560,28 @@ The conditions that decide which jump gain to use are illustrated in Figure~\ref
 \includegraphics[width=.5\textwidth]{4cone.eps}\caption{An illustration of the positive homogeneity of order zero attribute of the positive homogeneous jump gain. The areas \textnormal{(I)}, \textnormal{(II)}, and \textnormal{(III)} coincide with the conditions defined in \eqref{eq:4conds}.}\label{fig:4cone}
 \end{figure}
 
-\textbf{EXAMPLE}
-
-\begin{figure}[h!]
-\centering
-\begin{subfigure}[b]{0.47\textwidth}   
-\centering 
-\includegraphics[width=\textwidth]{4example12.eps}
-\label{fig:4example1}\caption{The modes in the nominal trajectory.}
-\end{subfigure}
-\vskip\baselineskip
-\begin{subfigure}[b]{0.81\textwidth}   
-\centering 
-\includegraphics[width=\textwidth]{4example456.eps}
-\label{fig:4example4}\caption{The modes in a perturbed trajectory.}
-\end{subfigure}
-\vskip\baselineskip
-\begin{subfigure}[b]{\textwidth}   
-\centering 
-\includegraphics[width=.85\textwidth]{4exampletraj.eps}
-\label{fig:4exampletraj}
-\end{subfigure}
-\caption{The state evolution of the nominal and state trajectory is illustrated in this figure. }
-\label{fig:4example}
-\end{figure}
+%\begin{figure}[h!]
+%\centering
+%\begin{subfigure}[b]{0.47\textwidth}   
+%\centering 
+%\includegraphics[width=\textwidth]{4example12.eps}
+%\label{fig:4example1}\caption{The modes in the nominal trajectory.}
+%\end{subfigure}
+%\vskip\baselineskip
+%\begin{subfigure}[b]{0.81\textwidth}   
+%\centering 
+%\includegraphics[width=\textwidth]{4example456.eps}
+%\label{fig:4example4}\caption{The modes in a perturbed trajectory.}
+%\end{subfigure}
+%\vskip\baselineskip
+%\begin{subfigure}[b]{\textwidth}   
+%\centering 
+%\includegraphics[width=.85\textwidth]{4exampletraj.eps}
+%\label{fig:4exampletraj}
+%\end{subfigure}
+%\caption{The state evolution of the nominal and state trajectory is illustrated in this figure. }
+%\label{fig:4example}
+%\end{figure}
 
 \subsection{The positive homogeneous time-triggered hybrid system}\label{def:4PTTHS}
 Now, with the positive homogeneous jump gain defined, the PTTHS can be defined. The PTTHS forms a first-order approximation of the NSITHS defined in Definition~\ref{def:3nsiths}. In \cite{Rijnen2018} a proof is given that stability of the PTTHS implies local asymptotic stability of the NSTHS. While this proof does not yet exist for the NSITHS, it is assumed that a similar proof exist for the stability of the PTTHS implying local asymptotic stability of NSITHS. The PTTHS will jump at the same time as the nominal trajectory $\alphab$, and will also experience the same number of jumps. This means that the controller resulting from the PTTHS will not act on micro-events. This is desired behavior, as the micro-events will happen to rapidly to control on. We now define the PTTHS formally, with the positive homogeneous jump gain being defined for a character-2 event ($c = 2$, with $a = 00$ and $p=11$) for brevity reasons.

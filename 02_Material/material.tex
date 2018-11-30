@@ -92,7 +92,8 @@ As mentioned above, when a unilateral constraint is activated, impulsive dynamic
 with $\Lambda_{n,\iota}$ and $\Lambdab_{t,\iota}$ the normal and tangential impulsive reaction forces, respectively, of contact point $\iota$. These dynamics are impulsive, and happen at one instance in time. In \eqref{eq:appimp1}, $\xib^-$ and $\xib^+$ denote the left, respectively the right limit of the generalized velocity $\xib$ at the time of impact $\tau^j$. The expression moreover states that, similarly to the continuous dynamics \eqref{eq:appcont1}, constitutive laws for contact and friction are required. These will be discussed in the following. First a complementarity problem formulation of mechanical systems with unilateral constraints is given, from which later a proximal point formulation and a hybrid system formulation are derived. For more information on modeling of multibody systems, the reader is referred to \cite{Leine2008} and \cite{Wouw2016}.
 
 \section{Complementarity problem formulation}\label{sec:comp}
-\textbf{INTRODUCTION}
+Mechanical systems with unilateral constraints can conveniently be described using so-called complementarity constraints. Particularly impacts and frictional effects are often described using these complementarity constraints, introducing a nonsmoothness into the mechanical system. In this section, the contact and friction laws required to describe a mechanical system with unilateral constraints and spatial friction are presented in a complementarity fashion. First, the contact case is handled in Section~\ref{sec:2cont}, where the complementarity constraints describing contact behavior for both flow and impulsive situations are presented. In Section~\ref{sec:2fric}, the complementarity constraints for frictional effects are presented, similar to the contact case, for both flow and impulsive situations. Finally, a complete complementarity description of mechanical system with unilateral constraints and spatial friction is presented in Section~\ref{sec:2contfric}.
+
 \subsection{Signorini's contact law and Newton's impact law}\label{sec:2cont}
 To describe the contact interaction between rigid bodies, Signorini's contact law is used. Since we assume that the bodies composing the system are rigid and therefore impenetrable, and that the reaction forces caused by contact cannot prevent two or more bodies from seperating, both the contact distance $h_{n,\iota}$ and and reaction force $\lambda_{n,\iota}$ cannot become negative. For a contact point $\iota\in\mathcal{I}$, two situations are then possible, i.e.,
 \begin{enumerate}
@@ -171,7 +172,7 @@ for some vector $a$, as defined in \cite{Studer2006}. The equation \eqref{eq:fri
 \centering
 \begin{subfigure}{0.38\textwidth}
 \centering
-\includegraphics[width=\linewidth]{coulombfriction.eps}\caption{}\vspace{1.25cm}\label{fig:coulombfriction}
+\includegraphics[width=\linewidth]{coulombfriction.eps}\caption{}\label{fig:coulombfriction}
 \end{subfigure}
 \qquad
 \begin{subfigure}{0.3\textwidth}
@@ -199,7 +200,7 @@ where $e_{t,\iota}$ is the tangential coefficient of restitution that we conside
 \end{align}
 Note that, just as the impulsive dynamics in the normal direction, the impulsive friction law only applies closed contacts.
 
-\subsection{System dynamics with contact and friction law}
+\subsection{System dynamics with contact and friction law}\label{sec:2contfric}
 When the contact and friction laws \eqref{eq:signorini}, \eqref{eq:coulomb1} and \eqref{eq:coulomb2} introduced in Sections~\ref{sec:2cont} and \ref{sec:2fric} are incorporated in the flow dynamics \eqref{eq:appcont1} of the system, a complete model for the continuous dynamics is found, i.e.,
 \begin{align}
 &\Mb(\qb)\dot{\xib} + \Cb(\qb,\xib) = \Sb(\qb)\ub + \sum_{\iota\in\Ic_{\text{cl}}}\wb_{n,\iota}(\qb)\lambda_{n,\iota} + \Wb_{t,\iota}(\qb)\lambdab_{t,\iota}, \label{eq:ncpcontact1}\\
@@ -258,7 +259,7 @@ where $\partial \mathcal{C}_j$ is the border of flow set $\mathcal{C}_j$. Using 
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.5\textwidth]{guards.eps}\caption{A guard function defining the flow set $\mathcal{C}_j$ for a 2-dimensional system is illustrated in this figure.} \label{fig:2guards}
+\includegraphics[width=.4\textwidth]{guards.eps}\caption{A guard function defining the flow set $\mathcal{C}_j$ for a 2-dimensional system is illustrated in this figure.} \label{fig:2guards}
 \end{figure}
 
 The hybrid dynamics \eqref{eq:hybimp1},\eqref{eq:hybimp2} will form the starting point in formulating the tracking problem for mechanical systems with unilateral constraints and spatial friction. In this, consider a nominal state-and-input trajectory $(\alphab(t,j),\mub(t,j))$ that is a solution to \eqref{eq:hybimp1},\eqref{eq:hybimp2} for initial condition $\alphab(t_0,0) = \alphab_0\in \mathcal{C}_0$ and consists of $N+1$ absolutely continuous segments discriminated by the event counter $j\in\{0,1,...,N\}$. The nominal event time of event $j$ is denoted $\tau_j$ and regular time is denoted $t$. An example of a reference trajectory is illustrated in Figure~\ref{fig:2example}.
@@ -374,7 +375,7 @@ A system will have different flow dynamics as the system mode changes, as can be
 where $\sigma_\iota$ is the mode of contact point $\iota$. $\sigma_\iota$ can either have the value `op' for a contact point in open-contact, `sl' for a contact point in closed-contact slip, or `st' for a contact point in closed-contact stick. For example, the system mode descriptor of the mode in Figure~\ref{fig:2example2} is $\sigma = (\text{op},\text{sl})$.
 
 \subsection{Discrete event sets}\label{sec:2event}
-When the system state enters an event set $\mathcal{D}$, an event will take place. The current mode for the different contact points is in that case altered and a corresponding state reset is applied. In this section the sets $\mathcal{D}$ are defined for each mode of a contact point. The derivation of the discrete event sets can be found in Appendix~\ref{app:hybrid}. \textbf{EXPLAIN THAT I USE GUARDS AND EXPLAIN SUPERSCRIPTS}
+When the system state enters an event set $\mathcal{D}$, an event will take place. The current mode for the different contact points is in that case altered and a corresponding state reset is applied. In this section the sets $\mathcal{D}$ are defined for each mode of a contact point. The derivation of the discrete event sets can be found in Appendix~\ref{app:hybrid}. The discrete event sets are defined using guard functions as presented in Section~\ref{sec:2hyb}. Furthermore, in this section the superscript $(\cdot)^{\sigma_\iota^-\rightarrow\sigma_\iota^+}$ is introduced to indicate that the guard function $\gamma^{\sigma_\iota^-\rightarrow\sigma_\iota^+}$, or event set $\mathcal{D}^{\sigma_\iota^-\rightarrow\sigma_\iota^+}$ is related to the transition from ante-event mode $\sigma_\iota^-$ to post-event mode $\sigma_\iota^+$.
 
 \textbf{Discrete events sets in open contact}\\
 For all contact points $\iota\in\Ic_{\text{op}}$, the discrete event sets are defined as
@@ -426,7 +427,7 @@ From the impulsive dynamics \eqref{eq:ncpimpact1}-\eqref{eq:ncpimpact4}, the dis
 \end{align}
 Here the unknown variables are $\dot{\qb}^+\in\Rbb^{n}$, $\Lambdab_{n}\in\Rbb^{c_{\text{cl}}}$ and $\Lambdab_{t}\in\Rbb^{2c_{\text{cl}}}$, which means that there are $n+3c_{\text{cl}}$ unknown variables. From \eqref{eq:2ncp1} we get $n$ equations, from \eqref{eq:2ncp2} we get $c_{\text{cl}}$ equations and since $\Ic_{\text{sl}}\cup\Ic_{\text{st}}=\Ic_{\text{cl}}$, $\lambdab_{t,\iota}\in\Rbb^2$, and $\Wb^T_{t,\iota}\ddot{\qb}^+ + \dot{\Wb}^T_{t,\iota}\dot{\qb}^+ \in\Rbb^2$ we get $2c_{\text{cl}}$ equations from \eqref{eq:2ncp3}-\eqref{eq:2ncp4}. Since we have $n+3c_{\text{cl}}$ unknown variables and $n+3c_{\text{cl}}$ equations, the system is solvable.
 
-The problem that remains is that it is not straightforward to identify what the correct mode and therewith what the sets $\mathcal{I}_{\textnormal{op}}$, $\mathcal{I}_{\textnormal{sl}}$, and $\mathcal{I}_{\textnormal{st}}$ should be after an event. The set of equations that should be solved is the set of equations that corresponds to the system-mode which generates a feasible post-event state. \textbf{COMMENTS} When a contact point enters a discrete event set, and thus generates an infeasible state, it can be concluded that the system will go through an event because in it's current mode the system is infeasible. However, it is not guaranteed that the contact point which entered the event set will change their mode. Actually any contact point, or even several contact points, can change their mode. Therefore the dynamics should be solved for several modes, until a feasible post-event state is found. A feasible post-event state is a post-event state solved for a certain system-mode $\sigma$, such that the all corresponding guard functions are inactive, i.e., all $\Gamma_{\iota}>0$. As mentioned earlier, there will exist a unique system-mode where the system has a feasible post-impact state. Similar to the non-impulsive guard functions defined in Section~\ref{sec:2event}, the impulsive guard functions are given by
+The problem that remains is that it is not straightforward to identify what the correct mode and therewith what the sets $\mathcal{I}_{\textnormal{op}}$, $\mathcal{I}_{\textnormal{sl}}$, and $\mathcal{I}_{\textnormal{st}}$ should be after an event. The set of equations that should be solved is the set of equations that corresponds to the system-mode which generates a feasible post-event state. When a contact point enters a discrete event set, and thus generates an infeasible state, it can be concluded that the system will go through an event because in it's current mode the system is infeasible. However, it is not guaranteed that the contact point which entered the event set will change their mode. Actually any contact point, or even several contact points, can change their mode. Therefore the dynamics should be solved for several modes, until a feasible post-event state is found. A feasible post-event state is a post-event state solved for a certain system-mode $\sigma$, such that the all corresponding guard functions are inactive, i.e., all $\Gamma_{\iota}>0$. As mentioned earlier, there will exist a unique system-mode where the system has a feasible post-impact state. Similar to the non-impulsive guard functions defined in Section~\ref{sec:2event}, the impulsive guard functions are given by
 \begin{align}
 \Gamma^{\text{cl}\rightarrow\text{op}}_{\iota} &= \Lambda_{n,\iota},\\
 \Gamma^{\text{sl}\rightarrow\text{st}}_{\iota} &= (\zetab^+_{t,\iota})^T\zetab^+_{t,\iota},\\
