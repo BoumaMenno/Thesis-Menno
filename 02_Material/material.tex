@@ -243,7 +243,7 @@ The continuous dynamics of the hybrid system with impulsive effects are given by
 \begin{align}
 \dot{\xb}_j =\fb_j(\xb_j,\ub_j,t), \qquad\xb_j,\ub_j\in \mathcal{C}_j,\label{eq:hybimp1}
 \end{align}
-with the state $\xb_j = \xb(t,j)\in\Rbb^{n(j)}$ and the input $\ub = \ub(t,j)\in\Rbb^{m(j)}$. The nonlinear function $\fb_j:\Rbb^{n(j)}\ \times\ \Rbb^{m(j)}\ \times\ \Rbb\rightarrow \Rbb^{n(j)}$ is a vector field which describes the flow of segment $j$. Here $j\in\{0,1,...,N\}$ is a counter that defines the flow set $\mathcal{C}_j$ the system is in, where $N$ is the number of segments in a trajectory. When $j$ is increased, and another flow set is entered, the vector field that defines the behavior of the system can change. Note that the state dimension $n(j)$ and the input dimension $m(j)$ can vary in different segments $j$.
+with the state $\xb_j = \xb(t,j)\in\Rbb^{n(j)}$ and the input $\ub_j = \ub(t,j)\in\Rbb^{m(j)}$. The nonlinear function $\fb_j:\Rbb^{n(j)}\ \times\ \Rbb^{m(j)}\ \times\ \Rbb\rightarrow \Rbb^{n(j)}$ is a vector field which describes the flow of segment $j$. Here $j\in\{0,1,...,N\}$ is a counter that defines the flow set $\mathcal{C}_j$ the system is in, where $N$ is the number of segments in a trajectory. When $j$ is increased, and another flow set is entered, the vector field that defines the behavior of the system can change. Note that the state dimension $n(j)$ and the input dimension $m(j)$ can vary in different segments $j$.
 
 The discrete dynamics of the hybrid system with impulsive effects are given by
 \begin{align}
