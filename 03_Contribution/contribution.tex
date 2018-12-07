@@ -36,7 +36,7 @@ The reference trajectory $\alphab$ is defined for all $t>t_0$. Also, the referen
 
 Assumption~\ref{ass:nonzeno} guarantees that the number of events $N$ will only go to infinity if time $t$ goes to infinity as well. This assumption is often made in analysis using hybrid systems. It can be guaranteed that there is non-zero time between events, if $\gb_{j+1}(\alphab_j(\tau_{j+1}),\mub_j(\tau_{j+1}))\notin \mathcal{D}_{j+1}$ for all $j\in\{0,1,\dots,N\}$.
 
-Consider now a state trajectory $\xb$ starting from initial condition $\xb(t_0,0)=\xb_0(\epsilon)=\alphab_0+\epsilon \zb_0$ different than that of the reference trajectory $\alphab$ and with input $\ub_j(\epsilon)=\mub_j+\epsilon \vb_j$. In this $\zb_0 = \frac{\partial\xb_0}{\partial\epsilon}$, $\mub_j = \mub(t,j)$ the feedforward corresponding to $\alphab_j$, and $\vb_j = \vb(t,j)$ the feedback. An example of a trajectory $\xb$ is shown in Figure~\ref{fig:3perturbedtraj}.
+Consider now a state trajectory $\xb$ starting from initial condition $\xb(t_0,0,\epsilon)=\xb_0(\epsilon)=\alphab_0+\epsilon \zb_0$ different than that of the reference trajectory $\alphab$ and with input $\ub_j(\epsilon)=\mub_j+\epsilon \vb_j$, where $\epsilon$ is an initial state and input perturbation. In this $\zb_0 = \frac{\partial\xb_0}{\partial\epsilon}$, $\mub_j = \mub(t,j)$ the feedforward corresponding to $\alphab_j$, and $\vb_j = \vb(t,j)$ the feedback. An example of a perturbed trajectory $\xb(\epsilon)$ is shown in Figure~\ref{fig:3perturbedtraj}.
 
 \nomenclature[G]{$\epsilon$}{The scalar perturbation parameter}%
 \nomenclature[S]{$(\cdot)_{\epsilon}$}{A variable dependent on the initial perturbation}%
@@ -99,7 +99,7 @@ In the next section, the error defined using reference spreading will be used to
 In \cite{Khalil1996} a sensitivity analysis is presented, where so-called sensitivity functions are used to provide first-order approximations of the effects of parameter variations on solutions. These sensitivity functions can also be used to approximate the solution under sufficiently small parameter variations. For the class of systems we consider here, the sensitivity equations describe the system's response to perturbations in initial condition and input. These perturbation dynamics can be used to formulate a first-order approximation of the perturbed state of the system. To find a first-order approximation of state reinitializations in nonsmooth trajectories, an extension to this sensitivity analysis is necessary in the form of a linearized jump gain. The linearized jump gain and the linearized perturbation dynamics together define the LTTHS. In \cite{Rijnen2017} stability properties of an NSTHS are associated with the stability the corresponding LTTHS. In this section the LTTHS is derived for an NSITHS, which can be used to assess the stability of the NSITHS under the presumption that a similar relation between the LTTHS and NSITHS exists. The proof for this relation is left for future work. For a more thorough derivation of the analysis that follows, Appendix~\ref{app:Csensitivity} should be consulted. We will first pose few assumptions on the reference events and jump maps that are required for the sensitivity analysis. First, we assume transversality of the reference events for which we assume the existence of a guard function that locally describes the flow and jump sets about each reference event.
 
 \begin{myass}[Existence of a guard function]\label{ass:existence}
-We assume that there exist constants $\varepsilon_\gamma$, and real valued guard function $\gamma(\xb,\ub,t,j)$ which is continuously differentiable with respect to $\xb$, $\ub$, and $t$, for each $j\in \{1,2,...,N\}$, such that
+We assume that there exist constants $\varepsilon_\gamma$, and real valued guard function $\gamma(\xb,\ub,t,j)$ which is continuously differentiable with respect to $\xb$, $\ub$, and $t$, for each $j\in \{1,2,\dots,N\}$, such that
 \begin{equation}
 \begin{array}{llll}
 \gamma_{j+1}(\xb_j,\ub_j,t) > 0 & &	&(\xb,\ub) \in B_{\varepsilon_\gamma}(\alphab_j(\tau),\mub_j(\tau))\cap \mathcal{C}_j\setminus\partial \mathcal{C}_j\\
@@ -134,7 +134,7 @@ The time derivative of the guard function $\gamma^{\text{sl}\rightarrow\text{st}
 $\gamma_j(\xb_j,\ub_j,t) = 0$ represents the set where an event will happen, which together with Assumption~\ref{ass:transversality} guarantees that an event will happen, even under perturbations. Assumption~\ref{ass:transversality} assumes that the vector field pushes the reference trajectory out of the flow set $\mathcal{C}_j$, and that grazing incidents are avoided. The combination of the existence of a guard function in an area around the nominal ante-event state and the transversal guard activation guarantees that there exists a range of perturbations where the guard is activated as well. Now an assumption on the jump map $\gb$ is posed.
 
 \begin{myass}[Locally differentiability of jump maps]\label{ass:jump}
-We assume that for all $j \in [0,1,2,...,N]$ the jump map $\gb_{j+1}(\xb_j,\ub_j)$ is locally differentiable, in the sense that $D_1\gb_{j+1}(\xb_j,\ub_j)$ and $D_2\gb_{j+1}(\xb_j,\ub_j)$ exist in the ball $B_{\varepsilon_{\gamma}}(\alphab_j(\tau),\mub_j(\tau),\tau)$, where $\tau = \tau_{j+1}$.
+We assume that for all $j \in [0,1,2,\dots,N]$ the jump map $\gb_{j+1}(\xb_j,\ub_j)$ is locally differentiable, in the sense that $D_1\gb_{j+1}(\xb_j,\ub_j)$ and $D_2\gb_{j+1}(\xb_j,\ub_j)$ exist in the ball $B_{\varepsilon_{\gamma}}(\alphab_j(\tau),\mub_j(\tau),\tau)$, where $\tau = \tau_{j+1}$.
 \end{myass}
 
 The differentiability of the jump map is necessary to construct a first-order approximation of the perturbed state trajectory. This will be explained in more detail in the next section.
@@ -172,7 +172,7 @@ where $\dot{\alphab}_j$ is known and $\dot{\zb}_j$ is given by \eqref{eq:3zdot}.
 \end{align}
 and the reinitialization of the perturbed state is described by
 \begin{align}
-\xb_{j+1}(t_{j+1},\epsilon) = \gb_{j+1}(\xb_j(t_{j+1},\epsilon),\ub_j(t_{j+1},\epsilon),t_{j+1}).
+\xb_{j+1}(t_{j+1},\epsilon) = \gb_{j+1}(\xb_j(t_{j+1},\epsilon),\ub_j(t_{j+1},\epsilon),t_{j+1}).\label{eq:3gpert}
 \end{align}
 Similar to the Taylor expansion used in \eqref{eq:3taylor}, the state and input of the next segment evaluated at the perturbed event time $t_{j}$ can be expanded to
 \begin{align}
@@ -194,7 +194,7 @@ To find $\Delta_{j}$, we observe that
 \end{align}
 Note that $\gamma_j$ is dependent on the input $\ub_j$, whereas in \cite{Chen2018a} the sensitivity analysis is performed for guard functions which solely depend on state $\xb_j$ and time $t$. From \eqref{eq:3gamma} the expression for $\Delta_{j}$ is found to be
 \begin{align}
-\Delta_{j} = -\frac{D_1\gamma^{-}\cdot\zb^- + D_2\gamma^{-}\cdot\vb^-}{\dot{\gamma}^{-}},\label{eq}
+\Delta_{j} = -\frac{D_1\gamma^{-}\cdot\zb^- + D_2\gamma^{-}\cdot\vb^-}{\dot{\gamma}^{-}},\label{eq:3Deltaj}
 \end{align}
 with
 \begin{align*}
@@ -203,7 +203,7 @@ with
 \zb^- &= \zb_{j-1}(\tau_j),\\
 \vb^- &= \vb_{j-1}(\tau_j),
 \end{align*}
-where the $-$ superscript indicates a left limit of event $j$. Expanding \eqref{eq:3g} and substituting the result into \eqref{eq:3xexpand2} gives
+where the $(\cdot)^-$ superscript indicates a left limit of event $j$. Expanding \eqref{eq:3gpert} and substituting the result into \eqref{eq:3xexpand2} gives
 \begin{equation}
 \zb^+ = D_1\gb^-\cdot\left(\zb^- + \dot{\alphab}^-\Delta_j\right) + D_2\gb^-\cdot\left(\vb^- + \dot{\mub}^-\Delta_j\right) + D_3\gb^-\cdot\Delta_j - \dot{\alphab}^+\Delta_j,
 \end{equation}
@@ -215,7 +215,7 @@ with
 \alphab^+ &= \alphab_j(\tau_j),\\
 \mub^- &= \mub_{j-1}(\tau_j).
 \end{align*}
-Here the $+$ superscript indicates the right limit of event $j$. This can finally be rewritten to
+Here, the $(\cdot)^+$ superscript indicates the right limit of event $j$. This can finally be rewritten to
 \begin{align}
 \zb^+ = \Lb_j(\tau_j)\begin{bmatrix}
 \zb^- \\ \vb^-
@@ -242,13 +242,13 @@ The sensitivity analysis performed in the previous section will be used next to 
 \begin{mydef}[LTTHS]\label{def:3ltths}
 The linear time-triggered hybrid system associated with the reference trajectory $\alphab$ and the NSITHS \eqref{eq:3hybimp1},\eqref{eq:3hybimp2} is given by
 \begin{align}
-\dot{\zb}_j &= \Ab_j(t)\zb_j + \Bb_j(t)\vb_j &(t,j)&\in \dom\ \alphab\\
-\zb^+ &= \Lb_{j+1}(t) \begin{bmatrix}\zb^- \\ \vb^-\end{bmatrix} &(t,j)&\in \eve\ \alphab
+\dot{\zb}_j &= \Ab_j(t)\zb_j + \Bb_j(t)\vb_j, &(t,j)&\in \dom\ \alphab,\\
+\zb^+ &= \Lb_{j+1}(t) \begin{bmatrix}\zb^- \\ \vb^-\end{bmatrix}, &(t,j)&\in \eve\ \alphab,
 \end{align}
 with initial condition $\zb(t_0,0)=z_0$, $\zb^+ = \zb(\tau_j,j)$, $\zb^- = \zb(\tau_j,j-1)$,
 \begin{align*}
-\Ab_j(t) &= D_1\fb_j(\alphab_j(t),\mub_j(t),t)\\
-\Bb_j(t) &= D_2\fb_j(\alphab_j(t),\mub_j(t),t)\\
+\Ab_j(t) &= D_1\fb_j(\alphab_j(t),\mub_j(t),t),\\
+\Bb_j(t) &= D_2\fb_j(\alphab_j(t),\mub_j(t),t),\\
 \Lb_j &= \begin{bmatrix}\Gb_j(t) & \Jb_j(t)\end{bmatrix},\\
 \Gb_j &= D_1\gb^- - \left(\dot{\gb}^- - \fb^+\right)\frac{D_1\gamma^-}{\dot{\gamma}^-},\\
 \Jb_j &= D_2\gb^- - \left(\dot{\gb}^- - \fb^+\right)\frac{D_2\gamma^-}{\dot{\gamma}^-},
@@ -283,7 +283,7 @@ The analysis presented in Chapter~\ref{ch:order} will be extended to be suitable
 To be able to perform the sensitivity analysis presented in Chapter~\ref{ch:order} for trajectories with simultaneous guard activations, some adjustments need to be made to the notation. In this section, a new notation \cite{Rijnen2018} is presented, namely: the event character, micro- and macro-events, multiscale hybrid time, guard function index, mode descriptor, phantom segments, and historical notation. After this, reference spreading for simultaneous guard-activations is discussed.
 
 \subsection{Adopted notation}\label{sec:4not}
-In a simultaneous event, more than one guard function is activated in one event. In Figure~\ref{fig:4simulexample}, an example of a simultaneous activation is illustrated. The ante-event reference trajectory, $\alphab(t,0)$, activates two guard functions, $\gamma_1$ and $\gamma_2$. The number of guard functions that are activated in a single nominal event is called the \textit{event character}. In the example in Figure~\ref{fig:4simulexample}, the event character $c = 2$.
+In a simultaneous event, more than one guard function is activated in one event. In Figure~\ref{fig:4simulexample}, an example of a simultaneous activation is illustrated. The ante-event reference trajectory, $\alphab_0(t)$, activates two guard functions, $\gamma_1$ and $\gamma_2$. The number of guard functions that are activated in a single nominal event is called the \textit{event character}. In the example in Figure~\ref{fig:4simulexample}, the event character $c = 2$.
 
 \begin{figure}[h]
 \centering
@@ -296,7 +296,7 @@ j(i,k) = k + \sum_{I=1}^{i}l_I,
 \end{align}
 with $l_I$ the number of micro-events in macro-event $I$. The perturbed event times of micro-events are denoted by $t^k_i$, i.e., the event time of the $k^{\text{th}}$ micro-event of macro-event $i$. A set of guard function indexes $\eta$ is introduced to identify the several guard functions that are involved with an event. The index set of inactive guard functions is defined as
 \begin{align}
-\eta = 2^{\nu},\quad\text{with }\nu\in\{0,1,...,c_i\}.
+\eta = 2^{\nu},\quad\text{with }\nu\in\{0,1,\dots,c_i\}.
 \end{align}
 $\eta$ is written in the binary numeral system for a more intuitive notation of the different guard functions. The inactive guard functions can then be denoted as $\gamma^\eta$. Note that
 \begin{align}
@@ -306,7 +306,15 @@ meaning that the guard functions not only change with macro-events, but also wit
 \begin{align}
 \ls^{s^k_i}\xb(t) = \xb(t,i-1,k),
 \end{align}
-with $s^k_i$ the mode of the $k^{\text{th}}$ micro-event associated to macro-event $i$. When the considered macro-event is known from context, the macro-counter $i$ can be dropped to simplify the notation. From here on, we will write the mode descriptor as $s^k$. Similar to $\eta$, the mode descriptor is written in the binary numeral system. This binary numeral system is used as follows. When there is an event with character $c = 4$, four guard functions can be activated. When the mode of the system is $s^k = 1010$, this means that two guard functions remain inactive. Namely, the guard functions with index $\eta = \{0100,0001\}$. The mode descriptor now intuitively shows which guard functions are inactive, as the zeros in the mode descriptor denote the inactive guard function indexes. The index of the guard function that is activated during event $k$ is denoted by $\eta_k$.
+with $s^k_i$ the mode of the $k^{\text{th}}$ micro-event associated to macro-event $i$. Note that $s_i^k$ is a mode descriptor to describe the micro-segments associated to macro-event $i$. The macro-segments, where $k=0$, are still written as 
+\begin{align}
+\xb_i(t) = \xb(t,i,0).
+\end{align}
+When the considered macro-event is known from context, the macro-counter $i$ can be dropped to simplify the notation. From here on, we will write the mode descriptor as $s^k$ if the macro-counter $i$ is known. Similar to $\eta$, the mode descriptor is written in the binary numeral system. This binary numeral system is used as follows. When there is an event with character $c = 4$, four guard functions can be activated. When the mode of the system is $s^k = 1010$, this means that two guard functions remain inactive. Namely, the guard functions with index $\eta = \{0100,0001\}$. The mode descriptor now intuitively shows which guard functions are inactive, as the zeros in the mode descriptor denote the inactive guard function indexes. The index of the guard function that is activated during event $k$ is denoted by $\eta_k$. Now the superscript $(\cdot)^{\epsilon}$ is introduced for the state $\xb$, to indicate that the state trajectory is perturbed, i.e.,
+
+\begin{align}
+\ls^{s^k_i}\xb^{\epsilon}(t) = \xb(t,i-1,k,\epsilon).
+\end{align}
 
 We will illustrate the adopted notation in an example. Let us consider a transition, depicted in Figure~\ref{fig:4simulpert}, with event character $c = 2$, and guard functions $\gamma^{10}$ and $\gamma^{01}$. The system's state evolution begins in mode $s^0 = 00$, where $\gamma^{10},\gamma^{01}>0$. When the state activates one of the guard functions, in this case $\gamma^{01}=0$, the next mode becomes $s^1 = 01$. When the other guard function is activated as well, $\gamma^{10} = 0$, the system completes its macro-event with $s^2 = 11$. Note that the guard function can change when the system is in another mode, i.e., the guard function $\gamma^{10}$ defined in $s^0$ is different from the guard function $\gamma^{10}$ defined in $s^1$.
 
@@ -327,7 +335,7 @@ where $p$ represents the post-event mode descriptor, and $a$ the ante-event mode
 \begin{align}
 \ls^{\nu_k \nu_{k-1}...\nu_{1}}S^k = s^k \leftarrow s^{k-1} \leftarrow ... \leftarrow s^0,
 \end{align}
-where all mode descriptor entries are defined as $s^{\kappa} = s^{\kappa-1} + \eta_{\kappa}$, with $\eta_{\kappa} = 2^{\nu_{\kappa}-1}$ and $\kappa = \{1,2,...,k\}$. For a simultaneous activation during a micro-event, the participating guard functions are placed within brackets. For example, for a character-4 ($c = 4$) growing sequence, we write 
+where all mode descriptor entries are defined as $s^{\kappa} = s^{\kappa-1} + \eta_{\kappa}$, with $\eta_{\kappa} = 2^{\nu_{\kappa}-1}$ and $\kappa = \{1,2,\dots,k\}$. For a simultaneous activation during a micro-event, the participating guard functions are placed within brackets. For example, for a character-4 ($c = 4$) growing sequence, we write 
 \begin{align}
 \ls^{23(14)}S^3 = 1111 \leftarrow 1101 \leftarrow 1001 \leftarrow 0000.
 \end{align}
@@ -385,40 +393,38 @@ Using the initial states $\ls^{S_i^{k}}\alphab$ defined in \eqref{eq:4phantomini
 \section{First-order approximation for trajectories with simultaneous guard-activation}
 \textbf{INTRO}
 \subsection{Sensitivity analysis for simultaneous guard-activation}
-\textbf{CONTINUE HERE}
-
 Now the sensitivity analysis for a trajectory with simultaneous events is presented. Similar to the sensitivity analysis for trajectories with isolated events, the continuous macro-segments ($k=0$) of the state can be approximated using
 \begin{align}
-\xb_i(\epsilon) = \bar{\alphab}_i + \epsilon\bar{\zb}_i + o(\epsilon),
+\xb_i^\epsilon(t) = \bar{\alphab}_i + \epsilon\bar{\zb}_i + o(\epsilon),
 \end{align}
 where $\zb_i$ satisfies
 \begin{align}
 \dot{\zb}_i = \Ab_i(t)\zb_i +\Bb_i(t)\vb_i,\quad i\in \dom\alphab
 \end{align}
 with
-\begin{align}
+\begin{align*}
 \Ab_i(t) &= D_1\fb_i(\alphab_i,\mub_i,t),\\
 \Bb_i(t) &= D_2\fb_i(\alphab_i,\mub_i,t).
-\end{align}
-Now we derive a first order approximation of the jump map of a simultaneous event with character $c_i = 2$. A more thorough description of this derivation can be found in Appendix~\ref{app:multjumps}. In this chapter, the macro-counter $i$ is left out of the derivation for readability. The jump map that describes micro-event $k+1$ is given by
+\end{align*}
+Now we derive a first order approximation of the jump map of a simultaneous event with character $c_i = 2$. A more thorough description of this derivation can be found in Appendix~\ref{app:multjumps}. In this chapter, the macro-counter $i$ is left out of the derivation for readability. With $\ls^{s^{k+1}}\gb = \ls^{s^{k+1}\leftarrow s^k}\gb$, the jump map that describes micro-event $k+1$ is given by
 \begin{align}
-\ls^{s^{k+1}}\xb_\epsilon(t^{k+1}) = \ls^{s^{k+1}\leftarrow s^k}\gb(\ls^{s^{k}}\xb_\epsilon(t^{k+1}),\ls^{s^{k}}\ub_\epsilon(t^{k+1}),t^{k+1}),\label{eq:4xe012}
+\ls^{s^{k+1}}\xb^\epsilon(t^{k+1}) = \ls^{s^{k+1}}\gb(\ls^{s^{k}}\xb^\epsilon(t^{k+1}),\ls^{s^{k}}\ub^\epsilon(t^{k+1}),t^{k+1}),\label{eq:4xe012}
 \end{align}
 with
 \begin{align}
-\ls^{s^{k}}\xb_\epsilon(t^{k+1}) = \int_{t^{k}}^{t^{k+1}}\left[\ls^{s^{k}}\fb\left(\ls^{s^{k}}\xb_\epsilon(t),\ls^{s^{k}}\ub_\epsilon(t),t\right)\right]dt + \ls^{s^{k}\leftarrow s^{k-1}}\gb(\ls^{s^{k-1}}\xb_\epsilon(t^{k}),\ls^{s^{k-1}}\ub_\epsilon(t^{k}),t^{k}).\label{eq:4xe01}
+\ls^{s^{k}}\xb^\epsilon(t^{k+1}) = \int_{t^{k}}^{t^{k+1}}\left[\ls^{s^{k}}\fb\left(\ls^{s^{k}}\xb^\epsilon(t),\ls^{s^{k}}\ub^\epsilon(t),t\right)\right]dt + \ls^{s^{k}}\gb(\ls^{s^{k-1}}\xb^\epsilon(t^{k}),\ls^{s^{k-1}}\ub^\epsilon(t^{k}),t^{k}).\label{eq:4xe01}
 \end{align}
-Here the subscript $(\cdot)_\epsilon$ indicates that the variable is dependent on $\epsilon$, the left superscript $\ls^{s^k}(\cdot)$ indicates that the variable is in micro-segment $k$, and $t^k$ represents the event-time of micro-event $k$. Now we expand the right-hand side of \eqref{eq:4xe012} with respect to $\epsilon$, to find
+Here the subscript $(\cdot)^\epsilon$ indicates that the variable is dependent on $\epsilon$, the left superscript $\ls^{s^k}(\cdot)$ indicates that the variable is in micro-segment $k$, and $t^k$ represents the event-time of micro-event $k$. Now we expand the right-hand side of \eqref{eq:4xe012} with respect to $\epsilon$, to find
 \begin{align}
-\ls^{s^{k+1}}\xb_\epsilon(t^{k+1}) = \ls^{s^{k+1}}\alphab(\tau) + \epsilon\left.\frac{\partial}{\partial\epsilon}\ls^{s^{k+1}\leftarrow s^k}\gb\right|_{\epsilon=0} + o(\epsilon),\label{eq:4xe012exp}
+\ls^{s^{k+1}}\xb^\epsilon(t^{k+1}) = \ls^{s^{k+1}}\alphab(\tau) + \epsilon\left.\frac{\partial}{\partial\epsilon}\ls^{s^{k+1}}\gb\right|_{\epsilon=0} + o(\epsilon),\label{eq:4xe012exp}
 \end{align}
 where
 \begin{multline}
-\left.\frac{\partial}{\partial\epsilon}\ls^{s^{k+1}\leftarrow s^k}\gb\right|_{\epsilon=0} = D_1\ls^{s^{k+1}\leftarrow s^k}\gb\cdot\left(\ls^{s^{k}}\fb(\Delta^{k+1}-\Delta^{k}) + D_1\ls^{s^{k}\leftarrow s^{k-1}}\gb\cdot\left(\ls^{s^{k-1}}\zb+\ls^{s^{k-1}}\fb\Delta^{k}\right)\right. \\ \left.+ D_2\ls^{s^{k}\leftarrow s^{k-1}}\gb\cdot\left(\ls^{s^{k-1}}\vb+\ls^{s^{k-1}}\dot{\mub}\Delta^{k}\right) + D_3\ls^{s^{k}\leftarrow s^{k-1}}\gb\cdot\Delta^{k}\right)+D_3\ls^{s^{k+1}}\gb\cdot\Delta^{k+1}. \label{eq:4dg1de}
+\left.\frac{\partial}{\partial\epsilon}\ls^{s^{k+1}}\gb\right|_{\epsilon=0} = D_1\ls^{s^{k+1}}\gb\cdot\left(\ls^{s^{k}}\fb(\Delta^{k+1}-\Delta^{k}) + D_1\ls^{s^{k}}\gb\cdot\left(\ls^{s^{k-1}}\zb+\ls^{s^{k-1}}\fb\Delta^{k}\right)\right. \\ \left.+ D_2\ls^{s^{k}}\gb\cdot\left(\ls^{s^{k-1}}\vb+\ls^{s^{k-1}}\dot{\mub}\Delta^{k}\right) + D_3\ls^{s^{k}}\gb\cdot\Delta^{k}\right)+D_3\ls^{s^{k+1}}\gb\cdot\Delta^{k+1}. \label{eq:4dg1de}
 \end{multline}
-Now, by expanding $\ls^{s^{k+1}}\xb_\epsilon(t^{k+1})$ with respect to $\epsilon$, we find
+Now, by expanding $\ls^{s^{k+1}}\xb^\epsilon(t^{k+1})$ with respect to $\epsilon$, we find
 \begin{align}
-\ls^{s^{k+1}}\xb_\epsilon(t^{k+1}) &= \ls^{s^{k+1}}\alphab(t^{k+1})+\epsilon\ ^{s^{k+1}}\zb(t^{k+1}) + o(\epsilon),\\
+\ls^{s^{k+1}}\xb^\epsilon(t^{k+1}) &= \ls^{s^{k+1}}\alphab(t^{k+1})+\epsilon\ ^{s^{k+1}}\zb(t^{k+1}) + o(\epsilon),\\
 &= \ls^{s^{k+1}}\alphab(\tau) + \epsilon\ ^{s^{k+1}}\dot{\alphab}(\tau)\Delta^{k+1} + \epsilon\ ^{s^{k+1}}\zb(\tau) + o(\epsilon).\label{eq:4xexp}
 \end{align}
 Using \eqref{eq:4xe012exp} and \eqref{eq:4xexp}, an expression for $\ls^{s^{k+1}}\zb(\tau)$ is found, which is
@@ -458,7 +464,7 @@ for a sequence $p\leftarrow p-1 \leftarrow \cdots \leftarrow a$. When $\vb$ is c
 \ls^{S^k}\Gb & \ls^{S^{k\leftarrow 1}}\Gb\ls^{S^{1\leftarrow 0}}\Jb
 \end{bmatrix},\label{eq:4ljumpssimp}
 \end{align}
-since only the ante-event feedback term will be non-zero. The jump gain defined in \eqref{eq:4ljumpssimp} is defined for a particular order of guard-activations. Note that the description of a jump gain for a micro-event where feedback is non-zero is more extensive than the jump gain given in \eqref{eq:4ljumpssimp}. However, since in this work only situations with zero feedback during micro-event are considered, the jump gain in \eqref{eq:4ljumpssimp} is used from here on to define $\ls^{S^k}\Lb$.
+since only the ante-event feedback term will be non-zero. The jump gain defined in \eqref{eq:4ljumpssimp} is defined for a particular order of guard-activations. Since the sensitivity analysis considers all trajectories close to $\alphab,\mub$, several sequences of guard-activations, and therefore several jumps gains as in \eqref{eq:4ljumpssimp}, can be associated with a simultaneous event. In the next section the jump gain \eqref{eq:4ljumpssimp} is used to define a state-dependent jump gain, which covers all possible mode sequences. Note that the description of a jump gain for a micro-event where feedback is non-zero is more extensive than the jump gain given in \eqref{eq:4ljumpssimp}. However, since in this work only situations with zero feedback during micro-event are considered, the jump gain in \eqref{eq:4ljumpssimp} is used from here on to define $\ls^{S^k}\Lb$.
 
 \subsection{The positively homogeneous jump gain}
 As mentioned in Section~\ref{sec:simguards}, an event with simultaneous guard activation will experience loss of simultaneity when perturbations are introduced. Due to the loss of simultaneity, the order of events is unknown. For that reason, one simultaneous event has several associated event sequences. For there to be a finite amount of possibilities of event sequences, all sequences should be growing. This assumption is now formally defined.
@@ -475,10 +481,10 @@ We assume that activation of the guard associated to contact point $\iota$ will 
 
 \begin{myremark}
 Assumption~\ref{ass:guardtrans} is trivial for most guard functions. Because $\gamma^{\text{op}\rightarrow\text{cl}}_{\iota} = h_{n,\iota}(\qb)$ is defined on position level, under Assumption~\ref{ass:unidirectional} it will always be contact point $\iota$ that will change mode when $\gamma^{\text{op}\rightarrow\text{cl}}_{\iota}$ is activated. For guard functions defined on acceleration level, i.e.,
-\begin{align}
-\gamma^{\textnormal{st}\rightarrow\textnormal{sl}} &= \mu_\iota^2\lambda_{n,\iota} - \lambdab^T_{t,\iota}\lambdab_{t,\iota}\nonumber\\
-\gamma^{\textnormal{cl}\rightarrow\textnormal{op}} &= \lambda_{n,\iota},\nonumber
-\end{align}
+\begin{align*}
+\gamma^{\textnormal{st}\rightarrow\textnormal{sl}} &= \mu_\iota^2\lambda_{n,\iota} - \lambdab^T_{t,\iota}\lambdab_{t,\iota},\\
+\gamma^{\textnormal{cl}\rightarrow\textnormal{op}} &= \lambda_{n,\iota},
+\end{align*}
 the situation is different. The feasible post-event mode is determined by the post-event acceleration for these guard functions. It is therefore possible that a guard function is activated in mode $s^{k-1}$, but is inactive in mode $s^{k}$. Under Assumption~\ref{ass:guardtrans} this is not possible. Therefore a constraint is introduced on the post-event acceleration, which can be determined by the set of equations, called the mode selection in Section~\ref{sec:2discdyn},
 \begin{align}
 \ddot{\qb}^+ &= \Mb^{-1}\left[\Sb\ub^+ - \Cb + \Wb_{n}\lambdab^+_{n} + \Wb_{t}\lambdab^+_{t}\right], &  \nonumber\\
@@ -489,7 +495,7 @@ the situation is different. The feasible post-event mode is determined by the po
 From the mode selection we can conclude that the post-event acceleration $\ddot{\qb}$ is directly dependent on the post-event input $\ub^+$. Therefore, the post-event input $\ub^+$ should be chosen in such a way that Assumption~\ref{ass:guardtrans} is met.
 \end{myremark}
 
-Now a jump gain for a simultaneous event will be defined. This jump gain should consider all growing sequences that can take place for that range of perturbations. Therefore, a state-dependent matrix gain is defined, in the form of
+Now a state-dependent jump gain for all possible mode sequences associated to a simultaneous event will be defined. This jump gain should consider all growing sequences that can take place for that range of perturbations. Therefore, a state-dependent matrix gain is defined, in the form of
 \begin{align}
 \ls^{p \leftarrow a}\Hb(\ls^{a}\zb(\tau),\ls^{a}\vb(\tau),\tau) = \left\lbrace\begin{array}{ll}
 \Lb^1(\ls^{s^0}\zb,\ls^{s^0}\vb,\tau), & \text{if condition 1 is true},\\
@@ -498,15 +504,15 @@ Now a jump gain for a simultaneous event will be defined. This jump gain should 
 \Lb^{r}(\ls^{s^0}\zb,\ls^{s^0}\vb,\tau), & \text{if condition }r\text{ is true},
 \end{array}\right.\label{eq:4Hgeneral}
 \end{align}
-where $\Lb$ is in the form of \eqref{eq:4ljumpssimp} and $r$ the number of possible mode sequences in a macro-event. We will now derive the jump maps and associated conditions in \eqref{eq:4Hgeneral} to make the expression explicit.
+where $\Lb$ is in the form of \eqref{eq:4ljumpssimp} and $r$ the number of possible mode sequences in a macro-event. We will now derive the jump maps and associated conditions in \eqref{eq:4Hgeneral} to make the expression explicit. Note that the several jump gains $\Lb$ in \eqref{eq:4Hgeneral} all coincide with a particular sequence of events.
 
 For a certain perturbation, only a single order of micro events is feasible. This order can be found by determining the perturbed jump time of all possible micro events, and selecting the micro event with the earliest impact time as the next event. Mathematically, this is written as
 \begin{align}
-s^{k+1} = \underset{s^{k+1}}{\argmin}\left(\ ^{s^{k+1} \leftarrow S^{k}}t_\epsilon\right).\label{eq:4argmin1}
+s^{k+1} = \underset{s^{k+1}}{\argmin}\left(\ ^{s^{k+1} \leftarrow S^{k}}t^\epsilon\right).\label{eq:4argmin1}
 \end{align}
-The perturbed event-time of the next micro-event $\ ^{s^{k+1} \leftarrow S^{k}}t_\epsilon$ can be approximated using the first order approximation
+The perturbed event-time of the next micro-event $\ ^{s^{k+1} \leftarrow S^{k}}t^\epsilon$ can be approximated using the first order approximation
 \begin{align}
-\ls^{s^{k+1} \leftarrow S^{k}}t_\epsilon = \tau + \epsilon\Delta^{k+1}.
+\ls^{s^{k+1} \leftarrow S^{k}}t^\epsilon = \tau + \epsilon\Delta^{k+1}.
 \end{align}
 
 Now, since $\tau$ and $\epsilon$ are equal for each impact time, we can rewrite \eqref{eq:4argmin1} to
@@ -523,10 +529,10 @@ with $\eta$ the set of guard identifiers that are still open and $\eta^*$ the in
 \eta^{k+1} = \underset{\eta^*}{\argmin}\left(-\frac{D_1\gamma^{\eta^*}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau)\cdot\ls^{S^k}\zb + D_2\gamma^{\eta^*}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau)\cdot\ls^{S^k}\vb}{\dot{\gamma}^{\eta^*}}\right),\label{eq:4argmin2}
 \end{align}
 with $s^{k+1} = s^k + \eta^{k+1}$ and $\eta^{k+1}$ the index of the guard function the will be activated during event $k+1$. Finally, with
-\begin{align}
+\begin{align*}
 \ls^{S^k}\ab &= -\frac{1}{\dot{\gamma}^{\eta^k}}D_1\gamma^{\eta^k}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau),\\
 \ls^{S^k}\bb &= -\frac{1}{\dot{\gamma}^{\eta^k}}D_2\gamma^{\eta^k}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau),
-\end{align}
+\end{align*}
 \eqref{eq:4argmin2} can be rewritten as
 \begin{align}
 \eta^{k+1} = \underset{\eta^*}{\argmin}\left(\ls^{S^k}\ab^T\ls^{S^k}\zb +\ls^{S^k}\bb^T\ls^{S^k}\vb\right).
@@ -588,7 +594,6 @@ The conditions that decide which jump gain to use are illustrated in Figure~\ref
 %\end{figure}
 
 \subsection{The positively homogeneous time-triggered hybrid system}\label{def:4PTTHS}
-\textbf{COMMENTS}
 Now, with the positively homogeneous jump gain defined, the PTTHS can be defined. The PTTHS forms a first-order approximation of the NSITHS defined in Definition~\ref{def:3nsiths}. The proof that uniform asymptotic stability of the PTTHS does not yet exist for the NSITHS. However, similar to the relation between the LTTHS and NSITHS, we presume that a proof exists for the stability of the PTTHS implying local asymptotic stability of NSITHS. The PTTHS will jump at the same time as the nominal trajectory $\alphab$, and will also experience the same number of jumps. This means that a controller designed on the PTTHS will not act on micro-events. This is desired behavior, as the micro-events will likely happen too rapidly to control on. We now define the PTTHS formally, with the positively homogeneous jump gain being defined for a character-2 event ($c = 2$, with $a = 00$ and $p=11$) for brevity reasons.
 
 \begin{mydef}[PTTHS]
@@ -598,13 +603,13 @@ The positively homogeneous time-triggered hybrid system associated with the NSIT
 \ls^{p}\zb &= \ls^{p\leftarrow a}\Hb(\ls^a\zb,\ls^a\vb,t)\begin{bmatrix} \ls^a\zb \\ \ls^a\vb\end{bmatrix}, &(t,i) \in \eve\ \alphab,
 \end{align}
 where $\ls^{p\leftarrow a}\Hb(\ls^a\zb,\ls^a\vb,t)$ is the positively homogeneous jump gain of order zero,
-\begin{align}
+\begin{align*}
 A(t,i) &= D_1\fb(\alphab(t,i),\mub(t,i),t,i),\\
 B(t,i) &= D_2\fb(\alphab(t,i),\mub(t,i),t,i),\\
 \ls^{a}\zb & = \zb(t,i),\\
 \ls^{a}\vb & = \vb(t,i),\\
 \ls^{p}\zb & = \zb(t,i+1),
-\end{align}
+\end{align*}
 with $a = s_i^0 = 00...0$ and $p = s_i^l = 11...1$ where $l$ is the amount of micro-events in the growing sequence $p\leftarrow...\leftarrow a$. The set $\dom\ \alphab$ and $\eve\ \alphab$ are defined as
 \begin{align}
 \dom\ \alphab &:= \bigcup_{i=0}^N[\tau_i,\tau_{i+1}]\times \{i\},\\
@@ -620,9 +625,9 @@ and $\tau_0 = t_0$. The positively homogeneous jump gain $\ls^{p\leftarrow a}\Hb
 \end{align}
 with
 \begin{align}
-(\textnormal{I})&:\ls^{^2 S^1}\ab^T\ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ls^{^2 S^1}\vb = \ls^{^1 S^1}\ab^T\ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ls^{^1 S^1}\vb,\\
-(\textnormal{II})&:\ls^{^2 S^1}\ab^T\ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ls^{^2 S^1}\vb > \ls^{^1 S^1}\ab^T\ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ls^{^1 S^1}\vb,\\
-(\textnormal{III})&:\ls^{^2 S^1}\ab^T\ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ls^{^2 S^1}\vb < \ls^{^1 S^1}\ab^T\ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ls^{^1 S^1}\vb.\label{eq:4PTTHS2}
+(\textnormal{I})&:\ls^{^2 S^1}\ab^T\ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ls^{^2 S^1}\vb = \ls^{^1 S^1}\ab^T\ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ls^{^1 S^1}\vb,\nonumber\\
+(\textnormal{II})&:\ls^{^2 S^1}\ab^T\ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ls^{^2 S^1}\vb > \ls^{^1 S^1}\ab^T\ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ls^{^1 S^1}\vb,\label{eq:4PTTHS2}\\
+(\textnormal{III})&:\ls^{^2 S^1}\ab^T\ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ls^{^2 S^1}\vb < \ls^{^1 S^1}\ab^T\ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ls^{^1 S^1}\vb.\nonumber
 \end{align}
 The jump gains $\ls^{s^+\leftarrow s^-}_{S^k}\Gb$ and $\ls^{s^+\leftarrow s^-}_{S^k}\Jb$ in \eqref{eq:4PTTHS1}, with $s^+ = s^k$ and $s^- = s^0$ and $S^k = s^k\leftarrow s^{k-1} \leftarrow \cdots \leftarrow s^0$, are given by
 \begin{align}
@@ -630,19 +635,19 @@ The jump gains $\ls^{s^+\leftarrow s^-}_{S^k}\Gb$ and $\ls^{s^+\leftarrow s^-}_{
 \ls^{s^+\leftarrow s^-}_{S^k}\Jb &:= D_2\gb^- - \left(\dot{\gb}^- - \fb^+\right)\frac{D_2\gamma^-}{\dot{\gamma}^-},
 \end{align}
 and
-\begin{align}
+\begin{align*}
 \fb^- &= \ls^{s^-}\fb\left(\ls^{S^-}\alphab(\tau),\ls^{S^-}_{\rightarrow}\mub(\tau),\tau\right),\\
 \fb^+ &= \ls^{s^+}\fb\left(\ls^{S^+}\alphab(\tau),\ls^{S^+}_{\rightarrow}\mub(\tau),\tau\right),\\
 \gb^- &= \ls^{s^+\leftarrow s^-}\gb\left(\ls^{S^-}\alphab(\tau),\ls^{S^-}_{\rightarrow}\mub(\tau),\tau\right),\\
 \gamma^- &= \gamma^{\eta(s^+\leftarrow s^-)}\left(\ls^{S^-}\alphab(\tau),\ls^{S^-}_{\rightarrow}\mub(\tau),\tau\right),\\
 \dot{\gb}^- &= D_1\gb^-\cdot \fb^- + D_2\gb^-\cdot \dot{\mub}^- + D_3\gb^-,\\
 \dot{\gamma}^- &= D_1\gamma^-\cdot\dot{\alphab}(\tau) + D_2\gamma^-\cdot\dot{\mub}(\tau) + D_3\gamma^-,
-\end{align}
+\end{align*}
 where the $\rightarrow$ left subscript should be interpreted as $\searrow$ or $\nearrow$ to indicate whether the feedforward is pushing or withdrawing, respectively. $\gamma^{\eta(s^+\leftarrow s^-)}$ is the guard function that is activated during the transition $s^+\leftarrow s^-$. If the transition $s^+\leftarrow s^-$ is associated with multiple guard functions, one of the guard functions can be chosen, as it will have no effect on the jump gain. For example, during the transition $11\leftarrow 00$, $\gamma^{01}$ or $\gamma^{10}$ should be used for defined the jump gain. Finally, the vectors $\ls^{S^k}\ab^T$ and $\ls^{S^k}\bb^T$ in \eqref{eq:4PTTHS2} are given by
-\begin{align}
+\begin{align*}
 \ls^{S^k}\ab &= -\frac{1}{\dot{\gamma}^{-}}D_1\gamma^{-},\\
 \ls^{S^k}\bb &= -\frac{1}{\dot{\gamma}^{-}}D_2\gamma^{-}.
-\end{align}
+\end{align*}
 \end{mydef}
 
 \nomenclature[R]{$\Hb$}{The positively homogeneous jump gain}%
