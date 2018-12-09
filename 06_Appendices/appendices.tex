@@ -603,59 +603,64 @@ since $\tau^k = \tau^{k+1} = \tau$, and $\int_{t^{k}}^{t^{k+1}}\left.\frac{\part
 \end{align}
 with
 \begin{align}
-\left.\frac{\partial\ls^{s^{k+1}}\gb}{\partial\epsilon}\right|_{\epsilon=0} = \left[\frac{\partial\ls^{s^{k+1}}\gb}{\partial\xb}\left(\frac{\partial\ls^{s^k}\xb}{\partial\epsilon} + \frac{\partial\ls^{s^k}\xb}{\partial t}\frac{\partial t^{k+1}}{\partial\epsilon}\right) + \frac{\partial\ls^{s^{k+1}}\gb}{\partial\ub}\left(\frac{\partial\ls^{s^k}\ub}{\partial\epsilon} + \frac{\partial\ls^{s^k}\ub}{\partial t}\frac{\partial t^{k+1}}{\partial\epsilon}\right) + \frac{\partial\ls^{s^{k+1}}\gb}{\partial t}\frac{\partial t^{k+1}}{\partial\epsilon}\right]_{\epsilon=0},
+\left.\frac{\partial\ls^{s^{k+1}}\gb}{\partial\epsilon}\right|_{\epsilon=0} = \left[\frac{\partial\ls^{s^{k+1}}\gb}{\partial\xb}\left(\frac{\partial\ls^{s^k}\xb}{\partial\epsilon} + \frac{\partial\ls^{s^k}\xb}{\partial t}\frac{\text{d} t^{k+1}}{\text{d}\epsilon}\right) + \frac{\partial\ls^{s^{k+1}}\gb}{\partial\ub}\left(\frac{\partial\ls^{s^k}\ub}{\partial\epsilon} + \frac{\partial\ls^{s^k}\ub}{\partial t}\frac{\text{d} t^{k+1}}{\text{d}\epsilon}\right) + \frac{\partial\ls^{s^{k+1}}\gb}{\partial t}\frac{\text{d} t^{k+1}}{\text{d}\epsilon}\right]_{\epsilon=0},
 \end{align}
 \begin{multline}
-\left.\frac{\partial\ls^{s^{k+1}}\gb}{\partial\epsilon}\right|_{\epsilon=0} = \left[D_1\ls^{s^{k+1}}\gb\left(\frac{\partial \Phib}{\partial\epsilon} + D_1\ls^{s^{k}}\gb\left(\frac{\partial\ls^{s^{k}}\xb}{\partial\epsilon} + \frac{\partial\ls^{s^{k}}\xb}{\partial t}\frac{\text{d}t^{k}}{\text{d}\epsilon}\right) + D_2\ls^{s^{k}}\gb\left(\frac{\partial\ls^{s^{k}}\ub}{\partial\epsilon} + \frac{\partial\ls^{s^{k}}\ub}{\partial t}\frac{\text{d} t^{k}}{\text{d}\epsilon}\right)\right.\right.\\\left.\left. + D_3\ls^{s^{k}}\gb\frac{\text{d} t^k}{\text{d} \epsilon} + \frac{\partial\ls^{s^{k}}\xb}{\partial t}\frac{\text{d}t^{k+1}}{\text{d}\epsilon}\right) + D_2\ls^{s^{k+1}}\gb\left(\frac{\partial\ls^{s^k}\ub}{\partial\epsilon} + \frac{\partial\ls^{s^k}\ub}{\partial t}\frac{\partial t^{k+1}}{\partial\epsilon}\right) + D_3\ls^{s^{k+1}}\gb\frac{\partial t^{k+1}}{\partial\epsilon}\right]_{\epsilon=0},
+\left.\frac{\partial\ls^{s^{k+1}}\gb}{\partial\epsilon}\right|_{\epsilon=0} = \left[D_1\ls^{s^{k+1}}\gb\left(\frac{\partial \Phib}{\partial\epsilon} + D_1\ls^{s^{k}}\gb\left(\frac{\partial\ls^{s^{k-1}}\xb}{\partial\epsilon} + \frac{\partial\ls^{s^{k-1}}\xb}{\partial t}\frac{\text{d}t^{k}}{\text{d}\epsilon}\right) + D_2\ls^{s^{k}}\gb\left(\frac{\partial\ls^{s^{k-1}}\ub}{\partial\epsilon} + \frac{\partial\ls^{s^{k-1}}\ub}{\partial t}\frac{\text{d} t^{k}}{\text{d}\epsilon}\right)\right.\right.\\\left.\left. + D_3\ls^{s^{k}}\gb\frac{\text{d} t^k}{\text{d} \epsilon} \right) + D_2\ls^{s^{k+1}}\gb\left(\frac{\partial\ls^{s^k}\ub}{\partial\epsilon} + \frac{\partial\ls^{s^k}\ub}{\partial t}\frac{\text{d} t^{k+1}}{\text{d}\epsilon}\right) + D_3\ls^{s^{k+1}}\gb\frac{\text{d} t^{k+1}}{\text{d}\epsilon}\right]_{\epsilon=0},
 \end{multline}
-\textbf{CONTINUE}
+
+%\begin{multline}
+%\left.\frac{\partial\ls^{s^{k+1}}\gb}{\partial\epsilon}\right|_{\epsilon=0} = \left[D_1\ls^{s^{k+1}}\gb\left(\frac{\partial \Phib}{\partial\epsilon} + D_1\ls^{s^{k}}\gb\left(\frac{\partial\ls^{s^{k-1}}\xb}{\partial\epsilon} + \frac{\partial\ls^{s^{k-1}}\xb}{\partial t}\frac{\text{d}t^{k}}{\text{d}\epsilon}\right) + D_2\ls^{s^{k}}\gb\left(\frac{\partial\ls^{s^{k-1}}\ub}{\partial\epsilon} + \frac{\partial\ls^{s^{k-1}}\ub}{\partial t}\frac{\text{d} t^{k}}{\text{d}\epsilon}\right)\right.\right.\\\left.\left. + D_3\ls^{s^{k}}\gb\frac{\text{d} t^k}{\text{d} \epsilon} + \frac{\partial\ls^{s^{k}}\xb}{\partial t}\frac{\text{d}t^{k+1}}{\text{d}\epsilon}\right) + D_2\ls^{s^{k+1}}\gb\left(\frac{\partial\ls^{s^k}\ub}{\partial\epsilon} + \frac{\partial\ls^{s^k}\ub}{\partial t}\frac{\text{d} t^{k+1}}{\text{d}\epsilon}\right) + D_3\ls^{s^{k+1}}\gb\frac{\text{d} t^{k+1}}{\text{d}\epsilon}\right]_{\epsilon=0},
+%\end{multline}
+
 \begin{multline}
-\left.\frac{\partial\ls^{s^{k+1}}\gb(\ls^{s^{k}}\xb^\epsilon(t^{k+1}),\ls^{s^{k+1}}\ub^\epsilon(t^{k+1}),t^{k+1})}{\partial\epsilon}\right|_{\epsilon=0} = \left[\frac{\partial\ls^{s^{k+1}}\gb}{\partial\xb}\left(\frac{\partial\Phib}{\partial\epsilon} + \frac{\partial\gb^{k}}{\partial\xb}\left(\frac{\partial\xb^{k-1}}{\partial\epsilon} + \frac{\partial\xb^{k-1}}{\partial t}\frac{d t_\epsilon^{k}}{d \epsilon}\right)\right.\right. +\\ \left.\left.\frac{\partial\gb^{k}}{\partial\ub}\left(\frac{\partial\ub^{k-1}}{\partial\epsilon} + \frac{\partial\ub^{k-1}}{\partial t}\frac{d t_\epsilon^{k}}{d \epsilon}\right) + \frac{\partial\gb^{k}}{\partial t}\frac{d t_\epsilon^{k}}{d\epsilon}\right) + \frac{\partial \gb^{k+1}}{\partial t}\frac{dt^{k+1}_\epsilon}{d\epsilon}\right]_{\epsilon=0},
+\left.\frac{\partial\ls^{s^{k+1}}\gb}{\partial\epsilon}\right|_{\epsilon=0} = D_1\ls^{s^{k+1}}\gb\cdot\left(\ls^{s^k}\dot{\alphab}(\Delta^{k+1}-\Delta^{k}) + D_1\ls^{s^k}\gb\cdot\left(\ls^{s^{k-1}}\zb+\ls^{s^{k-1}}\dot{\alphab}\Delta^{k}\right) + D_2\ls^{s^k}\gb\cdot\left(\ls^{s^{k-1}}\vb+\ls^{s^{k-1}}\dot{\mub}\Delta^{k}\right) \right. \\ \left. + D_3\ls^{s^k}\gb\cdot\Delta^{k} + \right)+ D_2 \ls^{s^{k+1}}\gb\cdot\left(\ls^{s^{k}}\vb+\ls^{s^{k}}\dot{\mub}\Delta^{k+1} \right) + D_3\ls^{s^{k+1}}\gb\cdot\Delta^{k+1}. \label{eq:dg1de}
 \end{multline}
-\begin{multline}
-\left.\frac{\partial\gb^{k+1}(\xb^{k}_\epsilon(t_\epsilon^{k+1}),\ub^{k}_\epsilon(t_\epsilon^{k+1}),t_\epsilon^{k+1})}{\partial\epsilon}\right|_{\epsilon=0} = D_1\gb^{k+1}\cdot\left(\fb^{k}(\Delta^{k+1}-\Delta^{k}) + D_1\gb^{k}\cdot\left(\zb^{k-1}+\fb^{k-1}\Delta^{k}\right)\right. \\ \left.+ D_2\gb^{k}\cdot\left(\vb^{k-1}+\dot{\mub}^{k-1}\Delta^{k}\right) + D_3\gb^{k}\cdot\Delta^{k}\right)+D_3\gb^{k+1}\cdot\Delta^{k+1}. \label{eq:dg1de}
-\end{multline}
+
+%\begin{multline}
+%\left.\frac{\partial\ls^{s^{k+1}}\gb}{\partial\epsilon}\right|_{\epsilon=0} = D_1\ls^{s^{k+1}}\gb\cdot\left(\ls^{s^k}\dot{\alphab}(\Delta^{k+1}-\Delta^{k}) + D_1\ls^{s^k}\gb\cdot\left(\ls^{s^{k-1}}\zb+\ls^{s^{k-1}}\dot{\alphab}\Delta^{k}\right) + D_2\ls^{s^k}\gb\cdot\left(\ls^{s^{k-1}}\vb+\ls^{s^{k-1}}\dot{\mub}\Delta^{k}\right) \right. \\ \left. + D_3\ls^{s^k}\gb\cdot\Delta^{k} + \ls^{s^k}\dot{\alphab}\Delta^{k+1}\right)+ D_2 \ls^{s^{k+1}}\gb\cdot\left(\ls^{s^{k}}\vb+\ls^{s^{k}}\dot{\mub}\Delta^{k+1} \right) + D_3\ls^{s^{k+1}}\gb\cdot\Delta^{k+1}. \label{eq:dg1de}
+%\end{multline}
+
 We now substitute \eqref{eq:dg1de} into \eqref{eq:xe012exp}, which we in turn substitute into \eqref{eq:zmulti} to get
 
 \begin{multline}
-\zb^{k+1}(\tau) = D_1\gb^{k+1}\cdot\fb^{k}\Delta^{k+1} - D_1\gb^{k+1}\cdot\fb^{k+1}\Delta^{k} + D_1\gb^{k+1}\cdot\left(D_1\gb^{k}\cdot\left(\zb^{k-1}+\fb^{k-1}\Delta^{k}\right)\right.\\
-\left.+D_2\gb^{k}\cdot\left(\vb^{k-1}+\dot{\mub}^{k-1}\Delta^{k}\right)+D_3\gb^{k}\cdot\Delta^{k}\right) + \left(D_3\gb^{k+1}\cdot 1 - \fb^{k+1}\right)\Delta^{k+1},\label{eq:z2}
+\ls^{s^{k+1}}\zb(\tau) = D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb\Delta^{k+1} - D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k+1}}\fb\Delta^{k} + D_1\ls^{s^{k+1}}\gb\cdot\left(D_1\ls^{s^{k}}\gb\cdot\left(\ls^{s^{k-1}}\zb+\ls^{s^{k-1}}\fb\Delta^{k}\right)\right.\\
+\left.+D_2\ls^{s^{k}}\gb\cdot\left(\ls^{s^{k-1}}\vb+\ls^{s^{k-1}}\dot{\mub}\Delta^{k}\right)+D_3\ls^{s^{k}}\gb\cdot\Delta^{k}\right) + D_2 \ls^{s^{k+1}}\gb\cdot\left(\ls^{s^{k}}\vb+\ls^{s^{k}}\dot{\mub}\Delta^{k+1} \right) + \left(D_3\ls^{s^{k+1}}\gb - \ls^{s^{k+1}}\fb\right)\Delta^{k+1},\label{eq:z2}
 \end{multline}
-under the assumption that $\epsilon$ is small. The four terms in \eqref{eq:z2} can be rewritten into
+with $\ls^{s^k}\fb = \ls^{s^k}\fb(\ls^{s^k}\alphab(\tau),\ls^{s^k}\mub(\tau),\tau)$. The five terms in \eqref{eq:z2} can be rewritten into
 
 \begin{align}
-&D_1\gb^{k+1}\cdot\fb^{k}\Delta^{k+1} = \frac{-D_1\gb^{k+1}\cdot\fb^{k+1}}{\dot{\gamma}^{k+1}}\left(D_1\gamma^{k+1}\cdot\left(\Gb_\zb^{k}\zb^{k-1}+\Gb_\vb^{k}\vb^{k-1}\right) +D_2\gamma^{k+1}\cdot\vb^{k}\right),\\
-&D_1\gb^{k+1}\cdot\left(-\fb^{k}\Delta^{k}\right) = \frac{D_1\gb^{k+1}\cdot\fb^{k}}{\dot{\gamma}^{k}}\left(D_1\gamma^{k}\cdot\zb^{k-1} + D_2\gamma^{k}\cdot\vb^{k-1}\right),
+&D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb\Delta^{k+1} = \frac{-D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k+1}}\fb}{\dot{\gamma}^{k+1}}\left(D_1\gamma^{k+1}\cdot\left(\Gb^{k}\ls^{s^{k-1}}\zb+\Jb^{k}\ls^{s^{k-1}}\vb\right) +D_2\gamma^{k+1}\cdot\ls^{s^{k}}\vb\right),\\
+&D_1\ls^{s^{k+1}}\gb\cdot\left(-\ls^{s^{k}}\fb\Delta^{k}\right) = \frac{D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb}{\dot{\gamma}^{k}}\left(D_1\gamma^{k}\cdot\ls^{s^{k-1}}\zb + D_2\gamma^{k}\cdot\ls^{s^{k-1}}\vb\right),
 \end{align}
 \begin{multline}
-D_1\gb^{k+1}\cdot\left(D_1\gb^{k}\cdot\left(\zb^{k-1} + \fb^{k-1}\Delta^{k}\right) + D_2\gb^{k}\cdot\left(\vb^{k-1}+\dot{\mub}^{k-1}\Delta^{k}\right) + D_3\gb^{k}\cdot\Delta^{k}\right) = \\
-D_1\gb^{k+1}\cdot\left(\frac{-D_1\gb^{k}\cdot\fb^{k-1}}{\dot{\gamma}^{k}}D_1\gamma^{k} + \frac{-D_2\gb^{k}\cdot\dot{\mub}^{k-1}}{\dot{\gamma}^{k}}D_1\gamma^{k} + \frac{-D_3\gb^{k}\cdot 1}{\dot{\gamma}^{k}}D_1\gamma^{k} + D_1\gb^{k}\right)\cdot\zb^{k-1} \\
-+ D_1\gb^{k+1}\cdot\left(\frac{-D_1\gb^{k}\cdot\fb^{k-1}}{\dot{\gamma}^{k}}D_2\gamma^{k} + \frac{-D_2\gb^{k}\cdot\dot{\mub}^{k-1}}{\dot{\gamma}^{k}}D_2\gamma^{k} + \frac{-D_3\gb^{k}\cdot 1}{\dot{\gamma}^{k}}D_2\gamma^{k} + D_2\gb^{k} \right)\cdot \vb^{k-1},
+D_1\ls^{s^{k+1}}\gb\cdot\left(D_1\ls^{s^{k}}\gb\cdot\left(\ls^{s^{k-1}}\zb + \fb^{k-1}\Delta^{k}\right) + D_2\ls^{s^{k}}\gb\cdot\left(\ls^{s^{k-1}}\vb+\dot{\mub}^{k-1}\Delta^{k}\right) + D_3\ls^{s^{k}}\gb\cdot\Delta^{k}\right) = \\
+D_1\ls^{s^{k+1}}\gb\cdot\left(\frac{-D_1\ls^{s^{k}}\gb\cdot\fb^{k-1}}{\dot{\gamma}^{k}}D_1\gamma^{k} + \frac{-D_2\ls^{s^{k}}\gb\cdot\dot{\mub}^{k-1}}{\dot{\gamma}^{k}}D_1\gamma^{k} + \frac{-D_3\ls^{s^{k}}\gb\cdot 1}{\dot{\gamma}^{k}}D_1\gamma^{k} + D_1\ls^{s^{k}}\gb\right)\cdot\ls^{s^{k-1}}\zb \\
++ D_1\ls^{s^{k+1}}\gb\cdot\left(\frac{-D_1\ls^{s^{k}}\gb\cdot\fb^{k-1}}{\dot{\gamma}^{k}}D_2\gamma^{k} + \frac{-D_2\ls^{s^{k}}\gb\cdot\dot{\mub}^{k-1}}{\dot{\gamma}^{k}}D_2\gamma^{k} + \frac{-D_3\ls^{s^{k}}\gb\cdot 1}{\dot{\gamma}^{k}}D_2\gamma^{k} + D_2\ls^{s^{k}}\gb \right)\cdot \ls^{s^{k-1}}\vb,
 \end{multline}
 \begin{align}
-&\left(D_3\gb^{k+1}\cdot 1 - \fb^{k+1}\right)\Delta^{k+1} = \frac{-D_3\gb^{k+1}\cdot 1+\fb^{k+1}}{\dot{\gamma}^{k+1}}\left(D_1\gamma^{k+1}\cdot\left(\Gb_\zb^{k}\zb^{k-1} + \Gb_\vb^{k}\vb^{k-1}\right) + D_2\gamma^{k+1}\cdot\vb^{k}\right).
+&D_2 \ls^{s^{k+1}}\gb\cdot\left(\ls^{s^{k}}\vb+\ls^{s^{k}}\dot{\mub}\Delta^{k+1} \right) = D_2\ls^{s^{k+1}}\gb\left(-\frac{\ls^{s^k}\dot{\mub}}{\dot{\gamma}^{k+1}}D_1\gamma^{k+1}\cdot\ls^{s^k}\zb + \left(1 - \frac{\ls^{s^k}\dot{\mub}}{\dot{\gamma}^{k+1}}D_2\gamma^{k+1}\right)\cdot\ls^{s^k}\vb \right),\\
+&\left(D_3\ls^{s^{k+1}}\gb\cdot 1 - \ls^{s^{k+1}}\fb\right)\Delta^{k+1} = \frac{-D_3\ls^{s^{k+1}}\gb\cdot 1+\ls^{s^{k+1}}\fb}{\dot{\gamma}^{k+1}}\left(D_1\gamma^{k+1}\cdot\left(\Gb^{k}\ls^{s^{k-1}}\zb + \Jb^{k}\ls^{s^{k-1}}\vb\right) + D_2\gamma^{k+1}\cdot\ls^{s^{k}}\vb\right).
 \end{align}
-% * <m.bouma@student.tue.nl> 2018-07-30T09:07:29.262Z:
-%
-% ^.
+\textbf{REFORM $D_2 \ls^{s^{k+1}}\gb$ EQUATION, THEN CONTINUE}
 When we substitute the equations above into \eqref{eq:z2}, after reordering the expression we get
 
 \begin{multline}
-\zb^{k+1}(\tau) = \left(\frac{\fb^{k+1} - D_1\gb^{k+1}\cdot\fb^{k} - D_2\gb^{k+1}\cdot\dot{\mub}^{k} - D_3\gb^{k+1}\cdot 1}{\dot{\gamma}^{k+1}}D_1\gamma^{k+1}\cdot\Gb_\zb^{k}\right.\\
-\left. + D_1\gb^{k+1}\cdot\frac{\fb^{k} - D_1\gb^{k}\cdot\fb^{k-1} - D_2\gb^{k}\cdot\dot{\mub}^{k-1} - D_3\gb^{k}\cdot 1}{\dot{\gamma}^{k}}D_1\gamma^{k+1} + D_1\gb^{k+1} D_1\gb^{k}\cdot 1\right)\zb^{k-1}\\
-+ \left(\frac{\fb^{k+1}-D_1\gb^{k+1}\cdot\fb^{k} -D_2\gb^{k+1}\cdot\dot{\mub}^{k} - D_3\gb^{k+1}\cdot 1}{\dot{\gamma}^{k+1}}D_1\gamma^{k+1}\cdot\Gb_\vb^{k}\right.\\
-\left. + D_1\gb^{k+1}\cdot\frac{\fb^{k}-D_1\gb^{k}\cdot\fb^{k-1}-D_2\gb^{k}\cdot\dot{\mub}^{k-1}-D_3\gb^{k}\cdot 1}{\dot{\gamma}^{k}}D_2\gamma^{k+1} + D_1\gb^{k+1} D_2\gb^{k}\cdot 1 \right)\vb^{k-1}\\
-+ \left(\frac{\fb^{k+1}-D_1\gb^{k+1}\cdot\fb^{k} - D_2\gb^{k+1}\cdot\dot{\mub}^{k} - D_3\gb^{k+1}\cdot 1}{\dot{\gamma}^{k+1}}D_2\gamma^{k+1}\right)\vb^{k},
+\zb^{k+1}(\tau) = \left(\frac{\ls^{s^{k+1}}\fb - D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb - D_2\ls^{s^{k+1}}\gb\cdot\dot{\mub}^{k} - D_3\ls^{s^{k+1}}\gb\cdot 1}{\dot{\gamma}^{k+1}}D_1\gamma^{k+1}\cdot\Gb^{k}\right.\\
+\left. + D_1\ls^{s^{k+1}}\gb\cdot\frac{\ls^{s^{k}}\fb - D_1\ls^{s^{k}}\gb\cdot\fb^{k-1} - D_2\ls^{s^{k}}\gb\cdot\dot{\mub}^{k-1} - D_3\ls^{s^{k}}\gb\cdot 1}{\dot{\gamma}^{k}}D_1\gamma^{k+1} + D_1\ls^{s^{k+1}}\gb D_1\ls^{s^{k}}\gb\cdot 1\right)\ls^{s^{k-1}}\zb\\
++ \left(\frac{\ls^{s^{k+1}}\fb-D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb -D_2\ls^{s^{k+1}}\gb\cdot\dot{\mub}^{k} - D_3\ls^{s^{k+1}}\gb\cdot 1}{\dot{\gamma}^{k+1}}D_1\gamma^{k+1}\cdot\Jb^{k}\right.\\
+\left. + D_1\ls^{s^{k+1}}\gb\cdot\frac{\ls^{s^{k}}\fb-D_1\ls^{s^{k}}\gb\cdot\fb^{k-1}-D_2\ls^{s^{k}}\gb\cdot\dot{\mub}^{k-1}-D_3\ls^{s^{k}}\gb\cdot 1}{\dot{\gamma}^{k}}D_2\gamma^{k+1} + D_1\ls^{s^{k+1}}\gb D_2\ls^{s^{k}}\gb\cdot 1 \right)\ls^{s^{k-1}}\vb\\
++ \left(\frac{\ls^{s^{k+1}}\fb-D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb - D_2\ls^{s^{k+1}}\gb\cdot\dot{\mub}^{k} - D_3\ls^{s^{k+1}}\gb\cdot 1}{\dot{\gamma}^{k+1}}D_2\gamma^{k+1}\right)\ls^{s^{k}}\vb,
 \end{multline}
-from which we can isolate $\Gb_\zb^{k}$, and $\Gb_\vb^{k}$ resulting in
+from which we can isolate $\Gb^{k}$, and $\Jb^{k}$ resulting in
 \begin{multline}
-\zb^{k+1}(\tau) = \left(\frac{\fb^{k+1} - D_1\gb^{k+1}\cdot\fb^{k}  - D_2\gb^{k+1}\cdot\dot{\mub}^{k} - D_3\gb^{k+1}\cdot 1}{\dot{\gamma}^{k+1}}D_1\gamma^{k+1} + D_1\gb^{k+1}\cdot 1\right)\Gb_\zb^{k}\zb^{k-1}\\
-+ \left(\frac{\fb^{k+1} - D_1\gb^{k+1}\cdot\fb^{k} - D_2\gb^{k+1}\cdot\dot{\mub}^{k} - D_3\gb^{k+1}\cdot 1}{\dot{\gamma}^{k+1}}D_1\gamma^{k+1} + D_1\gb^{k+1}\cdot 1\right)\Gb_\vb^{k}\vb^{k-1} \\
-+ \left(\frac{\fb^{k+1}-D_1\gb^{k+1}\cdot\fb^{k} - D_2\gb^{k+1}\cdot\dot{\mub}^{k} - D_3\gb^{k+1}\cdot 1}{\dot{\gamma}^{k+1}}D_2\gamma^{k+1}\right)\vb^{k},
+\zb^{k+1}(\tau) = \left(\frac{\ls^{s^{k+1}}\fb - D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb  - D_2\ls^{s^{k+1}}\gb\cdot\dot{\mub}^{k} - D_3\ls^{s^{k+1}}\gb\cdot 1}{\dot{\gamma}^{k+1}}D_1\gamma^{k+1} + D_1\ls^{s^{k+1}}\gb\cdot 1\right)\Gb^{k}\ls^{s^{k-1}}\zb\\
++ \left(\frac{\ls^{s^{k+1}}\fb - D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb - D_2\ls^{s^{k+1}}\gb\cdot\dot{\mub}^{k} - D_3\ls^{s^{k+1}}\gb\cdot 1}{\dot{\gamma}^{k+1}}D_1\gamma^{k+1} + D_1\ls^{s^{k+1}}\gb\cdot 1\right)\Jb^{k}\ls^{s^{k-1}}\vb \\
++ \left(\frac{\ls^{s^{k+1}}\fb-D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb - D_2\ls^{s^{k+1}}\gb\cdot\dot{\mub}^{k} - D_3\ls^{s^{k+1}}\gb\cdot 1}{\dot{\gamma}^{k+1}}D_2\gamma^{k+1}\right)\ls^{s^{k}}\vb,
 \end{multline}
 which is equal to
 \begin{align}
-&\zb^{k+1}(\tau) = \Gb_\zb^{k+1}\Gb_\zb^k\zb^{k-1} + \Gb_\zb^{k+1}\Gb_\vb^k\vb^{k-1} + \Gb_\vb^{k+1}\vb^{k}.\label{eq:zkplusfinal}
+&\zb^{k+1}(\tau) = \Gb^{k+1}\Gb^k\ls^{s^{k-1}}\zb + \Gb^{k+1}\Jb^k\ls^{s^{k-1}}\vb + \Jb^{k+1}\ls^{s^{k}}\vb.\label{eq:zkplusfinal}
 \end{align}
 
 Here we see that \eqref{eq:zkplusfinal} is equal to \eqref{eq:zkplus}. This proves that for any $k$, the first-order approximation of the post-impact state of two simultaneous jumps at $\tau$ can be found by evaluating the two jumps separately. Since $k$ is a variable in this proof, using an induction-like proof, this holds for any amount of jumps as well. This is illustrated in Figure~\ref{fig:kjumps}. 
@@ -680,8 +685,8 @@ b\leftarrow a =b\leftarrow (b-1) \leftarrow \cdots \leftarrow (a+1) \leftarrow a
 
 and
 \begin{align}
-^{b\leftarrow a}\Gb_\zb &=\ ^{b\leftarrow (b-1)}\Gb_\zb\cdots\ ^{(a+2)\leftarrow (a+1)}\Gb_\zb^{(a+1)\leftarrow a}\Gb_\zb,\\
-^{b\leftarrow a}\Gb_\vb &=\ ^{b\leftarrow (b-1)}\Gb_\vb\cdots\ ^{(a+2)\leftarrow (a+1)}\Gb_\vb^{(a+1)\leftarrow a}\Gb_\vb.
+^{b\leftarrow a}\Gb &=\ ^{b\leftarrow (b-1)}\Gb\cdots\ ^{(a+2)\leftarrow (a+1)}\Gb^{(a+1)\leftarrow a}\Gb,\\
+^{b\leftarrow a}\Jb &=\ ^{b\leftarrow (b-1)}\Jb\cdots\ ^{(a+2)\leftarrow (a+1)}\Jb^{(a+1)\leftarrow a}\Jb.
 \end{align}
 
 \section{Stability analysis of LTTHS}\label{app:LTTHSstab}
@@ -739,9 +744,9 @@ Now, by checking \eqref{eq:argmin2} for every micro event, we know which jump ga
 For example a system with $c_i = 2$ and $p = 3$, with a macro event starting in $s_0 = 00$ and ending in $s_l = 22$, this gives 
 \begin{multline}
 \ ^{ S^{2\leftarrow 0}}\Hb(\ ^{s^0}\zb(\tau),\ ^{S^2}\vb(\tau),\tau) =\\ \left\lbrace\begin{array}{ll}
-\ ^{^{(12)} S^{2\leftarrow 0}}\Gb_\zb\ ^{s^0}\zb + \ ^{^{(12)} S^{2\leftarrow 0}}\Gb_\vb\ ^{s^0}\vb, & \text{if }(\text{I}),\\
-\ ^{^{12} S^{2\leftarrow 1}}\Gb_\zb\ ^{^{1} S^{1\leftarrow 0}}\Gb_\zb\ ^{s^0}\zb + \ ^{^{12} S^{2\leftarrow 1}}\Gb_\zb\ ^{^{1} S^{1\leftarrow 0}}\Gb_\vb\ ^{s^0}\vb + \ ^{^{12} S^{2\leftarrow 1}}\Gb_\vb\ ^{^1 S^1}\vb, & \text{if }(\text{II}),\\
-\ ^{^{21} S^{2\leftarrow 1}}\Gb_\zb\ ^{^{2} S^{1\leftarrow 0}}\Gb_\zb\ ^{s^0}\zb + \ ^{^{21} S^{2\leftarrow 1}}\Gb_\zb\ ^{^{2} S^{1\leftarrow 0}}\Gb_\vb\ ^{s^0}\vb + \ ^{^{21} S^{2\leftarrow 1}}\Gb_\vb\ ^{^{2} S^1}\vb, & \text{if }(\text{III}),
+\ ^{^{(12)} S^{2\leftarrow 0}}\Gb\ ^{s^0}\zb + \ ^{^{(12)} S^{2\leftarrow 0}}\Jb\ ^{s^0}\vb, & \text{if }(\text{I}),\\
+\ ^{^{12} S^{2\leftarrow 1}}\Gb\ ^{^{1} S^{1\leftarrow 0}}\Gb\ ^{s^0}\zb + \ ^{^{12} S^{2\leftarrow 1}}\Gb\ ^{^{1} S^{1\leftarrow 0}}\Jb\ ^{s^0}\vb + \ ^{^{12} S^{2\leftarrow 1}}\Jb\ ^{^1 S^1}\vb, & \text{if }(\text{II}),\\
+\ ^{^{21} S^{2\leftarrow 1}}\Gb\ ^{^{2} S^{1\leftarrow 0}}\Gb\ ^{s^0}\zb + \ ^{^{21} S^{2\leftarrow 1}}\Gb\ ^{^{2} S^{1\leftarrow 0}}\Jb\ ^{s^0}\vb + \ ^{^{21} S^{2\leftarrow 1}}\Jb\ ^{^{2} S^1}\vb, & \text{if }(\text{III}),
 \end{array}\right.\label{eq:H2200}
 \end{multline}
 
@@ -792,11 +797,11 @@ which is equal to the solution of $^{s^{k-1}}\zb_3(t_0) = ^{s^{k-1}}\zb_1(t_0) +
 \end{align}
 which when added together results in
 \begin{multline}
-^{s^{k}}\zb_1(\tau) + \ ^{s^{k}}\zb_2(\tau) = \ ^{s^{k}}\phib(t,t_0)\left(\Gb_\zb^1 \ ^{s^{k-1}}\zb_1 + \Gb_\vb^1\ ^{s^{k-1}}\vb_1 + \Gb_\zb^2 \ ^{s^{k-1}}\zb_2 + \Gb_\vb^2\ ^{s^{k-1}}\vb_2\right) \\+ \int_{t_0}^\tau \left[\ ^{s^{k}}\phib(t,s)\ ^{s^{k}}\Bb(s)\left(\vb_1(s) + \vb_2(s)\right)\right]ds.\label{eq:soladd}
+^{s^{k}}\zb_1(\tau) + \ ^{s^{k}}\zb_2(\tau) = \ ^{s^{k}}\phib(t,t_0)\left(\Gb^1 \ ^{s^{k-1}}\zb_1 + \Jb^1\ ^{s^{k-1}}\vb_1 + \Gb^2 \ ^{s^{k-1}}\zb_2 + \Jb^2\ ^{s^{k-1}}\vb_2\right) \\+ \int_{t_0}^\tau \left[\ ^{s^{k}}\phib(t,s)\ ^{s^{k}}\Bb(s)\left(\vb_1(s) + \vb_2(s)\right)\right]ds.\label{eq:soladd}
 \end{multline}
 Here we see that the solution of $^{s^{k-1}}\zb_3(t_0) = ^{s^{k-1}}\zb_1(t_0) + ^{s^{k-1}}\zb_2(t_0)$ with $\vb_3(t) = \vb_1(t) + \vb_2(t)$, which jumps with $\Gb_3(\zb,\tau)$, is only the equal to \eqref{eq:soladd} if $\Gb_1(\zb,\tau) = \Gb_2(\zb,\tau) = \Gb_3(\zb,\tau)$. In other words, the system only maintains its linearity after jump if the jump maps are equal for each ante jump state. Because this is generally not true, we show that the system is positive homogeneous for any jump gains. A system $f(x,u)$ with state $x$ and input $u$ is called positive homogeneous, when $\alpha f(x,u) = f(\alpha x, \alpha u)$. If we multiply \eqref{eq:z1sol} with a constant $\alpha$, we find
 \begin{align}
-^{s^{k}}\zb_1(\tau) &= \alpha \ ^{s^{k}}\phib(t,t_0)\ \left(\Gb_\zb^1 \ ^{s^{k-1}}\zb_1 + \Gb_\vb^1\ ^{s^{k-1}}\vb_1\right) + \alpha\int_{t_0}^\tau \left[\ ^{s^{k}}\phib(t,s)\ ^{s^{k-1}}\Bb(s)\vb_1(s)\right]ds.\label{eq:alphaz1sol}
+^{s^{k}}\zb_1(\tau) &= \alpha \ ^{s^{k}}\phib(t,t_0)\ \left(\Gb^1 \ ^{s^{k-1}}\zb_1 + \Jb^1\ ^{s^{k-1}}\vb_1\right) + \alpha\int_{t_0}^\tau \left[\ ^{s^{k}}\phib(t,s)\ ^{s^{k-1}}\Bb(s)\vb_1(s)\right]ds.\label{eq:alphaz1sol}
 \end{align}
 If we now look at the solution for $\zb_4(t_0) = \alpha\zb_1(t_0)$ with $\vb_4(t) = \alpha\vb_1(t)$ jumping with $\Gb^4(\tau)$, and using the fact that $\Gb^4(\tau) = \Gb^1(\tau)$ since the gains are conewise constant as illustrated in Figure~\ref{fig:cone}, we find the same solution as \eqref{eq:alphaz1sol}. This shows that \eqref{eq:PHdyn} is positive homogeneous for any conewise constant jump gain $^{s^{k}\leftarrow s^{k-1}}\Hb\left(^{s^{k-1}}\zb,t\right)$. Hence the name, positive homogenization. 
 
