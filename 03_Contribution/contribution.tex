@@ -391,7 +391,7 @@ Using the initial states $\ls^{S_i^{k}}\alphab$ defined in \eqref{eq:4phantomini
 \nomenclature[R]{$t_i^k$}{The perturbed event time of micro-event $k$ in macro-event $i$}%
 
 \section{First-order approximation for trajectories with simultaneous guard-activation}
-\textbf{INTRO}
+Using the notation presented in the previous section, a first-order approximation of the NSITHS will be derived for trajectories with simultaneous activations. First, a sensitivity analysis is performed for a simultaneous event with character 2. The result is used to define a jump gain that approximates the behavior of a simultaneous event with character $n$, that holds for a particular sequence of events. Then, the positively homogeneous jump gain is presented, using the jump gain derived from the sensitivity analysis. Finally, the PTTHS is formally defined, which is a first-order approximation of the NSITHS near the reference trajectory.
 \subsection{Sensitivity analysis for simultaneous guard-activation}
 Now the sensitivity analysis for a trajectory with simultaneous events is presented. Similar to the sensitivity analysis for trajectories with isolated events, the continuous macro-segments ($k=0$) of the state can be approximated using
 \begin{align}
@@ -422,9 +422,9 @@ where
 \begin{multline}
 \left.\frac{\partial\ls^{s^{k+1}}\gb}{\partial\epsilon}\right|_{\epsilon=0} = D_1\ls^{s^{k+1}}\gb\cdot\bigg(\ls^{s^k}\dot{\alphab}(\Delta^{k+1}-\Delta^{k}) + D_1\ls^{s^k}\gb\cdot\left(\ls^{s^{k-1}}\zb+\ls^{s^{k-1}}\dot{\alphab}\Delta^{k}\right) + D_2\ls^{s^k}\gb\cdot\left(\ls^{s^{k-1}}\vb+\ls^{s^{k-1}}\dot{\mub}\Delta^{k}\right) \\ + D_3\ls^{s^k}\gb\cdot\Delta^{k} \bigg)+ D_2 \ls^{s^{k+1}}\gb\cdot\left(\ls^{s^{k}}\vb+\ls^{s^{k}}\dot{\mub}\Delta^{k+1} \right) + D_3\ls^{s^{k+1}}\gb\cdot\Delta^{k+1}. \label{eq:4dg1de}
 \end{multline}
-Now, by expanding $\ls^{s^{k+1}}\xb^\epsilon(t^{k+1})$ with respect to $\epsilon$, we find
+In \eqref{eq:4dg1de}, the expansion of the post-event state $\ls^{s^{k+1}}\xb^\epsilon(t^{k+1})$ is expressed in terms of $\ls^{s^{k}}$ and $\ls^{s^{k-1}}$. This is done to find a relation between the ante-event state and input perturbation and the post-event state perturbation. Now, by expanding the left-hand side of \eqref{eq:4xe012} with respect to $\epsilon$, we find
 \begin{align}
-\ls^{s^{k+1}}\xb^\epsilon(t^{k+1}) &= \ls^{s^{k+1}}\alphab(t^{k+1})+\epsilon\ ^{s^{k+1}}\zb(t^{k+1}) + o(\epsilon),\\
+\ls^{s^{k+1}}\xb^\epsilon(t^{k+1}) &= \ls^{s^{k+1}}\bar{\alphab}(t^{k+1})+\epsilon\ls^{s^{k+1}}\bar{\zb}(t^{k+1}) + o(\epsilon),\\
 &= \ls^{s^{k+1}}\alphab(\tau) + \epsilon\ ^{s^{k+1}}\dot{\alphab}(\tau)\Delta^{k+1} + \epsilon\ ^{s^{k+1}}\zb(\tau) + o(\epsilon).\label{eq:4xexp}
 \end{align}
 Using \eqref{eq:4xe012exp} and \eqref{eq:4xexp}, an expression for $\ls^{s^{k+1}}\zb(\tau)$ is found, which is
@@ -658,5 +658,5 @@ where the $\rightarrow$ left subscript should be interpreted as $\searrow$ or $\
 \nomenclature[A]{PTTHS}{Positively homogeneous Time-Triggered Hybrid System}%
 
 \section{Summary}
-A first-order approximation for nonlinear state-and-input-triggered systems with input-dependent guard experiencing simultaneous impacts is presented. Simultaneous guard activations are introduced, and the adopted notation required to deal with such activations is presented and elaborated. Assumptions on the reference trajectory are presented, which reduce the complexity of the problem while maintaining practical usability. Then, reference spreading is extended to transitions with simultaneous events. After that, a sensitivity analysis is performed, to find a first-order approximation of the behavior of the behavior of the NSITHS near $\alphab,\mub$, where so-called loss of simultaneity occurs. A state-and-input dependent jump gain, called the positively homogeneous jump gain, is used to define the positively homogeneous time-triggered hybrid system. This positively homogeneous hybrid system is expected to be suitable for assessing the local asymptotic stability of a nonlinear state-and-input triggered hybrid system with simultaneous guard activations.
+A first-order approximation for nonlinear state-and-input-triggered systems with input-dependent guard experiencing simultaneous impacts is presented. Simultaneous guard activations are introduced, and the adopted notation required to deal with such activations is presented and elaborated. Assumptions on the reference trajectory are presented, which reduce the complexity of the problem while maintaining practical usability. Then, reference spreading is extended to transitions with simultaneous events. After that, a sensitivity analysis is performed, to find a first-order approximation of the behavior of the NSITHS near $\alphab,\mub$, where so-called loss of simultaneity occurs. A state-and-input dependent jump gain, called the positively homogeneous jump gain, is used to define the positively homogeneous time-triggered hybrid system. This positively homogeneous hybrid system is expected to be suitable for assessing the local asymptotic stability of a nonlinear state-and-input triggered hybrid system with simultaneous guard activations.
 \end{document}
