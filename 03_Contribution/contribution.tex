@@ -420,7 +420,7 @@ Here the subscript $(\cdot)^\epsilon$ indicates that the variable is dependent o
 \end{align}
 where
 \begin{multline}
-\left.\frac{\partial}{\partial\epsilon}\ls^{s^{k+1}}\gb\right|_{\epsilon=0} = D_1\ls^{s^{k+1}}\gb\cdot\left(\ls^{s^{k}}\fb(\Delta^{k+1}-\Delta^{k}) + D_1\ls^{s^{k}}\gb\cdot\left(\ls^{s^{k-1}}\zb+\ls^{s^{k-1}}\fb\Delta^{k}\right)\right. \\ \left.+ D_2\ls^{s^{k}}\gb\cdot\left(\ls^{s^{k-1}}\vb+\ls^{s^{k-1}}\dot{\mub}\Delta^{k}\right) + D_3\ls^{s^{k}}\gb\cdot\Delta^{k}\right)+D_3\ls^{s^{k+1}}\gb\cdot\Delta^{k+1}. \label{eq:4dg1de}
+\left.\frac{\partial\ls^{s^{k+1}}\gb}{\partial\epsilon}\right|_{\epsilon=0} = D_1\ls^{s^{k+1}}\gb\cdot\bigg(\ls^{s^k}\dot{\alphab}(\Delta^{k+1}-\Delta^{k}) + D_1\ls^{s^k}\gb\cdot\left(\ls^{s^{k-1}}\zb+\ls^{s^{k-1}}\dot{\alphab}\Delta^{k}\right) + D_2\ls^{s^k}\gb\cdot\left(\ls^{s^{k-1}}\vb+\ls^{s^{k-1}}\dot{\mub}\Delta^{k}\right) \\ + D_3\ls^{s^k}\gb\cdot\Delta^{k} \bigg)+ D_2 \ls^{s^{k+1}}\gb\cdot\left(\ls^{s^{k}}\vb+\ls^{s^{k}}\dot{\mub}\Delta^{k+1} \right) + D_3\ls^{s^{k+1}}\gb\cdot\Delta^{k+1}. \label{eq:4dg1de}
 \end{multline}
 Now, by expanding $\ls^{s^{k+1}}\xb^\epsilon(t^{k+1})$ with respect to $\epsilon$, we find
 \begin{align}
@@ -429,14 +429,14 @@ Now, by expanding $\ls^{s^{k+1}}\xb^\epsilon(t^{k+1})$ with respect to $\epsilon
 \end{align}
 Using \eqref{eq:4xe012exp} and \eqref{eq:4xexp}, an expression for $\ls^{s^{k+1}}\zb(\tau)$ is found, which is
 \begin{multline}
-\ls^{s^{k+1}}\zb(\tau) = D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb\Delta^{k+1} - D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k+1}}\fb\Delta^{k} + D_1\ls^{s^{k+1}}\gb\cdot\left[D_1\ls^{s^{k+1}}\gb\cdot\left(\ls^{s^{k-1}}\zb+\ls^{s^{k-1}}\fb\Delta^{k}\right)\right.\\
-\left.+D_2\ls^{s^{k}}\gb\cdot\left(\ls^{s^{k-1}}\vb+\ls^{s^{k-1}}\dot{\mub}\Delta^{k}\right)+D_3\ls^{s^{k}}\gb\cdot\Delta^{k}\right] + \left(D_3\ls^{s^{k+1}}\gb^{k} - \ls^{s^{k+1}}\fb\right)\Delta^{k+1},\label{eq:4ztau}
+\ls^{s^{k+1}}\zb(\tau) = D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb\Delta^{k+1} - D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb\Delta^{k} + D_1\ls^{s^{k+1}}\gb\cdot \bigg( D_1\ls^{s^{k}}\gb\cdot\left(\ls^{s^{k-1}}\zb+\ls^{s^{k-1}}\fb\Delta^{k}\right)\\
++D_2\ls^{s^{k}}\gb\cdot\left(\ls^{s^{k-1}}\vb+\ls^{s^{k-1}}\dot{\mub}\Delta^{k}\right)+D_3\ls^{s^{k}}\gb\cdot\Delta^{k}\bigg) + D_2 \ls^{s^{k+1}}\gb\cdot\left(\ls^{s^{k}}\vb+\ls^{s^{k}}\dot{\mub}\Delta^{k+1} \right) + \left(D_3\ls^{s^{k+1}}\gb - \ls^{s^{k+1}}\fb\right)\Delta^{k+1},\label{eq:4ztau}
 \end{multline}
 which can be rewritten to 
 \begin{multline}
 \ls^{s^{k+1}}\zb(\tau) = \left(\frac{\ls^{s^{k+1}}\fb - D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb  - D_2\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\dot{\mub} - D_3\ls^{s^{k+1}}\gb}{\ls^{s^{k+1}}\dot{\gamma}}D_1\ls^{s^{k+1}}\gamma + D_1\ls^{s^{k+1}}\gb\right)\Gb^{k}\ ^{s^{k-1}}\zb\\
 + \left(\frac{\ls^{s^{k+1}}\fb - D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb - D_2\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\dot{\mub} - D_3\ls^{s^{k+1}}\gb}{\ls^{s^{k+1}}\dot{\gamma}}D_1\ls^{s^{k+1}}\gamma + D_1\ls^{s^{k+1}}\gb\right)\Jb^{k}\ ^{s^{k-1}}\vb\\
-+ \left(\frac{\ls^{s^{k+1}}\fb-D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb - D_2\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\dot{\mub} - D_3\ls^{s^{k+1}}\gb}{\ls^{s^{k+1}}\dot{\gamma}}D_2\ls^{s^{k+1}}\gamma\right)\ls^{s^{k}}\vb,
++ \left(\frac{\ls^{s^{k+1}}\fb-D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb - D_2\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\dot{\mub} - D_3\ls^{s^{k+1}}\gb}{\ls^{s^{k+1}}\dot{\gamma}}D_2\ls^{s^{k+1}}\gamma + D_2\ls^{s^{k+1}}\gb\right)\ls^{s^{k}}\vb,
 \end{multline}
 which is equal to
 \begin{align}
