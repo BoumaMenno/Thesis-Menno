@@ -13,40 +13,43 @@ In this chapter, the behavior of trajectories tracking a nominal reference traje
 \nomenclature[A]{LTTHS}{Linear Time-Triggered Hybrid System}%
 
 \section{Trajectories with state-and-input-triggered jumps}
-\textbf{CONTINUE}
-This section presents \textit{reference-spreading} (RS) for trajectories with isolated events. If the hybrid system starts from a different initial condition than that of the reference trajectory for example, the resulting state trajectory and reference trajectory will likely have non-coinciding event-times. This mismatch in event-times results in peaking behavior in the tracking error when a conventional notion of error in considered. Reference-spreading eliminates peaking behavior by defining the error between two trajectories differently. In order to explain this error notion better, we will first elaborate on the class of systems we consider, on the type of reference trajectories we allow, and we will introduce notation.
+This section presents \textit{reference spreading} (RS) for trajectories with isolated events. Reference spreading is presented for isolated events in \cite{Saccon2014}, which is extended to be suitable for input-dependent guards in this section. When the hybrid system starts from a different initial condition than that of the reference trajectory for example, the resulting state trajectory and reference trajectory will likely have non-coinciding event-times. The notion of error defined in reference spreading eliminates the peaking behavior that results from the mismatch in event-time. In order to explain this notion of error better, we will first elaborate on the class of systems we consider, on the type of reference trajectories we allow, and we will introduce notation.
 \nomenclature[A]{RS}{Reference Spreading}%
 
 \subsection{Nonlinear state-and-input-triggered hybrid systems}
-As presented in Section~\ref{sec:2hyb}, a mechanical system can be described by the hybrid system with impulsive effects framework. Such a system is a nonlinear state-and-input-triggered hybrid system.
+The framework of hybrid systems with impulsive effects is now used to formally define the NSITHS, which is the class of systems that is considered in this work.
 
+\begin{sloppypar}
 \begin{mydef}[NSITHS]\label{def:3nsiths}
 A nonlinear state-and-input-triggered hybrid system is a system with dynamics of the form
 \begin{align}
 \dot{\xb}_j &=\fb_j(\xb_j,\ub_j,t), &\xb_j,\ub_j&\in \mathcal{C}_j\label{eq:3hybimp1}\\
 \xb_{j+1} &= \gb_{j+1}(\xb_j,\ub_j,t), &\xb_j,\ub_j&\in \mathcal{D}_{j+1} \label{eq:3hybimp2}
 \end{align}
-with $\xb_j = \xb(t,j)$ the state, $\ub_j = \ub(t,j)$ the input , $\fb_j$ a nonlinear function, $\mathcal{C}_j$ the flow set after event $j$, and $\mathcal{D}_{j+1}\subseteq\partial \mathcal{C}_j$ a state-input set, where when $\xb_j,\ub_j\in \mathcal{D}_{j+1}$ a state reinitialization is triggered according to $\xb_{j+1} = \gb_{j+1}(\xb_j,\ub_j,t)$.
+with the state $\xb_j = \xb(t,j)$, the input $\ub_j = \ub(t,j)$, nonlinear vector field $\fb_j$, flow set $\mathcal{C}_j$ after event $j$, and a jump set $\mathcal{D}_{j+1}\subseteq\partial \mathcal{C}_j$, where when $(\xb_j,\ub_j)\in \mathcal{D}_{j+1}$ a state reinitialization is triggered according to the jump map $ \gb_{j+1}$ in \eqref{eq:3hybimp2}.
 \end{mydef} 
+\end{sloppypar}
 
-Consider a nominal trajectory of an NSITHS as illustrated in Figure~\ref{fig:3perturbedtraj} in red. We denote this nominal trajectory $\alphab_j=\alphab(t,j)$ and assume it is the solution to \eqref{eq:3hybimp1},\eqref{eq:3hybimp2} for input signal $\mub_j=\mub(t,j)$ starting from initial condition $\alphab(t_0,0)=\alphab_0\in \mathcal{C}^0$. We moreover pose the following restriction on the nominal trajectory.
+Consider a nominal trajectory of an NSITHS, as illustrated in Figure~\ref{fig:3perturbedtraj} in red. We denote this nominal trajectory $\alphab_j=\alphab(t,j)$ and assume it is the solution to \eqref{eq:3hybimp1}-\eqref{eq:3hybimp2} for input signal $\mub_j=\mub(t,j)$ starting from initial condition $\alphab(t_0,0)=\alphab_0\in \mathcal{C}^0$. The following assumption on the nominal trajectory is imposed, to exclude that nominal jump times accumulate in time.
 
+\begin{sloppypar}
 \begin{myass}[t-completeness and non-Zeno behavior of $\alphab$]
-The reference trajectory $\alphab$ is defined for all $t>t_0$. Also, the reference trajectory segments $\alphab_j$ have non-vanishing time-domains $I^{\alphab}_j=[\tau_j,\tau_{j+1}]$, where $\tau_j$ is the $j^{\textnormal{th}}$ event time.\label{ass:nonzeno}
+The reference trajectory $\alphab$ is defined for all $t>t_0$. Also, each segment $\alphab_j$ has non-vanishing time-domains $I^{\alphab}_j=[\tau_j,\tau_{j+1}]$, i.e., $\tau_{j+1}-\tau_j\geq c > 0$, where $\tau_j$ is the $j^{\textnormal{th}}$ event time and $c$ is a positive constant.\label{ass:nonzeno}
 \end{myass}
+\end{sloppypar}
 
-Assumption~\ref{ass:nonzeno} guarantees that the number of events $N$ will only go to infinity if time $t$ goes to infinity as well. This assumption is often made in analysis using hybrid systems. It can be guaranteed that there is non-zero time between events, if $\gb_{j+1}(\alphab_j(\tau_{j+1}),\mub_j(\tau_{j+1}))\notin \mathcal{D}_{j+1}$ for all $j\in\{0,1,\dots,N\}$.
+It can be guaranteed that there is non-zero time between events, if $\gb_{j+1}(\alphab_j(\tau_{j+1}),\mub_j(\tau_{j+1}))\notin \mathcal{D}_{j+1}$ for all $j\in\{0,1,\dots,N\}$.
 
-Consider now a state trajectory $\xb$ starting from initial condition $\xb(t_0,0,\epsilon)=\xb_0(\epsilon)=\alphab_0+\epsilon \zb_0$ different than that of the reference trajectory $\alphab$ and with input $\ub_j(\epsilon)=\mub_j+\epsilon \vb_j$, where $\epsilon$ is an initial state and input perturbation. In this $\zb_0 = \frac{\partial\xb_0}{\partial\epsilon}$, $\mub_j = \mub(t,j)$ the feedforward corresponding to $\alphab_j$, and $\vb_j = \vb(t,j)$ the feedback. An example of a perturbed trajectory $\xb(\epsilon)$ is shown in Figure~\ref{fig:3perturbedtraj}.
+Consider now a state trajectory $\xb$ starting from initial condition $\xb(t_0,0,\epsilon)=\xb_0(\epsilon)=\alphab_0+\epsilon \zb_0$ with input $\ub_j(\epsilon)=\mub_j+\epsilon \vb_j$, where $\epsilon$ is an initial state and input perturbation. In this $\zb_0 = \partial\xb_0 / \partial\epsilon$, $\mub_j = \mub(t,j)$ the feedforward corresponding to $\alphab_j$, and $\vb_j = \vb(t,j)$ the feedback. An example of a perturbed trajectory $\xb(\epsilon)$ is shown in Figure~\ref{fig:3perturbedtraj}.
 
 \nomenclature[G]{$\epsilon$}{The scalar perturbation parameter}%
 \nomenclature[S]{$(\cdot)_{\epsilon}$}{A variable dependent on the initial perturbation}%
 \begin{figure}[h]
 \centering
-\includegraphics[width=.9\textwidth]{perturbedtraj.eps}\caption{A nominal (red) and a perturbed (blue) trajectory of a hybrid system with impulsive effects are depicted in this figure. Due to the perturbation in the blue trajectory, a mismatch between the perturbed and the nominal event times arises.} \label{fig:3perturbedtraj}
+\includegraphics[width=.9\textwidth]{perturbedtraj.eps}\caption{A nominal (red) and a perturbed (blue) trajectory of a hybrid system with impulsive effects are depicted in this figure. The nominal and the state trajectory enter the jump sets $D$ at mismatching time instants, as a result from the perturbation in the state trajectory.} \label{fig:3perturbedtraj}
 \end{figure}
 
-For the nominal trajectory the state and input are known over the entire time-domain, meaning that the event-times are also known. For the perturbed trajectory this is not the case. There will be a mismatch between the nominal event times $\tau_1$, $\tau_2$ and the perturbed event times $t_1$, $t_2$. Let us now take a closer look at the first event of Figure~\ref{fig:3peakerror}, to illustrate the peaking behavior as a result of a jump mismatch. In Figure~\ref{fig:3peakerror}, the state evolution $\xb$ of the first event is depicted besides the conventional tracking error $||\xb-\alphab||$ where both trajectories are considered a function of conventional time $t$ alone. One can clearly see that a peak arises in the tracking error when the jump times do not coincide. At $t_1$ the state trajectory jumps, while the reference trajectory does not. At $\tau_1$ the reference trajectory jumps as well. This means that in $[t_1,\tau_1]$, a post-event state trajectory is compared to a ante-event reference trajectory, resulting in a large peak in the tracking error. This is undesirable in stability analysis and may for example lead to large and unnecessary actuation forces when considered in feedback control.
+For the nominal trajectory, the state and input curves are known over the entire time-domain, meaning that the event-times are also known. For the perturbed trajectory this is not the case. Referring to Figure~\ref{fig:3perturbedtraj}, there will be a mismatch between the nominal event times $\tau_1$ and $\tau_2$ and the perturbed event times $t_1$ and $t_2$. Taking a closer look at the first event of Figure~\ref{fig:3peakerror}, the peaking behavior can be illustrated as the result of a jump mismatch. In Figure~\ref{fig:3peakerror}, the state evolution $\xb$ of the first event is depicted besides the conventional tracking error $||\xb-\alphab||$ where both trajectories are considered a function of conventional time $t$ alone. One can clearly see that a peak arises in the tracking error when the jump times do not coincide. At time equal to $t_1$, the state trajectory jumps, while the reference trajectory does not. At time equal to $\tau_1$, the reference trajectory jumps as well. This means that in $[t_1,\tau_1]$, a post-event state trajectory is compared to a ante-event reference trajectory, resulting in a large peak in the tracking error. This is undesirable in stability analysis and may for example lead to large and unnecessary actuation forces when considered in feedback control.
 
 \begin{figure}[h]
 \centering
@@ -61,7 +64,7 @@ In the next section, a different notion of error will be introduced that does no
 \nomenclature[R]{$D_i(\cdot)$}{The derivative with respect to the $i$th term}%
 
 \subsection{Reference-spreading}
-To avoid peaking behavior in the tracking error, in \cite{Saccon2014} a novel notion of error is presented which is named reference spreading in \cite{Rijnen2016}. This control strategy uses reference trajectories which are extended beyond event-times, such that an ante-event state trajectory can always be compared to an ante-event reference trajectory and a post-event state trajectory can always be compared to a post-event reference trajectory. This is illustrated in Figure~\ref{fig:3refspread}, where the reference trajectory $\alphab_j$ is extended resulting in $\bar{\alphab}_j$. The extension is made by forward integrating the vector field $\fb_j$ beyond $\tau_{j+1}$ and backward integrating $\fb_j$ before $\tau_j$, for all $j\in\{0,1,\dots,N\}$. Adopting the notation of \cite{Goebel2009}, the hybrid domain of $\alphab$ is defined by segments $I_j^{\alphab} = [\tau_j,\tau_{j+1}]$, which together form the entire domain of $\alphab$ as
+To avoid peaking behavior in the tracking error, in \cite{Saccon2014} a methodology is presented which is named reference spreading in \cite{Rijnen2016}. In reference spreading a novel notion of error is introduced, called the \textit{reference spreading error} (RS error). The methodology uses reference trajectories which are extended beyond event-times, such that an ante-event state trajectory can always be compared to an ante-event reference trajectory and a post-event state trajectory can always be compared to a post-event reference trajectory. This is illustrated in Figure~\ref{fig:3refspread}, where the reference trajectory $\alphab_j$ is extended resulting in $\bar{\alphab}_j$. The extension is made by forward integrating the vector field $\fb_j$ beyond $\tau_{j+1}$ and backward integrating $\fb_j$ before $\tau_j$, for all $j\in\{0,1,\dots,N\}$. Adopting the notation of \cite{Goebel2009}, the hybrid domain of $\alphab$ is defined by segments $I_j^{\alphab} = [\tau_j,\tau_{j+1}]$, which together form the entire domain of $\alphab$ as
 \begin{align}
 \dom\alphab = \bigcup^N_{j=0}I^{\alphab}_j\times\{j\}.
 \end{align}
@@ -81,26 +84,29 @@ respectively.
 \includegraphics[width=.9\textwidth]{refspreaddom.eps}\caption{An illustration of the nominal reference trajectory (red) and the perturbed trajectory (blue), where the nominal reference trajectory is extended such that $\dom \xb\subseteq\dom \bar{\alphab}$.} \label{fig:3refspread}
 \end{figure}
 
-Let us now define a continuity based assumption on the vector field $\fb_j$. This assumption (along with other assumptions) is necessary to make sure that the ante-event state of the perturbed trajectory $\xb_j(t_{j+1},\epsilon)$ lies close to the ante-event state of the nominal trajectory $\alphab_j(\tau_{j+1})$, which is necessary to define an approximation of the perturbed trajectory.
+Let us now pose a continuity based assumption on the vector field $\fb_j$. This assumption (along with other assumptions) is necessary to make sure that the ante-event state of the perturbed trajectory $\xb_j(t_{j+1},\epsilon)$ lies close to the ante-event state of the nominal trajectory $\alphab_j(\tau_{j+1})$, which is necessary to define an approximation of the perturbed trajectory.
 
+\begin{sloppypar}
 \begin{myass}[Lipschitz continuity of $\fb$]\label{ass:lipschitz}
-We assume that in a neighborhood of the reference trajectory $\alphab$, $\fb$ is Lipschitz with respect to $\xb$ uniformly in $t$ and $j$. I.e., $\exists\varepsilon_{\fb}>0$ and $\exists L$, independent of $t,j$, such that $\forall j$, $||\fb_j(\ab,t) - \fb_j(\bb,t)||<L||a-b||$, $\forall t\in (\tau_j - \varepsilon_{\fb},\tau_{j+1} + \varepsilon_{\fb})$ and $\forall \ab,\bb\in B_{\varepsilon_{\fb}}(\bar{\alphab}_j)$, where $B_{\varepsilon_{\fb}}(\bar{\alphab}_j)$ is a ball with radius $\epsilon_{\fb}$ around $\bar{\alphab}_j)$.
+We assume that in a neighborhood of the reference trajectory $\alphab$, $\fb$ is Lipschitz with respect to $\xb$ uniformly in $t$ and $j$. That is, $\exists\varepsilon_{\fb}>0$ and $\exists L$, independent of $t,j$, such that $\forall j$, $||\fb_j(\ab,t) - \fb_j(\bb,t)||<L||a-b||$, $\forall t\in (\tau_j - \varepsilon_{\fb},\tau_{j+1} + \varepsilon_{\fb})$ and $\forall \ab,\bb\in B_{\varepsilon_{\fb}}(\bar{\alphab}_j)$, where $B_{\varepsilon_{\fb}}(\bar{\alphab}_j)$ is a ball with radius $\epsilon_{\fb}$ around $\bar{\alphab}_j)$.
 \end{myass}
+\end{sloppypar}
 
 In the lower plot of Figure~\ref{fig:3refspread}, the hybrid time domains of $\xb$, $\alphab$ and $\bar{\alphab}$ are illustrated. Note that for every $j$, it holds that $I^{\xb}_j\subseteq I^{\bar{\alphab}}_j$. This means that the tracking error $||\xb-\bar{\alphab}||$ is continuous for fixed $j$, even in the case where $t_j\neq\tau_j$. Using this notion of error leaves only one jump in the tracking error, even under the presence of event-time mismatches. More importantly, the peak in the tracking error is avoided, an ante-event state trajectory will not be compared to a post-event reference trajectory (and vice versa) anymore. This is illustrated in Figure~\ref{fig:3refspreaderrors}, where the tracking errors with and without reference spreading are compared.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{refspreaderrors.eps}\caption{A close up of the  first event of the reference trajectory, in which the peaking behavior is cleary removed by evaluating the extended reference trajectory.} \label{fig:3refspreaderrors}
+\includegraphics[width=\textwidth]{refspreaderrors.eps}\caption{A close up of the  first event of the reference trajectory, with the conventional error illustrated in the middle figure, and the reference spreading error in the right figure. The peaking behavior is not observed in the reference spreading error.} \label{fig:3refspreaderrors}
 \end{figure}
 
-In the next section, the error defined using reference spreading will be used to construct a first-order approximation of perturbed trajectories with isolated events.
+In the next section, the reference spreading error will be used to construct a first-order approximation of perturbed trajectories with isolated events.
 
 \section{First-order approximation of trajectories with ordered guard-activations}\label{sec:3approx}
-In \cite{Khalil1996} a sensitivity analysis is presented, where so-called sensitivity functions are used to provide first-order approximations of the effects of parameter variations on solutions. These sensitivity functions can also be used to approximate the solution under sufficiently small parameter variations. For the class of systems we consider here, the sensitivity equations describe the system's response to perturbations in initial condition and input. These perturbation dynamics can be used to formulate a first-order approximation of the perturbed state of the system. To find a first-order approximation of state reinitializations in nonsmooth trajectories, an extension to this sensitivity analysis is necessary in the form of a linearized jump gain. The linearized jump gain and the linearized perturbation dynamics together define the LTTHS. In \cite{Rijnen2017} stability properties of an NSTHS are associated with the stability the corresponding LTTHS. In this section the LTTHS is derived for an NSITHS, which can be used to assess the stability of the NSITHS under the presumption that a similar relation between the LTTHS and NSITHS exists. The proof for this relation is left for future work. For a more thorough derivation of the analysis that follows, Appendix~\ref{app:Csensitivity} should be consulted. We will first pose few assumptions on the reference events and jump maps that are required for the sensitivity analysis. First, we assume transversality of the reference events for which we assume the existence of a guard function that locally describes the flow and jump sets about each reference event.
+In \cite{Khalil1996} a sensitivity analysis is presented, where so-called sensitivity functions are used to provide first-order approximations of the effects of parameter variations on solutions. These sensitivity functions can also be used to approximate the solution under sufficiently small parameter variations. For the class of systems we consider here, the sensitivity equations describe the response of the system to perturbations in initial condition and input. This perturbation dynamics can be used to formulate a first-order approximation of the perturbed state of the system. To find a first-order approximation of state reinitializations in nonsmooth trajectories, an extension to this sensitivity analysis is necessary in the form of a linearized jump gain. The linearized jump gain and the linearized perturbation dynamics together define the LTTHS. In \cite{Rijnen2017} stability properties of an NSTHS are associated with the stability the corresponding LTTHS. In this section, the LTTHS is derived for an NSITHS, which we expect can be used to assess the stability of the NSITHS under the presumption that a similar relation between the LTTHS and NSITHS exists. As mentioned in the intro to this chapter, the proof for this relation is left as future work. For a more thorough derivation of the following analysis, Appendix~\ref{app:Csensitivity} should be consulted. We will first pose few assumptions on the reference events and jump maps that are required for the sensitivity analysis. First, we assume transversality of the reference events for which we assume the existence of a guard function that locally describes the flow and jump sets about each reference event.
 
+\begin{sloppypar}
 \begin{myass}[Existence of a guard function]\label{ass:existence}
-We assume that there exist constants $\varepsilon_\gamma$, and real valued guard function $\gamma(\xb,\ub,t,j)$ which is continuously differentiable with respect to $\xb$, $\ub$, and $t$, for each $j\in \{1,2,\dots,N\}$, such that
+We assume that there exist constants $\varepsilon_\gamma$, and real valued guard function $\gamma(\xb,\ub,t,j)$ which is continuously differentiable with respect to $\xb$, $\ub$, and $t$, for each $j\in \{1,2,\dots,N\}$, where $N$ is potentially infinite, such that
 \begin{equation}
 \begin{array}{llll}
 \gamma_{j+1}(\xb_j,\ub_j,t) > 0 & &	&(\xb,\ub) \in B_{\varepsilon_\gamma}(\alphab_j(\tau),\mub_j(\tau))\cap \mathcal{C}_j\setminus\partial \mathcal{C}_j\\
@@ -108,9 +114,11 @@ We assume that there exist constants $\varepsilon_\gamma$, and real valued guard
 \gamma_{j+1}(\xb_j,\ub_j,t) < 0 & &	&(\xb,\ub) \in B_{\varepsilon_\gamma}(\alphab_j(\tau),\mub_j(\tau))\cap (\Rbb^n \times \Rbb^m \times \Rbb)\setminus \mathcal{C}_j
 \end{array}
 \end{equation}
-where $B_{\varepsilon_\gamma}(\alphab_j(\tau),\mub_j(\tau))$ is a ball with radius $\varepsilon_{\gamma}$ around $\alphab_j(\tau),\mub_j(\tau)$ with $\tau = \tau_{j+1}$. $\mathcal{C}_j$ is the flow set of a trajectory after event $j$ and $\mathcal{D}_{j+1}\subseteq\partial \mathcal{C}_j$ is the event set which triggers event $j+1$, where $\partial \mathcal{C}_j$ represents the boundary of flow set $\mathcal{C}_j$.
+where $B_{\varepsilon_\gamma}(\alphab_j(\tau),\mub_j(\tau))$ is a ball with radius $\varepsilon_{\gamma}$ around $\alphab_j(\tau),\mub_j(\tau)$ with $\tau = \tau_{j+1}$. The set $\mathcal{C}_j$ is the flow set of a trajectory after event $j$ and $\mathcal{D}_{j+1}\subseteq\partial \mathcal{C}_j$ is the event set which triggers event $j+1$, where $\partial \mathcal{C}_j$ represents the boundary of flow set $\mathcal{C}_j$. Note that $B_{\varepsilon_\gamma}(\alphab_j(\tau),\mub_j(\tau))\cap (\Rbb^n \times \Rbb^m \times \Rbb)\setminus \mathcal{C}_j$ only exists if $\mathcal{C}_j$ is not closed.
 \end{myass}
+\end{sloppypar}
 
+\begin{sloppypar}
 \begin{myass}[Transversal guard activations]\label{ass:transversality}
 Under Assumption~\ref{ass:existence}, we assume there exists a constant $c>0$, such that
 \begin{equation}
@@ -118,11 +126,16 @@ D_1\gamma_j(\alphab_j,\mub_j,t)\cdot\fb_j(\alphab_j,\mub_j,t) + D_2\gamma_j(\alp
 \end{equation}
 for every event time $(t,j) \in \eve \alphab$.
 \end{myass}
+\end{sloppypar}
 
+\begin{sloppypar}
 \begin{myremark}
-The time derivative of the guard function $\gamma^{\text{sl}\rightarrow\text{st}} = \sqrt{\zetab_t^T\zetab_t}$, is undefined when $\gamma^{\text{sl}\rightarrow\text{st}} = 0$. Therefore, a Taylor expansion is used to find the left limit of $\dot{\gamma}^{\text{sl}\rightarrow\text{st}}$ at $t = \tau_j$, to check whether the guard is activated transversally. More information on this can be found in Appendix~\ref{app:hybriddisc}.
+As can be seen in Assumption~\ref{ass:associativity}, the time derivative of the guard function at $\gamma_j(\alphab_j,\mub_j,t) = 0$ is needed to check for transversality. For $\gamma^{\text{sl}\rightarrow\text{st}} = \sqrt{\zetab_t^T\zetab_t}$, the time derivative is undefined when $\gamma^{\text{sl}\rightarrow\text{st}} = 0$. Therefore, a Taylor expansion is used to find the left limit of $\dot{\gamma}^{\text{sl}\rightarrow\text{st}}$ at $t = \tau_j$, to check whether the guard is activated transversally. More information on this can be found in Appendix~\ref{app:hybriddisc}.
 \end{myremark}
+\end{sloppypar}
 
+
+%\begin{sloppypar}
 %\begin{myass}[Isolated events]\label{ass:guardeventpair}
 %With the set of all participating guard functions $\gamma^{\textnormal{part}}$, we assume that there exist a constant $\varepsilon_\gamma$, and set of nominal activated guard functions $\gamma^{\textnormal{nom}}_j$, such that
 %\begin{align}
@@ -130,31 +143,34 @@ The time derivative of the guard function $\gamma^{\text{sl}\rightarrow\text{st}
 %\end{align}
 %where $\gamma_j = \gamma(\xb,\ub,t,j)$, and $B_{\varepsilon_\gamma}(\alphab(\tau,j),\mub(\tau,j),\tau)$ is a ball with radius $\varepsilon_{\gamma}$ centered around the ante-event state and input $\alphab(\tau,j),\mub(\tau,j)$ of event $j$.
 %\end{myass}
+%\end{sloppypar}
 
 %Assumption~\ref{ass:guardeventpair} makes sure that the perturbed trajectory will activate the same guard functions as the reference trajectory.
-$\gamma_j(\xb_j,\ub_j,t) = 0$ represents the set where an event will happen, which together with Assumption~\ref{ass:transversality} guarantees that an event will happen, even under perturbations. Assumption~\ref{ass:transversality} assumes that the vector field pushes the reference trajectory out of the flow set $\mathcal{C}_j$, and that grazing incidents are avoided. The combination of the existence of a guard function in an area around the nominal ante-event state and the transversal guard activation guarantees that there exists a range of perturbations where the guard is activated as well. Let us now pose an assumption on the jump map $\gb$.
+The state, input and time where $\gamma_j(\xb_j,\ub_j,t) = 0$ represents the set where an event will happen, which together with Assumption~\ref{ass:transversality} guarantees that an event will happen, even under perturbations. If the vector field is continuous with respect to $\epsilon$, Assumption~\ref{ass:transversality} assumes that the vector field pushes the reference trajectory out of the flow set $\mathcal{C}_j$, and that grazing incidents are avoided. The combination of the existence of a guard function in an area around the nominal ante-event state and the transversal guard activation guarantees that there exists a range of perturbations where the guard is activated as well. Let us now pose an assumption on the jump map $\gb$.
 
+\begin{sloppypar}
 \begin{myass}[Locally differentiability of jump maps]\label{ass:jump}
-We assume that for all $j \in [0,1,2,\dots,N]$ the jump map $\gb_{j+1}(\xb_j,\ub_j)$ is locally differentiable, in the sense that $D_1\gb_{j+1}(\xb_j,\ub_j)$ and $D_2\gb_{j+1}(\xb_j,\ub_j)$ exist in the ball $B_{\varepsilon_{\gamma}}(\alphab_j(\tau),\mub_j(\tau),\tau)$, where $\tau = \tau_{j+1}$.
+We assume that for all $j \in [0,1,2,\dots,N]$ the jump map $\gb_{j+1}(\xb_j,\ub_j)$ is locally differentiable, in the sense that $D_1\gb_{j+1}(\xb_j,\ub_j)$ and $D_2\gb_{j+1}(\xb_j,\ub_j)$ exist in the ball $B_{\varepsilon_{\gamma}}(\alphab_j(\tau),\mub_j(\tau),\tau)\subseteq \Rbb^n \times \Rbb^m \times \Rbb$, where $\tau = \tau_{j+1}$.
 \end{myass}
+\end{sloppypar}
 
 The differentiability of the jump map is necessary to construct a first-order approximation of the perturbed state trajectory. This will be explained in more detail in the next section.
 
 \subsection{Sensitivity analysis}
-The sensitivity analysis for the continuous segments of a perturbed trajectory, gives a set of equations which describe the system's reaction to an initial state-and-input perturbation. The state-and-input perturbation represents a modeling error. A continuous segment of the perturbed state is given by
+The sensitivity analysis for the continuous segments of a perturbed trajectory gives a set of equations which describe the reaction of the system to an initial state-and-input perturbation. Introducing the initial state-and-input perturbation enables us to analyze the solution of a system under parameter variations. Writing \eqref{eq:3hybimp1} in integral form, a perturbed solution $\xb_j(t,\epsilon)$ to \eqref{eq:3hybimp1} satisfies
 \begin{align}
 \xb_j(t,\epsilon) = \xb_j(t_j,\epsilon) + \int_{t_j}^{t_{j+1}}\fb_j(\xb_j(s,\epsilon),\ub_j(s,\epsilon),s)ds.\label{eq:3xpert}
 \end{align}
 To find a first-order approximation of the perturbed state, the perturbed state direction $\zb(t)$ and the perturbed input direction $\vb(t)$ are defined as
 \begin{align}
-\zb_j = \left.\frac{\partial\xb_j(\epsilon)}{\partial\epsilon}\right|_{\epsilon=0},\text{ and } \vb_j = \left.\frac{\partial\ub_j(\epsilon)}{\partial\epsilon}\right|_{\epsilon=0},
+\zb_j := \left.\frac{\partial\xb_j(\epsilon)}{\partial\epsilon}\right|_{\epsilon=0},\text{ and } \vb_j := \left.\frac{\partial\ub_j(\epsilon)}{\partial\epsilon}\right|_{\epsilon=0},
 \end{align}
-with $\zb_j(t) = \zb(t,j)$, and $\vb_j(t) = \vb(t,j)$. It follows that, conforming to the sensitivity analysis presented in \cite{Khalil1996},
+where we use the abbreviations $\zb_j = \zb(t,j)$, and $\vb_j = \vb(t,j)$. It follows that, conforming to the sensitivity analysis presented in \cite{Khalil1996},
 \begin{align}
-\xb_j(\epsilon) &= \xb_j(0) + \epsilon\left.\frac{\partial\xb_j(\epsilon)}{\partial\epsilon}\right|_{\epsilon=0} + o(\epsilon),\label{eq:3taylor}\\
+\xb_j(t,\epsilon) &= \xb_j(t,0) + \epsilon\left.\frac{\partial\xb_j(t,\epsilon)}{\partial\epsilon}\right|_{\epsilon=0} + o(\epsilon),\label{eq:3taylor}\\
 &= \bar{\alphab}_j + \epsilon\bar{\zb}_j + o(\epsilon),
 \end{align}
-with $o(\epsilon)$ indicating the little-o notation of $\epsilon$ which represents higher order terms. To find a first order approximation of the $\dot{\xb}_j(\epsilon)$, an expression for $\dot{\zb}_j$ should be found. By first taking the partial derivative with respect to $\epsilon$ and then with respect to $t$ of $\eqref{eq:3xpert}$, the perturbation dynamics are found to be
+with $o(\epsilon)$ indicating the Landau symbol little-o, which represents higher order terms $\epsilon$. To find a first order approximation of the $\dot{\xb}_j(\epsilon)$, an expression for $\dot{\zb}_j$ should be found. By first taking the partial derivative of $\eqref{eq:3xpert}$ with respect to $\epsilon$, and then with respect to $t$, the perturbation dynamics are found to be
 \begin{align}
 \dot{\zb}_j = \Ab_j(t)\zb_j +\Bb_j(t)\vb_j,\label{eq:3zdot}
 \end{align}
@@ -163,11 +179,11 @@ with
 \Ab_j(t) &= D_1\fb_j(\alphab_j,\mub_j,t),\\
 \Bb_j(t) &= D_2\fb_j(\alphab_j,\mub_j,t),
 \end{align}
-where $D_a$ represents the partial derivative with respect to the $a^{\text{th}}$ argument. The first order approximation of the perturbed state dynamics in continuous time is then defined as
+where $D_a$ represents the partial derivative with respect to the $a^{\text{th}}$ argument. By extending the perturbed input direction $\vb_j$, $\bar{\vb}_j$ is obtained. Using $\zb_0=\zb(0,\epsilon)$ and $\bar{\vb}_j$, $\dot{\zb}_j$ can be integrated past the nominal event-time $\tau_j$, which results in the extension of the perturbed state direction $\bar{\zb}_j$. With $\bar{\alphab}_j$ and $\bar{\zb}_j$, the first-order approximation of the perturbed state dynamics in continuous time can be defined as
 \begin{align}
-\dot{\xb}_j(\epsilon) \approx \dot{\alphab}_j + \epsilon\dot{\zb}_j,\label{eq:3contapprox}
+\dot{\xb}_j(\epsilon) = \dot{\bar{\alphab}}_j + \epsilon\dot{\bar{\zb}}_j + o(\epsilon).\label{eq:3contapprox}
 \end{align}
-where $\dot{\alphab}_j$ is known and $\dot{\zb}_j$ is given by \eqref{eq:3zdot}. Equation \eqref{eq:3contapprox} defines the first-order approximation for the continuous segments of a trajectory. What remains is that the state reinitializations should be linearized as well. The reinitialization of the nominal trajectory satisfies
+Equation \eqref{eq:3contapprox} defines the first-order approximation for the continuous segments of a trajectory. What remains is that the state reinitializations should be linearized as well. The reinitialization of the nominal trajectory satisfies
 \begin{align}
 \alphab_{j+1}(\tau_{j+1}) = \gb_{j+1}(\alphab_j(\tau_{j+1}),\mub_j(\tau_{j+1}),\tau_{j+1}),\label{eq:3g}
 \end{align}
@@ -182,93 +198,90 @@ Similar to the Taylor expansion used in \eqref{eq:3taylor}, the state and input 
 \end{align}
 The same can be done for $\alphab_j(t_{j})$, $\mub_j(t_{j})$, $\zb_j(t_{j})$, and $\vb_j(t_{j})$, which when substituted in \eqref{eq:3xexpand} and \eqref{eq:3uexpand} results in
 \begin{align}
-\xb_j(t_{j},\epsilon) &= \alphab_j(\tau_j) + \epsilon\dot{\alphab}_j(\tau_j)\Delta_j + \epsilon\zb_j(\tau_j) + o(\epsilon),\label{eq:3xexpand2}\\
-\ub_j(t_{j},\epsilon) &= \mub_j(\tau_j) + \epsilon\dot{\mub}_j(\tau_j)\Delta_j + \epsilon\vb_j(\tau_j) + o(\epsilon),\label{eq:3uexpand2}
+\xb_j(t_{j},\epsilon) &= \alphab_j(\tau_j) + \epsilon\dot{\alphab}_j(\tau_j)\Delta + \epsilon\zb_j(\tau_j) + o(\epsilon),\label{eq:3xexpand2}\\
+\ub_j(t_{j},\epsilon) &= \mub_j(\tau_j) + \epsilon\dot{\mub}_j(\tau_j)\Delta + \epsilon\vb_j(\tau_j) + o(\epsilon),\label{eq:3uexpand2}
 \end{align}
 with
 \begin{align}
-\Delta_{j} = \left.\frac{\partial t_{j}}{\partial\epsilon}\right|_{\epsilon=0}.\label{eq:3Delta}
+\Delta = \left.\frac{\partial t_{j}}{\partial\epsilon}\right|_{\epsilon=0}.\label{eq:3Delta}
 \end{align}
-To find $\Delta_{j}$, we observe that
+To find $\Delta$, we observe that
 \begin{align}
 \gamma_j(\xb_{j-1}(t_{j},\epsilon),\ub_{j-1}(t_{j},\epsilon),t_{j}) = 0.\label{eq:3gamma}
 \end{align}
-Note that $\gamma_j$ is dependent on the input $\ub_j$, whereas in \cite{Chen2018a} the sensitivity analysis is performed for guard functions which solely depend on state $\xb_j$ and time $t$. From \eqref{eq:3gamma} the expression for $\Delta_{j}$ is found to be
+Note that $\gamma_j$ is dependent on the input $\ub_j$, whereas in \cite{Chen2018a} the sensitivity analysis is performed for guard functions which solely depend on state $\xb_j$ and time $t$. From \eqref{eq:3gamma} the expression for $\Delta$ is found to be
 \begin{align}
-\Delta_{j} = -\frac{D_1\gamma^{-}\cdot\zb^- + D_2\gamma^{-}\cdot\vb^-}{\dot{\gamma}^{-}},\label{eq:3Deltaj}
+\Delta = -\frac{D_1\gamma^{-}\cdot\zb^- + D_2\gamma^{-}\cdot\vb^-}{\dot{\gamma}^{-}},\label{eq:3Deltaj}
 \end{align}
 with
 \begin{align*}
-\gamma^- &= \gamma_j(\alphab_{j-1}(\tau_j),\mub_{j-1}(\tau_j),\tau_j),\\
-\dot{\gamma}^- &= D_1\gamma^-\cdot\dot{\alphab}_{j-1}(\tau_j) + D_2\gamma^-\cdot\dot{\mub}_{j-1}(\tau_j) + D_3\gamma^-,\\
-\zb^- &= \zb_{j-1}(\tau_j),\\
-\vb^- &= \vb_{j-1}(\tau_j),
+\gamma^- &:= \gamma_j(\alphab_{j-1}(\tau_j),\mub_{j-1}(\tau_j),\tau_j),\\
+\dot{\gamma}^- &:= D_1\gamma^-\cdot\dot{\alphab}_{j-1}(\tau_j) + D_2\gamma^-\cdot\dot{\mub}_{j-1}(\tau_j) + D_3\gamma^-,\\
+\zb^- &:= \zb_{j-1}(\tau_j),\\
+\vb^- &:= \vb_{j-1}(\tau_j),
 \end{align*}
 where the $(\cdot)^-$ superscript indicates a left limit of event $j$. Expanding \eqref{eq:3gpert} and substituting the result into \eqref{eq:3xexpand2} gives
 \begin{equation}
-\zb^+ = D_1\gb^-\cdot\left(\zb^- + \dot{\alphab}^-\Delta_j\right) + D_2\gb^-\cdot\left(\vb^- + \dot{\mub}^-\Delta_j\right) + D_3\gb^-\cdot\Delta_j - \dot{\alphab}^+\Delta_j,
+\zb^+ = D_1\gb^-\cdot\left(\zb^- + \dot{\alphab}^-\Delta\right) + D_2\gb^-\cdot\left(\vb^- + \dot{\mub}^-\Delta\right) + D_3\gb^-\cdot\Delta - \dot{\alphab}^+\Delta,\label{eq:3zplus}
 \end{equation}
 with
 \begin{align*}
-\gb^- &= \gb_j(\alphab^-,\mub^-,\tau_j),\\
-\zb^+ &= \zb_j(\tau_j),\\
-\alphab^- &= \alphab_{j-1}(\tau_j),\\
-\alphab^+ &= \alphab_j(\tau_j),\\
-\mub^- &= \mub_{j-1}(\tau_j).
+\gb^- &:= \gb_j(\alphab^-,\mub^-,\tau_j),\\
+\zb^+ &:= \zb_j(\tau_j),\\
+\alphab^- &:= \alphab_{j-1}(\tau_j),\\
+\alphab^+ &:= \alphab_j(\tau_j),\\
+\mub^- &:= \mub_{j-1}(\tau_j).
 \end{align*}
-Here, the $(\cdot)^+$ superscript indicates the right limit of event $j$. This can finally be rewritten to
+Here, the $(\cdot)^+$ superscript indicates the right limit of event $j$. Equation \eqref{eq:3zplus} can be rewritten in compact form as
 \begin{align}
-\zb^+ = \Lb_j(\tau_j)\begin{bmatrix}
-\zb^- \\ \vb^-
-\end{bmatrix},
+\zb^+ = \Gb_j(\tau_j)\zb^- + \Jb_j(\tau_j)\vb^-,
 \end{align}
 with 
 \begin{align*}
-\Lb_j(\tau_j) &= \begin{bmatrix}
-\Gb_j(\tau_j) & \Jb_j(\tau_j)
-\end{bmatrix},\\
 \Gb_j(\tau_j) & = D_1\gb^- - \left(\dot{\gb}^- - \fb^+\right)\frac{D_1\gamma^-}{\dot{\gamma}^-},\\
 \Jb_j(\tau_j) & = D_2\gb^- - \left(\dot{\gb}^- - \fb^+\right)\frac{D_2\gamma^-}{\dot{\gamma}^-},
 \end{align*}
 where
 \begin{align*}
-\fb^- &= \fb_{j-1}(\alphab_{j-1}(\tau_j),\mub_{j-1}(\tau_j),\tau_j),\\
-\fb^+ &= \fb_j(\alphab_j(\tau_j),\mub_j(\tau_j),\tau_j),\\
-\dot{\gb}^- &= D_1\gb^-\cdot \fb^- + D_2\gb^-\cdot \dot{\mub}^- + D_3\gb^-.
+\fb^- &:= \fb_{j-1}(\alphab_{j-1}(\tau_j),\mub_{j-1}(\tau_j),\tau_j),\\
+\fb^+ &:= \fb_j(\alphab_j(\tau_j),\mub_j(\tau_j),\tau_j),\\
+\dot{\gb}^- &:= D_1\gb^-\cdot \fb^- + D_2\gb^-\cdot \dot{\mub}^- + D_3\gb^-.
 \end{align*}
 
 \subsection{Linear time-triggered hybrid system}
-The sensitivity analysis performed in the previous section will be used next to define the LTTHS associated to reference trajectory $\alphab$ and the NSITHS defined in Definition~\ref{def:3nsiths}. The LTTHS converts the state-triggered behavior of the NSITHS to a time-triggered behavior using a first order approximation of the state jumps. Where the jump times of the NSITHS are unknown, the LTTHS jumps at the same event-times as the nominal trajectory $\alphab$. In \cite{Rijnen2017}, a proof is given that stability of the LTTHS implies local asymptotic stability of a NSTHS. Although not fully proven, we expect that that result carries over to the implication that uniform asymptotic stability of the LTTHS implies local asymptotic stability of the NSITHS. Since the stability assessment of LTTHS is well established in literature, the LTTHS can then be used to conveniently assess the local asymptotic stability of the NSITHS. Let us now formally define the LTTHS.
+The sensitivity analysis performed in the previous section will be used next to define the LTTHS associated to reference trajectory $\alphab$ and the NSITHS defined in Definition~\ref{def:3nsiths}. The LTTHS converts the state-triggered behavior of the NSITHS to a time-triggered behavior using a first order approximation of the state jumps. Where the jump times of the NSITHS are unknown, the LTTHS jumps at the same event-times as the nominal trajectory $\alphab$. Since the stability assessment of LTTHS is well established in literature, the LTTHS can then be used to conveniently assess the local asymptotic stability of the NSITHS. Let us now formally define the LTTHS.
 
+\begin{sloppypar}
 \begin{mydef}[LTTHS]\label{def:3ltths}
-The linear time-triggered hybrid system associated with the reference trajectory $\alphab$ and the NSITHS \eqref{eq:3hybimp1},\eqref{eq:3hybimp2} is given by
+The linear time-triggered hybrid system associated with the reference trajectory $\alphab$ and the NSITHS \eqref{eq:3hybimp1}-\eqref{eq:3hybimp2} is given by
 \begin{align}
-\dot{\zb}_j &= \Ab_j(t)\zb_j + \Bb_j(t)\vb_j, &(t,j)&\in \dom\ \alphab,\\
-\zb^+ &= \Lb_{j+1}(t) \begin{bmatrix}\zb^- \\ \vb^-\end{bmatrix}, &(t,j)&\in \eve\ \alphab,
+\dot{\zb}_j &= \Ab_j(t)\zb_j + \Bb_j(t)\vb_j, &(t,j)&\in \dom\alphab,\\
+\zb^+ &= \Gb_j(t)\zb^- + \Jb_j(t)\vb^-, &(t,j)&\in \eve\alphab,
 \end{align}
 with initial condition $\zb(t_0,0)=z_0$, $\zb^+ = \zb(\tau_j,j)$, $\zb^- = \zb(\tau_j,j-1)$,
 \begin{align*}
 \Ab_j(t) &= D_1\fb_j(\alphab_j(t),\mub_j(t),t),\\
 \Bb_j(t) &= D_2\fb_j(\alphab_j(t),\mub_j(t),t),\\
-\Lb_j &= \begin{bmatrix}\Gb_j(t) & \Jb_j(t)\end{bmatrix},\\
 \Gb_j &= D_1\gb^- - \left(\dot{\gb}^- - \fb^+\right)\frac{D_1\gamma^-}{\dot{\gamma}^-},\\
 \Jb_j &= D_2\gb^- - \left(\dot{\gb}^- - \fb^+\right)\frac{D_2\gamma^-}{\dot{\gamma}^-},
 \end{align*}
 and
 \begin{align*}
-\fb^- &= \fb_{j-1}(\alphab_{j-1}(\tau_j),\mub_{j-1}(\tau_j),\tau_j),\\
-\fb^+ &= \fb_j(\alphab_j(\tau_j),\mub_j(\tau_j),\tau_j),\\
-\gb^- &= \gb_{j}(\alphab_{j-1}(\tau_j),\mub_{j-1}(\tau_j),\tau_j),\\
-\dot{\gb}^- &= D_1\gb^-\cdot \fb^- + D_2\gb^-\cdot \dot{\mub}^- + D_3\gb^-,\\
-\gamma^- &= \gamma_j(\alphab_{j-1}(\tau_j),\mub_{j-1}(\tau_j),\tau_j),\\
-\dot{\gamma}^- &= D_1\gamma^-\cdot\dot{\alphab}_{j-1}(\tau_j) + D_2\gamma^-\cdot\dot{\mub}_{j-1}(\tau_j) + D_3\gamma^-.
+\fb^- &:= \fb_{j-1}(\alphab_{j-1}(\tau_j),\mub_{j-1}(\tau_j),\tau_j),\\
+\fb^+ &:= \fb_j(\alphab_j(\tau_j),\mub_j(\tau_j),\tau_j),\\
+\gb^- &:= \gb_{j}(\alphab_{j-1}(\tau_j),\mub_{j-1}(\tau_j),\tau_j),\\
+\dot{\gb}^- &:= D_1\gb^-\cdot \fb^- + D_2\gb^-\cdot \dot{\mub}^- + D_3\gb^-,\\
+\gamma^- &:= \gamma_j(\alphab_{j-1}(\tau_j),\mub_{j-1}(\tau_j),\tau_j),\\
+\dot{\gamma}^- &:= D_1\gamma^-\cdot\dot{\alphab}_{j-1}(\tau_j) + D_2\gamma^-\cdot\dot{\mub}_{j-1}(\tau_j) + D_3\gamma^-.
 \end{align*}
 \end{mydef}
-The LTTHS defined in Definition~\ref{def:3ltths} gives a first order approximation of the NSITHS about the state-input reference trajectory $(\alphab,\mub)$. With a nominal trajectory $\alphab$ with input $\mub$, the perturbed trajectory $\xb_j(\epsilon)$ is the trajectory starting from initial condition $\xb_0(\epsilon) = \alphab_0 + \epsilon\zb_0$ and with input $\ub_j(\epsilon) = \mub_j + \epsilon\vb_j$. The first order approximation is then defined as $\xb_j(\epsilon) \approx \bar{\alphab}_j + \epsilon\bar{\zb}_j$, with $\zb$ defined by the LTTHS. The reader should be aware that the term $\vb^-$ is not an input that can be freely chosen. $\vb^-$ is directly related to $\vb_j$, as it is a result of the feedback law implemented during the continuous segment before the event. Also, note that the approximation jumps at the same time instants as the nominal trajectory, with $(t,j) \in \eve\ \alphab$. This results in a trajectory which is generally infeasible around the jump times. However, due to the short timescales of the events, we are more interested in finding a good approximation of the continuous segments between the events, which is what the LTTHS achieves. In \cite{Rijnen2017} a proof is given, which shows that stability of the LTTHS implies tracking of a NSTHS. The presumption is made that a similar proof exists, saying that stability of the LTTHS implies local stability of the NSITHS. Straightforward stability analysis tools for LTTHS are available in the literature, about which more can be read in Appendix~\ref{app:LTTHSstab}.
-\nomenclature[A]{NSTHS}{Nonlinear State-Triggered Hybrid System}
+\end{sloppypar}
+
+The LTTHS of Definition~\ref{def:3ltths} gives a first order approximation of the NSITHS about the state-input reference trajectory $(\alphab,\mub)$. With a nominal trajectory $\alphab$ with input $\mub$, the perturbed trajectory $\xb_j(\epsilon)$ is the trajectory starting from initial condition $\xb_0(\epsilon) = \alphab_0 + \epsilon\zb_0$ and with input $\ub_j(\epsilon) = \mub_j + \epsilon\vb_j$. The first order approximation is then defined as $\xb_j(\epsilon) = \bar{\alphab}_j + \epsilon\bar{\zb}_j + o(\epsilon)$, with $\zb$ defined by the LTTHS. The reader should be aware that the term $\vb^-$ is not an input that can be freely chosen. The ante-event input perturbation $\vb^-$ is directly related to $\vb_j$, as it is a result of the input law implemented during the continuous segment before the event. Also, note that the approximation jumps at the same time instants as the nominal trajectory, with $(t,j) \in \eve\ \alphab$. This results in a trajectory which is generally infeasible around the jump times. However, due to the short timescales of the events, we are more interested in finding a good approximation of the continuous segments between the events, which is what the LTTHS achieves. In \cite{Rijnen2017} a proof is given, which shows that stability of the LTTHS implies tracking of a NSTHS. The presumption is made that a similar proof exists, saying that stability of the LTTHS implies local stability of the NSITHS. Straightforward stability analysis tools for LTTHS are available in the literature, about which more can be read in Appendix~\ref{app:LTTHSstab}.
+\nomenclature[A]{NSTHS}{Nonlinear State-Triggered Hybrid System}%
 \begin{figure}[h]
 \centering
-\includegraphics[width=.95\textwidth]{refspreadapprox.eps}\caption{The first order approximation $\alphab + \epsilon\zb$ (cyan) generated by the LTTHS is illustrated besides the perturbed trajectory $\xb$ (blue) and the nominal trajectory $\alphab$ (red). Note that the event times of the approximation are the same as those of the nominal trajectory.} \label{fig:3refspreadapprox}
+\includegraphics[width=\textwidth]{refspreadapprox.eps}\caption{The first order approximation $\alphab + \epsilon\zb$ (cyan) generated by the LTTHS is illustrated besides the perturbed trajectory $\xb$ (blue) and the nominal trajectory $\alphab$ (red). Note that the event times of the approximation are the same as those of the nominal trajectory.} \label{fig:3refspreadapprox}
 \end{figure}
 
 \section{Summary}
@@ -345,6 +358,8 @@ With the notation for trajectories experiencing simultaneous guard activations i
 
 \subsection{Reference-spreading for simultaneous events}
 For trajectories with simultaneous activations, the perturbed state can experience more events than the reference trajectory. The perturbed state will enter micro-modes and micro-segments, which are not seen in the reference trajectory. To be able to define a physically realistic comparison between the reference trajectory and the state trajectory, the reference trajectory needs to be adjusted accordingly. This is done in the form of \textit{nominal phantom modes} and \textit{nominal phantom segments}. Phantom modes are modes defined in the reference trajectory, that do not physically exist. Definition of these modes requires a property of the state jumps that we term associativity.
+
+\begin{sloppypar}
 \begin{myass}[Jump map associativity]\label{ass:associativity}
 We assume that the jump map $\ls^{p\leftarrow a}\gb(\ls^{a}\xb,\ls^{a}\ub,t)$ is associative, meaning that taking an arbitrary growing sequence $s^k\leftarrow s^{k-1} \leftarrow ... \leftarrow s^0$, where $p = s^k$ and $a = s^0$, it holds that
 \begin{align}
@@ -352,6 +367,8 @@ We assume that the jump map $\ls^{p\leftarrow a}\gb(\ls^{a}\xb,\ls^{a}\ub,t)$ is
 \end{align}
 Intuitively, this means that the simultaneous jump gain from $a$ to $p$ can be described with a sequence of jumps evaluated at the same time instant.
 \end{myass}
+\end{sloppypar}
+
 Using Assumption~\ref{ass:associativity}, the phantom modes can be defined. All micro-modes, which the state can enter as a result of loss of simultaneity, are defined in the nominal trajectory. These modes are called the phantom modes in the nominal trajectory. The initial states associated to these modes are found by applying the corresponding jump maps $\ls^{p\leftarrow a}\gb$ to the nominal ante-event state,
 \begin{align}
 \ls^{s_i^1}\alphab =&\ \ls^{s_i^1\leftarrow s_i^0}\gb(\ls^{s_i^0}\alphab,\ls^{s_i^0}\mub,\tau_i)\nonumber\\
@@ -470,16 +487,21 @@ since only the ante-event feedback term will be non-zero. The jump gain defined 
 \subsection{The positively homogeneous jump gain}
 As mentioned in Section~\ref{sec:simguards}, an event with simultaneous guard activation will experience loss of simultaneity when perturbations are introduced. Due to the loss of simultaneity, the order of events is unknown. For that reason, one simultaneous event has several associated event sequences. For there to be a finite amount of possibilities of event sequences, all sequences should be growing. This assumption is now formally defined.
 
+\begin{sloppypar}
 \begin{myass}[Growing mode sequences]\label{ass:unidirectional}
 We assume, locally at each macro-event, that all considered mode sequences are growing, meaning that at each micro-event, one or more guard functions become active, without changing the status of any other guard functions. In other words, considering one macro-event, we assume that $s^0<s^1<...<s^l$, where $s^0= 00...0$ and $s^l = 11...1$, and $l$ is the number of micro-events in the considered macro-event.
 \end{myass}
+\end{sloppypar}
 
 For example, when we consider a block with two contact points $\iota_1$ and $\iota_2$ executing a pushing motion towards a surface, with $s^0 = 00$ is both contact points open and $s^l = 11$ is both contact points in closed contact stick. Let us say we are in mode $s^1 = 10$, i.e., $\iota_1$ is in closed contact stick and $\iota_2$ is still open. The system goes through the second micro-event by activating $\gamma^{01}_2$. Under Assumption~\ref{ass:unidirectional}, the event can not cause $\iota_1$ to release contact, i.e., $\Gamma_{\iota_1}^{\text{cl}\rightarrow\text{op}}>0$, $\Gamma_{\iota_1}^{\text{st}\rightarrow\text{sl}}>0$, $\gamma_{\iota_1}^{\text{cl}\rightarrow\text{op}}>0$ and $\gamma_{\iota_1}^{\text{st}\rightarrow\text{sl}}>0$ when solving the state reinitialization and mode selection presented in Section~\ref{sec:2discdyn}. Under Assumption~\ref{ass:unidirectional}, all mode sequences in a neighborhood of $\alphab,\mub$ will be growing and a finite number of jump gains are possible for a range of perturbations. Let us now pose an assumption on the association between guard functions and transitions. This assumption is necessary to prevent notation issues in the mode descriptor introduced in Section~\ref{sec:4not}.
 
+\begin{sloppypar}
 \begin{myass}[Guard-transition association]\label{ass:guardtrans}
 We assume that activation of the guard associated to contact point $\iota$ will result in a transition of only contact point $\iota$. With guard function $\gamma^{\eta_k}$ activated in mode $s^{k-1}$, the mode descriptor of the next mode satisfies $s^{k} = s^{k-1} + \eta_k$. Here $\eta_k$ is the index of the guard function that is activated during micro-event $k$.
 \end{myass}
+\end{sloppypar}
 
+\begin{sloppypar}
 \begin{myremark}
 Assumption~\ref{ass:guardtrans} is trivial for most guard functions. Because $\gamma^{\text{op}\rightarrow\text{cl}}_{\iota} = h_{n,\iota}(\qb)$ is defined on position level, under Assumption~\ref{ass:unidirectional} it will always be contact point $\iota$ that will change mode when $\gamma^{\text{op}\rightarrow\text{cl}}_{\iota}$ is activated. For guard functions defined on acceleration level, i.e.,
 \begin{align*}
@@ -495,7 +517,7 @@ the situation is different. The feasible post-event mode is determined by the po
 \end{align}
 From the mode selection we can conclude that the post-event acceleration $\ddot{\qb}$ is directly dependent on the post-event input $\ub^+$. Therefore, the post-event input $\ub^+$ should be chosen in such a way that Assumption~\ref{ass:guardtrans} is met.
 \end{myremark}
-
+\end{sloppypar}
 A state-dependent jump gain for all possible mode sequences associated to a simultaneous event will be defined in the following. This jump gain should consider all growing sequences that can take place for that range of perturbations. Therefore, a state-dependent matrix gain is defined, in the form of
 \begin{align}
 \ls^{p \leftarrow a}\Hb(\ls^{a}\zb(\tau),\ls^{a}\vb(\tau),\tau) = \left\lbrace\begin{array}{ll}
@@ -556,6 +578,7 @@ with
 
 The jump gain in \eqref{eq:4H2200} is called a positively homogeneous jump gain for character-2 events. Due to the behavior of the simultaneous events, the linearity property of the jump gain is lost. This is shown in Appendix~\ref{app:poshom}. Instead, the jump gain is positively homogeneous, which is now formally defined.
  
+\begin{sloppypar}
 \begin{mydef}[Positive homogeneity]
 Suppose that $\fb(\xb,\ub,t)$ is a continuously differentiable function. The function $\fb$ is called positively homogeneous of degree $k$, if 
 \begin{align}
@@ -563,6 +586,7 @@ Suppose that $\fb(\xb,\ub,t)$ is a continuously differentiable function. The fun
 \end{align}
 for all $a>0$.
 \end{mydef}
+\end{sloppypar}
 
 The conditions that decide which jump gain to use are illustrated in Figure~\ref{fig:4cone}. Since the conditions are linear in $\zb$ and $\vb$, they appear as lines in the state space of $\zb$ and $\vb$. When we introduce more conditions, we will find several cones that relate a certain jump gain to a $\zb,\vb$ pair. When we look at the vector $r(\zb,\vb)$ in Figure~\ref{fig:4cone}, it can be noticed that when $\rb$ is multiplied with a positive constant $a$, the same jump gain is applied. Therefore, the positively homogeneous jump gain \eqref{eq:4H2200} is positively homogeneous of order zero.
 
@@ -597,6 +621,7 @@ The conditions that decide which jump gain to use are illustrated in Figure~\ref
 \subsection{The positively homogeneous time-triggered hybrid system}\label{def:4PTTHS}
 With the positively homogeneous jump gain presented in the previous section, the PTTHS can be defined. The PTTHS forms a first-order approximation of the NSITHS defined in Definition~\ref{def:3nsiths}. The proof that uniform asymptotic stability of the PTTHS does not yet exist for the NSITHS. However, similar to the relation between the LTTHS and NSITHS, we presume that a proof exists for the stability of the PTTHS implying local asymptotic stability of NSITHS. The PTTHS will jump at the same time as the nominal trajectory $\alphab$, and will also experience the same number of jumps. This means that a controller designed on the PTTHS will not act on micro-events. This is desired behavior, as the micro-events will likely happen too rapidly to control on. We now define the PTTHS formally, with the positively homogeneous jump gain being defined for a character-2 event ($c = 2$, with $a = 00$ and $p=11$) for brevity reasons.
 
+\begin{sloppypar}
 \begin{mydef}[PTTHS]
 The positively homogeneous time-triggered hybrid system associated with the NSITHS and the associative and transversal reference trajectory ($\alphab(t,i),\mub(t,i)$) is given by
 \begin{align}
@@ -650,6 +675,7 @@ where the $\rightarrow$ left subscript should be interpreted as $\searrow$ or $\
 \ls^{S^k}\bb &= -\frac{1}{\dot{\gamma}^{-}}D_2\gamma^{-}.
 \end{align*}
 \end{mydef}
+\end{sloppypar}
 
 \nomenclature[R]{$\Hb$}{The positively homogeneous jump gain}%
 \nomenclature[R]{$\zb$}{The state perturbation}%
