@@ -8,26 +8,26 @@
 \cleartooddpage
 \pagestyle{fancyreport}
 \chapter{Mechanical Systems with Unilateral Constraints and Spatial Friction}\label{ch:model}
-\nomenclature[R]{$\Db$}{Delassus matrix}%
-\nomenclature[R]{$\fb$}{A nonlinear continuous function}%
-\nomenclature[R]{$\gb$}{A jump map}%
-\nomenclature[G]{$\gamma$}{A flow guard function}%
-\nomenclature[G]{$\Gamma$}{An impulsive guard function}%
-\nomenclature[G]{$\alphab$}{The nominal reference trajectory}%
-\nomenclature[G]{$\mub$}{The nominal reference input}%
-\nomenclature[S]{$\dot{(\cdot)}$}{First time derivative}%
-\nomenclature[S]{$\ddot{(\cdot)}$}{Second time derivative}%
-\nomenclature[S]{$(\cdot)^-$}{The left limit}%
-\nomenclature[S]{$(\cdot)^+$}{The right limit}%
-\nomenclature[S]{$(\cdot)_0$}{Initial condition}%
-\nomenclature[S]{$(\cdot)_{\alphab}$}{Related to reference trajectory $\alphab$}%
-\nomenclature[S]{$(\cdot)_{\iota}$}{Related to reference trajectory $\iota$}%
-\nomenclature[S]{$(\cdot)_{j}$}{Related to event or segment $j$}%
-\nomenclature[S]{$(\cdot)_{i}$}{Related to macro-event or segment $i$}%
-\nomenclature[S]{$(\cdot)_{k}$}{Related to micro-event or segment $k$}%
-\nomenclature[S]{$(\cdot)_{\xb}$}{Related to reference trajectory $\xb$}%
-\nomenclature[S]{$(\cdot)_{n}$}{Scalar or vector in normal direction}%
-\nomenclature[S]{$(\cdot)_{t}$}{Scalar or vector in tangential direction}%
+\nomenclature[RD]{$\Db$}{Delassus matrix}%
+\nomenclature[Rf]{$\fb$}{A nonlinear continuous function}%
+\nomenclature[Rg]{$\gb$}{A jump map}%
+\nomenclature[G03]{$\gamma$}{A flow guard function}%
+\nomenclature[G03]{$\Gamma$}{An impulsive guard function}%
+\nomenclature[G01]{$\alphab$}{The nominal reference trajectory}%
+\nomenclature[G12]{$\mub$}{The nominal reference input}%
+\nomenclature[S00]{$\dot{(\cdot)}$}{First time derivative}%
+\nomenclature[S01]{$\ddot{(\cdot)}$}{Second time derivative}%
+\nomenclature[S02]{$(\cdot)^-$}{The left limit}%
+\nomenclature[S03]{$(\cdot)^+$}{The right limit}%
+\nomenclature[S00]{$(\cdot)_0$}{Initial condition}%
+\nomenclature[S04]{$(\cdot)_{\alphab}$}{Related to reference trajectory $\alphab$}%
+\nomenclature[S09]{$(\cdot)_{\iota}$}{Related to reference trajectory $\iota$}%
+\nomenclature[Sj]{$(\cdot)_{j}$}{Related to event or segment $j$}%
+\nomenclature[Si]{$(\cdot)_{i}$}{Related to macro-event or segment $i$}%
+\nomenclature[Sk]{$(\cdot)_{k}$}{Related to micro-event or segment $k$}%
+\nomenclature[Sx]{$(\cdot)_{\xb}$}{Related to reference trajectory $\xb$}%
+\nomenclature[Sn]{$(\cdot)_{n}$}{Scalar or vector in normal direction}%
+\nomenclature[St]{$(\cdot)_{t}$}{Scalar or vector in tangential direction}%
 In this chapter, several modeling approaches for mechanical systems with unilateral constraints and spatial friction are presented. We start by presenting a general representation of mechanical systems. Then, several formulations of contact and friction laws are introduced in the form of complementarity conditions. The complementarity problem formulation is a complete and often used formulation for mechanical systems with unilateral constraints. While it is restrictive in the discontinuities it can model, it is a powerful tool for the control of trajectories with orthogonal constraints. This complementarity formulation is then transformed into a hybrid system formulation, that will be used in this work to define a control strategy for the tracking of trajectories of mechanical systems with unilateral constraints and spatial friction.
 
 \section{General system definition}
@@ -37,26 +37,26 @@ Consider Figure~\ref{fig:contactplanes} showing two bodies. A contact point $\io
 \begin{align}
 \zeta_{n,\iota} = \frac{\partial h_{n,\iota}}{\partial\qb}\frac{\text{d}\qb}{\text{d} t} = \wb_{n,\iota}^T\dot{\qb},
 \end{align}
-\nomenclature[G]{$\iota$}{The contact point counter}%
-\nomenclature[R]{$j$}{Event counter and hybrid time}%
-\nomenclature[R]{$c$}{The number of contact points}%
-\nomenclature[R]{$N$}{The number of events}%
-\nomenclature[R]{$\wb^T_{n,\iota}$}{The normal Jacobian of contact point $\iota$}%
-\nomenclature[R]{$\Wb^T_{t,\iota}$}{The tangential Jacobian of contact point $\iota$}%
-\nomenclature[S]{$(\cdot)_{\text{cl}}$}{The closed-contact mode sub/superscript}%
-\nomenclature[S]{$(\cdot)_{\text{op}}$}{The open-contact mode sub/superscript}%
-\nomenclature[S]{$(\cdot)_{\text{sl}}$}{The slip-contact mode sub/superscript}%
-\nomenclature[S]{$(\cdot)_{\text{st}}$}{The stick-contact mode sub/superscript}%
-\nomenclature[R]{$\Ic$}{A set of contact points}%
-\nomenclature[R]{$\qb$}{The generalized coordinates}%
-\nomenclature[R]{$\xb$}{The state coordinates}%
-\nomenclature[R]{$\ub$}{The input}%
-\nomenclature[G]{$\tau$}{The nominal event time}%
-\nomenclature[R]{$t$}{Regular time}%
-\nomenclature[G]{$\xib$}{The generalized coordinates defined on the continuous segments of a trajectory}%
-\nomenclature[R]{$h_{n,\iota}$}{Contact distance of contact point $\iota$}%
-\nomenclature[G]{$\zeta_{n,\iota}$}{Normal velocity of contact point $\iota$}%
-\nomenclature[G]{$\zetab_{t,\iota}$}{Tangential velocity of contact point $\iota$}%
+\nomenclature[G09]{$\iota$}{The contact point counter}%
+\nomenclature[Rj]{$j$}{Event counter and hybrid time}%
+\nomenclature[Rc]{$c$}{The number of contact points}%
+\nomenclature[RN]{$N$}{The number of events}%
+\nomenclature[Rw]{$\wb^T_{n,\iota}$}{The normal Jacobian of contact point $\iota$}%
+\nomenclature[RW]{$\Wb^T_{t,\iota}$}{The tangential Jacobian of contact point $\iota$}%
+\nomenclature[Scl]{$(\cdot)_{\text{cl}}$}{The closed-contact mode sub/superscript}%
+\nomenclature[Sop]{$(\cdot)_{\text{op}}$}{The open-contact mode sub/superscript}%
+\nomenclature[Ssl]{$(\cdot)_{\text{sl}}$}{The slip-contact mode sub/superscript}%
+\nomenclature[Sst]{$(\cdot)_{\text{st}}$}{The stick-contact mode sub/superscript}%
+\nomenclature[RI]{$\Ic$}{A set of contact points}%
+\nomenclature[Rq]{$\qb$}{The generalized coordinates}%
+\nomenclature[Rx]{$\xb$}{The state coordinates}%
+\nomenclature[Ru]{$\ub$}{The input}%
+\nomenclature[G19]{$\tau$}{The nominal event time}%
+\nomenclature[Rt]{$t$}{Regular time}%
+\nomenclature[G14]{$\xib$}{The generalized coordinates defined on the continuous segments of a trajectory}%
+\nomenclature[Rh]{$h_{n,\iota}$}{Contact distance of contact point $\iota$}%
+\nomenclature[G06]{$\zeta_{n,\iota}$}{Normal velocity of contact point $\iota$}%
+\nomenclature[G06]{$\zetab_{t,\iota}$}{Tangential velocity of contact point $\iota$}%
 with $\wb^T_{n,\iota}\in\Rbb^n$ representing the Jacobian of the normal velocity $\zeta_{n,\iota}$. The relative tangential velocity $\zetab_{t,\iota}\in\Rbb^2$ is defined in the tangent plane of contact point $\iota$. Similar to the normal direction, $h_{t,\iota} = \begin{bmatrix} h_{t_1,\iota} & h_{t_2,\iota} \end{bmatrix}^T$, where $h_{t_1,\iota}$ and $h_{t_2,\iota}$ are the contact distances in $t_1$ direction and $t_2$ direction, respectively. It then follows that the relative tangential  velocity is given by
 \begin{align}
 \zetab_{t,\iota} = \frac{\partial \hb^T_{t,\iota}}{\partial\qb}\frac{\text{d}\qb}{\text{d} t} = \Wb_{t,\iota}^T\dot{\qb},
@@ -73,13 +73,13 @@ Then, the continuous dynamics of a mechanical system with unilateral constraints
 &\text{(Contact Law)},\nonumber\\
 &\text{(Friction Law)},\nonumber
 \end{align}
-\nomenclature[G]{$\lambda_{n,\iota}$}{The normal reaction force of contact point $\iota$}%
-\nomenclature[G]{$\lambdab_{t,\iota}$}{The tangential reaction force of contact point $\iota$}%
-\nomenclature[G]{$\Lambda_{n,\iota}$}{The normal impulsive reaction force of contact point $\iota$}%
-\nomenclature[G]{$\Lambdab_{t,\iota}$}{The tangential impulsive reaction force of contact point $\iota$}%
-\nomenclature[R]{$\Mb$}{The mass matrix}%
-\nomenclature[R]{$\Cb$}{The column containing centripedal, Coriolis and gravitational effects}%
-\nomenclature[R]{$\Sb$}{The matrix containing generalized directions of the actuator forces}%
+\nomenclature[G11]{$\lambda_{n,\iota}$}{The normal reaction force of contact point $\iota$}%
+\nomenclature[G11]{$\lambdab_{t,\iota}$}{The tangential reaction force of contact point $\iota$}%
+\nomenclature[G11]{$\Lambda_{n,\iota}$}{The normal impulsive reaction force of contact point $\iota$}%
+\nomenclature[G11]{$\Lambdab_{t,\iota}$}{The tangential impulsive reaction force of contact point $\iota$}%
+\nomenclature[RM]{$\Mb$}{The mass matrix}%
+\nomenclature[RC]{$\Cb$}{The column containing centripedal, Coriolis and gravitational effects}%
+\nomenclature[RS]{$\Sb$}{The matrix containing generalized directions of the actuator forces}%
 with $\qb,\xib\in\Rbb^{n}$ and $\ub\in\Rbb^m$. In \eqref{eq:appcont1}, $\Mb(\qb)\in\Rbb^{n\times n}$ is the mass matrix of the system, $\Cb(\qb,\xib)\in\Rbb^{n}$ contains the centripetal, Coriolis, and gravitational forces in the system and $\Sb(\qb)\in\Rbb^{n\times m}$ represents the generalized directions of the input forces $\ub$. $\lambda_{n,\iota}\in\Rbb$ and $\lambdab_{t,\iota}\in\Rbb^{2}$ are the normal and tangential reaction forces, respectively, of contact point $\iota$ with $\wb_{n,\iota}\in\Rbb^{n}$ and $\Wb_{t,\iota}\in\Rbb^{n\times 2}$ the corresponding Jacobians. To make the system description in \eqref{eq:appcont1} complete, a contact law and friction law is required. These laws will be discussed in Section~\ref{sec:comp}.
 
 As mentioned above, when a unilateral constraint is activated, impulsive dynamics can cause a jump in the generalized velocity of the system. The impulsive dynamics, derived in \cite[Section 5.4]{Leine2008}, are of the form
@@ -132,8 +132,8 @@ Newton's impact law relates the normal velocities at the contact points after im
 \begin{align}
 \zeta^+_{n,\iota} = -e_{n,\iota}\zeta^-_{n,\iota},\text{ when }h_{n,\iota}=0,\ \dot{h}_{n,\iota}<0.
 \end{align}
-\nomenclature[R]{$e_{n,\iota}$}{The normal restitution coefficient of contact point $\iota$}%
-\nomenclature[R]{$e_{t,\iota}$}{The tangential restitution coefficient of contact point $\iota$}%
+\nomenclature[Ren]{$e_{n,\iota}$}{The normal restitution coefficient of contact point $\iota$}%
+\nomenclature[Ret]{$e_{t,\iota}$}{The tangential restitution coefficient of contact point $\iota$}%
 In this work, the coefficient of restitution $e_{n,\iota}$ is assumed to be $0$ for all $\iota$, corresponding to a completely inelastic impact. For closed contacts, an impact law can be defined that relates the impulsive contact force $\Lambda_{n,\iota}$ to the post-impact normal velocity $\zeta_{n,\iota}$. Considering multi-contact systems, two situations can occur when a contact is closed:
 \begin{enumerate}
 \item $\Lambda_{n,\iota} > 0\ \wedge\ \zeta^+_{n,\iota} = 0$ ($\iota$ participating in impact)
@@ -153,12 +153,12 @@ Coulomb's friction law is often used to model dry friction in mechanical systems
 ||\lambdab_{t,\iota}|| = \mu_{\iota}\lambda_{n,\iota}, &\text{if }||\zetab_{t,\iota}||>0
 \end{array}\right.,\label{eq:frictionlen}
 \end{align}
-\nomenclature[G]{$\mu_{\iota}$}{The friction coefficient of contact point $\iota$}%
+\nomenclature[G12]{$\mu_{\iota}$}{The friction coefficient of contact point $\iota$}%
 with $\mu_{\iota}$ the friction coefficient at contact point $\iota$. Coulomb's friction law is illustrated in Figure~\ref{fig:coulombfriction}. The inclusion \eqref{eq:frictionlen} can be rewritten into
 \begin{align}
 \zetab_{t,\iota} = -\kappa_{\iota}\SgnSp(\lambdab_{t,\iota}),\label{eq:frictiondir}
 \end{align}
-\nomenclature[G]{$\kappa_{\iota}$}{Magnitude of the tangential velocity of contact point $\iota$}%
+\nomenclature[G10]{$\kappa_{\iota}$}{Magnitude of the tangential velocity of contact point $\iota$}%
 with some conditions on $\kappa_{\iota}$ and $\lambdab_{t,\iota}$. The function $\SgnSp(\cdot)$ is given by 
 \begin{equation}
 \SgnSp(a) = \left\lbrace\begin{array}{ll}
@@ -230,7 +230,7 @@ with
 \section{Hybrid system formulation}
 In this section, the dynamics of the complementarity system defined in Section~\ref{sec:comp} is written to a hybrid formulation, resulting in a hybrid framework for mechanical systems with unilateral constraints and spatial friction. In \cite[p. 222]{Acary2008}, event driven numerical methods are presented for mechanical systems with spatial friction. The model presented in this section is suitable for the simulation methods presented in \cite{Acary2008}.
 
-\nomenclature[G]{$\sigma_j$}{The system-mode descriptor of event $j$}%
+\nomenclature[G18]{$\sigma_j$}{The system-mode descriptor of event $j$}%
 \subsection{Hybrid systems with impulsive effects}\label{sec:2hyb}
 According to \cite{Haddad2006}, an impulsive dynamical system can be described by a hybrid system with impulsive effects. This makes it a valid framework for mechanical systems with unilateral constraints and spatial friction. A hybrid system with impulsive effects consists of three elements:
 \begin{enumerate}
@@ -371,7 +371,7 @@ A system will have different flow dynamics as the system mode changes, as can be
 \begin{align}
 \sigma = (\sigma_1,\sigma_2,\dots,\sigma_\iota),
 \end{align}
-\nomenclature[G]{$\sigma$}{The system mode descriptor}
+\nomenclature[G18]{$\sigma$}{The system mode descriptor}
 where $\sigma_\iota$ is the mode of contact point $\iota$. $\sigma_\iota$ can either have the value `op' for a contact point in open-contact, `sl' for a contact point in closed-contact slip, or `st' for a contact point in closed-contact stick. For example, the system mode descriptor of the mode in Figure~\ref{fig:2example2} is $\sigma = (\text{op},\text{sl})$.
 
 \subsection{Discrete event sets}\label{sec:2event}
@@ -382,7 +382,7 @@ For all contact points $\iota\in\Ic_{\text{op}}$, the discrete event sets are de
 \begin{align}
 \mathcal{D}^{\text{op}\rightarrow\text{cl}}_{\iota} &= \{ \xb\ |\ \gamma^{\text{op}\rightarrow\text{cl}}_{\iota} = 0,\ \dot{\gamma}^{\text{op}\rightarrow\text{cl}}_{\iota} < 0 \},\label{eq:2Dopcl}
 \end{align}
-\nomenclature[R]{$\mathcal{D}_j$}{The discrete event set of event $j$}%
+\nomenclature[RD]{$\mathcal{D}_j$}{The discrete event set of event $j$}%
 with
 \begin{align}
 \gamma^{\text{op}\rightarrow\text{cl}}_{\iota} &= h_{n,\iota}(\qb).

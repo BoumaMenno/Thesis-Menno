@@ -42,8 +42,8 @@ It can be guaranteed that there is non-zero time between events, if $\gb_{j+1}(\
 
 Consider now a state trajectory $\xb$ starting from initial condition $\xb(t_0,0,\epsilon)=\xb_0(\epsilon)=\alphab_0+\epsilon \zb_0$ with input $\ub_j(\epsilon)=\mub_j+\epsilon \vb_j$, where $\epsilon$ is an initial state and input perturbation. In this $\zb_0 = \partial\xb_0 / \partial\epsilon$, $\mub_j = \mub(t,j)$ the feedforward corresponding to $\alphab_j$, and $\vb_j = \vb(t,j)$ the feedback. An example of a perturbed trajectory $\xb(\epsilon)$ is shown in Figure~\ref{fig:3perturbedtraj}.
 
-\nomenclature[G]{$\epsilon$}{The scalar perturbation parameter}%
-\nomenclature[S]{$(\cdot)_{\epsilon}$}{A variable dependent on the initial perturbation}%
+\nomenclature[G05]{$\epsilon$}{The scalar perturbation parameter}%
+\nomenclature[S05]{$(\cdot)^{\epsilon}$}{A variable dependent on the initial perturbation}%
 \begin{figure}[h]
 \centering
 \includegraphics[width=.9\textwidth]{perturbedtraj.eps}\caption{A nominal (red) and a perturbed (blue) trajectory of a hybrid system with impulsive effects are depicted in this figure. The nominal and the state trajectory enter the jump sets $D$ at mismatching time instants, as a result from the perturbation in the state trajectory.} \label{fig:3perturbedtraj}
@@ -57,18 +57,18 @@ For the nominal trajectory, the state and input curves are known over the entire
 \end{figure}
 
 In the next section, a different notion of error will be introduced that does not illustrate peaking behavior.
-\nomenclature[G]{$\Delta$}{The linearization of the perturbed event time around zero perturbation}%
-\nomenclature[R]{$o(\cdot)$}{Little-o notation}%
-\nomenclature[R]{$\Gb$}{Positively homogeneous jump gain for the perturbed state direction}%
-\nomenclature[R]{$\Jb$}{Positively homogeneous jump gain for the perturbed input direction}%
-\nomenclature[R]{$D_i(\cdot)$}{The derivative with respect to the $i$th term}%
+\nomenclature[GD]{$\Delta$}{The linearization of the perturbed event time around zero perturbation}%
+\nomenclature[Ro]{$o(\cdot)$}{Landau's symbol little-o}%
+\nomenclature[RG]{$\Gb$}{Positively homogeneous jump gain for the perturbed state direction}%
+\nomenclature[RJ]{$\Jb$}{Positively homogeneous jump gain for the perturbed input direction}%
+\nomenclature[RD]{$D_i(\cdot)$}{The derivative with respect to the $i$th term}%
 
 \subsection{Reference-spreading}
 To avoid peaking behavior in the tracking error, in \cite{Saccon2014} a methodology is presented which is named reference spreading in \cite{Rijnen2016}. In reference spreading a novel notion of error is introduced, called the \textit{reference spreading error} (RS error). The methodology uses reference trajectories which are extended beyond event-times, such that an ante-event state trajectory can always be compared to an ante-event reference trajectory and a post-event state trajectory can always be compared to a post-event reference trajectory. This is illustrated in Figure~\ref{fig:3refspread}, where the reference trajectory $\alphab_j$ is extended resulting in $\bar{\alphab}_j$. The extension is made by forward integrating the vector field $\fb_j$ beyond $\tau_{j+1}$ and backward integrating $\fb_j$ before $\tau_j$, for all $j\in\{0,1,\dots,N\}$. Adopting the notation of \cite{Goebel2009}, the hybrid domain of $\alphab$ is defined by segments $I_j^{\alphab} = [\tau_j,\tau_{j+1}]$, which together form the entire domain of $\alphab$ as
 \begin{align}
 \dom\alphab = \bigcup^N_{j=0}I^{\alphab}_j\times\{j\}.
 \end{align}
-\nomenclature[R]{$I$}{Domain of a segment}%
+\nomenclature[RI]{$I$}{Domain of a segment}%
 Similarly the state segments $\xb_j$ are defined on the time intervals $I_j^\xb = [t_j,t_{j+1}]$ with the entire domain defined as
 \begin{align}
 \dom\xb = \bigcup^N_{j=0}I^{\xb}_j\times\{j\}.
@@ -315,7 +315,7 @@ j(i,k) = k + \sum_{\kappa=1}^{i}l_\kappa,
 \end{align}
 with $l_\kappa$ the number of micro events in macro event $\kappa$. The perturbed event times of micro events are denoted by $t^k_i$, i.e., the event time of the $k^{\text{th}}$ micro event of macro event $i$. A set of guard function indexes $\eta$ is introduced to identify the several guard functions that are involved with an event. A guard function that is inactive is a guard function that is associated to a transition, but not yet activated. The index set of inactive guard functions is defined as
 \begin{align}
-\big\{\eta = 2^{\nu}\ |\ \nu\in\{0,1,\dots,c_i\}\big\}.
+\big\{\eta = 2^{\nu}\ |\ \nu\in\{0,1,\dots,c_i\}\big\}.\label{eq:4eta}
 \end{align}
 $\eta$ is written in the binary numeral system for a more intuitive notation of the different guard functions. The inactive guard functions can then be denoted as $\gamma^\eta$. Note that
 \begin{align}
@@ -358,7 +358,7 @@ where all mode descriptor entries are defined as $s^{\kappa} = s^{\kappa-1} + \e
 \begin{align}
 \ls^{23(14)}S^3 = 1111 \leftarrow 1101 \leftarrow 1001 \leftarrow 0000.
 \end{align}
-\nomenclature[G]{$\kappa$}{Historical notation counter}%
+\nomenclature[G10]{$\kappa$}{Historical notation counter}%
 With the notation for trajectories experiencing simultaneous guard activations in place, reference spreading for such activations is presented in the next section.
 
 \subsection{Reference-spreading for simultaneous events}
@@ -383,7 +383,9 @@ Using Assumption~\ref{ass:associativity}, the phantom modes can be defined. All 
 \ls^{s_i^{k}}\alphab =\ls^{s_i^k\leftarrow s_i^{k-1}}\gb(\ls^{s_i^{k-1}}\alphab,\ls^{s_i^{k-1}}\mub,\tau_i),
 \end{array}\label{eq:4phantomini}
 \end{equation}
-resulting in the reference trajectory being defined in all modes that exist in the state trajectory. Based on physical realization of the input, we limit ourselves to two options of the feedforward term $\ls^{S^k_i}\bar{\mub}(t)$. We define \textit{withdrawing phantom modes} and \textit{pushing phantom modes}, which are defined by the feedforwards
+resulting in the reference trajectory being defined in all modes that exist in the state trajectory. The analysis presented in \cite{Rijnen2017} uses guard functions and jump maps that depend on the state $\xb$ and time $t$. As mentioned in Section~\ref{sec:3sens}, the sensitivity analysis in \cite{Rijnen2017} is extended to be suitable for input-dependent guards. In \eqref{eq:4phantomini}, another contribution is made, in the sense that also the jump maps $\gb$ are input-dependent. The sensitivity analysis in this work is therefore suitable for both input-dependent guards and input-dependent jump maps. 
+
+Based on physical realization of the input, we limit ourselves to two options of the feedforward term $\ls^{S^k_i}\bar{\mub}(t)$. We define \textit{withdrawing phantom modes} and \textit{pushing phantom modes}, which are defined by the feedforwards
 \begin{equation}
 \ls^{S^k_i}_{\nearrow}\bar{\mub}(t) := \left\lbrace\begin{array}{ll}
 \bar{\mub}_{i-1}(t), & k = 0\\
@@ -405,17 +407,17 @@ Since the micro segments of the state trajectory are defined over a time-interva
 \includegraphics[width=.9\textwidth]{simulmicro.eps}\caption{The state evolution of the reference trajectory and state trajectory. The reference trajectory is enriched with phantom segments, to which the micro segments of the state trajectory can be compared.}\label{fig:4simulmicro}
 \end{figure}
 
-\nomenclature[R]{$i$}{The macro event counter}%
-\nomenclature[R]{$k$}{The micro event counter}%
-\nomenclature[R]{$c_i$}{The event-character of macro event $i$}%
-\nomenclature[R]{$l_\kappa$}{The number of simultaneous activations of macro event $\kappa$}%
-\nomenclature[R]{$s^k_i$}{The event-mode descriptor of macro event $i$ and micro event $k$}%
-\nomenclature[r]{$S^k_i$}{The historical notation of macro event $i$ from micro event $0$ up to $k$}%
-\nomenclature[G]{$\eta$}{The set of indexes of inactive guards}%
-\nomenclature[R]{$t_i^k$}{The perturbed event time of micro event $k$ in macro event $i$}%
+\nomenclature[Ri]{$i$}{The macro event counter}%
+\nomenclature[Rk]{$k$}{The micro event counter}%
+\nomenclature[Rc]{$c_i$}{The event-character of macro event $i$}%
+\nomenclature[Rl]{$l_\kappa$}{The number of simultaneous activations of macro event $\kappa$}%
+\nomenclature[Rs]{$s^k_i$}{The event-mode descriptor of macro event $i$ and micro event $k$}%
+\nomenclature[RS]{$S^k_i$}{The historical notation of macro event $i$ from micro event $0$ up to $k$}%
+\nomenclature[G07]{$\eta$}{The set of indexes of inactive guards}%
+\nomenclature[Rt]{$t_i^k$}{The perturbed event time of micro event $k$ in macro event $i$}%
 
 \section{First-order approximation for trajectories with simultaneous guard-activation}
-Using the notation presented in Section~\ref{sec:4not}, a first-order approximation of the NSITHS will be derived for trajectories with simultaneous activations. First, a sensitivity analysis is presented for a simultaneous event with character 2. The result is used to define a jump gain that approximates the behavior of a simultaneous event with an arbitrary event-character, which holds for a particular sequence of events. Since multiple sequences of events are feasible in a simultaneous event, multiple jump gains can be associated with such an event. These jump gains are used to define the positively homogeneous jump gain, which is a state and input dependent jump gain that describes the jumping behavior of the state near $\alphab,\mub$. Finally, the PTTHS is formally defined, which is a first-order approximation of the NSITHS near the reference trajectory.
+Using the notation presented in Section~\ref{sec:4not}, a first-order approximation of the NSITHS will be derived for trajectories with simultaneous activations. First, a sensitivity analysis is presented for a simultaneous event with character 2. The result is used to define a jump gain that approximates the behavior of a simultaneous event with an arbitrary event-character, which holds for a particular sequence of events. Since multiple sequences of events are feasible in a simultaneous event, multiple jump gains can be associated with such an event. These jump gains are used to define a positively homogeneous jump gain, which is a state and input dependent jump gain that describes the jumping behavior of the state near $\alphab,\mub$. Finally, the PTTHS is formally defined, which is a first-order approximation of the NSITHS near the reference trajectory.
 \subsection{Sensitivity analysis for simultaneous guard-activation}
 Similar to the sensitivity analysis for trajectories with isolated events presented in Section~\ref{sec:3sens}, the continuous macro segments ($k=0$) of the state trajectory can be approximated as
 \begin{align}
@@ -477,10 +479,16 @@ respectively. This implies that the first-order approximation of the post-impact
 \end{align}
 where $\ls^{p\leftarrow a}\Gb$ and $\ls^{p\leftarrow a}\Jb$ are defined as
 \begin{align}
-\ls^{p\leftarrow a}\Gb &:= \ls^{p}\Gb\ ^{p-1}\Gb\cdots\ls^{a}\Gb,\\
-\ls^{p\leftarrow a}\Jb &:= \ls^{p}\Jb\ ^{p-1}\Jb\cdots\ls^{a}\Jb,
+\ls^{p\leftarrow a}\Gb &:= \ls^{p}\Gb\ \ls^{p-1}\Gb\cdots\ls^{a}\Gb,\\
+\ls^{p\leftarrow a}\Jb &:= \ls^{p}\Jb\ \ls^{p-1}\Jb\cdots\ls^{a}\Jb,
 \end{align}
-for a sequence $p\leftarrow p-1 \leftarrow \cdots \leftarrow a$, with slight abuse of notation, in the sense that $p-1$ indicates the mode descriptor associated to the mode before $p$. When $\vb$ is considered a feedback term that is turned off when the first micro event is detected, then the first-order approximation of the post-event state perturbation can be simplified to
+for a sequence $p\leftarrow p-1 \leftarrow \cdots \leftarrow a$, with slight abuse of notation, in the sense that $p-1$ indicates the mode descriptor associated to the mode before $p$. Note that the approximation of the post-event state \eqref{eq:4ljumps} shares an algebraic similarity with the impulse response of linear discrete time systems. With $\xb_d(t)$ the state, $\ub_d(t)$ the input, and $\yb_d(t)$ the output of a discrete system, the discrete impulse response is in the form of
+\begin{align}
+\yb_d(t) = \Cb\xb_d(0) + \sum_{j=0}^t\Db(j)\ub_d(t-j),
+\end{align}
+where $\yb_d(t) :=  \yb_d(\xb_d(0),\ub(t),t)$, and $\Cb$ and $\Db$ some matrices defined by the discrete systems dynamics \cite{Hespanha2009}. Note that, similar to the discrete impulse response $\yb_d$, the post-event perturbation $\ls^{S^k}\zb$ is also dependent on the ante-event state perturbation $\ls^{s^0}\zb$, the entire evolution of the input $\ub$, and the time $t$, i.e., $\ls^{S^k}\zb(\tau) := \ls^{S^k}\zb(\ls^{s^0}\zb,\vb,\tau)$.
+
+When $\vb$ is considered a feedback term that is turned off when the first micro event is detected, then the first-order approximation of the post-event state perturbation can be simplified to
 \begin{align}
 \ls^{S^k}\zb(\tau) &= \ls^{S^k}\Lb \begin{bmatrix}
 \ls^{s^0}\zb(\tau) \\ \ls^{s^0}\vb(\tau)
@@ -493,11 +501,11 @@ since only the ante-event feedback term will be non-zero. The jump gain $\ls^{S^
 Note that the description of the jump gain given in \eqref{eq:4ljumpssimp} is less complicated than jump gain \eqref{eq:4ljumps} for a micro event where feedback is nonzero. Since the micro events usually happen too rapidly to control on, feedback is often turned of when micro events are taking place. Therefore, only situations with zero feedback during micro events are considered in this work. Under these considerations the jump gain in \eqref{eq:4ljumpssimp} is used from here on to define $\ls^{S^k}\Lb$.
 
 \subsection{The positively homogeneous jump map}
-As mentioned in Section~\ref{sec:simguards}, an event with simultaneous guard activation will experience loss of simultaneity when perturbations are introduced. Due to the loss of simultaneity, the order of events is unknown. For that reason, one simultaneous event has several feasible event sequences associated with it. For there to be a finite amount of possibilities of event sequences, all sequences should be growing. A graph of growing mode sequences is illustrated for a character-3 event ($c=3$) in Figure~\ref{fig:4growingseq}, where the nodes represent the possible system modes and the edges represent the possible transitions. When the mode sequences are growing, the edges are unidirectional. Therefore a finite number of paths can be found to the post-event mode described by $s = 111$. When the mode sequences are not growing, the edges are bidirectional. One can then travel both ways over each edge, resulting in an infinite number of possible mode sequences.
+As mentioned in Section~\ref{sec:simguards}, an event with simultaneous guard activation will experience loss of simultaneity when perturbations are introduced. Due to the loss of simultaneity, the order of events is unknown. For that reason, one simultaneous event has several feasible event sequences associated with it. For there to be a finite amount of possibilities of event sequences, all sequences should be growing. A graph of growing mode sequences is illustrated for a character-3 event ($c=3$) in Figure~\ref{fig:4growingseq}, where the nodes represent the possible system modes and the edges represent the possible transitions. When the mode sequences are growing, the edges are unidirectional. Therefore a finite number of paths can be found from the ante-event mode described by $s = 000$ to the post-event mode described by $s = 111$. When the mode sequences are not growing, the edges are bidirectional. One can then travel both ways over each edge, resulting in an infinite number of possible mode sequences.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.4\textwidth]{4growingseq.eps}\caption{An example of the possible modes in a character-3 event ($c=3$)  illustrated with a graph. When the mode sequences are growing, the edges between the modes are unidirectional, resulting in a finite amount of paths to the post-event mode described by $s = 111$.}\label{fig:4growingseq}
+\includegraphics[width=.35\textwidth]{4growingseq.eps}\caption{An example of the possible modes in a character-3 event ($c=3$)  illustrated with a graph. When the mode sequences are growing, the edges between the modes are unidirectional, resulting in a finite amount of paths to the post-event mode described by $s = 111$.}\label{fig:4growingseq}
 \end{figure}
 
 To be able to define a jump map, only a finite number of sequences can be considered. Therefore, an assumption is posed that the mode sequences should be growing.
@@ -536,44 +544,43 @@ From the mode selection we can conclude that the post-event acceleration $\ddot{
 A state-dependent jump gain for all possible mode sequences associated to a simultaneous event will be defined in the following. This jump gain should consider all growing sequences that can take place for that range of perturbations. Therefore, a state-dependent matrix gain is defined, in the form of
 \begin{align}
 \ls^{p \leftarrow a}\Hb(\ls^{a}\zb(\tau),\ls^{a}\vb(\tau),\tau) = \left\lbrace\begin{array}{ll}
-\Lb^1(\ls^{s^0}\zb,\ls^{s^0}\vb,\tau), & \text{if condition 1 is true},\\
-\Lb^2(\ls^{s^0}\zb,\ls^{s^0}\vb,\tau), & \text{if condition 2 is true},\\
+\Hb^1(\ls^{s^0}\zb,\ls^{s^0}\vb,\tau), & \text{if condition 1 is true},\\
+\Hb^2(\ls^{s^0}\zb,\ls^{s^0}\vb,\tau), & \text{if condition 2 is true},\\
 \vdots & \vdots\\
-\Lb^{r}(\ls^{s^0}\zb,\ls^{s^0}\vb,\tau), & \text{if condition }r\text{ is true},
+\Hb^{r}(\ls^{s^0}\zb,\ls^{s^0}\vb,\tau), & \text{if condition }r\text{ is true},
 \end{array}\right.\label{eq:4Hgeneral}
 \end{align}
-where $\Lb$ is in the form of \eqref{eq:4ljumpssimp} and $r$ the number of possible mode sequences in a macro event. We will now derive the jump maps and associated conditions in \eqref{eq:4Hgeneral} to obtain an explicit expression. Note that the several jump gains $\Lb$ in \eqref{eq:4Hgeneral} all coincide with a particular sequence of events.
+where $r$ the number of possible mode sequences in a macro event. The jump map $\Hb$ is presented later in this section for a character-2 event ($c=2$). While it is possible to construct a straightforward algorithm that defines $\Hb$ for any character $c$, this is left as future work. We will now derive the jump maps and associated conditions in \eqref{eq:4Hgeneral} to obtain an explicit expression. Note that the several jump gains $\Hb$ in \eqref{eq:4Hgeneral} all coincide with a particular sequence of events.
 
-For a certain perturbation, only a specific order of micro events is feasible. This order can be found by determining the perturbed jump time of all possible micro events, and selecting the micro event with the earliest impact time as the next event. Mathematically, this is written as
+For a certain perturbation, only a specific order of micro events is feasible. This order can be found by determining the perturbed jump time of all possible micro events, and selecting the micro event with the earliest impact time as the next event. Defining the set mode descriptors related to all possible post-event modes $\mathcal{S} := \left\{ s^+ = s^- + \eta_+ \ |\ \eta_+\in \eta \right\}$, the mode descriptor of the next mode can be written as
+\nomenclature[GS]{$\mathcal{S}$}{The set of mode descriptors related to all possible post-event modes}%
 \begin{align}
-s^{k+1} = \underset{s^{k+1}}{\argmin}\left(\ ^{s^{k+1} \leftarrow S^{k}}t^\epsilon\right).\label{eq:4argmin1}
+s^{k+1} = \underset{s^{\ast}}{\argmin}\left\{\ls^{s^{\ast} \leftarrow S^{k}}t^\epsilon\ |\ s^{\ast}\in\mathcal{S}\right\}.\label{eq:4argmin1}
 \end{align}
-The perturbed event-time of the next micro event $\ ^{s^{k+1} \leftarrow S^{k}}t^\epsilon$ can be approximated at first order as
+The perturbed event-time of the next micro event $\ls^{s^{k+1} \leftarrow S^{k}}t^\epsilon$ can be approximated at first order as
 \begin{align}
-\ls^{s^{k+1} \leftarrow S^{k}}t^\epsilon = \tau + \epsilon\Delta^{k+1} + i(\epsilon).
+\ls^{s^{k+1} \leftarrow S^{k}}t^\epsilon = \tau + \epsilon\Delta^{k+1} + o(\epsilon).
 \end{align}
-
-Since $\tau$ and $\epsilon$ are equal for each impact time, we can rewrite \eqref{eq:4argmin1} to
-
+Since the minimization of the impact-time does not depend on $\tau$ and $\epsilon$, we can rewrite \eqref{eq:4argmin1} to
 \begin{align}
-s^{k+1} = \underset{s^{k+1}}{\argmin}\left(\Delta^{k+1}\right),
+s^{k+1} = \underset{s^{\ast}}{\argmin}\left\{\Delta^{k+1}\ |\ s^{\ast}\in\mathcal{S}\right\},
 \end{align}
 which can be written as
 \begin{align}
-s^{k+1} = s^k + \underset{\eta^*}{\argmin}\left(-\frac{D_1\gamma^{\eta^*}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau)\cdot\ls^{S^k}\zb + D_2\gamma^{\eta^*}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau)\cdot\ls^{S^k}\vb}{\dot{\gamma}^{\eta^*}}\right),
+s^{k+1} = s^k + \eta_{k+1},
 \end{align}
-with $\eta$ the set of guard identifiers that are still open and $\eta^*$ the indexes of the guard functions in $\eta$. Then
+with 
 \begin{align}
-\eta^{k+1} = \underset{\eta^*}{\argmin}\left(-\frac{D_1\gamma^{\eta^*}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau)\cdot\ls^{S^k}\zb + D_2\gamma^{\eta^*}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau)\cdot\ls^{S^k}\vb}{\dot{\gamma}^{\eta^*}}\right),\label{eq:4argmin2}
+\eta_{k+1} = \underset{\eta^\ast}{\argmin}\left\{-\frac{D_1\gamma^{\eta^\ast}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau)\cdot\ls^{S^k}\zb + D_2\gamma^{\eta^\ast}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau)\cdot\ls^{S^k}\vb}{\dot{\gamma}^{\eta^\ast}}\ \big|\ \eta^{\ast}\in\eta\right\}.\label{eq:4argmin2}
 \end{align}
-with $s^{k+1} = s^k + \eta^{k+1}$ and $\eta^{k+1}$ the index of the guard function the will be activated during event $k+1$. Finally, with
+Here $\eta$ is the index set of inactive guard functions as defined in \eqref{eq:4eta} and $\eta_{k+1}$ is the identifier of the guard that is activated during micro event $k+1$. Finally, with
 \begin{align*}
-\ls^{S^k}\ab &:= -\frac{1}{\dot{\gamma}^{\eta^k}}D_1\gamma^{\eta^k}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau),\\
-\ls^{S^k}\bb &:= -\frac{1}{\dot{\gamma}^{\eta^k}}D_2\gamma^{\eta^k}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau),
+\ls^{S^k}\ab &:= -\frac{1}{\dot{\gamma}^{\eta_k}}D_1\gamma^{\eta_k}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau),\\
+\ls^{S^k}\bb &:= -\frac{1}{\dot{\gamma}^{\eta_k}}D_2\gamma^{\eta_k}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau),
 \end{align*}
 \eqref{eq:4argmin2} can be rewritten as
 \begin{align}
-\eta^{k+1} = \underset{\eta^*}{\argmin}\left(\ls^{S^k}\ab^T\ \ls^{S^k}\zb +\ls^{S^k}\bb^T\ \ls^{S^k}\vb\right).
+\eta_{k+1} = \underset{\eta^*}{\argmin}\left(\ls^{S^k}\ab^T\ \ls^{S^k}\zb +\ls^{S^k}\bb^T\ \ls^{S^k}\vb\right).
 \end{align}
 By checking \eqref{eq:4argmin2} for every micro event, we know which jump gains we should take to substitute into \eqref{eq:4ljumps}.
 For example a system with $c_i = 2$, $\ls^{s^1}\vb=\ls^{s^2}\vb=\dots=\ls^{s^l}\vb=0$, and with a macro event starting in $s^0 = 00$ and ending in $s^l = 11$, this gives 
@@ -603,11 +610,11 @@ for all $a>0$.
 \end{mydef}
 \end{sloppypar}
 
-The conditions that decide which jump gain to use are illustrated in Figure~\ref{fig:4cone}. Since the conditions are linear in $\zb$ and $\vb$, they appear as lines in the state space of $\zb$ and $\vb$. When we introduce more conditions, we will find several cones that relate a certain jump gain to a $\zb,\vb$ pair. When we look at the vector $r(\zb,\vb)$ in Figure~\ref{fig:4cone}, it can be noticed that when $\rb$ is multiplied with a positive constant $a$, the same jump gain is applied. Therefore, the positively homogeneous jump gain \eqref{eq:4H2200} is positively homogeneous of order zero.
+The conditions that decide which jump gain to use are illustrated in Figure~\ref{fig:4cone}. Since the conditions are linear in $\zb$ and $\vb$, they appear as lines in the state space of $\zb$ and $\vb$. When we introduce more conditions, we will find several cones that relate a certain jump gain to a $\zb,\vb$ pair. When we look at the vector $\rb(\zb,\vb)$ in Figure~\ref{fig:4cone}, it can be noticed that when $\rb$ is multiplied with a positive constant $a$, the same jump gain is applied. Therefore, the positively homogeneous jump gain \eqref{eq:4H2200} is positively homogeneous of order zero.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.5\textwidth]{4cone.eps}\caption{An illustration of the positive homogeneity of order zero attribute of the positively homogeneous jump gain. The areas \textnormal{(I)}, \textnormal{(II)}, and \textnormal{(III)} coincide with the conditions in \eqref{eq:4conds}.}\label{fig:4cone}
+\includegraphics[width=.5\textwidth]{4cone.eps}\caption{An illustration of the conditions in \eqref{eq:4conds}, and how they result in a order zero positively homogeneous jump gain. The areas \textnormal{(I)}, \textnormal{(II)}, and \textnormal{(III)} coincide with the conditions \textnormal{(I)}, \textnormal{(II)}, and \textnormal{(III)} in \eqref{eq:4conds}.}\label{fig:4cone}
 \end{figure}
 
 %\begin{figure}[h!]
@@ -692,13 +699,13 @@ where the $\rightarrow$ left subscript should be interpreted as $\searrow$ or $\
 \end{mydef}
 \end{sloppypar}
 
-\nomenclature[R]{$\Hb$}{The positively homogeneous jump gain}%
-\nomenclature[R]{$\zb$}{The state perturbation}%
-\nomenclature[R]{$\vb$}{The input perturbation}%
-\nomenclature[R]{$\Ab$}{Linear state matrix}%
-\nomenclature[R]{$\Bb$}{Linear input matrix}%
+\nomenclature[RH]{$\Hb$}{The positively homogeneous jump gain}%
+\nomenclature[Rz]{$\zb$}{The state perturbation}%
+\nomenclature[Rv]{$\vb$}{The input perturbation}%
+\nomenclature[RA]{$\Ab$}{Linear state matrix}%
+\nomenclature[RB]{$\Bb$}{Linear input matrix}%
 \nomenclature[A]{PTTHS}{Positively homogeneous Time-Triggered Hybrid System}%
 
 \section{Summary}
-A first order approximation for nonlinear state-and-input-triggered systems with input-dependent guard experiencing simultaneous impacts is presented. Simultaneous guard activations are introduced and the adopted notation required to deal with such activations is presented and elaborated. Assumptions on the reference trajectory are presented, which reduce the complexity of the problem while maintaining practical usability. Then, reference spreading is extended to transitions with simultaneous events. After that, a sensitivity analysis is performed, to find a first-order approximation of the behavior of the NSITHS near $\alphab,\mub$, where so-called loss of simultaneity occurs. A state-and-input dependent jump gain, called the positively homogeneous jump gain, is used to define the positively homogeneous time-triggered hybrid system. This positively homogeneous hybrid system is expected to be suitable for assessing the local asymptotic stability of a nonlinear state-and-input triggered hybrid system with simultaneous guard activations.
+A first order approximation for nonlinear state-and-input-triggered systems with input-dependent guard experiencing simultaneous impacts is presented. Simultaneous guard activations are introduced and the adopted notation required to deal with such activations is presented and elaborated. Assumptions on the reference trajectory are presented, which reduce the complexity of the problem while maintaining practical usability. Then, reference spreading is extended to transitions with simultaneous events. After that, a sensitivity analysis is presented, to find a first-order approximation of the behavior of the NSITHS near $\alphab,\mub$, where so-called loss of simultaneity occurs. A state-and-input dependent jump gain, called the positively homogeneous jump gain, is used to define the positively homogeneous time-triggered hybrid system. This positively homogeneous hybrid system is expected to be suitable for assessing the local asymptotic stability of a nonlinear state-and-input triggered hybrid system with simultaneous guard activations.
 \end{document}
