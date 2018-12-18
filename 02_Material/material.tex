@@ -31,7 +31,7 @@
 In this chapter, several modeling approaches for mechanical systems with unilateral constraints and spatial friction are presented. We start by presenting a general representation of mechanical systems. Then, several formulations of contact and friction laws are introduced in the form of complementarity conditions. The complementarity problem formulation is a complete and often used formulation for mechanical systems with unilateral constraints. While it is restrictive in the discontinuities it can model, it is a powerful tool for the control of trajectories with orthogonal constraints. This complementarity formulation is then transformed into a hybrid system formulation, that will be used in this work to define a control strategy for the tracking of trajectories of mechanical systems with unilateral constraints and spatial friction.
 
 \section{General system definition}
-When a unilateral constraint is activated, the differential equation that describes the dynamics of the system can change. The state even goes through a reinitialization when the constraint is activated with non-zero velocity. Two bodies already in contact can also experience changes in their dynamics, as a result from the friction between these bodies. This behavior can be described by dynamics consisting of a continuous part and a discrete part; the continuous part describes the flow of the state, and the discrete part describes the reinitialization of the state. The occurrence of a change in differential equation and a possible state reinitialization are referred to as \textit{events}. To be able to detect when the system goes through a such an event, contact points are defined on the bodies. These contact points can activate and deactivate unilateral constraints, which corresponds with opening and closing contact with another body. A contact point that has activated a unilateral constraint can transition between stick and slip. A contact point in stick has a tangential relative velocity of zero, whereas a contact point in stick has a nonzero tangential relative velocity. The \textit{mode} of the contact point is defined. The mode determines if a contact point is in contact or not, and if it is in stick or slip when the contact point is in contact. Using these contact points, a method is presented to model mechanical systems with unilateral constraints and spatial friction. Let us now consider a mechanical system whose current configuration is described by the generalized coordinates $\qb\in\mathbb{R}^n$ and whose generalized velocity is denoted $\xib\in\mathbb{R}^n$ with $\xib=\dot{\qb}$ almost everywhere. The configuration space of the system is restricted using $c$ unilateral constraints for modeling contact, using the set of contact points $\mathcal{I}=\{\iota_1,\iota_2,\dots,\iota_c\}$. The set $\Ic_{\text{cl}}$ is defined as the set of $c_{\text{cl}}$ closed contact points, i.e., for a contact $\iota\in\Ic_{\text{cl}}$ the corresponding unilateral constraint is active. The set of potential contact points for which this geometric constraint is inactive, or open contact points, we define as $\Ic_{\text{op}} := \{\iota\ |\ \iota\notin\Ic_{\text{cl}}\}$. Note that in a physics-based engine the set $\Ic_{\text{op}}$ is often undefined, because not all contact points are tracked. Only the contact points generating reaction forces are tracked. The set $\Ic_{\text{op}}$ is only defined for convenience when the mode of the system is discussed. When a unilateral constraint is activated at a nonzero relative velocity, impact happens. For the unilateral constraint not to be violated, a jump in the velocity has to occur. These impact-times are denoted $\tau^j$. $j\in \{1,2,\dots,N\}$ is a counter for unilateral constraint activations, with $N$ the number of jumps in a trajectory.
+When a unilateral constraint is activated, the differential equation that describes the dynamics of the system can change. The state even goes through a reinitialization when the constraint is activated with non-zero velocity. Two bodies already in contact can also experience changes in their dynamics, as a result from the friction between these bodies. This behavior can be described by dynamics consisting of a continuous part and a discrete part; the continuous part describes the flow of the state, and the discrete part describes the reinitialization of the state. The occurrence of a change in differential equation and a possible state reinitialization are referred to as \textit{events}. To be able to detect when the system goes through a such an event, contact points are defined on the bodies. These contact points can activate and deactivate unilateral constraints, which corresponds with opening and closing contact with another body. A contact point that has activated a unilateral constraint can transition between stick and slip. A contact point in stick has a tangential relative velocity of zero, whereas a contact point in stick has a nonzero tangential relative velocity. The \textit{mode} of the contact point is defined. The mode determines if a contact point is in contact or not, and if it is in stick or slip when the contact point is in contact. Using these contact points, a method is presented to model mechanical systems with unilateral constraints and spatial friction. Let us now consider a mechanical system whose current configuration is described by the generalized coordinates $\qb\in\mathbb{R}^n$ and whose generalized velocity is denoted $\xib\in\mathbb{R}^n$ with $\xib=\dot{\qb}$ almost everywhere. The configuration space of the system is restricted using $c$ unilateral constraints for modeling contact, using the set of contact points $\mathcal{I}=\{\iota_1,\iota_2,\dots,\iota_c\}$. The set $\Ic_{\text{cl}}$ is defined as the set of $c_{\text{cl}}$ closed contact points, i.e., for a contact $\iota\in\Ic_{\text{cl}}$ the corresponding unilateral constraint is active. The set of potential contact points for which this geometric constraint is inactive, or open contact points, we define as $\Ic_{\text{op}} := \{\iota\ |\ \iota\notin\Ic_{\text{cl}}\}$. Note that in a physics-based engine the set $\Ic_{\text{op}}$ is often undefined, because not all contact points are tracked. Only the contact points generating reaction forces are tracked. The set $\Ic_{\text{op}}$ is only defined for convenience when the mode of the system is discussed. When a unilateral constraint is activated at a nonzero relative velocity, impact happens. For the unilateral constraint not to be violated, a jump in the velocity has to occur. These impact-times are denoted $\tau^j$, where $j\in \{1,2,\dots,N\}$ is a counter for unilateral constraint activations, with $N$ the number of jumps in a trajectory.
 
 Consider Figure~\ref{fig:contactplanes} showing two bodies. A contact point $\iota$ is defined on one of the bodies, at which a plane tangent to the surface of the body is spanned. In the direction normal to this plane, the contact distance $h_{n,\iota}(\qb)$ is defined. The contact distance is the minimal distance between the contact point and the surface that it can make contact with. For the relative normal velocity $\zeta_{n,\iota}\in\Rbb$ of contact point $\iota$ follows that
 \begin{align}
@@ -80,7 +80,7 @@ Then, the continuous dynamics of a mechanical system with unilateral constraints
 \nomenclature[RM]{$\Mb$}{The mass matrix}%
 \nomenclature[RC]{$\Cb$}{The column containing centripedal, Coriolis and gravitational effects}%
 \nomenclature[RS]{$\Sb$}{The matrix containing generalized directions of the actuator forces}%
-with $\qb,\xib\in\Rbb^{n}$ and $\ub\in\Rbb^m$. In \eqref{eq:appcont1}, $\Mb(\qb)\in\Rbb^{n\times n}$ is the mass matrix of the system, $\Cb(\qb,\xib)\in\Rbb^{n}$ contains the centripetal, Coriolis, and gravitational forces in the system and $\Sb(\qb)\in\Rbb^{n\times m}$ represents the generalized directions of the input forces $\ub$. $\lambda_{n,\iota}\in\Rbb$ and $\lambdab_{t,\iota}\in\Rbb^{2}$ are the normal and tangential reaction forces, respectively, of contact point $\iota$ with $\wb_{n,\iota}\in\Rbb^{n}$ and $\Wb_{t,\iota}\in\Rbb^{n\times 2}$ the corresponding Jacobians. To make the system description in \eqref{eq:appcont1} complete, a contact law and friction law is required. These laws will be discussed in Section~\ref{sec:comp}.
+with $\qb,\xib\in\Rbb^{n}$ and $\ub\in\Rbb^m$. In \eqref{eq:appcont1}, $\Mb(\qb)\in\Rbb^{n\times n}$ is the mass matrix of the system, $\Cb(\qb,\xib)\in\Rbb^{n}$ contains the centripetal, Coriolis, stiffness and damping related forces, and gravitational forces in the system and $\Sb(\qb)\in\Rbb^{n\times m}$ represents the generalized directions of the input forces $\ub$. $\lambda_{n,\iota}\in\Rbb$ and $\lambdab_{t,\iota}\in\Rbb^{2}$ are the normal and tangential reaction forces, respectively, of contact point $\iota$ with $\wb_{n,\iota}\in\Rbb^{n}$ and $\Wb_{t,\iota}\in\Rbb^{n\times 2}$ the corresponding Jacobians. To make the system description in \eqref{eq:appcont1} complete, a contact law and friction law is required. These laws will be discussed in Section~\ref{sec:comp}.
 
 As mentioned above, when a unilateral constraint is activated, impulsive dynamics can cause a jump in the generalized velocity of the system. The impulsive dynamics, derived in \cite[Section 5.4]{Leine2008}, are of the form
 
@@ -91,8 +91,8 @@ As mentioned above, when a unilateral constraint is activated, impulsive dynamic
 \end{align}
 with $\Lambda_{n,\iota}$ and $\Lambdab_{t,\iota}$ the normal and tangential impulsive reaction forces, respectively, of contact point $\iota$. These dynamics are impulsive, and happen at one instance in time. In \eqref{eq:appimp1}, $\xib^-$ and $\xib^+$ denote the left, respectively the right limit of the generalized velocity $\xib$ at the time of impact $\tau^j$. The expression moreover states that, similarly to the continuous dynamics \eqref{eq:appcont1}, constitutive laws for contact and friction are required. These will be discussed in the following. First a complementarity problem formulation of mechanical systems with unilateral constraints is given, from which later a proximal point formulation and a hybrid system formulation are derived. For more information on modeling of multibody systems, the reader is referred to \cite{Leine2008} and \cite{Wouw2016}.
 
-\section{Complementarity problem formulation}\label{sec:comp}
-Mechanical systems with unilateral constraints can conveniently be described using so-called complementarity constraints. Particularly impacts and frictional effects are often described using these complementarity constraints, introducing a nonsmoothness into the mechanical system. In this section, the contact and friction laws required to describe a mechanical system with unilateral constraints and spatial friction are presented in a complementarity fashion. First, the contact case is handled in Section~\ref{sec:2cont}, where the complementarity constraints describing contact behavior for both flow and impulsive situations are presented. In Section~\ref{sec:2fric}, the complementarity constraints for frictional effects are presented, similar to the contact case, for both flow and impulsive situations. Finally, a complete complementarity description of mechanical system with unilateral constraints and spatial friction is presented in Section~\ref{sec:2contfric}.
+\section{Model formulation including set-valued force laws}\label{sec:comp}
+Mechanical systems with unilateral constraints can conveniently be described using so-called complementarity constraints or set-valued force laws. Particularly impacts and frictional effects are often described using these complementarity constraints, introducing a nonsmoothness into the mechanical system. In this section, the contact and friction laws required to describe a mechanical system with unilateral constraints and spatial friction are presented in a complementarity fashion. First, the contact case is handled in Section~\ref{sec:2cont}, where the complementarity constraints describing contact behavior for both flow and impulsive situations are presented. In Section~\ref{sec:2fric}, the complementarity constraints for frictional effects are presented, similar to the contact case, for both flow and impulsive situations. Finally, a complete complementarity description of mechanical system with unilateral constraints and spatial friction is presented in Section~\ref{sec:2contfric}.
 
 \subsection{Signorini's contact law and Newton's impact law}\label{sec:2cont}
 To describe the contact interaction between rigid bodies, Signorini's contact law is used. Since we assume that the bodies composing the system are rigid and therefore impenetrable, and that the reaction forces caused by contact cannot prevent two or more bodies from seperating, both the contact distance $h_{n,\iota}$ and and reaction force $\lambda_{n,\iota}$ cannot become negative. For a contact point $\iota\in\mathcal{I}$, two situations are then possible, i.e.,
@@ -210,9 +210,9 @@ When the contact and friction laws \eqref{eq:signorini}, \eqref{eq:coulomb1} and
 \end{align}
 with 
 \begin{align}
-&h_{n,\iota} = \wb_{n,\iota}^T(\qb)\qb,\label{eq:h}\\
-&\zeta_{n,\iota}(\qb) = \wb^T_{n,\iota}(\qb) \xib,  \label{eq:zetan}\\
-&\zetab_{t,\iota}(\qb) = \Wb^T_{t,\iota}(\qb) \xib. \label{eq:zetab}
+&h_{n,\iota} := h_{n,\iota}(\qb),\label{eq:h}\\
+&\zeta_{n,\iota}(\qb) := \wb^T_{n,\iota}(\qb) \xib,  \label{eq:zetan}\\
+&\zetab_{t,\iota}(\qb) := \Wb^T_{t,\iota}(\qb) \xib. \label{eq:zetab}
 \end{align}
 Similarly, incorporating the impulsive contact and friction laws \eqref{eq:newton}, \eqref{eq:coulombimp1}, and \eqref{eq:coulombimp1} in the impact/discrete dynamics \eqref{eq:appimp1} gives a complete model for the impact behavior of the system. It follows that the discrete dynamics that are triggered by the occurrence of an impact event are given by
 \begin{align}
@@ -223,8 +223,8 @@ Similarly, incorporating the impulsive contact and friction laws \eqref{eq:newto
 \end{align}
 with 
 \begin{align}
-&\zeta^+_{n,\iota}(\qb) = \wb^T_{n,\iota}(\qb) \xib^+,\\
-&\zetab^+_{t,\iota}(\qb) = \Wb^T_{t,\iota}(\qb) \xib^+.\label{eq:ncpimpactend}
+&\zeta^+_{n,\iota}(\qb) := \wb^T_{n,\iota}(\qb) \xib^+,\\
+&\zetab^+_{t,\iota}(\qb) := \Wb^T_{t,\iota}(\qb) \xib^+.\label{eq:ncpimpactend}
 \end{align}
 
 \section{Hybrid system formulation}
@@ -243,7 +243,7 @@ The continuous dynamics of the hybrid system with impulsive effects are given by
 \begin{align}
 \dot{\xb}_j =\fb_j(\xb_j,\ub_j,t), \qquad\xb_j,\ub_j\in \mathcal{C}_j,\label{eq:hybimp1}
 \end{align}
-with the state $\xb_j = \xb(t,j)\in\Rbb^{n(j)}$ and the input $\ub_j = \ub(t,j)\in\Rbb^{m(j)}$. The nonlinear function $\fb_j:\Rbb^{n(j)}\ \times\ \Rbb^{m(j)}\ \times\ \Rbb\rightarrow \Rbb^{n(j)}$ is a vector field which describes the flow of segment $j$. Here $j\in\{0,1,\dots,N\}$ is a counter that defines the flow set $\mathcal{C}_j$ the system is in, where $N$ is the number of segments in a trajectory. When $j$ is increased, and another flow set is entered, the vector field that defines the behavior of the system can change. We refer to $(t,j)$ as the \textit{hybrid time}. Note that the state dimension $n(j)$ and the input dimension $m(j)$ can vary in different segments $j$.
+with the state $\xb_j = \xb(t,j)\in\Rbb^{n(j)}$ and the input $\ub_j = \ub(t,j)\in\Rbb^{m(j)}$. The nonlinear function $\fb_j:\Rbb^{n(j)}\ \times\ \Rbb^{m(j)}\ \times\ \Rbb\rightarrow \Rbb^{n(j)}$ is a vector field which describes the flow of segment $j$. Here $j\in\{0,1,\dots,N\}$ is a counter that defines the flow set $\mathcal{C}_j$ in which the system resides, where $N$ is the number of segments in a trajectory. When $j$ is increased, and another flow set is entered, the vector field that defines the behavior of the system can change. We refer to $(t,j)$ as the \textit{hybrid time}. Note that the state dimension $n(j)$ and the input dimension $m(j)$ can vary in different segments $j$.
 
 The discrete dynamics of the hybrid system with impulsive effects are given by
 \begin{align}
@@ -255,7 +255,7 @@ The discrete dynamics $\gb_j:\Rbb^{n(j-1)}\ \times\ \Rbb^{m(j-1)}\ \times\ \Rbb\
 &\gamma_{j+1}(\xb,\ub,t) = 0,	&(\xb,\ub,t) &\in \mathcal{D}_{j+1} = \partial \mathcal{C}_j,\\
 &\gamma_{j+1}(\xb,\ub,t) < 0,	&(\xb,\ub,t) &\in (\Rbb^n \times \Rbb^m \times \Rbb)\setminus \mathcal{C}_j,
 \end{align}
-where $\partial \mathcal{C}_j$ is the border of flow set $\mathcal{C}_j$. Using a guard function, $\mathcal{C}_j$ and $\mathcal{D}_{j+1}$ can conveniently be described. This is illustrated in Figure~\ref{fig:2guards}. While the guard function is greater than zero, the continuous dynamics \eqref{eq:hybimp1} should be evaluated, since the system is in the interior of flow set $\mathcal{C}_j$. When the guard function is activated, i.e., $\gamma_{j+1} = 0$, the ante-event state $\xb_j(t_{j+1})$ is mapped to the post-event state $\xb_{j+1}(t_{j+1})$ using the discrete dynamics \eqref{eq:hybimp2}. Here $t_{j+1}$ denotes the time-instant where $\gamma_{j+1}$ is activated. After this event, the system will continue flowing in $\mathcal{C}_{j+1}$ according to the vector field $\fb_{j+1}$.
+where $\partial \mathcal{C}_j$ is the boundary of flow set $\mathcal{C}_j$. Using a guard function, $\mathcal{C}_j$ and $\mathcal{D}_{j+1}$ can conveniently be described. This is illustrated in Figure~\ref{fig:2guards}. While the guard function is greater than zero, the continuous dynamics \eqref{eq:hybimp1} should be evaluated, since the system is in the interior of flow set $\mathcal{C}_j$. When the guard function is activated, i.e., $\gamma_{j+1} = 0$, the ante-event state $\xb_j(t_{j+1})$ is mapped to the post-event state $\xb_{j+1}(t_{j+1})$ using the discrete dynamics \eqref{eq:hybimp2}. Here $t_{j+1}$ denotes the time-instant where $\gamma_{j+1}$ is activated. After this event, the system will continue flowing in $\mathcal{C}_{j+1}$ according to the vector field $\fb_{j+1}$.
 
 \begin{figure}[h]
 \centering
@@ -264,7 +264,7 @@ where $\partial \mathcal{C}_j$ is the border of flow set $\mathcal{C}_j$. Using 
 
 The hybrid dynamics \eqref{eq:hybimp1},\eqref{eq:hybimp2} will form the starting point in formulating the tracking problem for mechanical systems with unilateral constraints and spatial friction. In this, consider a nominal state-and-input trajectory $(\alphab(t,j),\mub(t,j))$ that is a solution to \eqref{eq:hybimp1},\eqref{eq:hybimp2} for initial condition $\alphab(t_0,0) = \alphab_0\in \mathcal{C}_0$ and consists of $N+1$ absolutely continuous segments discriminated by the event counter $j\in\{0,1,\dots,N\}$. The nominal event time of event $j$ is denoted $\tau_j$ and regular time is denoted $t$. An example of a reference trajectory is illustrated in Figure~\ref{fig:2example}.
 
-The figure shows a block that impacts the ground, slides over the ground, and is subsequently lifted from the ground. The block has two contact points on its edges $\iota_1$ and $\iota_2$. The motion starts with both contact points open as can be seen in Figure~\ref{fig:2example1}. The flow is described by $\dot{\alphab}(t,0) = \fb_0(\alphab(t,0),\mub(t,0),t)$ for $t\in[t_0,\tau_1]$. Then, contact is established at contact point $\iota_2$ at the time $\tau_1$, causing a jump in the state and a change in continuous dynamics to the vector field $\fb_1(\alphab(t,1),\mub(t,1),t)$ for $t\in[\tau_1,\tau_2]$. This is illustrated in Figure~\ref{fig:2example2}, where $\iota_2$ is closed and slipping over the contact surface. At the time $\tau_2$, another corner of the rectangle, i.e. contact point $\iota_1$, impacts the ground as well causing another jump and another change in continuous dynamics. The block now has both contact points slipping over the contact surface. After this, both contact points release contact one by one. Since there are no impulsive forces present in this transition, the state does not jump when a contact point releases. However, a jump in the time-derivate of the state is possible, which makes these transitions continuous but nonsmooth.
+The figure shows a block that impacts the ground, slides over the ground, and is subsequently lifted from the ground. The block has two contact points on its edges $\iota_1$ and $\iota_2$. The motion starts with both contact points open as can be seen in Figure~\ref{fig:2example1}. The flow is described by $\dot{\alphab}(t,0) = \fb_0(\alphab(t,0),\mub(t,0),t)$ for $t\in[t_0,\tau_1]$. Then, contact is established at contact point $\iota_2$ at the time $\tau_1$, causing a jump in the state and a change in continuous dynamics to the vector field $\fb_1(\alphab(t,1),\mub(t,1),t)$ for $t\in[\tau_1,\tau_2]$. This is illustrated in Figure~\ref{fig:2example2}, where $\iota_2$ is closed and slipping over the contact surface. At the time $\tau_2$, another corner of the rectangle, i.e. contact point $\iota_1$, impacts the ground as well causing another jump and another change in continuous dynamics. The block now has both contact points slipping over the contact surface. After this, both contact points release contact one by one. Since there are no impulsive forces present in this transition, the state does not jump when a contact point releases. However, due to frictional effects, a jump in the time-derivate of the state is possible, which makes these transitions continuous but nonsmooth.
 
 \begin{figure}[h]
 \centering
@@ -318,7 +318,7 @@ The figure shows a block that impacts the ground, slides over the ground, and is
 \includegraphics[width=.85\textwidth]{exampletraj1.eps}
 \label{fig:2exampletraj}
 \end{subfigure}
-\caption{An example trajectory, which satisfies the dynamics \eqref{eq:hybimp}, of a block pushing towards and withdrawing from a surface with velocity $v$.  Note that the sets $D$ besides being dependent on $\xb$, are also dependent on $\ub$. Also, although not depicted in this image, the state space of the system varies with every event.}
+\caption{An example trajectory, which satisfies the dynamics \eqref{eq:hybimp1}-\eqref{eq:hybimp2}, of a block pushing towards and withdrawing from a surface with velocity $v$.  Note that the sets $D$ besides being dependent on $\xb$, are also dependent on $\ub$. Also, although not depicted in this image, the state space of the system varies with every event.}
 \label{fig:2example}
 \end{figure}
 
@@ -331,7 +331,7 @@ Let us start by considering the state $\xb$ to be composed as
 \qb\\ \dot{\qb}
 \end{bmatrix}.
 \end{align}
-As described in Section~\ref{sec:comp}, for mechanical systems a set of contact points $\mathcal{I} = \{\iota_1,\iota_2,\dots,\iota_c\}$ is defined, with $c$ is the number of considered contact points. A set $\Ic_{\text{cl}}$ is defined as the set of closed contact points, such that a contact $\iota\in\Ic_{\text{cl}}$ has closed a unilateral constraint. The set of contact points in open contact is defined as $\Ic_{\text{op}} := \{\iota\ |\ \iota\notin\Ic_{\text{cl}}\}$. The set $\Ic_{\text{cl}}$ is divided in the subsets $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$, where $\Ic_{\text{sl}}$ is the set of closed contact points in slip and $\Ic_{\text{st}}$ the set of closed contact points in stick. The division implies that $\Ic_{\text{cl}} =\Ic_{\text{sl}}\cup\Ic_{\text{st}}$ and that $\Ic_{\text{sl}}\cup\Ic_{\text{st}}=\emptyset$. 
+As described in Section~\ref{sec:comp}, for mechanical systems a set of contact points $\mathcal{I} = \{\iota_1,\iota_2,\dots,\iota_c\}$ is defined, with $c$ is the number of considered contact points. A set $\Ic_{\text{cl}}$ is defined as the set of closed contact points, such that a contact $\iota\in\Ic_{\text{cl}}$ has closed a unilateral constraint. The set of contact points in open contact is defined as $\Ic_{\text{op}} := \{\iota\ |\ \iota\notin\Ic_{\text{cl}}\}$. The set $\Ic_{\text{cl}}$ is divided in the subsets $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$, where $\Ic_{\text{sl}}$ is the set of closed contact points in slip and $\Ic_{\text{st}}$ the set of closed contact points in stick. The division implies that $\Ic_{\text{cl}} =\Ic_{\text{sl}}\cup\Ic_{\text{st}}$ and that $\Ic_{\text{sl}}\cap\Ic_{\text{st}}=\emptyset$. 
 
 The equations of motion, given in \eqref{eq:appcont1}, can be rewritten to
 \begin{align}
@@ -352,7 +352,7 @@ with
 \lambdab_{t,\iota_1};\lambdab_{t,\iota_2};...;\lambdab_{t,\iota_c} 
 \end{bmatrix}\in\Rbb^{2c}.
 \end{align*}
-Note that since $\fb_j$ is only defined on $\xb(t,j),\ub(t,j)\notin \mathcal{D}_j$, it is not necessary to use $\xib$ to define the equations of motion as done in \eqref{eq:appcont1}. It follows that $\fb_j$ can be written as
+Note that since $\fb_j$ is only defined on $\xb(t,j),\ub(t,j)\notin \mathcal{D}_{j+1}$, it is not necessary to use $\xib$ to define the equations of motion as done in \eqref{eq:appcont1}. It follows that $\fb_j$ can be written as
 \begin{align}
 \dot{\xb}_j(t) =\begin{bmatrix}
 \dot{\qb}\\ \Mb^{-1}(\qb)\left[ \Sb(\qb)\ub - \Cb(\qb,\dot{\qb}) + \Wb_{n}(\qb)\lambdab_{n} + \Wb_{t}(\qb)\lambdab_{t}\right]
@@ -380,7 +380,7 @@ When the system state enters an event set $\mathcal{D}$, an event will take plac
 \textbf{Discrete events sets in open contact}\\
 For all contact points $\iota\in\Ic_{\text{op}}$, the discrete event sets are defined as
 \begin{align}
-\mathcal{D}^{\text{op}\rightarrow\text{cl}}_{\iota} &= \{ \xb\ |\ \gamma^{\text{op}\rightarrow\text{cl}}_{\iota} = 0,\ \dot{\gamma}^{\text{op}\rightarrow\text{cl}}_{\iota} < 0 \},\label{eq:2Dopcl}
+\mathcal{D}^{\text{op}\rightarrow\text{cl}}_{\iota} &= \{ \xb\ |\ \gamma^{\text{op}\rightarrow\text{cl}}_{\iota} = 0 \},\label{eq:2Dopcl}
 \end{align}
 \nomenclature[RD]{$\mathcal{D}_j$}{The discrete event set of event $j$}%
 with
@@ -392,8 +392,8 @@ with
 \textbf{Discrete events sets in closed contact slip}\\
 For all contact points $\iota\in\Ic_{\text{sl}}$, the discrete event sets are defined as
 \begin{align}
-\mathcal{D}^{\text{sl}\rightarrow\text{st}}_{\iota} &= \{ \qb\ |\ \gamma^{\text{sl}\rightarrow\text{st}}_{\iota} = 0,\ \dot{\gamma}^{\text{sl}\rightarrow\text{st}}_{\iota} < 0\},\label{eq:2Dslst}\\
-\mathcal{D}^{\text{cl}\rightarrow\text{op}}_{\iota} &= \{ \qb,\ub\ |\ \gamma^{\text{cl}\rightarrow\text{op}}_{\iota} = 0,\ \dot{\gamma}^{\text{cl}\rightarrow\text{op}}_{\iota} < 0\},\label{eq:2Dslop}
+\mathcal{D}^{\text{sl}\rightarrow\text{st}}_{\iota} &= \{ \qb\ |\ \gamma^{\text{sl}\rightarrow\text{st}}_{\iota} = 0\},\label{eq:2Dslst}\\
+\mathcal{D}^{\text{cl}\rightarrow\text{op}}_{\iota} &= \{ \qb,\ub\ |\ \gamma^{\text{cl}\rightarrow\text{op}}_{\iota} = 0\},\label{eq:2Dslop}
 \end{align}
 with 
 \begin{align}
@@ -404,8 +404,8 @@ with
 \textbf{Discrete events sets in closed contact stick}\\
 For all contact points $\iota\in\Ic_{\text{st}}$, the discrete event sets are defined as
 \begin{align}
-\mathcal{D}^{\text{st}\rightarrow\text{sl}}_{\iota} &= \{ \qb,\ub\ |\ \gamma^{\text{st}\rightarrow\text{sl}}_{\iota} = 0,\ \dot{\gamma}^{\text{sl}\rightarrow\text{st}}_{\iota} < 0\},\label{eq:2Dstsl}\\
-\mathcal{D}^{\text{cl}\rightarrow\text{op}}_{\iota} &= \{ \qb,\ub\ |\ \gamma^{\text{cl}\rightarrow\text{op}}_{\iota} = 0,\ \dot{\gamma}^{\text{cl}\rightarrow\text{op}}_{\iota} < 0\},\label{eq:2Dstop}
+\mathcal{D}^{\text{st}\rightarrow\text{sl}}_{\iota} &= \{ \qb,\ub\ |\ \gamma^{\text{st}\rightarrow\text{sl}}_{\iota} = 0 \},\label{eq:2Dstsl}\\
+\mathcal{D}^{\text{cl}\rightarrow\text{op}}_{\iota} &= \{ \qb,\ub\ |\ \gamma^{\text{cl}\rightarrow\text{op}}_{\iota} = 0 \},\label{eq:2Dstop}
 \end{align}
 with 
 \begin{align}
