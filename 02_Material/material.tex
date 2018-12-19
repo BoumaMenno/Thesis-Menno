@@ -28,7 +28,7 @@
 \nomenclature[Sx]{$(\cdot)_{\xb}$}{Related to reference trajectory $\xb$}%
 \nomenclature[Sn]{$(\cdot)_{n}$}{Scalar or vector in normal direction}%
 \nomenclature[St]{$(\cdot)_{t}$}{Scalar or vector in tangential direction}%
-In this chapter, several modeling approaches for mechanical systems with unilateral constraints and spatial friction are presented. We start by presenting a general representation of mechanical systems. Then, several formulations of contact and friction laws are introduced in the form of complementarity conditions. The complementarity problem formulation is a complete and often used formulation for mechanical systems with unilateral constraints. While it is restrictive in the discontinuities it can model, it is a powerful tool for the control of trajectories with orthogonal constraints. This complementarity formulation is then transformed into a hybrid system formulation, that will be used in this work to define a control strategy for the tracking of trajectories of mechanical systems with unilateral constraints and spatial friction.
+In this chapter, several modeling approaches for mechanical systems with unilateral constraints and spatial friction are presented. We start by presenting a general representation of mechanical systems. Then, several formulations of contact and friction laws are introduced in the form of complementarity conditions. The complementarity problem formulation is a complete and often used formulation for mechanical systems with unilateral constraints. This complementarity formulation is then transformed into a hybrid system formulation, that will be used in this work to analyze the tracking of trajectories of mechanical systems with unilateral constraints and spatial friction. While the hybrid system formulation is restrictive in modeling, it is a powerful tool for the control of systems with a special class of trajectories. Since the analysis that will be presented in this work is done with controller design in mind, the analysis will be presented in the hybrid system framework.
 
 \section{General system definition}
 When a unilateral constraint is activated, the differential equation that describes the dynamics of the system can change. The state even goes through a reinitialization when the constraint is activated with non-zero velocity. Two bodies already in contact can also experience changes in their dynamics, as a result from the friction between these bodies. This behavior can be described by dynamics consisting of a continuous part and a discrete part; the continuous part describes the flow of the state, and the discrete part describes the reinitialization of the state. The occurrence of a change in differential equation and a possible state reinitialization are referred to as \textit{events}. To be able to detect when the system goes through a such an event, contact points are defined on the bodies. These contact points can activate and deactivate unilateral constraints, which corresponds with opening and closing contact with another body. A contact point that has activated a unilateral constraint can transition between stick and slip. A contact point in stick has a tangential relative velocity of zero, whereas a contact point in stick has a nonzero tangential relative velocity. The \textit{mode} of the contact point is defined. The mode determines if a contact point is in contact or not, and if it is in stick or slip when the contact point is in contact. Using these contact points, a method is presented to model mechanical systems with unilateral constraints and spatial friction. Let us now consider a mechanical system whose current configuration is described by the generalized coordinates $\qb\in\mathbb{R}^n$ and whose generalized velocity is denoted $\xib\in\mathbb{R}^n$ with $\xib=\dot{\qb}$ almost everywhere. The configuration space of the system is restricted using $c$ unilateral constraints for modeling contact, using the set of contact points $\mathcal{I}=\{\iota_1,\iota_2,\dots,\iota_c\}$. The set $\Ic_{\text{cl}}$ is defined as the set of $c_{\text{cl}}$ closed contact points, i.e., for a contact $\iota\in\Ic_{\text{cl}}$ the corresponding unilateral constraint is active. The set of potential contact points for which this geometric constraint is inactive, or open contact points, we define as $\Ic_{\text{op}} := \{\iota\ |\ \iota\notin\Ic_{\text{cl}}\}$. Note that in a physics-based engine the set $\Ic_{\text{op}}$ is often undefined, because not all contact points are tracked. Only the contact points generating reaction forces are tracked. The set $\Ic_{\text{op}}$ is only defined for convenience when the mode of the system is discussed. When a unilateral constraint is activated at a nonzero relative velocity, impact happens. For the unilateral constraint not to be violated, a jump in the velocity has to occur. These impact-times are denoted $\tau^j$, where $j\in \{1,2,\dots,N\}$ is a counter for unilateral constraint activations, with $N$ the number of jumps in a trajectory.
@@ -62,7 +62,7 @@ with $\wb^T_{n,\iota}\in\Rbb^n$ representing the Jacobian of the normal velocity
 \zetab_{t,\iota} = \frac{\partial \hb^T_{t,\iota}}{\partial\qb}\frac{\text{d}\qb}{\text{d} t} = \Wb_{t,\iota}^T\dot{\qb},
 \end{align}
 with $\Wb^T_{t,\iota}\in\Rbb^{n\times 2}$ representing the Jacobian of the tangential relative velocity $\zetab_{t,\iota}$.
-\begin{figure}[h]
+\begin{figure}[bt!]
 \centering
 \includegraphics[width=.5\textwidth]{contactplanes2.eps}\caption{An illustration of two bodies about to make contact. The contact distance $h_{n,\iota}$ and the relative tangential velocity $\zetab_{t,\iota}$ for contact point $\iota$ are illustrated, which are defined on the surface of Body A.} \label{fig:contactplanes}
 \end{figure}
@@ -107,7 +107,7 @@ These situations are illustrated in Figure~\ref{fig:signorinicontact}, from whic
 \end{align}
 
 where the symbol $\bot$ is used to express the orthogonality between the constraints on $h_{n,\iota}$ and $\lambda_{n,\iota}$. The complementarity condition \eqref{eq:signorini} is called Signorini's contact law. A separate model is required for describing the contact dynamics during an impact event. As mentioned above, when contact is established at nonzero velocity, a jump in the velocity is generally seen. To describe this impact effect, Newton's impact law is used.
-\begin{figure}[h]
+\begin{figure}[bt!]
 \centering
 \begin{subfigure}{0.3\textwidth}
 \centering
@@ -168,7 +168,7 @@ with some conditions on $\kappa_{\iota}$ and $\lambdab_{t,\iota}$. The function 
 \end{equation}
 for some vector $a$, as defined in \cite{Studer2006}. The equation \eqref{eq:frictiondir} constrains the direction of the tangential relative velocity $\zetab_{t,\iota}$ to the opposite direction of the tangential reaction force $\lambdab_{t,\iota}$. The constant $\kappa_{\iota}$ can then be interpreted as a relation between the magnitude of $\zetab_{t,\iota}$ and $\lambdab_{t,\iota}$. As can be concluded from \eqref{eq:frictiondir}, $||\lambdab_{t,\iota}||-\mu_{\iota}\lambda_{n,\iota}\leq 0$ if $\kappa_{\iota} = 0$, and $||\lambdab_{t,\iota}||-\mu_{\iota}\lambda_{n,\iota} = 0$ if $\kappa_{\iota} \geq 0$. These conditions on $\kappa_{\iota}$ and $\lambdab_{t,\iota}$ are illustrated in Figure~\ref{fig:coulombort}. Similar to Signorini's contact law, the orthogonality of the conditions can be recognized. Therefore, the conditions can be conveniently written in the complementarity form.
 
-\begin{figure}[h]
+\begin{figure}[bt!]
 \centering
 \begin{subfigure}{0.38\textwidth}
 \centering
@@ -257,7 +257,7 @@ The discrete dynamics $\gb_j:\Rbb^{n(j-1)}\ \times\ \Rbb^{m(j-1)}\ \times\ \Rbb\
 \end{align}
 where $\partial \mathcal{C}_j$ is the boundary of flow set $\mathcal{C}_j$. Using a guard function, $\mathcal{C}_j$ and $\mathcal{D}_{j+1}$ can conveniently be described. This is illustrated in Figure~\ref{fig:2guards}. While the guard function is greater than zero, the continuous dynamics \eqref{eq:hybimp1} should be evaluated, since the system is in the interior of flow set $\mathcal{C}_j$. When the guard function is activated, i.e., $\gamma_{j+1} = 0$, the ante-event state $\xb_j(t_{j+1})$ is mapped to the post-event state $\xb_{j+1}(t_{j+1})$ using the discrete dynamics \eqref{eq:hybimp2}. Here $t_{j+1}$ denotes the time-instant where $\gamma_{j+1}$ is activated. After this event, the system will continue flowing in $\mathcal{C}_{j+1}$ according to the vector field $\fb_{j+1}$.
 
-\begin{figure}[h]
+\begin{figure}[bt!]
 \centering
 \includegraphics[width=.4\textwidth]{guards.eps}\caption{A guard function defining the flow set $\mathcal{C}_j$ for a 2-dimensional system is illustrated in this figure.} \label{fig:2guards}
 \end{figure}
@@ -266,7 +266,7 @@ The hybrid dynamics \eqref{eq:hybimp1},\eqref{eq:hybimp2} will form the starting
 
 The figure shows a block that impacts the ground, slides over the ground, and is subsequently lifted from the ground. The block has two contact points on its edges $\iota_1$ and $\iota_2$. The motion starts with both contact points open as can be seen in Figure~\ref{fig:2example1}. The flow is described by $\dot{\alphab}(t,0) = \fb_0(\alphab(t,0),\mub(t,0),t)$ for $t\in[t_0,\tau_1]$. Then, contact is established at contact point $\iota_2$ at the time $\tau_1$, causing a jump in the state and a change in continuous dynamics to the vector field $\fb_1(\alphab(t,1),\mub(t,1),t)$ for $t\in[\tau_1,\tau_2]$. This is illustrated in Figure~\ref{fig:2example2}, where $\iota_2$ is closed and slipping over the contact surface. At the time $\tau_2$, another corner of the rectangle, i.e. contact point $\iota_1$, impacts the ground as well causing another jump and another change in continuous dynamics. The block now has both contact points slipping over the contact surface. After this, both contact points release contact one by one. Since there are no impulsive forces present in this transition, the state does not jump when a contact point releases. However, due to frictional effects, a jump in the time-derivate of the state is possible, which makes these transitions continuous but nonsmooth.
 
-\begin{figure}[h]
+\begin{figure}[bt!]
 \centering
 \begin{subfigure}[b]{0.17\textwidth}
 \centering
@@ -452,7 +452,7 @@ with $\Ic_{\text{sl}}\cup\Ic_{\text{st}}=\Ic_{\text{cl}}$. Note that the guard f
 
 The process of solving a hybrid system with impulsive effects is illustrated in Figure~\ref{fig:2hybridalg}. The system first flows according to a vector field $\fb$. When the event set $\mathcal{D}$ is reached, a jump in the system state $\xb$ is applied. This jump is the result of solving an NCP to find the post-event state $\xb^+$. Finally, the mode selection is performed to find a feasible post-event mode $\sigma^+$ for that post-event state $\xb^+$. The continuous dynamics for the next flow segment is defined by $\sigma^+$ with $\xb^+$ as initial condition.
 
-\begin{figure}[h]
+\begin{figure}[bt!]
 \centering
 \includegraphics[width=.35\textwidth]{hybridalg.eps}\caption{The algorithm used to solve a hybrid system with impulsive effects depicted in a flowchart.} \label{fig:2hybridalg}
 \end{figure}
