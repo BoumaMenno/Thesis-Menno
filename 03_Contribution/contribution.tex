@@ -206,7 +206,7 @@ The same can be done for $\alphab_j(t_{j})$, $\mub_j(t_{j})$, $\zb_j(t_{j})$, an
 \end{align}
 with
 \begin{align}
-\Delta = \left.\frac{\partial t_{j}}{\partial\epsilon}\right|_{\epsilon=0}.\label{eq:3Delta}
+\Delta = \left.\frac{\textnormal{d} t_{j}}{\textnormal{d}\epsilon}\right|_{\epsilon=0}.\label{eq:3Delta}
 \end{align}
 To find $\Delta$, we observe that
 \begin{align}
@@ -258,8 +258,8 @@ which can be rewritten in compact form as
 \end{align}
 with 
 \begin{align}
-\Gb_j(\tau_j) & = D_1\gb^- - \left(\dot{\gb}^- - \fb^+\right)\frac{D_1\gamma^-}{\dot{\gamma}^-},\\
-\Jb_j(\tau_j) & = D_2\gb^- - \left(\dot{\gb}^- - \fb^+\right)\frac{D_2\gamma^-}{\dot{\gamma}^-},
+\Gb_j(\tau_j) & = D_1\gb^- - \left(\dot{\gb}^- - \fb^+\right)\frac{D_1\gamma^-}{\dot{\gamma}^-},\label{eq:3Gj}\\
+\Jb_j(\tau_j) & = D_2\gb^- - \left(\dot{\gb}^- - \fb^+\right)\frac{D_2\gamma^-}{\dot{\gamma}^-},\label{eq:3Jj}
 \end{align}
 where
 \begin{align*}
@@ -267,7 +267,10 @@ where
 \fb^+ &:= \fb_j(\alphab_j(\tau_j),\mub_j(\tau_j),\tau_j),\\
 \dot{\gb}^- &:= D_1\gb^-\cdot \fb^- + D_2\gb^-\cdot \dot{\mub}^- + D_3\gb^-.
 \end{align*}
-The equation \eqref{eq:3zbplus} describes the relation between the post-event state perturbation $\zb^+$ and the ante-event state and input perturbations $\zb^-$ and $\vb^-$. The first term in \eqref{eq:3zbplus} represents the effects of the ante-event state perturbation $\zb^-$ on the post-event state perturbation $\zb^+$. Similar results have already been obtained in \cite{Rijnen2018}. The jump gain in \cite{Rijnen2018} is derived with state-dependent guard functions however, whereas the jump gain $\Gb_j$ in \eqref{eq:3zbplus} is derived using state-and-input-dependent guard functions. The second term in \eqref{eq:3zbplus} describes the effect of the ante-event input perturbation $\vb^-$ on the post-event state perturbation $\zb^+$, which is a contribution of this work. This term is a result of the jump gains $\gb$ being state-and-input-dependent, where in previous work the jump gains were considered state-dependent.
+The jump gains in \eqref{eq:3Gj} and \eqref{eq:3Jj} consist of two terms. The first term in \eqref{eq:3Gj}, $D_1\gb^-$, represents the effect of the ante-event state perturbation on the post-event perturbation. The perturbation does not only change the ante-event state, but also the time-instant the event takes place. The second term in \eqref{eq:3Gj}, $- \left(\dot{\gb}^- - \fb^+\right)\frac{D_1\gamma^-}{\dot{\gamma}^-}$, represents the effect of the difference in time, in comparison to the nominal event. Obviously, the same can be said for \eqref{eq:3Jj}.
+
+Equation \eqref{eq:3zbplus} describes the relation between the post-event state perturbation $\zb^+$ and the ante-event state and input perturbations $\zb^-$ and $\vb^-$. The relation given in \eqref{eq:3zbplus} is an extension on the results that have been obtained in \cite{Rijnen2018}. The jump gain in \cite{Rijnen2018} is derived with state-dependent guard functions $\gamma$ and jump gains $\gb$, whereas the jump gain $\Gb_j$ in \eqref{eq:3zbplus} is derived using state-and-input-dependent guard functions $\gamma$ and jump gains $\gb$. The second term in \eqref{eq:3zbplus} describes the effect of the ante-event input perturbation $\vb^-$ on the post-event state perturbation $\zb^+$, which is a contribution of this work. This term is a result of the jump gains $\gb$ being state-and-input-dependent, where in previous work the jump gains were considered state-dependent.
+
 \subsection{Linear time-triggered hybrid system}
 The sensitivity analysis performed in the previous section will be used next to define the LTTHS associated to reference trajectory $\alphab$ and the NSITHS defined in Definition~\ref{def:3nsiths}. The LTTHS converts the state-triggered behavior of the NSITHS to a time-triggered behavior using an approximation of the state jumps, which we expect to be first order. Where the jump times of the NSITHS are unknown, the LTTHS jumps at the same event-times as the nominal trajectory $\alphab$. Since the stability assessment of LTTHS is well established in literature, the LTTHS can then be used to conveniently assess the local asymptotic stability of the NSITHS. Let us now formally define the LTTHS.
 
@@ -297,7 +300,6 @@ and
 \end{align*}
 \end{mydef}
 \end{sloppypar}
-\textbf{CONTINUE}
 
 The LTTHS of Definition~\ref{def:3ltths} gives an approximation of the NSITHS about the state-input reference trajectory $(\alphab,\mub)$. With a nominal trajectory $\alphab$ with input $\mub$, the perturbed trajectory $\xb_j(\epsilon)$ is the trajectory starting from initial condition $\xb_0(\epsilon) = \alphab_0 + \epsilon\zb_0$ and with input $\ub_j(\epsilon) = \mub_j + \epsilon\vb_j$. The approximation is then defined as $\xb_j(\epsilon) = \bar{\alphab}_j + \epsilon\bar{\zb}_j + o(\epsilon)$, with $\zb$ defined by the LTTHS. The reader should be aware that the term $\vb^-$ is not an input that can be freely chosen. The ante-event input perturbation $\vb^-$ is directly related to $\vb_j$, as it is a result of the input law implemented during the continuous segment before the event. Also, note that the approximation jumps at the same time instants as the nominal trajectory, with $(t,j) \in \eve\ \alphab$. This results in a trajectory which is generally infeasible around the jump times. However, due to the short timescales of the events, we are more interested in finding a good approximation of the continuous segments between the events, which is what the LTTHS achieves. In \cite{Rijnen2017} a proof is given, which shows that stability of the LTTHS implies tracking of a NSTHS. The presumption is made that a similar proof exists, saying that stability of the LTTHS implies local stability of the NSITHS. Straightforward stability analysis tools for LTTHS are available in the literature, about which more can be read in Appendix~\ref{app:LTTHSstab}.
 \nomenclature[A]{NSTHS}{Nonlinear State-Triggered Hybrid System}%
@@ -465,14 +467,29 @@ with
 \begin{align}
 \ls^{s^{k}}\xb^\epsilon(t^{k+1}) = \int_{t^{k}}^{t^{k+1}}\left[\ls^{s^{k}}\fb\left(\ls^{s^{k}}\xb^\epsilon(t),\ls^{s^{k}}\ub^\epsilon(t),t\right)\right]dt + \ls^{s^{k}}\gb(\ls^{s^{k-1}}\xb^\epsilon(t^{k}),\ls^{s^{k-1}}\ub^\epsilon(t^{k}),t^{k}).\label{eq:4xe01}
 \end{align}
-Here the left superscript $\ls^{s^k}(\cdot)$ indicates that the variable is in micro segment $k$ and $t^k$ represents the event-time of micro event $k$. The right-hand side of \eqref{eq:4xe012} is expanded with respect to $\epsilon$, to find
+Here the left superscript $\ls^{s^k}(\cdot)$ indicates that the variable is in micro segment $k$ and $t^k$ represents the event-time of micro event $k$. Similar to \eqref{eq:3Delta}, we define the micro event time as
+\begin{align}
+\Delta^k := \left.\frac{\textnormal{d} t^k}{\textnormal{d}\epsilon}\right|_{\epsilon=0} = -\frac{D_1\ls^{s^{k}}\gamma\cdot\ls^{s^{k-1}}\bar{\zb}(\tau) + D_2\ls^{s^{k}}\gamma\cdot\ls^{s^{k-1}}\bar{\vb}(\tau)}{\ls^{s^{k}}\dot{\gamma}},\label{eq:4Deltak}
+\end{align}
+with
+\begin{align*}
+\ls^{s^k}\gamma &:= \ls^{s^k}\gamma(\ls^{s^{k-1}}\alphab(\tau),\ls^{s^{k-1}}\mub(\tau),\tau),\\
+\ls^{s^k}\dot{\gamma} &:= D_1\ls^{s^{k}}\gamma\cdot\ls^{s^{k-1}}\fb + D_2\ls^{s^{k}}\gamma\cdot\ls^{s^{k-1}}\dot{\mub} + D_3\gamma^-.
+\end{align*}
+The right-hand side of \eqref{eq:4xe012} is expanded with respect to $\epsilon$, to find
 \begin{align}
 \ls^{s^{k+1}}\xb^\epsilon(t^{k+1}) = \ls^{s^{k+1}}\alphab(\tau) + \epsilon\left.\frac{\partial}{\partial\epsilon}\ls^{s^{k+1}}\gb\right|_{\epsilon=0} + o(\epsilon),\label{eq:4xe012exp}
 \end{align}
 where, similar to the expansion of $\gb_j(\xb^-,\ub^-,t_j)$ in \eqref{eq:3gexp},
 \begin{multline}
-\left.\frac{\partial\ls^{s^{k+1}}\gb}{\partial\epsilon}\right|_{\epsilon=0} = D_1\ls^{s^{k+1}}\gb\cdot\bigg(\ls^{s^k}\dot{\alphab}(\Delta^{k+1}-\Delta^{k}) + D_1\ls^{s^k}\gb\cdot\left(\ls^{s^{k-1}}\zb+\ls^{s^{k-1}}\dot{\alphab}\Delta^{k}\right) + D_2\ls^{s^k}\gb\cdot\left(\ls^{s^{k-1}}\vb+\ls^{s^{k-1}}\dot{\mub}\Delta^{k}\right) \\ + D_3\ls^{s^k}\gb\cdot\Delta^{k} \bigg)+ D_2 \ls^{s^{k+1}}\gb\cdot\left(\ls^{s^{k}}\vb+\ls^{s^{k}}\dot{\mub}\Delta^{k+1} \right) + D_3\ls^{s^{k+1}}\gb\cdot\Delta^{k+1}. \label{eq:4dg1de}
+\left.\frac{\partial\ls^{s^{k+1}}\gb}{\partial\epsilon}\right|_{\epsilon=0} = D_1\ls^{s^{k+1}}\gb\cdot\bigg(\ls^{s^k}\dot{\alphab}(\Delta^{k+1}-\Delta^{k}) + D_1\ls^{s^k}\gb\cdot\left(\ls^{s^{k-1}}\zb+\ls^{s^{k-1}}\dot{\alphab}\Delta^{k}\right) + D_2\ls^{s^k}\gb\cdot\left(\ls^{s^{k-1}}\vb+\ls^{s^{k-1}}\dot{\mub}\Delta^{k}\right) \\ + D_3\ls^{s^k}\gb\cdot\Delta^{k} \bigg)+ D_2 \ls^{s^{k+1}}\gb\cdot\left(\ls^{s^{k}}\vb+\ls^{s^{k}}\dot{\mub}\Delta^{k+1} \right) + D_3\ls^{s^{k+1}}\gb\cdot\Delta^{k+1},\label{eq:4dg1de}
 \end{multline}
+with
+\begin{align*}
+\ls^{s^k}\fb &:= \ls^{s^k}\fb(\ls^{s^{k}}\alphab(\tau),\ls^{s^{k}}\mub(\tau),\tau),\\
+\ls^{s^k}\gb &:= \ls^{s^k}\gb(\ls^{s^{k-1}}\alphab(\tau),\ls^{s^{k-1}}\mub(\tau),\tau),\\
+\ls^{s^k}\dot{\gb} &:= D_1\ls^{s^k}\gb\cdot \ls^{s^{k-1}}\fb + D_2\ls^{s^k}\gb\cdot \ls^{s^{k-1}}\dot{\mub} + D_3\ls^{s^k}\gb.
+\end{align*}
 In \eqref{eq:4dg1de}, the expansion of the post-event state $\ls^{s^{k+1}}\xb^\epsilon(t^{k+1})$ is expressed in terms of $\ls^{s^{k}}$ and $\ls^{s^{k-1}}$. This is done to find a relation between the ante-event state and input perturbation and the post-event state perturbation. By expanding the left-hand side of \eqref{eq:4xe012} with respect to $\epsilon$, we find
 \begin{align}
 \ls^{s^{k+1}}\xb^\epsilon(t^{k+1}) &= \ls^{s^{k+1}}\bar{\alphab}(t^{k+1})+\epsilon\ls^{s^{k+1}}\bar{\zb}(t^{k+1}) + o(\epsilon),\\
@@ -481,16 +498,8 @@ In \eqref{eq:4dg1de}, the expansion of the post-event state $\ls^{s^{k+1}}\xb^\e
 From the work in Section~\ref{sec:3sens}, the jump gains $\Gb$ and $\Jb$ are derived for single events. With $\ls^{s^k}\Gb(t) := \ls^{s^{k}\leftarrow s^{k-1}}\Gb(t)$ and $\ls^{s^k}\Jb(t) := \ls^{s^{k}\leftarrow s^{k-1}}\Jb(t)$, these jump gains translate to the micro-event case as
 \begin{align}
 \ls^{s^k}\Gb(\tau) &= D_1\ls^{s^k}\gb - \left(\ls^{s^k}\dot{\gb} - \ls^{s^{k}}\fb\right)\frac{D_1\ls^{s^k}\gamma}{\ls^{s^k}\dot{\gamma}},\\
-\ls^{s^k}\Jb(\tau) &= D_2\ls^{s^k}\gb - \left(\ls^{s^k}\dot{\gb} - \ls^{s^{k}}\fb\right)\frac{D_2\ls^{s^k}\gamma}{\ls^{s^k}\dot{\gamma}},
+\ls^{s^k}\Jb(\tau) &= D_2\ls^{s^k}\gb - \left(\ls^{s^k}\dot{\gb} - \ls^{s^{k}}\fb\right)\frac{D_2\ls^{s^k}\gamma}{\ls^{s^k}\dot{\gamma}}.
 \end{align}
-with
-\begin{align*}
-\ls^{s^k}\fb &:= \ls^{s^k}\fb(\ls^{s^{k}}\alphab(\tau),\ls^{s^{k}}\mub(\tau),\tau),\\
-\ls^{s^k}\gb &:= \ls^{s^k}\gb(\ls^{s^{k-1}}\alphab(\tau),\ls^{s^{k-1}}\mub(\tau),\tau),\\
-\ls^{s^k}\dot{\gb} &:= D_1\ls^{s^k}\gb\cdot \ls^{s^{k-1}}\fb + D_2\ls^{s^k}\gb\cdot \ls^{s^{k-1}}\dot{\mub} + D_3\ls^{s^k}\gb,\\
-\ls^{s^k}\gamma &:= \ls^{s^k}\gamma(\ls^{s^{k-1}}\alphab(\tau),\ls^{s^{k-1}}\mub(\tau),\tau),\\
-\ls^{s^k}\dot{\gamma} &:= D_1\ls^{s^{k}}\gamma\cdot\ls^{s^{k-1}}\fb + D_2\ls^{s^{k}}\gamma\cdot\ls^{s^{k-1}}\dot{\mub} + D_3\gamma^-.
-\end{align*}
 Using \eqref{eq:4xe012exp} and \eqref{eq:4xexp}, an expression for $\ls^{s^{k+1}}\zb(\tau)$ is found, which is
 \begin{multline}
 \ls^{s^{k+1}}\zb(\tau) = D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb\Delta^{k+1} - D_1\ls^{s^{k+1}}\gb\cdot\ls^{s^{k}}\fb\Delta^{k} + D_1\ls^{s^{k+1}}\gb\cdot \bigg( D_1\ls^{s^{k}}\gb\cdot\left(\ls^{s^{k-1}}\zb+\ls^{s^{k-1}}\fb\Delta^{k}\right)\\
@@ -595,21 +604,25 @@ where $r$ the number of possible mode sequences in a macro event. The jump map $
 For a certain perturbation, only a specific order of micro events is feasible. This order can be found by determining the perturbed jump time of all possible micro events, and selecting the micro event with the earliest event time as the next event. The perturbed event-time of the next micro event $\ls^{s^{k+1} \leftarrow S^{k}}t^\epsilon$ can be approximated at first order as
 \begin{align}
 t^{k+1} &= \tau + \epsilon\Delta^{k+1} + o(\epsilon),\\
-&= \tau + \epsilon\left(\ls^{S^k}\ab^T\ \ls^{S^k}\zb +\ls^{S^k}\bb^T\ \ls^{S^k}\vb\right) + o(\epsilon),
+&= \tau + \epsilon\left(\ls^{S^{k+1}}\ab^T\ \ls^{S^k}\zb +\ls^{S^{k+1}}\bb^T\ \ls^{S^k}\vb\right) + o(\epsilon),
 \end{align}
 with
 \begin{align*}
-\ls^{S^k}\ab &:= -\frac{1}{\dot{\gamma}^{\eta_k}}D_1\gamma^{\eta_k}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau),\\
-\ls^{S^k}\bb &:= -\frac{1}{\dot{\gamma}^{\eta_k}}D_2\gamma^{\eta_k}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau).
+\ls^{S^k}\ab &:= -\frac{1}{\dot{\gamma}^{\eta_k}}D_1\gamma^{\eta_k}(\ls^{s^{k-1}}\alphab,\ls^{s^{k-1}}\mub,\tau),\\
+\ls^{S^k}\bb &:= -\frac{1}{\dot{\gamma}^{\eta_k}}D_2\gamma^{\eta_k}(\ls^{s^{k-1}}\alphab,\ls^{s^{k-1}}\mub,\tau).
 \end{align*}
-Defining the set mode descriptors related to all possible post-event modes $\mathcal{S} := \left\{ s^+ = s^- + \eta_+ \ |\ \eta_+\in \eta \right\}$, the mode descriptor of the next mode can be written as
+Defining the set mode descriptors related to all possible post-event modes 
+\begin{align}
+\mathcal{S} := \left\{ s^+ = s^- + \eta_+ \ |\ \eta_+\in \eta \right\},
+\end{align}
+the mode descriptor of the next mode can be written as
 \nomenclature[RS]{$\mathcal{S}$}{The set of mode descriptors related to all possible post-event modes}%
 \begin{align}
 s^{k+1} = \underset{s^{\ast}}{\argmin}\left\{t^{k+1}\ |\ s^{\ast}\in\mathcal{S}\right\}.\label{eq:4argmin1}
 \end{align}
 Since the minimization of the impact-time does not depend on $\tau$ and $\epsilon$, we can rewrite \eqref{eq:4argmin1} to
 \begin{align}
-s^{k+1} = \underset{s^{\ast}}{\argmin}\left\{\ls^{S^k}\ab^T\ \ls^{S^k}\zb +\ls^{S^k}\bb^T\ \ls^{S^k}\vb\ |\ s^{\ast}\in\mathcal{S}\right\},
+s^{k+1} = \underset{s^{\ast}}{\argmin}\left\{\ls^{S^{k+1}}\ab^T\ \ls^{S^k}\zb +\ls^{S^{k+1}}\bb^T\ \ls^{S^k}\vb\ |\ s^{\ast}\in\mathcal{S}\right\},
 \end{align}
 which can be written as
 \begin{align}
@@ -621,12 +634,12 @@ with
 \end{align}
 Here $\eta$ is the index set of inactive guard functions as defined in \eqref{eq:4eta} and $\eta_{k+1}$ is the identifier of the guard that is activated during micro event $k+1$. Finally, \eqref{eq:4argmin2} can be rewritten as
 \begin{align}
-\eta_{k+1} = \underset{\eta^*}{\argmin}\left(\ls^{S^\ast}\ab^T\ \ls^{S^\ast}\zb +\ls^{S^\ast}\bb^T\ \ls^{S^\ast}\vb\right),
+\eta_{k+1} = \underset{\eta^*}{\argmin}\left(\ls^{S^\ast}\ab^T\ \ls^{S^k}\zb +\ls^{S^\ast}\bb^T\ \ls^{S^k}\vb\right),
 \end{align}
 with
 \begin{align*}
-\ls^{S^\ast}\ab &:= -\frac{1}{\dot{\gamma}^{\eta^\ast}}D_1\gamma^{\eta^\ast}(\ls^{s^\ast}\alphab,\ls^{s^\ast}\mub,\tau),\\
-\ls^{S^\ast}\bb &:= -\frac{1}{\dot{\gamma}^{\eta^\ast}}D_2\gamma^{\eta^\ast}(\ls^{s^\ast}\alphab,\ls^{s^\ast}\mub,\tau).
+\ls^{S^\ast}\ab &:= -\frac{1}{\dot{\gamma}^{\eta^\ast}}D_1\gamma^{\eta^\ast}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau),\\
+\ls^{S^\ast}\bb &:= -\frac{1}{\dot{\gamma}^{\eta^\ast}}D_2\gamma^{\eta^\ast}(\ls^{s^k}\alphab,\ls^{s^k}\mub,\tau).
 \end{align*}
 By checking \eqref{eq:4argmin2} for every micro event, we can determine what the post-event mode of each micro-event will be. With that knowledge, we can decide which jump gains we should apply in \eqref{eq:4ljumps} to find the correct jump gain.
 
@@ -640,9 +653,9 @@ We now pose an example to illustrate the positively homogeneous jump gain. Let u
 \end{align}
 with
 \begin{align}
-(\text{I})&:\ls^{^2 S^1}\ab^T\ \ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ \ls^{^2 S^1}\vb = \ls^{^1 S^1}\ab^T\ \ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ \ls^{^1 S^1}\vb,\nonumber\\
-(\text{II})&:\ls^{^2 S^1}\ab^T\ \ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ \ls^{^2 S^1}\vb > \ls^{^1 S^1}\ab^T\ \ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ \ls^{^1 S^1}\vb,\label{eq:4conds}\\
-(\text{III})&:\ls^{^2 S^1}\ab^T\ \ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ \ls^{^2 S^1}\vb < \ls^{^1 S^1}\ab^T\ \ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ \ls^{^1 S^1}\vb.\nonumber
+(\text{I})&:\ls^{^2 S^1}\ab^T\ \ls^{s^0}\zb +\ls^{^2 S^1}\bb^T\ \ls^{s^0}\vb = \ls^{^1 S^1}\ab^T\ \ls^{s^0}\zb +\ls^{^1 S^1}\bb^T\ \ls^{s^0}\vb,\nonumber\\
+(\text{II})&:\ls^{^2 S^1}\ab^T\ \ls^{s^0}\zb +\ls^{^2 S^1}\bb^T\ \ls^{s^0}\vb > \ls^{^1 S^1}\ab^T\ \ls^{s^0}\zb +\ls^{^1 S^1}\bb^T\ \ls^{s^0}\vb,\label{eq:4conds}\\
+(\text{III})&:\ls^{^2 S^1}\ab^T\ \ls^{s^0}\zb +\ls^{^2 S^1}\bb^T\ \ls^{s^0}\vb < \ls^{^1 S^1}\ab^T\ \ls^{s^0}\zb +\ls^{^1 S^1}\bb^T\ \ls^{s^0}\vb.\nonumber
 \end{align}
 
 The jump gain in \eqref{eq:4H2200} is called a positively homogeneous jump gain for character-2 events ($c=2$). Due to the behavior of the simultaneous events, the linearity property of the jump gain is lost. This is shown in Appendix~\ref{app:poshom}. Instead, the jump gain is positively homogeneous, which is now formally defined.
@@ -653,13 +666,13 @@ Suppose that $\fb(\xb,\ub,t)$ is a continuously differentiable function. The fun
 \begin{align}
 \fb(a\xb,a\ub,t) = a^k\fb(\xb,\ub,t),
 \end{align}
-for all $a>0$ \cite{Apostol1967}.
+for all $a>0$ \textnormal{\cite{Apostol1967}}.
 \end{mydef}
 \end{sloppypar}
 
 The reader should be aware that the positively homogeneous jump gain \eqref{eq:4H2200} is non-unique. Due to the simultaneous activation of two guards $\gamma^{01}$ and $\gamma^{10}$, the term $\begin{bmatrix}\ls^{11\leftarrow 00}_{\ls^{(12)}S^1}\Gb, & \ls^{11\leftarrow 00}_{\ls^{(12)}S^1}\Jb\end{bmatrix}$ can be defined using either $\gamma^{01}$ or $\gamma^{10}$. However, this gain is only applied under the condition that 
 \begin{align}
-\ls^{^2 S^1}\ab^T\ \ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ \ls^{^2 S^1}\vb = \ls^{^1 S^1}\ab^T\ \ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ \ls^{^1 S^1}\vb,
+\ls^{^2 S^1}\ab^T\ \ls^{s^0}\zb +\ls^{^2 S^1}\bb^T\ \ls^{s^0}\vb = \ls^{^1 S^1}\ab^T\ \ls^{s^0}\zb +\ls^{^1 S^1}\bb^T\ \ls^{s^0}\vb,
 \end{align}
 which means that the positively homogeneous jump map $\ls^{11\leftarrow 00}\Hb\begin{bmatrix}\ls^{s^0}\zb & \ls^{s^0}\vb \end{bmatrix}^T$ is unique. For this reason, despite the jump gain $\ls^{11\leftarrow 00}\Hb$ being non-unique, the post-event state perturbation $\ls^{s^k}\zb$ resulting from the positively homogeneous jump gain is unique. 
 
@@ -670,28 +683,6 @@ The conditions that decide which jump gain to use are illustrated in Figure~\ref
 \includegraphics[width=.5\textwidth]{4cone.eps}\caption{An illustration of the conditions in \eqref{eq:4conds}, and how they result in a order zero positively homogeneous jump gain. The areas \textnormal{(I)}, \textnormal{(II)}, and \textnormal{(III)} coincide with the conditions \textnormal{(I)}, \textnormal{(II)}, and \textnormal{(III)} in \eqref{eq:4conds}.}\label{fig:4cone}
 \end{figure}
 
-%\begin{figure}[h!]
-%\centering
-%\begin{subfigure}[b]{0.47\textwidth}   
-%\centering 
-%\includegraphics[width=\textwidth]{4example12.eps}
-%\label{fig:4example1}\caption{The modes in the nominal trajectory.}
-%\end{subfigure}
-%\vskip\baselineskip
-%\begin{subfigure}[b]{0.81\textwidth}   
-%\centering 
-%\includegraphics[width=\textwidth]{4example456.eps}
-%\label{fig:4example4}\caption{The modes in a perturbed trajectory.}
-%\end{subfigure}
-%\vskip\baselineskip
-%\begin{subfigure}[b]{\textwidth}   
-%\centering 
-%\includegraphics[width=.85\textwidth]{4exampletraj.eps}
-%\label{fig:4exampletraj}
-%\end{subfigure}
-%\caption{The state evolution of the nominal and state trajectory is illustrated in this figure. }
-%\label{fig:4example}
-%\end{figure}
 
 \subsection{The positively homogeneous time-triggered hybrid system}\label{def:4PTTHS}
 With the positively homogeneous jump gain presented in the previous section, the PTTHS can be defined. The PTTHS forms an approximation of the NSITHS defined in Definition~\ref{def:3nsiths}. We presume this approximation to be first order. The PTTHS will jump at the same time as the nominal trajectory $\alphab$, and will also experience the same number of jumps. This means that a controller designed on the PTTHS will only switch once during a macro event, and not on every micro event. This is desired behavior, as the micro events will likely happen too rapidly to control on. We now define the PTTHS formally, with the positively homogeneous jump gain being defined for a character-2 event ($c = 2$, with $a = 00$ and $p=11$) for brevity reasons.
@@ -726,9 +717,9 @@ with $\tau_0 = t_0$. The positively homogeneous jump gain $\ls^{p\leftarrow a}\H
 \end{align}
 with
 \begin{align}
-(\textnormal{I})&:\ls^{^2 S^1}\ab^T\ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ls^{^2 S^1}\vb = \ls^{^1 S^1}\ab^T\ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ls^{^1 S^1}\vb,\nonumber\\
-(\textnormal{II})&:\ls^{^2 S^1}\ab^T\ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ls^{^2 S^1}\vb > \ls^{^1 S^1}\ab^T\ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ls^{^1 S^1}\vb,\label{eq:4PTTHS2}\\
-(\textnormal{III})&:\ls^{^2 S^1}\ab^T\ls^{^2 S^1}\zb +\ls^{^2 S^1}\bb^T\ls^{^2 S^1}\vb < \ls^{^1 S^1}\ab^T\ls^{^1 S^1}\zb +\ls^{^1 S^1}\bb^T\ls^{^1 S^1}\vb.\nonumber
+(\text{I})&:\ls^{^2 S^1}\ab^T\ \ls^{s^0}\zb +\ls^{^2 S^1}\bb^T\ \ls^{s^0}\vb = \ls^{^1 S^1}\ab^T\ \ls^{s^0}\zb +\ls^{^1 S^1}\bb^T\ \ls^{s^0}\vb,\nonumber\\
+(\text{II})&:\ls^{^2 S^1}\ab^T\ \ls^{s^0}\zb +\ls^{^2 S^1}\bb^T\ \ls^{s^0}\vb > \ls^{^1 S^1}\ab^T\ \ls^{s^0}\zb +\ls^{^1 S^1}\bb^T\ \ls^{s^0}\vb,\label{eq:4PTTHS2}\\
+(\text{III})&:\ls^{^2 S^1}\ab^T\ \ls^{s^0}\zb +\ls^{^2 S^1}\bb^T\ \ls^{s^0}\vb < \ls^{^1 S^1}\ab^T\ \ls^{s^0}\zb +\ls^{^1 S^1}\bb^T\ \ls^{s^0}\vb.\nonumber
 \end{align}
 The jump gains $\ls^{s^+\leftarrow s^-}_{S^k}\Gb$ and $\ls^{s^+\leftarrow s^-}_{S^k}\Jb$ in \eqref{eq:4PTTHS1}, with $s^+ = s^k$ and $s^- = s^0$ and $S^k = s^k\leftarrow s^{k-1} \leftarrow \cdots \leftarrow s^0$, are given by
 \begin{align}
@@ -742,7 +733,7 @@ and
 \gb^- &:= \ls^{s^+\leftarrow s^-}\gb\left(\ls^{S^-}\alphab(\tau),\ls^{S^-}_{\rightarrow}\mub(\tau),\tau\right),\\
 \gamma^- &:= \gamma^{\eta(s^+\leftarrow s^-)}\left(\ls^{S^-}\alphab(\tau),\ls^{S^-}_{\rightarrow}\mub(\tau),\tau\right),\\
 \dot{\gb}^- &:= D_1\gb^-\cdot \fb^- + D_2\gb^-\cdot \dot{\mub}^- + D_3\gb^-,\\
-\dot{\gamma}^- &:= D_1\gamma^-\cdot\dot{\alphab}(\tau) + D_2\gamma^-\cdot\dot{\mub}(\tau) + D_3\gamma^-,
+\dot{\gamma}^- &:= D_1\gamma^-\cdot\fb^- + D_2\gamma^-\cdot\dot{\mub}^- + D_3\gamma^-,
 \end{align*}
 where the $\rightarrow$ left subscript should be interpreted as $\searrow$ or $\nearrow$ to indicate whether the feedforward is pushing or withdrawing, respectively. $\gamma^{\eta(s^+\leftarrow s^-)}$ is the guard function that is activated during the transition $s^+\leftarrow s^-$. If the transition $s^+\leftarrow s^-$ is associated with multiple guard functions, one of the guard functions can be chosen, as it will have no effect on the jump gain. For example, during the transition $11\leftarrow 00$, $\gamma^{01}$ or $\gamma^{10}$ should be used for defined the jump gain. Finally, the vectors $\ls^{S^k}\ab$ and $\ls^{S^k}\bb$ in \eqref{eq:4PTTHS2} are given by
 \begin{align*}
@@ -751,6 +742,29 @@ where the $\rightarrow$ left subscript should be interpreted as $\searrow$ or $\
 \end{align*}
 \end{mydef}
 \end{sloppypar}
+
+%\begin{figure}[h!]
+%\centering
+%\begin{subfigure}[b]{0.47\textwidth}   
+%\centering 
+%\includegraphics[width=\textwidth]{4example12.eps}
+%\label{fig:4example1}\caption{The modes in the nominal trajectory.}
+%\end{subfigure}
+%\vskip\baselineskip
+%\begin{subfigure}[b]{0.81\textwidth}   
+%\centering 
+%\includegraphics[width=\textwidth]{4example456.eps}
+%\label{fig:4example4}\caption{The modes in a perturbed trajectory.}
+%\end{subfigure}
+%\vskip\baselineskip
+%\begin{subfigure}[b]{\textwidth}   
+%\centering 
+%\includegraphics[width=.85\textwidth]{4exampletraj.eps}
+%\label{fig:4exampletraj}
+%\end{subfigure}
+%\caption{The state evolution of the nominal and state trajectory is illustrated in this figure. }
+%\label{fig:4example}
+%\end{figure}
 
 \nomenclature[RH]{$\Hb$}{The positively homogeneous jump gain}%
 \nomenclature[Rz]{$\zb$}{The state perturbation}%
