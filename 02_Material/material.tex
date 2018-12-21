@@ -360,10 +360,10 @@ Note that since $\fb_j$ is only defined on $\xb(t,j),\ub(t,j)\notin \mathcal{D}_
 The closed contact points in $\Ic_{\text{cl}}$ experience reaction forces $\lambda_{n,\iota}$ and $\lambdab_{t,\iota}$, as can be seen in \eqref{eq:qddot}. Therefore, for all closed contact points $\iota\in\Ic_{\text{cl}}$, constraints are included which restrict these reaction forces. These constraints are given by
 \begin{align}
 \wb^T_{n,\iota}(\qb)\ddot{\qb} + \dot{\wb}^T_{n,\iota}(\qb)\dot{\qb} &= 0, &\forall \iota\in\Ic_{\text{cl}},\label{eq:fcontconst1}\\
-\lambdab_{t,\iota} + \mu_{\iota}\lambda_{n,\iota}\SgnSp(\Wb_{t,\iota}^T\dot{\qb}) &= 0, &\forall \iota\in\Ic_{\text{sl}},\label{eq:fcontconst2}\\
+\lambdab_{t,\iota}||\Wb_{t,\iota}^T\dot{\qb}|| + \mu_{\iota}\lambda_{n,\iota}\Wb_{t,\iota}^T\dot{\qb} &= 0, &\forall \iota\in\Ic_{\text{sl}},\label{eq:fcontconst2}\\
 \Wb^T_{t,\iota}(\qb)\ddot{\qb} + \dot{\Wb}^T_{t,\iota}(\qb)\dot{\qb} &= 0, &\forall \iota\in\Ic_{\text{st}},\label{eq:fcontconst3}
 \end{align}
-where again $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$ are the sets of closed contacts in slip and closed contacts in stick respectively. With \eqref{eq:fcont} and \eqref{eq:fcontconst1}-\eqref{eq:fcontconst3}, the continuous dynamics of the hybrid system are correctly defined. A more thorough derivation of these dynamics can be found in Appendix~\ref{app:hybrid}.
+where again $\Ic_{\text{sl}}$ and $\Ic_{\text{st}}$ are the sets of closed contacts in slip and closed contacts in stick, respectively. With \eqref{eq:fcont} and \eqref{eq:fcontconst1}-\eqref{eq:fcontconst3}, the continuous dynamics of the hybrid system are correctly defined. A more thorough derivation of these dynamics can be found in Appendix~\ref{app:hybrid}.
 
 \textbf{System mode descriptor}\\
 A system will have different flow dynamics as the system mode changes, as can be seen in \eqref{eq:fcontconst1}-\eqref{eq:fcontconst3}. Also the jump sets $\mathcal{D}_j$ change with the mode, as will be shown in Section~\ref{sec:2event}. Therefore it is necessary to keep track of the mode the system is in. The system mode descriptor $\sigma_j$ is introduced to conveniently describe the current system mode. Each contact point can either be in open-contact, closed-contact slip or closed-contact stick. The system mode descriptor is therefore defined as the ordered set
@@ -421,10 +421,10 @@ From the impulsive dynamics \eqref{eq:ncpimpact1}-\eqref{eq:ncpimpact4}, the dis
 \begin{align}
 \dot{\qb}^+ &= \Mb^{-1}\left[\Wb_{n}\Lambdab_{n} + \Wb_{t}\Lambdab_{t}\right] + \dot{\qb}^-, \label{eq:2ncp1}\\
 \wb^T_{n,\iota}\dot{\qb}^+ &= 0, &\forall \iota\in\Ic_{\text{cl}},\label{eq:2ncp2}\\
-\Lambdab_{t,\iota} + \mu\Lambda_{n,\iota}\SgnSp(\vbf^-_{t,\iota})&= 0, &\forall \iota\in\Ic_{\text{sl}},\label{eq:2ncp3}\\
+\Lambdab_{t,\iota}||\Wb^T_{t,\iota}\dot{\qb}^+|| + \mu\Lambda_{n,\iota}\Wb^T_{t,\iota}\dot{\qb}^+&= 0, &\forall \iota\in\Ic_{\text{sl}},\label{eq:2ncp3}\\
 \Wb^T_{t,\iota}\dot{\qb}^+ &= 0, &\forall \iota\in\Ic_{\text{st}}.\label{eq:2ncp4}
 \end{align}
-Here the unknown variables are $\dot{\qb}^+\in\Rbb^{n}$, $\Lambdab_{n}\in\Rbb^{c_{\text{cl}}}$ and $\Lambdab_{t}\in\Rbb^{2c_{\text{cl}}}$, which means that there are $n+3c_{\text{cl}}$ unknown variables. From \eqref{eq:2ncp1} we get $n$ equations, from \eqref{eq:2ncp2} we get $c_{\text{cl}}$ equations and since $\Ic_{\text{sl}}\cup\Ic_{\text{st}}=\Ic_{\text{cl}}$, $\lambdab_{t,\iota}\in\Rbb^2$, and $\Wb^T_{t,\iota}\ddot{\qb}^+ + \dot{\Wb}^T_{t,\iota}\dot{\qb}^+ \in\Rbb^2$ we get $2c_{\text{cl}}$ equations from \eqref{eq:2ncp3}-\eqref{eq:2ncp4}. Since we have $n+3c_{\text{cl}}$ unknown variables and $n+3c_{\text{cl}}$ equations, the system is solvable.
+Here the unknown variables are $\dot{\qb}^+\in\Rbb^{n}$, $\Lambdab_{n}\in\Rbb^{c_{\text{cl}}}$ and $\Lambdab_{t}\in\Rbb^{2c_{\text{cl}}}$, which means that there are $n+3c_{\text{cl}}$ unknown variables. From \eqref{eq:2ncp1} we get $n$ equations, from \eqref{eq:2ncp2} we get $c_{\text{cl}}$ equations and since $\Ic_{\text{sl}}\cup\Ic_{\text{st}}=\Ic_{\text{cl}}$, $\Lambdab_{t,\iota}\in\Rbb^2$, and $\dot{\Wb}^T_{t,\iota}\dot{\qb}^+ \in\Rbb^2$ we get $2c_{\text{cl}}$ equations from \eqref{eq:2ncp3}-\eqref{eq:2ncp4}. Since we have $n+3c_{\text{cl}}$ unknown variables and $n+3c_{\text{cl}}$ equations, the system is solvable.
 
 The problem that remains is that it is not straightforward to identify what the correct mode and therewith what the sets $\mathcal{I}_{\textnormal{op}}$, $\mathcal{I}_{\textnormal{sl}}$, and $\mathcal{I}_{\textnormal{st}}$ should be after an event. The set of equations that should be solved is the set of equations that corresponds to the system-mode which generates a feasible post-event state. When a contact point enters a discrete event set, and thus generates an infeasible state, it can be concluded that the system will go through an event because in it's current mode the system is infeasible. However, it is not guaranteed that the contact point which entered the event set will change their mode. Actually any contact point, or even several contact points, can change their mode. Therefore the dynamics should be solved for several modes, until a feasible post-event state is found. A feasible post-event state is a post-event state solved for a certain system-mode $\sigma$, such that the all corresponding guard functions are inactive, i.e., all $\Gamma_{\iota}>0$. As mentioned earlier, there will exist a unique system-mode where the system has a feasible post-impact state. Similar to the non-impulsive guard functions defined in Section~\ref{sec:2event}, the impulsive guard functions are given by
 \begin{align}
@@ -439,7 +439,7 @@ The mode $\sigma$ of a system is determined by the guard functions defined in Se
 \begin{align}
 \ddot{\qb}^+ &= \Mb^{-1}\left[\Sb\ub^+ - \Cb + \Wb_{n}\lambdab^+_{n} + \Wb_{t}\lambdab^+_{t}\right], &  \label{eq:2nonimp1}\\
 \wb^T_{n,\iota}\ddot{\qb}^+ + \dot{\wb}^T_{n,\iota}\dot{\qb}^+ &= 0, & \forall \iota\in\Ic_{\text{cl}},\label{eq:2nonimp2}\\
-\lambdab^+_{t,\iota} + \mu\lambda^+_{n,\iota}\SgnSp(\Wb_{t,\iota}^T\dot{\qb}^+) &= 0, & \forall \iota\in\Ic_{\text{sl}},\label{eq:2nonimp3}\\
+\lambdab^+_{t,\iota}||\Wb^T_{t,\iota}\dot{\qb}^+|| + \mu\lambda^+_{n,\iota}\Wb^T_{t,\iota}\dot{\qb}^+ &= 0, & \forall \iota\in\Ic_{\text{sl}},\label{eq:2nonimp3}\\
 \Wb^T_{t,\iota}\ddot{\qb}^+ + \dot{\Wb}^T_{t,\iota}\dot{\qb}^+ &= 0, & \forall \iota\in\Ic_{\text{st}},\label{eq:2nonimp4}
 \end{align}
 where $\Mb$, $\Sb$, $\Cb$, $\wb_{n,\iota}$ and $\Wb_{t,\iota}$ are evaluated at the post-event joint configuration $\qb^+$ and velocity $\dot{\qb}^+$. Because we are interested in whether the accelerations and reaction forces are feasible, the guard functions defined on acceleration level are evaluated. The guard functions that determine the feasibility of a post-event mode are given by
