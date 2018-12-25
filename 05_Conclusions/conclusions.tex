@@ -7,5 +7,34 @@
 \cleartooddpage
 \pagestyle{fancyreport}
 \chapter{Conclusions and Recommendations}\label{ch:concl}
+The research goals that have been addressed in this work are:\\\\
+\textbf{Simultaneous impacts with friction}\\
+\textit{Find a model suitable to describe mechanical systems with unilateral constraints and spatial friction. The sensitivity analysis and mathematical notation presented in \cite{Rijnen2018a} shall be extended to be compatible with such models.}
 
+\textbf{Simultaneous releases}\\
+\textit{Extending the sensitivity analysis presented in \cite{Rijnen2018a} such that it is suitable for input-triggered events.}
+
+\section{Conclusions}
+To analyze mechanical systems with unilateral constraints and spatial friction, a suitable model needed to be found. The hybrid system formulation using guard functions has been previously used in modeling mechanical systems with trajectories experiencing impact \cite{Rijnen2018a}. In Chapter~\ref{ch:model}, a hybrid system formulation using guard functions is presented for mechanical systems with trajectories experiencing frictional impacts, releasing motions, and stick-slip transitions. We name this model the nonlinear state-and-input-triggered hybrid system (NSITHS). The contribution made in Chapter~\ref{ch:model} is:
+
+\textit{A model, suitable to describe mechanical systems with unilateral constraints and spatial friction, is found and presented in the form an NSITHS.}
+
+The model presented in Chapter~\ref{ch:model} is used to analyze the effect of perturbations on trajectories of mechanical systems with unilateral constraints and spatial friction. This is achieved by performing a sensitivity analysis, which results in a model that describes the response on perturbations of the system. Since the model presented in Chapter~\ref{ch:model} contains input-dependent guard functions, the sensitivity analysis presented in \cite{Rijnen2017} does not suffice. Therefore, the sensitivity analysis is extended to be suitable for input-dependent guard functions and jump maps. This sensitivity analysis defines a linear time-triggered hybrid system (LTTHS), which approximates the behavior of the NSITHS for trajectories with isolated events. The contribution made in Chapter~\ref{ch:order} is:
+
+\textit{The sensitivity analysis and notation presented in \cite{Rijnen2018a} is extended to be compatible with the NSITHS, for trajectories with isolated events.}
+
+
+\begin{itemize}
+\item PTTHS for systems with input dependent guards
+\item First steps in simulations
+\item Summary of contribution can accomplish
+\end{itemize}
+
+\section{Recommendations}
+\begin{itemize}
+\item Trajectory generation
+\item Numerical Validation (also slip to stick guard function suitable for simulations)
+\item Missing proofs (Induction proof of $\Gb$ and $\Jb$, stability of LTTHS/PTTHS implies stability of NSITHS, approximation is first order)
+\item Impacts at the border between stick and slip
+\end{itemize}
 \end{document}

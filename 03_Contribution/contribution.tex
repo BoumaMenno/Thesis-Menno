@@ -279,9 +279,9 @@ The sensitivity analysis performed in the previous section will be used next to 
 The linear time-triggered hybrid system associated with the reference trajectory $\alphab$ and the NSITHS \eqref{eq:3hybimp1}-\eqref{eq:3hybimp2} is given by
 \begin{align}
 \dot{\zb}_j &= \Ab_j(t)\zb_j + \Bb_j(t)\vb_j, &(t,j)&\in \dom\alphab,\\
-\zb^+ &= \Gb_j(t)\zb^- + \Jb_j(t)\vb^-, &(t,j)&\in \eve\alphab,
+\zb^+ &= \Gb_{j+1}(t)\zb^- + \Jb_{j+1}(t)\vb^-, &(t,j)&\in \eve\alphab,
 \end{align}
-with initial condition $\zb(t_0,0)=z_0$, $\zb^+ = \zb(\tau_j,j)$, $\zb^- = \zb(\tau_j,j-1)$,
+with initial condition $\zb(t_0,0)=\zb_0$, $\zb^+ = \zb(t,j+1)$, $\zb^- = \zb(t,j)$,
 \begin{align*}
 \Ab_j(t) &= D_1\fb_j(\alphab_j(t),\mub_j(t),t),\\
 \Bb_j(t) &= D_2\fb_j(\alphab_j(t),\mub_j(t),t),\\
@@ -378,7 +378,7 @@ where $s^0_i = 00\dots0$ with length $c_i$. Again, the macro counter $i$ can be 
 \end{align}
 where $p$ represents the post-event mode descriptor, and $a$ the ante-event mode descriptor. For example, the state jump from $s^k$ to $s^{k+1}$ is given by $\ls^{s^{k+1}}\xb = \ls^{s^{k+1}\leftarrow s^k}\gb(\ls^{s^k}\xb,\ls^{s^k}\ub,t)$. Sequences with a particular order of events can also be expressed as
 \begin{align}
-\ls^{\nu_k \nu_{k-1}\dots\nu_{1}}S^k = s^k \leftarrow s^{k-1} \leftarrow \dots \leftarrow s^0,
+\ls^{\nu_k \nu_{k-1}\dots\nu_{\ls_{1}}}S^k = s^k \leftarrow s^{k-1} \leftarrow \dots \leftarrow s^0,
 \end{align}
 where all mode descriptor entries are defined as $s^{\kappa} = s^{\kappa-1} + \eta_{\kappa}$, with $\eta_{\kappa} = 2^{\nu_{\kappa}-1}$ and $\kappa = \{1,2,\dots,k\}$. For a simultaneous activation during a micro event, the participating guard functions are placed within brackets. For example, for a character-4 ($c = 4$) growing sequence, we write 
 \begin{align}
@@ -691,13 +691,13 @@ With the positively homogeneous jump gain presented in the previous section, the
 \begin{mydef}[PTTHS]
 The positively homogeneous time-triggered hybrid system associated with the NSITHS and the associative and transversal reference trajectory ($\alphab(t,i),\mub(t,i)$) is given by
 \begin{align}
-\dot{\zb} &= \Ab(t,i)\zb + \Bb(t,i)\vb, &(t,i) \in \dom\ \alphab,\\
-\zb^+ &= \Hb_{i+1}\begin{bmatrix} \zb^- \\ \vb^-\end{bmatrix}, &(t,i) \in \eve\ \alphab,
+\dot{\zb} &= \Ab_i(t)\zb + \Bb_i(t)\vb, &(t,i)&\in \dom\ \alphab,\\
+\zb^+ &= \Hb_{i+1}\begin{bmatrix} \zb^- \\ \vb^-\end{bmatrix}, &(t,i)&\in \eve\ \alphab,
 \end{align}
 where $\Hb_{i+1} := \ls^{p\leftarrow a}\Hb(\zb^-,\vb^-,t)$ is a positively homogeneous jump gain of order zero,
 \begin{align*}
-\Ab(t,i) &:= D_1\fb(\alphab(t,i),\mub(t,i),t,i),\\
-\Bb(t,i) &:= D_2\fb(\alphab(t,i),\mub(t,i),t,i),\\
+\Ab_i(t) &:= D_1\fb(\alphab(t,i),\mub(t,i),t,i),\\
+\Bb_i(t) &:= D_2\fb(\alphab(t,i),\mub(t,i),t,i),\\
 \vb^- &:= \ls^{a}\vb = \vb(t,i),\\
 \zb^- &:= \ls^{a}\zb = \zb(t,i),\\
 \zb^+ &:= \ls^{p}\zb = \zb(t,i+1),
