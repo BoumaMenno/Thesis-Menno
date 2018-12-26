@@ -19,16 +19,18 @@ To analyze mechanical systems with unilateral constraints and spatial friction, 
 
 \textit{A model, suitable to describe mechanical systems with unilateral constraints and spatial friction, is found and presented in the form an NSITHS.}
 
-The model presented in Chapter~\ref{ch:model} is used to analyze the effect of perturbations on trajectories of mechanical systems with unilateral constraints and spatial friction. This is achieved by performing a sensitivity analysis, which results in a model that describes the response on perturbations of the system. Since the model presented in Chapter~\ref{ch:model} contains input-dependent guard functions, the sensitivity analysis presented in \cite{Rijnen2017} does not suffice. Therefore, the sensitivity analysis is extended to be suitable for input-dependent guard functions and jump maps. This sensitivity analysis defines a linear time-triggered hybrid system (LTTHS), which approximates the behavior of the NSITHS for trajectories with isolated events. The contribution made in Chapter~\ref{ch:order} is:
+The model presented in Chapter~\ref{ch:model} is used to analyze the effect of perturbations on trajectories of mechanical systems with unilateral constraints and spatial friction. By performing a sensitivity analysis, a model that describes the response of the system on perturbations is obtained. Since the model presented in Chapter~\ref{ch:model} contains input-dependent guard functions, the sensitivity analysis presented in \cite{Rijnen2017} does not suffice. Therefore, the sensitivity analysis is extended to be suitable for input-dependent guard functions and jump maps. This sensitivity analysis defines a linear time-triggered hybrid system (LTTHS), which approximates the behavior of the NSITHS for trajectories with isolated events. The contribution made in Chapter~\ref{ch:order} is:
 
-\textit{The sensitivity analysis and notation presented in \cite{Rijnen2018a} is extended to be compatible with the NSITHS, for trajectories with isolated events.}
+\textit{The sensitivity analysis and notation presented in \cite{Rijnen2018a} is extended to be compatible with the NSITHS, for trajectories with isolated state-and-input-triggered events.}
 
+The approximation of the NSITHS presented in Chapter~\ref{ch:order}, named the LTTHS, is only valid for trajectories with isolated events. In Chapter~\ref{ch:simult}, the LTTHS is extended to be suitable for nominal trajectories with simultaneous events. Using the approach presented in \cite{Rijnen2018}, the jump gain that describes the jumping behavior in the LTTHS is replaced by the positively homogeneous jump gain. This positively homogeneous jump gain approximates the jumping behavior of the trajectories around the nominal trajectory, where loss of simultaneity occurs. Using the positively homogeneous jump gain, the positively homogeneous time-triggered hybrid system (PTTHS) is defined. The PTTHS approximates the behavior of the NSITHS for trajectories with simultaneous events. The work in \cite{Rijnen2018a} presents the PTTHS for state-triggered events and state-dependent jump maps, whereas this work presents the PTTHS for state-and-input-triggered events and state-and-input dependent jump gains. The contribution made in Chapter~\ref{ch:simult} is:
 
-\begin{itemize}
-\item PTTHS for systems with input dependent guards
-\item First steps in simulations
-\item Summary of contribution can accomplish
-\end{itemize}
+\textit{The sensitivity analysis and notation presented in \cite{Rijnen2018a} is extended to be compatible with the NSITHS, for trajectories with simultaneous state-and-input-triggered events.}
+
+Finally, in Chapter~\ref{ch:vali}, new steps towards a numerical validation of the proposed theory is presented. \textbf{Needs more work}
+
+This work presents an analysis on the tracking behavior of mechanical systems with unilateral constraints and spatial friction. The analysis is compatible with both state-and-input-dependent guard functions and jump maps, and a class of nominal trajectories that can experience both isolated and simultaneous events. The reader should be aware that the theory is not valid for near-simultaneous events in the nominal trajectory. The analysis results in an approximation of trajectories close to the nominal trajectory, which we claim can be used to assess the local asymptotic stability of the original system. Since the approximation is time-triggered, conventional stability analysis tools can be used to assess the stability of the state-and-input triggered system. Also, the approximation can benefit controller design \textbf{NAME DESIGN TECHNIQUES THAT WORK FOR TIME TRIGGERED SYSTEMS.}
+
 
 \section{Recommendations}
 \begin{itemize}
@@ -36,5 +38,7 @@ The model presented in Chapter~\ref{ch:model} is used to analyze the effect of p
 \item Numerical Validation (also slip to stick guard function suitable for simulations)
 \item Missing proofs (Induction proof of $\Gb$ and $\Jb$, stability of LTTHS/PTTHS implies stability of NSITHS, approximation is first order)
 \item Impacts at the border between stick and slip
+\item General notation of Positive Homogeneous jump gain
+\item Impact detection
 \end{itemize}
 \end{document}
