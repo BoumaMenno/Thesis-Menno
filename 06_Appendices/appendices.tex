@@ -20,10 +20,7 @@
 \cleartooddpage
 \pagestyle{appendix}
 \chapter{Nonsmooth modeling}
-\section{Hybrid system formulation for mechanical systems}\label{app:hybrid}
-\subsection{Continuous dynamics derivation}
-
-\subsection{Discrete event set derivation}\label{app:hybriddisc}
+\section{Discrete event set derivation}\label{app:hybriddisc}
 In this section the discrete event sets $D$ are defined. When the state or input of the system enters a discrete event set, contact points can change set and a reinitialization of the state can take place. In this work the assumption is made that all contact points in closed contact are in the same set, i.e., in either $\Ic_{\text{sl}}$ or $\Ic_{\text{st}}$.
 
 \textbf{More elaboration on why the conditions that are chosen are chosen (i.e., why $||\zetab_{t,i}||=0$)}
@@ -207,75 +204,6 @@ which can be rewritten to
 
 Using \eqref{eq:applambdastick} the guard function \eqref{eq:appguardstsl} is defined.
 
-\subsection{Discrete dynamics derivation}
-In this section the discrete dynamics are defined, describing the state reinitialization when a discrete event set is entered. These dynamics are defined by a jump map $\gb$, which is defined differently for each post-event mode.
-
-\textbf{Slip post-impact mode} $\dot{\qb}^+ = \gb_{\rightarrow\text{sl}}(\dot{\qb}^-)$\\
-The discrete dynamics of a transition with a slip post-impact mode are given by
-\begin{align}
-&\Mb[\dot{\qb}^+ - \dot{\qb}^-] = \Wb_{n}\Lambdab_{n} + \Wb_{t}\Lambdab_{t},\label{eq:appdiscslip1}\\
-&\Wb^T_{n}\dot{\qb}^+ = 0,\label{eq:appdiscslip2}\\
-&\Lambdab_{t} = -\mu\Zb^{-}_{t}\Lambdab_{n},\label{eq:appdiscslip3}
-\end{align}
-with $\Zb^{-}_{t}$ defined as in \eqref{eq:appZt} using the unit vector of the ante-impact tangential velocity $\langle\zetab_{t}^-\rangle$. After substituting \eqref{eq:appdiscslip3} intro \eqref{eq:appdiscslip1} and rewriting to
-\begin{align}
-\dot{\qb}^+ = \left[\Mb^{-1}\Wb_{n} - \mu\Mb^{-1}\Wb_{t}\Zb^-_{t}\right]\Lambdab_{n} + \dot{\qb}^-,\label{eq:appqdotplusslip1}
-\end{align}
-and expression for $\Lambdab_n$ can be found by substituting this into \eqref{eq:appdiscslip2}, which is
-\begin{align}
-\Lambdab_{n} = -\left[\Wb^T_{n}\Mb^{-1}\Wb_{n}- \mu\Wb^T_{n}\Mb^{-1}\Wb_{t}\Zb^-_{t}\right]^{-1}\Wb^T_{n}\dot{\qb}^-,\label{eq:appLambdanslip}
-\end{align}
-The jump map $\dot{\qb}^+ = \gb_{\rightarrow\text{sl}}(\dot{\qb}^-)$ is then found by substituting \eqref{eq:appLambdanslip} into \eqref{eq:appqdotplusslip1},
-\begin{align}
-\dot{\qb}^+ = -\left[\Mb^{-1}\Wb_{n} - \mu\Mb^{-1}\Wb_{t}\Zb^-_{t}\right]\left[\Wb^T_{n}\Mb^{-1}\Wb_{n}- \mu\Wb^T_{n}\Mb^{-1}\Wb_{t}\Zb^-_{t}\right]^{-1}\Wb^T_{n}\dot{\qb}^- + \dot{\qb}^-.\label{eq:appgslip}
-\end{align}
-Note that when there is a transition from stick to slip, i.e., there is no impact, the post-event velocity is $\dot{\qb}^+ = \dot{\qb}^-$.
-
-\textbf{Stick post-impact mode} $\dot{\qb}^+ = \gb_{\rightarrow\text{st}}(\dot{\qb}^-)$\\
-The discrete dynamics of a transition with a stick post-impact mode are given by
-\begin{align}
-&\Mb[\dot{\qb}^+ - \dot{\qb}^-] = \Wb_{n}\Lambda_{n} + \Wb_{t}\Lambdab_{t},\label{eq:appdiscstick1}\\
-&\Wb^T_{n}\dot{\qb}^+ = 0,\label{eq:appdiscstick2}\\
-&\Wb^T_{t}\dot{\qb}^+ = 0.\label{eq:appdiscstick3}
-\end{align}
-After rewriting \eqref{eq:appdiscstick1} into
-\begin{align}
-\dot{\qb}^+ = \Mb^{-1}\Wb_{n}\Lambdab_{n} + \Mb^{-1}\Wb_{t}\Lambdab_{t} + \dot{\qb}^-,\label{eq:appqdotplusstick1}
-\end{align}
-substituting this into \eqref{eq:appdiscstick2} and \eqref{eq:appdiscstick3} results in
-\begin{align}
-\Wb_{n}^T\Mb^{-1}\Wb_{n}\Lambdab_{n} + \Wb_{n}^T\Mb^{-1}\Wb_{t}\Lambdab_{t} + \Wb^T_{n}\dot{\qb}^- = 0\\
-\Wb_{t}^T\Mb^{-1}\Wb_{n}\Lambdab_{n} + \Wb_{t}^T\Mb^{-1}\Wb_{t}\Lambdab_{t} + \Wb^T_{t}\dot{\qb}^- = 0.
-\end{align}
-This can be rewritten into a definition of $\Lambdab_{n}$ and $\Lambdab_{t}$, given by
-\begin{align}
-\begin{bmatrix}
-\Lambdab_{n}\\
-\Lambdab_{t}
-\end{bmatrix} = -\Db^{-1}\begin{bmatrix}
-\Wb^T_{n}\dot{\qb}^-\\
-\Wb^T_{t}\dot{\qb}^-
-\end{bmatrix},\quad \text{with } \Db = \begin{bmatrix}
-\Wb_{n}^T\Mb^{-1}\Wb_{n} & \Wb_{n}^T\Mb^{-1}\Wb_{t}\\
-\Wb_{t}^T\Mb^{-1}\Wb_{n} & \Wb_{t}^T\Mb^{-1}\Wb_{t}
-\end{bmatrix}.
-\end{align}
-Substituting $\Lambdab_{n}$ and $\Lambdab_{t}$ into \eqref{eq:appqdotplusstick1} results in the jump map $\dot{\qb}^+ = \gb_{\rightarrow\text{st}}(\dot{\qb}^-)$,
-\begin{align}
-\dot{\qb}^+ = \Mb^{-1}\Wb_{n}\Lambdab_{n} + \Mb^{-1}\Wb_{t}\Lambdab_{t} + \dot{\qb}^-,\label{eq:appgstick}
-\end{align}
-Similarly to the stick to slip case, note that when there is a transition from slip to stick the post-event velocity is $\dot{\qb}^+ = \dot{\qb}^-$.
-
-\textbf{Open-contact post-impact mode} $\dot{\qb}^+ = \gb_{\rightarrow\text{op}}(\dot{\qb}^-)$\\
-The discrete dynamics of a transition with a slip post-impact mode are given by
-\begin{align}
-&\Mb(\dot{\qb}^+ - \dot{\qb}^-) = 0.\label{eq:appdiscopen}
-\end{align}
-In this case there are no impulsive reaction forces, and it is trivial to see that the jump map $\dot{\qb}^+ = \gb_{\rightarrow\text{op}}(\dot{\qb}^-)$ is given by
-\begin{align}
-\dot{\qb}^+ = \dot{\qb}^-.\label{eq:appgopen}
-\end{align}
-
 \section{Proximal Point Formulation}
 The contact law and friction law defined in the complementarity condition formulation can be redefined to a proximal point formulation. This makes the system compatible with simulation methods as timestepping \cite[Chapter 10]{Acary2008}. More information on the definition of the proximal point formulation of contact laws and friction laws can be found in \cite[Section 5.3]{Leine2008}.
 
@@ -363,7 +291,7 @@ with
 \pagestyle{fancyreport}
 \cleartooddpage
 \pagestyle{fancyreport}
-\chapter{Spatial Friction in Mechanical Systems with Unilateral Constraints}
+\chapter{Frictional Impacts in Mechanical Systems}
 \section{Reference trajectories with impact away from slip-stick border}\label{app:impactsaway}
 Now we look at the case where a contact point goes from open to closed, away from $\Gammab = 0$. This is illustrated in Figure~\ref{fig:impactfromborder}. The goal is to prove that for an event away from $\Gammab$, a sufficiently small perturbation cannot cause the trajectory to hit $\gamma = 0$ at a perturbed ante-impact state $\xb_\epsilon^-(t_\epsilon)$ where $\Gammab$ changes sign in comparison with the unperturbed ante-impact state $\alphab^-(\tau)$. From \cite[p. 6]{Rijnen2018} we know that based on the continuity property of $\gammab$ and $\fb$, the perturbed impact state can be written as
 
@@ -396,15 +324,6 @@ Since $\delta_{\Gammab} > 0$ and $\lim_{\epsilon\rightarrow 0}||\xb_\epsilon(t_\
 
 In other words, this proves that if $\fb$, $\gammab$ and $\Gammab$ are continuous and the nominal trajectory makes impact away from the slip-stick post-impact mode border $\Gammab = 0$, then there always exists a range of $\epsilon$ such that the perturbed state will have the same post-impact mode as the nominal trajectory.
 
-
-\section{Reference trajectories with impact at the slip-stick border}
-
-\begin{itemize}
-	\item Consider as simultaneous trigger of open-closed guard and slip-stick guard. However, it is not entirely the same, as the slip-stick guard cannot be triggered before the open-closed guard.
-	\item The trigger should be transversal, in both closed-open guard and slip-stick guard.
-	\item If we can show continuity of post-impact state, then we can define a jump gain like $H$, which uses one jump map for the open to stick domain and another jump map for the open to slip domain.
-\end{itemize}
-
 \section{Post-impact accelerations in open-to-stick transitions}
 The mode transition from stick to slip happens when a guard is triggered at acceleration level, 
 \begin{align}
@@ -436,15 +355,12 @@ We can deduce from \eqref{eq:appjump9}-\eqref{eq:appjump10} and \eqref{eq:appsti
 
 Using the continuity of the system's flow dynamics and the function $\mu^2(\lambda^+_{n,i})^2 - \lambdab^+_{t,i}(\lambdab^+_{t,i})^T$, we can show that if we choose $\mub^+$ such that $\alphab^+,\mub^+$ is not on $\mu^2(\lambda^+_{n,i})^2 - \lambdab^+_{t,i}(\lambdab^+_{t,i})^T = 0$ then there always exists a range of perturbations $\epsilon$ such that the perturbed post-impact is on the same side of $\mu^2(\lambda^+_{n,i})^2 - \lambdab^+_{t,i}(\lambdab^+_{t,i})^T = 0$ as the unperturbed trajectory similarly to Section~\ref{app:impactsaway}.
 
-\section{Slip-stick transition in closed-contact}
-
-
 %% New chapter %%
 \pagestyle{fancyreport}
 \cleartooddpage
 \pagestyle{fancyreport}
 \chapter{Sensitivity Analysis for Input-Dependent Guards}\label{app:Csensitivity}
-\section{Linearization for single jumps}
+\section{Linearized jump gain for isolated events}
 The perturbed state is defined as
 \begin{align}
 \xb(t,\epsilon) = \xb(t_0,\epsilon) + \int_{t_0}^{t}\fb(\xb(s,\epsilon),\ub(s,\epsilon),s)ds.
@@ -569,7 +485,7 @@ we can write
 \ls^{s^{k}}\zb(\tau) &= \Gb^k\ls^{s^{k-1}}\zb + \Jb^k\ls^{s^{k-1}}\vb.
 \end{align}
 
-\section{Linearization for multiple jumps}\label{app:multjumps}
+\section{Linearized jump gain for simultaneous events}\label{app:multjumps}
 We now assume that we find the first order approximation of the perturbed post-impact state of two simultaneous jumps, by considering these jumps after each other as
 \begin{align}
 \ls^{s^{k+1}}\zb(\tau) &= \Gb^{k+1}\ls^{s^{k}}\zb + \Jb^{k+1}\ls^{s^{k}}\vb
@@ -688,82 +604,6 @@ and
 ^{b\leftarrow a}\Jb &=\ ^{b\leftarrow (b-1)}\Jb\cdots\ ^{(a+2)\leftarrow (a+1)}\Jb^{(a+1)\leftarrow a}\Jb.
 \end{align}
 
-\section{Stability analysis of LTTHS}\label{app:LTTHSstab}
-\textbf{DEFINITION 1 AND 5 OF \cite{Rijnen2017}}
-%% New chapter %%
-\pagestyle{fancyreport}
-\cleartooddpage
-\pagestyle{fancyreport}
-\chapter{Positive Homogenization for Input-Dependent Guards}
-\section{Conewise constant jump gain}
-This section is written under the assumption that in one macro event, only two modes are possible per contact point. The general form of a jump map for simultaneous impacts with is 
-\begin{align}
-\ ^{s^l\leftarrow s^0}\zb(\tau)= \ ^{s^l \leftarrow s^0}\Hb(\zb^{0}(\tau),\vb(\tau),\tau) = \left\lbrace\begin{array}{ll}
-\Gb^1(\zb^0,\vb^0,\tau), & \text{if condition 1 is true},\\
-\Gb^2(\zb^0,\vb^0,\tau), & \text{if condition 1 is true},\\
-\vdots & \vdots\\
-\Gb^{p^{c_i}}(\zb^0,\vb^0,\tau), & \text{if condition }p^{c_i}\text{ is true},
-\end{array}\right.\label{eq:Hgeneral}
-\end{align}
-where $\Gb$ is in the form of \eqref{eq:ljumps}. We will now derive the jump maps and associated conditions in \eqref{eq:Hgeneral} to make the expression explicit.
-
-During a macro event for a certain perturbation, only a single order of micro events is feasible. This order can be found by determining the perturbed jump time of all possible micro events, and selecting the micro event with the earliest impact time as the next event. Mathematically, this is written as
-\begin{align}
-s^{k+1} = \underset{s^{k+1}}{\argmin}\left(\ ^{s^{k+1} \leftarrow S^{k}}t_\epsilon\right).\label{eq:argmin1}
-\end{align}
-The impact time of the next micro event $\ ^{s^{k+1} \leftarrow S^{k}}t_\epsilon$ can be approximated using the first order approximation
-\begin{align}
-\ ^{s^{k+1} \leftarrow S^{k}}t_\epsilon = \tau + \epsilon\Delta^{k+1}.
-\end{align}
-
-Now, since $\tau$ and $\epsilon$ are equal for each impact time, we can rewrite \eqref{eq:argmin1} to
-
-\begin{align}
-s^{k+1} = \underset{s^{k+1}}{\argmin}\left(\Delta^{k+1}\right),
-\end{align}
-which can be written as
-\begin{align}
-s^{k+1} = s^k + \underset{\eta^*\in\chi}{\argmin}\left(-\frac{D_1\gamma^{\eta^*}\left(^{s^k}\alpha,^{s^k}\mu,\tau\right)\ ^{S^k}\overline{\zb} + D_2\gamma^{\eta^*}\left(^{s^k}\alpha,^{s^k}\mu,\tau\right)\ ^{S^k}\overline{\vb}}{\dot{\gamma}^{\eta^*}}\right),
-\end{align}
-with $\chi$ the set of guard identifiers that are still open. Then
-\begin{align}
-\eta^{k+1} = \underset{\eta^*\in\chi}{\argmin}\left(-\frac{D_1\gamma^{\eta^*}\left(^{s^k}\alpha,^{s^k}\mu,\tau\right)\ ^{S^k}\overline{\zb} + D_2\gamma^{\eta^*}\left(^{s^k}\alpha,^{s^k}\mu,\tau\right)\ ^{S^k}\overline{\vb}}{\dot{\gamma}^{\eta^*}}\right),\label{eq:argmin2}
-\end{align}
-with $s^{k+1} = s^k + \eta^{k+1}$ and $\eta^{k+1}$ a guard function identifier. Finally, with
-\begin{align}
-^{S^k}\ab = -\frac{D_1\gamma^{\eta}\left(^{S^k}\alpha,^{s^k}\mu,\tau\right)}{\dot{\gamma}^{\eta}},
-\quad
-^{S^k}\bb = -\frac{D_2\gamma^{\eta}\left(^{S^k}\alpha,^{s^k}\mu,\tau\right)}{\dot{\gamma}^{\eta}},
-\end{align}
-\eqref{eq:argmin2} can be rewritten as
-\begin{align}
-\eta^{k+1} = \underset{\eta^*\in\chi}{\argmin}\left(^{S^k}\ab^T\ ^{S^k}\overline{\zb} +\  ^{s^k}\bb^T\ ^{S^k}\overline{\vb}\right).
-\end{align}
-Now, by checking \eqref{eq:argmin2} for every micro event, we know which jump gains we should take to substitute into \eqref{eq:ljumps}.
-For example a system with $c_i = 2$ and $p = 3$, with a macro event starting in $s_0 = 00$ and ending in $s_l = 22$, this gives 
-\begin{multline}
-\ ^{ S^{2\leftarrow 0}}\Hb(\ ^{s^0}\zb(\tau),\ ^{S^2}\vb(\tau),\tau) =\\ \left\lbrace\begin{array}{ll}
-\ ^{^{(12)} S^{2\leftarrow 0}}\Gb\ ^{s^0}\zb + \ ^{^{(12)} S^{2\leftarrow 0}}\Jb\ ^{s^0}\vb, & \text{if }(\text{I}),\\
-\ ^{^{12} S^{2\leftarrow 1}}\Gb\ ^{^{1} S^{1\leftarrow 0}}\Gb\ ^{s^0}\zb + \ ^{^{12} S^{2\leftarrow 1}}\Gb\ ^{^{1} S^{1\leftarrow 0}}\Jb\ ^{s^0}\vb + \ ^{^{12} S^{2\leftarrow 1}}\Jb\ ^{^1 S^1}\vb, & \text{if }(\text{II}),\\
-\ ^{^{21} S^{2\leftarrow 1}}\Gb\ ^{^{2} S^{1\leftarrow 0}}\Gb\ ^{s^0}\zb + \ ^{^{21} S^{2\leftarrow 1}}\Gb\ ^{^{2} S^{1\leftarrow 0}}\Jb\ ^{s^0}\vb + \ ^{^{21} S^{2\leftarrow 1}}\Jb\ ^{^{2} S^1}\vb, & \text{if }(\text{III}),
-\end{array}\right.\label{eq:H2200}
-\end{multline}
-
-with
-
-\begin{align}
-(\text{I})&:\ ^{^2 S^1}\ab^T\ ^{^2 S^1}\zb +\  ^{^2 S^1}\bb^T\ ^{^2 S^1}\vb = \ ^{^1 S^1}\ab^T\ ^{^1 S^1}\zb +\  ^{^1 S^1}\bb^T\ ^{^1 S^1}\vb,\\
-(\text{II})&:\ ^{^2 S^1}\ab^T\ ^{^2 S^1}\zb +\  ^{^2 S^1}\bb^T\ ^{^2 S^1}\vb > \ ^{^1 S^1}\ab^T\ ^{^1 S^1}\zb +\  ^{^1 S^1}\bb^T\ ^{^1 S^1}\vb,\\
-(\text{III})&:\ ^{^2 S^1}\ab^T\ ^{^2 S^1}\zb +\  ^{^2 S^1}\bb^T\ ^{^2 S^1}\vb < \ ^{^1 S^1}\ab^T\ ^{^1 S^1}\zb +\  ^{^1 S^1}\bb^T\ ^{^1 S^1}\vb .
-\end{align}
-
-These conditions are illustrated in Figure~\ref{fig:cone}. Since the conditions are linear in $\zb$ and $\vb$, they appear as lines in the state space of $\zb$ and $\vb$. When we introduce more conditions, we will find several cones that relate a certain jump gain to $\zb,\vb$ pair. When we look at the vector $r(\zb,\vb)$ in Figure~\ref{fig:cone}, we notice that when $r$ is multiplied with a constant $\alpha$ we will always stay in the same cone, i.e. use the same jump gain. Hence the name, conewise constant jump gain.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=.5\textwidth]{cone.eps}\caption{}\label{fig:cone}
-\end{figure}
-
 \section{Positive homogeneity}\label{app:poshom}
 The first order approximation of the perturbed trajectory $\xb_\epsilon$ can be found using $\alphab + \epsilon\zb$, with
 
@@ -804,225 +644,20 @@ Here we see that the solution of $^{s^{k-1}}\zb_3(t_0) = ^{s^{k-1}}\zb_1(t_0) + 
 \end{align}
 If we now look at the solution for $\zb_4(t_0) = \alpha\zb_1(t_0)$ with $\vb_4(t) = \alpha\vb_1(t)$ jumping with $\Gb^4(\tau)$, and using the fact that $\Gb^4(\tau) = \Gb^1(\tau)$ since the gains are conewise constant as illustrated in Figure~\ref{fig:cone}, we find the same solution as \eqref{eq:alphaz1sol}. This shows that \eqref{eq:PHdyn} is positive homogeneous for any conewise constant jump gain $^{s^{k}\leftarrow s^{k-1}}\Hb\left(^{s^{k-1}}\zb,t\right)$. Hence the name, positive homogenization. 
 
-\section{Stability analysis of PTTHS}
+%% New chapter %%
+%\pagestyle{fancyreport}
+%\cleartooddpage
+%\pagestyle{fancyreport}
+%\chapter{Verification of Assumptions}\label{app:assumptions}
 
 %% New chapter %%
-\pagestyle{fancyreport}
-\cleartooddpage
-\pagestyle{fancyreport}
-\chapter{Considered Trajectories}\label{app:trajectories}
-\section{Associativity}
-\section{Transversality}
-\section{Superfluous Contacts}
-\section{Nominal Guard-Activations}
-For impacts, the theory is valid for impacts away from a simultaneous impacts and for simultaneous impacts, but not for impacts very close to simultaneous impacts. In this case the nominal impact is not a simultaneous impact, but a perturbation can cause the order of impacts to change. I believe the jump gain is not conewise constant anymore in this case.
+%\pagestyle{fancyreport}
+%\cleartooddpage
+%\pagestyle{fancyreport}
+%\chapter{Simulation Design}
+%\section{System dynamics}
 
-The same is true for impacts close to the border of stick and slip.
+%\section{Reference trajectory design}
 
-\section{Non-impacting contact points can not switch modes}
-\section{All closed contact points are in the same mode}
-If I do not assume this, then every combination of $\Gamma_{i_C}$ has to be iterated until a feasible solution is found. If we do assume this, we can just check if all $\Gamma_{i_C}$ go to stick. If not, then all $\Gamma_{i_C}$ go to slip.
-
-In this work only trajectories where all closed contacts are in the same mode are considered. This means that when \eqref{eq:slipset} is smaller than zero, i.e. the reaction forces are infeasible for a stick post-impact mode, all contact points have a feasible slip post-impact mode. For trajectories where different contact points can be in slip and in stick at the same time, this conclusion can not be drawn. One should then iterate over all possible post-impact modes until a post-impact mode is found which has feasible reaction forces.
-
-%% New chapter %%
-\pagestyle{fancyreport}
-\cleartooddpage
-\pagestyle{fancyreport}
-\chapter{Simulation Design}
-\section{Plank box dynamics}
-In Figure~\ref{fig:blockplank} the plank-box model is illustrated. The block is fully actuated and the plank is attached to the solid environment with a spring and damper. The line contact is for now modeled using two contact-points $C_L$ and $C_R$.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=.6\textwidth,angle=-90]{blockplankmodel.PNG}\caption{Block-plank model}\label{fig:blockplank}
-\end{figure}
-
-\subsection*{Global unconstrained dynamics}
-The global generalized coordinates are defined as
-\begin{align}
-q_g &= \begin{bmatrix}
-x_g & y_g & \theta_g & \varphi
-\end{bmatrix},\\
-v_g &= \begin{bmatrix}
-\dot{x}_g & \dot{y}_g & \dot{\theta}_g & \dot{\varphi}
-\end{bmatrix}.
-\end{align}
-The equations of motion for the global unconstrained dynamics are then described by
-\begin{align}
-\Mb_g(\qb_g)\dot{\vb}_g - \Hb_g(\qb_g,\vb_g) = \Sb_g(\qb_g)\ub,
-\end{align}
-with
-\begin{align}
-\Mb_g(\qb_g) &= \begin{bmatrix}
-m_B & 0 & 0 & 0\\ 0 & m_B & 0 & 0\\ 0 & 0 & J_B & 0\\ 0 & 0 & 0 & \frac{m_P{L_p}^2}{4}+J_P
-\end{bmatrix} \\
-\Hb_g(\qb_g,\vb_g) &= \begin{bmatrix}
-0\\ -gm_B\\ 0\\ k_P\varphi -b_P\dot{\varphi}-\frac{L_pgm_P\cos\left(\varphi \right)}{2}
-\end{bmatrix} \\
-\Sb_g(\qb_g) &= \begin{bmatrix}
-1 & 0 & 0 \\
-0 & 1 & 0 \\
-0 & 0 & 1 \\
-0 & 0 & 0 
-\end{bmatrix}.
-\end{align}
-\subsection*{Local unconstrained dynamics}
-The global generalized coordinates $\qb_g$ can be rewritten to a set of local coordinates $\qb_l$. In the plank box case they are related via
-\begin{equation}
-\qb_g(\qb_l) = \begin{bmatrix}
-\cos(\varphi)x_l-\sin(\varphi)y_l\\
-\sin(\varphi)x_l+\cos(\varphi)y_l\\
-\theta_l+\varphi\\
-\varphi
-\end{bmatrix}.
-\end{equation}
-The local unconstrained equations of motion are then defined as
-\begin{align}
-\Mb_l(\qb_l)\dot{\vb}_l - \Hb_l(\qb_l,\vb_l) = \Sb_l(\qb_l)\ub,
-\end{align}
-with
-\begin{align}
-\Mb_l(\qb_l) &= \begin{bmatrix}
-m_B & 0 & 0 & -m_By_l\\ 0 & m_B & 0 & m_Bx_l\\ 0 & 0 & J_B & J_B\\ -m_By_l & m_Bx_l & J_B & \frac{m_P{L_p}^2}{4}+m_B{x_l}^2+m_B{y_l}^2+J_B+J_P
-\end{bmatrix} \\
-\Hb_l(\qb_l,\vb_l) &= \begin{bmatrix}
-m_B\left(x_l{\dot{\varphi}}^2+2\dot{y}_l\dot{\varphi}-g\sin\left(\varphi \right)\right)\\ -m_B\left(-y_l{\dot{\varphi}}^2+2\dot{x}_l\dot{\varphi}+g\cos\left(\varphi \right)\right)\\ 0\\ k_P\varphi -b_P\dot{\varphi}-2m_B\dot{\varphi}x_l\dot{x}_l-2m_B\dot{\varphi}y_l\dot{y}_l-\frac{L_pgm_P\cos\left(\varphi \right)}{2}-gm_Bx_l\cos\left(\varphi \right)+gm_By_l\sin\left(\varphi \right)
-\end{bmatrix} \\
-\Sb_l(\qb_l) &= \begin{bmatrix}
-\cos\left(\varphi \right) & \sin\left(\varphi \right) & 0\\ -\sin\left(\varphi \right) & \cos\left(\varphi \right) & 0\\ 0 & 0 & 1\\ -y_l\cos\left(\varphi \right)-x_l\sin\left(\varphi \right) & x_l\cos\left(\varphi \right)-y_l\sin\left(\varphi \right) & 1
-\end{bmatrix}.
-\end{align}
-
-\subsection*{Local constrained dynamics}
-First we have to determine the position vectors of the points $C_L$ and $C_R$ using Figure~\ref{fig:plankboxgeo}. First we define the position vector of $C_R$,
-\begin{align}
-r_{C_R} &= r_B + r_{BC_R}\ \text{with},\\
-r_B &= \begin{bmatrix}
-x_l & y_l & 0
-\end{bmatrix} \evec^1,\\
-r_{BC_R} &= \begin{bmatrix}
-BH & HC_R & 0
-\end{bmatrix} \evec^1,
-\end{align}
-using the axis systems defined in the report of Hao. From Figure~\ref{fig:plankboxgeo} and that $\triangle BFG \cong \triangle C_RHG$ we can say
-\begin{align}
-HC_R &= \cos(\theta_l)C_RG,\\
-C_RG &= FG - FC_R,\\
-FG &= \tan(\theta_l)BF,
-\end{align}
-and with $FC_R = \frac{l_B}{2}$ and $BF = \frac{L_B}{2}$ we find
-\begin{align}
-HC_R &= \sin(\theta_l)\frac{L_B}{2} - \cos(\theta_l)\frac{l_B}{2}.
-\end{align}
-\begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{plankboxgeo.eps}\caption{Geometry of the box, used to determine the position vectors of contactpoints $C_L$ and $C_R$.}\label{fig:plankboxgeo}
-\end{figure}
-
-For $BH$ we say
-\begin{align}
-BH &= BG - HG,\\
-BG &= \frac{1}{\sin(\theta_l)}FG,\\
-HG &= \sin(\theta_l)C_RG,
-\end{align}
-which gives us 
-\begin{align}
-BH &= \cos(\theta_l)\frac{L_B}{2} - \sin(\theta_l)\frac{l_B}{2}.
-\end{align}
-With $HC_R$ and $BH$ known, the position vector of $C_R$ is
-\begin{align}
-r_{C_R} = \begin{bmatrix}
-x_l + \cos(\theta_l)\frac{L_B}{2} - \sin(\theta_l)\frac{l_B}{2}\\
-y_l + \sin(\theta_l)\frac{L_B}{2} - \cos(\theta_l)\frac{l_B}{2}\\
-0
-\end{bmatrix}^T\evec^1.\label{eq:rCR}
-\end{align}
-Using a similar approach for $C_L$ we find
-\begin{align}
-r_{C_L} = \begin{bmatrix}
-x_l + \cos(\theta_l)\frac{L_B}{2} + \sin(\theta_l)\frac{l_B}{2}\\
-y_l - \sin(\theta_l)\frac{L_B}{2} - \cos(\theta_l)\frac{l_B}{2}\\
-0
-\end{bmatrix}^T\evec^1. \label{eq:rCL}
-\end{align}
-
-The guard functions $g_{N1}$ and $g_{N2}$ are defined as
-\begin{align}
-g_{N1} &= \rvec_{C_L}^1\evec_2^1 - l_p = y_l - \frac{l_P}{2} - \sin(\theta_l)\frac{L_B}{2} - \cos(\theta_l)\frac{l_B}{2} = 0,\\
-g_{N2} &= \rvec_{C_R}^1\evec_2^1 - l_p = y_l - \frac{l_P}{2} + \sin(\theta_l)\frac{L_B}{2} - \cos(\theta_l)\frac{l_B}{2} = 0,
-\end{align}
-Since we are in a 2D-environment, the tangential reaction forces have the same dimensions as the normal reaction-forces. Therefore Equations~\eqref{eq:dim2}, \eqref{eq:dim4} and \eqref{eq:dim6} can now be considered as, respectively,
-
-\begin{align}
-\gb_T &= \begin{bmatrix}
-g_{Ti_1};g_{Ti_2};...;g_{Ti_c}
-\end{bmatrix}\in\R^{c}\\
-\Lambdab_T &= \begin{bmatrix}
-\Lambda_{Ti_1};\Lambda_{Ti_2};...;\Lambda_{Ti_c}
-\end{bmatrix}\in\R^{c}\\
-\Wb_T &= \begin{bmatrix}
-\wb_{Ti_1};\wb_{Ti_2};...;\wb_{Ti_c}
-\end{bmatrix}.\in\R^{n\times c}
-\end{align}
-The velocity vectors $\dot{r}_{C_L}$ and $\dot{r}_{C_R}$ are found by taking the time-derivative of $r_{C_L}$ and $r_{C_R}$, and can be written as
-\begin{align}
-\dot{r}_{C_L} &= \begin{bmatrix}
-\dot{x}_l -\dot{\theta}_l\sin(\theta_l)\frac{L_B}{2} + \dot{\theta}_l\cos(\theta_l)\frac{l_B}{2}\\
-\dot{y}_l -\dot{\theta}_l\cos(\theta_l)\frac{L_B}{2} + \dot{\theta}_l\sin(\theta_l)\frac{l_B}{2}\\
-0
-\end{bmatrix}=:\begin{bmatrix}
-\dot{g}_{T1}\\
-\dot{g}_{N1}\\
-0
-\end{bmatrix},\label{eq:dotrCL}\\
-\dot{r}_{C_R} &= \begin{bmatrix}
-\dot{x}_l -\dot{\theta}_l\sin(\theta_l)\frac{L_B}{2} - \dot{\theta}_l\cos(\theta_l)\frac{l_B}{2}\\
-\dot{y}_l +\dot{\theta}_l\cos(\theta_l)\frac{L_B}{2} + \dot{\theta}_l\sin(\theta_l)\frac{l_B}{2}\\
-0
-\end{bmatrix}=:\begin{bmatrix}
-\dot{g}_{T2}\\
-\dot{g}_{N2}\\
-0
-\end{bmatrix},\label{eq:dotrCR}
-\end{align}
-with $\dot{g}_{Ni}$ and $\dot{g}_{Ti}$ the normal and tangential relative velocities. From \eqref{eq:impdyn2} and \eqref{eq:impdyn3} we can write
-\begin{align}
-\dot{\gb}_N &= \Wb_N^T\vb = \begin{bmatrix}
-\dot{y}_l -\dot{\theta}_l\cos(\theta_l)\frac{L_B}{2} + \dot{\theta}_l\sin(\theta_l)\frac{l_B}{2}\\
-\dot{y}_l +\dot{\theta}_l\cos(\theta_l)\frac{L_B}{2} + \dot{\theta}_l\sin(\theta_l)\frac{l_B}{2}
-\end{bmatrix},\\
-\dot{\gb}_T &= \Wb_T^T\vb = \begin{bmatrix}
-\dot{x}_l -\dot{\theta}_l\sin(\theta_l)\frac{L_B}{2} + \dot{\theta}_l\cos(\theta_l)\frac{l_B}{2}\\
-\dot{x}_l -\dot{\theta}_l\sin(\theta_l)\frac{L_B}{2} - \dot{\theta}_l\cos(\theta_l)\frac{l_B}{2}
-\end{bmatrix},
-\end{align}
-from which we can deduce
-\begin{align}
-\Wb_N^T &= \begin{bmatrix}
-0 & 1 & -\cos(\theta_l)\frac{L_B}{2} + \sin(\theta_l)\frac{l_B}{2} & 0 \\
-0 & 1 & \cos(\theta_l)\frac{L_B}{2} + \sin(\theta_l)\frac{l_B}{2} & 0
-\end{bmatrix},\\
-\Wb_T^T &= \begin{bmatrix}
-0 & 1 & -\sin(\theta_l)\frac{L_B}{2} + \cos(\theta_l)\frac{l_B}{2} & 0 \\
-0 & 1 & -\sin(\theta_l)\frac{L_B}{2} - \cos(\theta_l)\frac{l_B}{2} & 0
-\end{bmatrix}.
-\end{align}
-
-Now we have all the information to write down the local constrained dynamics
-\begin{align}
-\Mb_l(\qb_l)\dot{\vb}_l - \Hb_l(\qb_l,\vb_l) = \Sb_l(\qb_l)\ub + \Wb(\qb_l)\Lambdab,\label{eq:localcontdyn}
-\end{align}
-with
-\begin{align}
-\Wb(\qb_l) := \begin{bmatrix}
-\Wb_N & \Wb_T
-\end{bmatrix}\text{ and }\Lambdab := \begin{bmatrix}
-\Lambdab_N\\
-\Lambdab_T
-\end{bmatrix}.
-\end{align}
-
-\section{Reference Trajectory Design}
-
+%\section{Sensitivity analysis}
 \end{document}
