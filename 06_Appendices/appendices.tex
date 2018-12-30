@@ -24,7 +24,7 @@
 In this section the discrete event sets $\mathcal{D}$ are defined for a system with one contact point. When the state or input of the system enters a discrete event set, the contact point can change set and a reinitialization of the state can take place.
 
 \textbf{Open to stick/slip}\\
-When a contact point is not in contact, it can trigger a guard function $\gamma^{\text{op}\rightarrow\text{cl}}$ to go from open to closed. This guard is defined using the contact distance $h_{n,\iota}$, where $h_{n,\iota}$ is the smallest distance between the contact point and the contact surface. When $h_{n,\iota}>0$, the contact point is in open-contact. When $h_{n,\iota}=0$ with $\dot{h}_{n,\iota}<0$, the contact point enters the closed-contact mode with a non-zero ante-impact velocity. Therefore the guard function $\gamma^{\text{op}\rightarrow\text{cl}}$ is given by
+When a contact point is not in contact, it can trigger a guard function $\gamma^{\text{op}\rightarrow\text{cl}}$ to go from open to closed. This guard is defined using the contact distance $\hrm_{n,\iota}$, where $\hrm_{n,\iota}$ is the smallest distance between the contact point and the contact surface. When $\hrm_{n,\iota}>0$, the contact point is in open-contact. When $\hrm_{n,\iota}=0$ with $\dot{h}_{n,\iota}<0$, the contact point enters the closed-contact mode with a non-zero ante-impact velocity. Therefore the guard function $\gamma^{\text{op}\rightarrow\text{cl}}$ is given by
 
 \begin{align}
 \gamma^{\text{op}\rightarrow\text{cl}} = h_{n,\iota}(\qb).
@@ -33,7 +33,7 @@ When a contact point is not in contact, it can trigger a guard function $\gamma^
 Since the closing of a contact point at nonzero velocity is an impulsive event, the impulsive dynamics need to be considered to find whether the contact point will slip or stick after the impact. The manifold where $\gamma = 0$ is divided into two regions: a region where the post-impact state is in slip and a region where the post-impact state is in stick. This region is defined by the guard functions $\Gamma^{\text{sl}\rightarrow\text{st}}_{\iota}$ and $\Gamma^{\text{st}\rightarrow\text{sl}}_{\iota}$, where $\Gamma^{\text{sl}\rightarrow\text{st}}_{\iota}<0,\Gamma^{\text{st}\rightarrow\text{sl}}_{\iota}>0$ in the region where the impacting contact point goes to slip and $\Gamma^{\text{sl}\rightarrow\text{st}}_{\iota}>0,\Gamma^{\text{st}\rightarrow\text{sl}}_{\iota}<0$ in the region where the contact point goes to stick. Both guard functions are equal to zero when the contact point is at the border between stick and slip. This is illustrated in Figure~\ref{fig:guardopcl}. 
 \begin{figure}[bt!]
 	\centering
-	\includegraphics[width=.7\textwidth]{guardopcl.eps}\caption{The functions $\gamma(\qb,\dot{\qb})$ and $\Gamma(\qb,\dot{\qb})$ illustrated in the state space of $\qb\in\mathbb{R}^{2}$. The light blue area is the state space where the contact is open, and closes contact when it triggers $\gamma = 0$. If it triggers $\gamma = 0$ in the area where $\Gamma^{\text{sl}\rightarrow\text{st}}_{\iota}<0,\Gamma^{\text{st}\rightarrow\text{sl}}_{\iota}>0$ (orange), then the contact will go to slip. If it triggers $\gamma=0$ in the area where $\Gamma^{\text{sl}\rightarrow\text{st}}_{\iota}>0,\Gamma^{\text{st}\rightarrow\text{sl}}_{\iota}<0$ (green), then the contact will go to stick.}\label{fig:guardopcl}
+	\includegraphics[width=.6\textwidth]{guardopcl.eps}\caption{The functions $\gamma(\qb,\dot{\qb})$ and $\Gamma(\qb,\dot{\qb})$ illustrated in the state space of $\qb\in\mathbb{R}^{2}$. The light blue area is the state space where the contact is open, and closes contact when it triggers $\gamma = 0$. If it triggers $\gamma = 0$ in the area where $\Gamma^{\text{sl}\rightarrow\text{st}}_{\iota}<0,\Gamma^{\text{st}\rightarrow\text{sl}}_{\iota}>0$ (orange), then the contact will go to slip. If it triggers $\gamma=0$ in the area where $\Gamma^{\text{sl}\rightarrow\text{st}}_{\iota}>0,\Gamma^{\text{st}\rightarrow\text{sl}}_{\iota}<0$ (green), then the contact will go to stick.}\label{fig:guardopcl}
 \end{figure}
 For post-event slip, we know that $||\vbf^+_{t,\iota}|| > 0$, and for post-event stick, we know that  $\mu\Lambda_{n,\iota} - ||\Lambdab_{t,\iota}|| > 0$. From this we can derive the guard functions
 \begin{align}
@@ -48,7 +48,7 @@ When a contact point is in closed-contact slip, it can transition to closed-cont
 \end{align}
 A guard function that can be used to describe this set is
 \begin{align}
-\gamma_{\text{sl}\rightarrow\text{st}} = \vbf_{t,\iota}^T\vbf_{t,\iota},
+\gamma^{\text{sl}\rightarrow\text{st}} = \vbf_{t,\iota}^T\vbf_{t,\iota},
 \end{align}
 which is equal to zero when $||\vbf_{t,\iota}|| = 0$, greater than zero when $||\vbf_{t,\iota}|| > 0$, smaller than zero when $||\vbf_{t,\iota}|| < 0$, and it is globally differentiable. The time derivative of the guard function is then given by
 \begin{align}
@@ -88,41 +88,41 @@ In Figure~\ref{fig:convex} a convex set $C$ is illustrated. The normal cone $N_C
 
 \begin{figure}[bt!]
 \centering
-\includegraphics[width=.6\textwidth]{convex.PNG}\caption{}\label{fig:appconvex}
+\includegraphics[width=.6\textwidth]{convex.PNG}\caption{An illustration of the normal cone formulation $N_{C}$ and proximal points formulation $\prox_C$.}\label{fig:appconvex}
 \end{figure}
 
 This formulation can be used to define Signorini's contact law, which is defined as \eqref{eq:ncpcontact2}. The normal cone formulation, as illustrated in Figure~\ref{fig:appconvex}, of the contact is given by
 
 \begin{align}
--h_{n,i} \in N_{C_{n,i}}(\lambda_{n,i}),\quad \text{with }C_{n,i} = (\Rbb^n)^+.\label{eq:apphnormalcone}
+-\hrm_{n,\iota} \in N_{C_{n,\iota}}(\lambda_{n,\iota}),\quad \text{with }C_{n,\iota} = (\Rbb^n)^+.\label{eq:apphnormalcone}
 \end{align}
-The set $C_{n,i}$ is the set of admissible normal forces according to Signorini's law. See Figure~\ref{fig:appsignorinicontact} for an illustration of the set $C_{n,i}$ with $\lambda_{n,i}\in C_{n,i}$ and $h_{n,i} \in N_{C_{n,i}}(\lambda_{n,i})$. Now using the fact that
+The set $C_{n,\iota}$ is the set of admissible normal forces according to Signorini's law. See Figure~\ref{fig:appsignorinicontact} for an illustration of the set $C_{n,\iota}$ with $\lambda_{n,\iota}\in C_{n,\iota}$ and $\hrm_{n,\iota} \in N_{C_{n,\iota}}(\lambda_{n,\iota})$. Now using the fact that
 \begin{align}
 \xb = \prox_C(\xb -r\yb), r > 0\ \iff\ -\yb\in N_C(\xb),
 \end{align}
 rewriting \eqref{eq:apphnormalcone} to a proximal point formulation gives 
 
 \begin{align}
-\lambda_{n,i} = \prox_{C_{n,i}}(\lambda_{n,i} - rh_{n,i}),\quad \text{with }C_{n,i} = (\Rbb^n)^+\text{ and } r>0.
+\lambda_{n,\iota} = \prox_{C_{n,\iota}}(\lambda_{n,\iota} - r\hrm_{n,\iota}),\quad \text{with }C_{n,\iota} = (\Rbb^n)^+\text{ and } r>0.
 \end{align}
 
 Similarly for the Poisson's impact law illustrated in Figure~\ref{fig:appnewtonimpact}, we find the proximal point formulation
 
 \begin{align}
-\Lambda_{n,i} = \prox_{C_{n,i}}(\Lambda_{n,i} - r\zeta^+_{n,i}),\quad \text{with }C_{n,i} = (\Rbb^n)^+\text{ and } r>0.
+\Lambda_{n,\iota} = \prox_{C_{n,\iota}}(\Lambda_{n,\iota} - r\vrm^+_{n,\iota}),\quad \text{with }C_{n,\iota} = (\Rbb^n)^+\text{ and } r>0.
 \end{align}
 
 \begin{figure}[bt!]
 \centering
 \begin{subfigure}{0.3\textwidth}
 \centering
-%\includegraphics[width=\linewidth]{signorinicontact.eps}
+\includegraphics[width=\linewidth]{signorinicontact.eps}
 \caption{}\label{fig:appsignorinicontact}
 \end{subfigure}
 \qquad
 \begin{subfigure}{0.3\textwidth}
 \centering
-%\includegraphics[width=\linewidth]{newtonimpact.eps}
+\includegraphics[width=\linewidth]{newtonimpact.eps}
 \caption{}\label{fig:appnewtonimpact}
 \end{subfigure}
 \caption{In \textnormal{(a)} Signorini's contact law and in \textnormal{(b)} Newton's impact law without restitution.}
@@ -215,9 +215,10 @@ The mode transition from stick to slip happens when a guard is triggered at acce
 \begin{align}
 \gamma^{\text{st}\rightarrow\text{sl}} = \mu^2\lambda_{n,\iota}^2 - \lambdab_{t,\iota}\lambdab_{t,\iota}^T,
 \end{align}
-and the post-impact mode is determined by the guard function defined at velocity level
+and the post-impact mode is determined by the guard functions defined at velocity level
 \begin{align}
-\Gamma = \mu^2 \Lambda_{n,\iota}^2(\qb,\dot{\qb}^-) - \Lambdab_{t,\iota}(\qb,\dot{\qb}^-)\Lambdab_{t,\iota}^T(\qb,\dot{\qb}^-). \label{eq:appopentostick}
+\Gamma^{\text{st}\rightarrow\text{sl}}_{\iota} &= \mu^2\Lambda_{n,\iota}^2 - \Lambdab_{t,\iota}\Lambdab_{t,\iota}^T,\\
+\Gamma^{\text{sl}\rightarrow\text{st}}_{\iota} &= (\vbf^+_{t,\iota})^T\vbf^+_{t,\iota}.
 \end{align}
 Since the jump map from open to stick is
 \begin{align}
