@@ -213,11 +213,11 @@ In other words, this proves that if $\fb$, $\gamma$ and $\Gamma$ are continuous 
 \section{Post-impact accelerations in open-to-stick transitions}\label{app:instantslip}
 The mode transition from stick to slip happens when a guard is triggered at acceleration level, 
 \begin{align}
-\gamma^{\text{st}\rightarrow\text{sl}} = \mu^2\lambda_{n,\iota}^2 - \lambdab_{t,\iota}\lambdab_{t,\iota}^T,
+\gamma^{\text{st}\rightarrow\text{sl}} = \mu_{\iota}^2\lambda_{n,\iota}^2 - \lambdab_{t,\iota}\lambdab_{t,\iota}^T,
 \end{align}
 and the post-impact mode is determined by the guard functions defined at velocity level
 \begin{align}
-\Gamma^{\text{st}\rightarrow\text{sl}}_{\iota} &= \mu^2\Lambda_{n,\iota}^2 - \Lambdab_{t,\iota}\Lambdab_{t,\iota}^T,\\
+\Gamma^{\text{st}\rightarrow\text{sl}}_{\iota} &= \mu_{\iota}^2\Lambda_{n,\iota}^2 - \Lambdab_{t,\iota}\Lambdab_{t,\iota}^T,\\
 \Gamma^{\text{sl}\rightarrow\text{st}}_{\iota} &= (\vbf^+_{t,\iota})^T\vbf^+_{t,\iota}.
 \end{align}
 Since the jump map from open to stick is
@@ -233,14 +233,14 @@ which is on velocity level, the post-impact reaction forces of the open-to-stick
 &\Wb^T_{t,\iota}(\qb^+)\ddot{\qb}^+ + \dot{\Wb}^T_{t,\iota}(\qb^+)\dot{\qb}^+ = 0.\label{eq:appstickdyn+3}
 \end{align}
 
-We can deduce from \eqref{eq:appjump9}-\eqref{eq:appjump10} and \eqref{eq:appstickdyn+2}-\eqref{eq:appstickdyn+3} that the normal acceleration of the transition contact point $\wb^T_{n,\iota}(\qb^+)\ddot{\qb}^+$ and the tangential acceleration of the transitioning contact point $\Wb^T_{t,\iota}(\qb^+)\ddot{\qb}^+$ are both equal to zero. From \eqref{eq:appstickdyn+1} we then notice that $\lambda_{n,\iota}^+$ and $\lambdab_{t,\iota}^+$ depend continuously on $\ub^+$ and can therefore instantly lead to $\mu^2\lambda_{n,\iota}^2 - \lambdab_{t,\iota}\lambdab_{t,\iota}^T>0$ for certain $\ub^+$. For these inputs the contact point will immediately start slipping after the open-to-stick transition. These areas are illustrated in Figure~\ref{fig:stickimmedslip}
+We can deduce from \eqref{eq:appjump9}-\eqref{eq:appjump10} and \eqref{eq:appstickdyn+2}-\eqref{eq:appstickdyn+3} that the normal acceleration of the transition contact point $\wb^T_{n,\iota}(\qb^+)\ddot{\qb}^+$ and the tangential acceleration of the transitioning contact point $\Wb^T_{t,\iota}(\qb^+)\ddot{\qb}^+$ are both equal to zero. From \eqref{eq:appstickdyn+1} we then notice that $\lambda_{n,\iota}^+$ and $\lambdab_{t,\iota}^+$ depend continuously on $\ub^+$ and can therefore instantly lead to $\mu_{\iota}^2\lambda_{n,\iota}^2 - \lambdab_{t,\iota}\lambdab_{t,\iota}^T>0$ for certain $\ub^+$. For these inputs the contact point will immediately start slipping after the open-to-stick transition. These areas are illustrated in Figure~\ref{fig:stickimmedslip}
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=.55\textwidth]{stickimmedslip.eps}\caption{The border between an open-to-stick event that stays in stick and an open-to-stick event that immediately starts slipping is illustrated in this figure. The post event state and input indicated in the figure is in the $\mu^2(\lambda^+_{n,\iota})^2 - \lambdab^+_{t,\iota}(\lambdab^+_{t,\iota})^T > 0$ area, causing the contact point to immediately start slipping.} \label{fig:stickimmedslip}
+\includegraphics[width=.55\textwidth]{stickimmedslip.eps}\caption{The border between an open-to-stick event that stays in stick and an open-to-stick event that immediately starts slipping is illustrated in this figure. The post event state and input indicated in the figure is in the $\mu_{\iota}^2(\lambda^+_{n,\iota})^2 - \lambdab^+_{t,\iota}(\lambdab^+_{t,\iota})^T > 0$ area, causing the contact point to immediately start slipping.} \label{fig:stickimmedslip}
 \end{figure}
 
-Using the continuity of the system's flow dynamics and the function $\mu^2(\lambda^+_{n,\iota})^2 - \lambdab^+_{t,\iota}(\lambdab^+_{t,\iota})^T$, we can show that if we choose $\mub^+$ such that $\alphab^+,\mub^+$ is not on $\mu^2(\lambda^+_{n,\iota})^2 - \lambdab^+_{t,\iota}(\lambdab^+_{t,\iota})^T = 0$ then there always exists a range of perturbations $\epsilon$ such that the perturbed post-impact is on the same side of $\mu^2(\lambda^+_{n,\iota})^2 - \lambdab^+_{t,\iota}(\lambdab^+_{t,\iota})^T = 0$ as the unperturbed trajectory similarly to Section~\ref{app:impactsaway}.
+Using the continuity of the system's flow dynamics and the function $\mu_{\iota}^2(\lambda^+_{n,\iota})^2 - \lambdab^+_{t,\iota}(\lambdab^+_{t,\iota})^T$, we can show that if we choose $\mub^+$ such that $\alphab^+,\mub^+$ is not on $\mu_{\iota}^2(\lambda^+_{n,\iota})^2 - \lambdab^+_{t,\iota}(\lambdab^+_{t,\iota})^T = 0$ then there always exists a range of perturbations $\epsilon$ such that the perturbed post-impact is on the same side of $\mu_{\iota}^2(\lambda^+_{n,\iota})^2 - \lambdab^+_{t,\iota}(\lambdab^+_{t,\iota})^T = 0$ as the unperturbed trajectory similarly to Section~\ref{app:impactsaway}.
 
 %% New chapter %%
 \pagestyle{fancyreport}
@@ -534,14 +534,16 @@ If we now look at the solution for $\zb_4(t_0) = \alpha\zb_1(t_0)$ with $\vb_4(t
 %\pagestyle{fancyreport}
 %\chapter{Verification of Assumptions}\label{app:assumptions}
 
-%% New chapter %%
-%\pagestyle{fancyreport}
-%\cleartooddpage
-%\pagestyle{fancyreport}
-%\chapter{Simulation Design}
-%\section{System dynamics}
+% New chapter %%
+\pagestyle{fancyreport}
+\cleartooddpage
+\pagestyle{fancyreport}
+\chapter{Simulation Design}\label{app:sim}
+This chapter discusses the numerical validation presented in Chapter~\ref{ch:vali}. First the kinematics and dynamics of the considered system will be presented in Section~\ref{app:kindyn}, which is a RRR-robot opening a door in a planar setting \cite{Rijnen2018b}. Then, the design of the reference trajectory is discussed in Section~\ref{app:trajdesign}. Finally, the sensitivity analysis of the considered system is presented in Section~\ref{app:sens}. Note that the work presented in this chapter and Chapter~\ref{ch:vali} are work in progress, and are merely first steps towards achieving a numerical validation of the theory presented in this work.
 
-%\section{Reference trajectory design}
+\section{System kinematics and dynamics}\label{app:kindyn}
+The dynamics of an RRR-robot opening a door will now be presented. These kinematics and dynamics have been derived in \cite{Rijnen2018b}.
+\section{Reference trajectory design}\label{app:trajdesign}
 
-%\section{Sensitivity analysis}
+\section{Sensitivity analysis}\label{app:sens}
 \end{document}
