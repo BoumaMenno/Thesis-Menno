@@ -38,8 +38,11 @@ The reference trajectory $\alphab$ is defined for all $t>t_0$. Also, each segmen
 \end{myass}
 \end{sloppypar}
 
-It can be guaranteed that there is non-zero time between events, if $\gb_{j+1}(\alphab_j(\tau_{j+1}),\mub_j(\tau_{j+1}))\notin \mathcal{D}_{j+1}$ for all $j\in\{0,1,\dots,N\}$.
-
+\begin{sloppypar}
+\begin{myremark}
+The non-vanishing time-domains assumption posed in Assumption~\ref{ass:nonzeno} is guaranteed if $\gb_{j+1}(\alphab_j(\tau_{j+1}),\mub_j(\tau_{j+1}))\notin \mathcal{D}_{j+1}$ for all $j\in\{0,1,\dots,N\}$. This indicates that there is flow necessary, and therefore time, to reach the subsequent event set $\mathcal{D}_{j+1}$. 
+\end{myremark}
+\end{sloppypar}
 Consider now a state trajectory $\xb$ starting from initial condition $\xb(t_0,0,\epsilon)=\xb_0(\epsilon)=\alphab_0+\epsilon \zb_0$ with input $\ub_j(\epsilon)=\mub_j+\epsilon \vb_j$, where $\epsilon$ is an initial state and input perturbation. In this $\zb_0 = \partial\xb_0 / \partial\epsilon$, $\mub_j = \mub(t,j)$ the feedforward corresponding to $\alphab_j$, and $\vb_j = \vb(t,j)$ the feedback. An example of a perturbed trajectory $\xb(\epsilon)$ is shown in Figure~\ref{fig:3perturbedtraj}.
 
 \nomenclature[G05]{$\epsilon$}{The scalar perturbation parameter}%
@@ -101,7 +104,7 @@ In the lower plot of Figure~\ref{fig:3refspread}, the hybrid time domains of $\x
 
 In the next section, the reference spreading error will be used to analyze the behavior of perturbed trajectories with isolated events.
 
-\section{Approximating perturbed trajectories with isolated guard-activations}\label{sec:3approx}
+\section{Approximating perturbed trajectories with isolated events}\label{sec:3approx}
 In \cite{Khalil1996} a sensitivity analysis is presented, where so-called sensitivity functions are used to provide first-order approximations of the effects of parameter variations on solutions. These sensitivity functions can also be used to approximate the solution under sufficiently small parameter variations. For the class of systems we consider here, the sensitivity equations describe the response of the system to perturbations in initial condition and input. This perturbation dynamics can be used to formulate an approximation of the perturbed state of the system, which we expect to be first-order. To find an approximation of state reinitializations in nonsmooth trajectories, an extension to this sensitivity analysis is necessary in the form of a linearized jump gain. The linearized jump gain and the linearized perturbation dynamics together define the LTTHS. In \cite{Rijnen2017} stability properties of an NSTHS are associated with the stability the corresponding LTTHS. In this section, the LTTHS is derived for an NSITHS, which we expect can be used to assess the stability of the NSITHS under the presumption that a similar relation between the LTTHS and NSITHS exists. As mentioned in the intro to this chapter, the proof for this relation is left as future work. For a more thorough derivation of the following analysis, Appendix~\ref{app:Csensitivity} should be consulted. We will first pose few assumptions on the reference events and jump maps that are required for the sensitivity analysis. First, we assume transversality of the reference events for which we assume the existence of a guard function that locally describes the flow and jump sets about each reference event.
 
 \begin{sloppypar}
@@ -149,7 +152,7 @@ As can be seen in Assumption~\ref{ass:transversality}, the time derivative of th
 The state, input and time where $\gamma_j(\xb_j,\ub_j,t) = 0$ represents the set where an event will happen, which together with Assumption~\ref{ass:transversality} guarantees that an event will happen, even under perturbations. If the vector field is continuous with respect to $\epsilon$, Assumption~\ref{ass:transversality} assumes that the vector field pushes the reference trajectory out of the flow set $\mathcal{C}_j$, and that grazing incidents are avoided. The combination of the existence of a guard function in an area around the nominal ante-event state and the transversal guard activation guarantees that there exists a range of perturbations where the guard is activated as well. Let us now pose an assumption on the jump map $\gb$.
 
 \begin{sloppypar}
-\begin{myass}[Locally differentiability of jump maps]\label{ass:jump}
+\begin{myass}[Locally differentiable jump maps]\label{ass:jump}
 We assume that for all $j \in \{0,1,2,\dots,N\}$ the jump map $\gb_{j+1}(\xb_j,\ub_j)$ is locally differentiable, in the sense that $D_1\gb_{j+1}(\xb_j,\ub_j)$ and $D_2\gb_{j+1}(\xb_j,\ub_j)$ exist in the ball $B_{\varepsilon_{\gamma}}(\alphab_j(\tau),\mub_j(\tau),\tau)\subseteq \Rbb^n \times \Rbb^m \times \Rbb$, where $\tau = \tau_{j+1}$.
 \end{myass}
 \end{sloppypar}
@@ -301,7 +304,8 @@ and
 \end{mydef}
 \end{sloppypar}
 
-The LTTHS of Definition~\ref{def:3ltths} gives an approximation of the NSITHS about the state-input reference trajectory $(\alphab,\mub)$. With a nominal trajectory $\alphab$ with input $\mub$, the perturbed trajectory $\xb_j(\epsilon)$ is the trajectory starting from initial condition $\xb_0(\epsilon) = \alphab_0 + \epsilon\zb_0$ and with input $\ub_j(\epsilon) = \mub_j + \epsilon\vb_j$. The approximation is then defined as $\xb_j(\epsilon) = \bar{\alphab}_j + \epsilon\bar{\zb}_j + o(\epsilon)$, with $\zb$ defined by the LTTHS. The reader should be aware that the term $\vb^-$ is not an input that can be freely chosen. The ante-event input perturbation $\vb^-$ is directly related to $\vb_j$, as it is a result of the input law implemented during the continuous segment before the event. Also, note that the approximation jumps at the same time instants as the nominal trajectory, with $(t,j) \in \eve\ \alphab$. This results in a trajectory which is generally infeasible around the jump times. However, due to the short timescales of the events, we are more interested in finding a good approximation of the continuous segments between the events, which is what the LTTHS achieves. In \cite{Rijnen2017} a proof is given, which shows that stability of the LTTHS implies tracking of a NSTHS. The presumption is made that a similar proof exists, saying that stability of the LTTHS implies local stability of the NSITHS. Straightforward stability analysis tools for LTTHS are available in the literature, about which more can be read in Appendix~\ref{app:LTTHSstab}.
+The LTTHS of Definition~\ref{def:3ltths} gives an approximation of the NSITHS about the state-input reference trajectory $(\alphab,\mub)$. With a nominal trajectory $\alphab$ with input $\mub$, the perturbed trajectory $\xb_j(\epsilon)$ is the trajectory starting from initial condition $\xb_0(\epsilon) = \alphab_0 + \epsilon\zb_0$ and with input $\ub_j(\epsilon) = \mub_j + \epsilon\vb_j$. The approximation is then defined as $\xb_j(\epsilon) = \bar{\alphab}_j + \epsilon\bar{\zb}_j + o(\epsilon)$, with $\zb$ defined by the LTTHS. The reader should be aware that the term $\vb^-$ is not an input that can be freely chosen. The ante-event input perturbation $\vb^-$ is directly related to $\vb_j$, as it is a result of the input law implemented during the continuous segment before the event. Also, note that the approximation jumps at the same time instants as the nominal trajectory, with $(t,j) \in \eve\ \alphab$. This results in a trajectory which is generally infeasible around the jump times. However, due to the short timescales of the events, we are more interested in finding a good approximation of the continuous segments between the events, which is what the LTTHS achieves. In \cite{Rijnen2017} a proof is given, which shows that stability of the LTTHS implies tracking of a NSTHS. The presumption is made that a similar proof exists, saying that stability of the LTTHS implies local stability of the NSITHS.
+
 \nomenclature[A]{NSTHS}{Nonlinear State-Triggered Hybrid System}%
 \begin{figure}[bt!]
 \centering
@@ -442,7 +446,7 @@ Since the micro segments of the state trajectory are defined over a time-interva
 \nomenclature[G07]{$\eta$}{The set of indexes of inactive guards}%
 \nomenclature[Rt]{$t_i^k$}{The perturbed event time of micro event $k$ in macro event $i$}%
 
-\section{Approximating perturbed trajectories with simultaneous guard-activations}
+\section{Approximating perturbed trajectories with simultaneous events}
 Using the notation presented in Section~\ref{sec:4not}, an approximation of the NSITHS will be derived for trajectories with simultaneous activations. First, a sensitivity analysis is presented for a simultaneous event with character 2. The result is used to define a jump gain that approximates the behavior of a simultaneous event with an arbitrary event-character, which holds for a particular sequence of events. Since multiple sequences of events are feasible in a simultaneous event, multiple jump gains can be associated with such an event. These jump gains are used to define a positively homogeneous jump gain, which is a state- and input-dependent jump gain that describes the jumping behavior of the state near ($\alphab,\mub$). Finally, the PTTHS is formally defined, which is a approximation of the NSITHS near the reference trajectory. Similar to the LTTHS presented in Section~\ref{sec:3approx}, we presume that the PTTHS is a first-order approximation of the NSITHS. The proof that the approximation is first order is not yet available, however.
 
 \subsection{Sensitivity analysis for simultaneous guard-activation}
@@ -465,7 +469,7 @@ We will now derive an approximation of the jump map of a simultaneous event with
 \end{align}
 with
 \begin{align}
-\ls^{s^{k}}\xb^\epsilon(t^{k+1}) = \int_{t^{k}}^{t^{k+1}}\left[\ls^{s^{k}}\fb\left(\ls^{s^{k}}\xb^\epsilon(t),\ls^{s^{k}}\ub^\epsilon(t),t\right)\right]dt + \ls^{s^{k}}\gb(\ls^{s^{k-1}}\xb^\epsilon(t^{k}),\ls^{s^{k-1}}\ub^\epsilon(t^{k}),t^{k}).\label{eq:4xe01}
+\ls^{s^{k}}\xb^\epsilon(t^{k+1}) = \int_{t^{k}}^{t^{k+1}}\left[\ls^{s^{k}}\fb\left(\ls^{s^{k}}\xb^\epsilon(t),\ls^{s^{k}}\ub^\epsilon(t),t\right)\right]dt + \ls^{s^{k}}\gb\left(\ls^{s^{k-1}}\xb^\epsilon(t^{k}),\ls^{s^{k-1}}\ub^\epsilon(t^{k}),t^{k}\right).\label{eq:4xe01}
 \end{align}
 Here the left superscript $\ls^{s^k}(\cdot)$ indicates that the variable is in micro segment $k$ and $t^k$ represents the event-time of micro event $k$. Similar to \eqref{eq:3Delta}, we define the micro event time as
 \begin{align}
@@ -529,7 +533,13 @@ where $\ls^{p\leftarrow a}\Gb$ and $\ls^{p\leftarrow a}\Jb$ are defined as
 \ls^{p\leftarrow a}\Gb &:= \ls^{p}\Gb\ \ls^{p-1}\Gb\cdots\ls^{a}\Gb,\\
 \ls^{p\leftarrow a}\Jb &:= \ls^{p}\Jb\ \ls^{p-1}\Jb\cdots\ls^{a}\Jb,
 \end{align}
-for a sequence $p\leftarrow p-1 \leftarrow \cdots \leftarrow a$, with slight abuse of notation, in the sense that $p-1$ indicates the mode descriptor associated to the mode before $p$. The relation between the post-event state perturbation $\ls^{s^{k+1}}\zb(\tau)$ and the ante-event state and input perturbation $\ls^{s^{k-1}}\zb$ and $\vb$ in \eqref{eq:4ljumps} is the main result of this section. Using that result, the effect of a perturbation on the jumping behavior of the system can be approximated. For a more complete derivation, consult Appendix~\ref{app:multjumps}. The first term in \eqref{eq:4ljumps} represents the effect of the perturbed ante-event state on the perturbed post-event state. This term is already found in \cite{Rijnen2018}, where a sensitivity analysis is presented without input-dependent guards and jump maps. The summation in \eqref{eq:4ljumps} is a contribution of this work, which represents the effects of the chosen feedback during micro-segments.
+for a sequence $p\leftarrow p-1 \leftarrow \cdots \leftarrow a$, with slight abuse of notation, in the sense that $p-1$ indicates the mode descriptor associated to the mode before $p$. 
+\begin{sloppypar}
+\begin{myremark}
+While it is not proven that \eqref{eq:4ljumps} is true, it is strongly suggested by the relation found in \eqref{eq:4zkplusfinal}. Whereas \eqref{eq:4zkplusfinal} only holds for a simultaneous event with character-2 ($c=2$), an induction-like proof can extend the derivation presented in this section to be true for an event with an arbitrary character, resulting in the relation given in \eqref{eq:4ljumps}. This proof, however, is left for future work.
+\end{myremark}
+\end{sloppypar}
+The relation between the post-event state perturbation $\ls^{s^{k+1}}\zb(\tau)$ and the ante-event state and input perturbation $\ls^{s^{k-1}}\zb$ and $\vb$ in \eqref{eq:4ljumps} is the main result of this section. Using that result, the effect of a perturbation on the jumping behavior of the system can be approximated. For a more complete derivation, consult Appendix~\ref{app:multjumps}. The first term in \eqref{eq:4ljumps} represents the effect of the perturbed ante-event state on the perturbed post-event state. This term is already found in \cite{Rijnen2018}, where a sensitivity analysis is presented without input-dependent guards and jump maps. The summation in \eqref{eq:4ljumps} is a contribution of this work, which represents the effects of the chosen feedback during micro-segments.
 
 Note that the approximation of the post-event state \eqref{eq:4ljumps} shares an algebraic similarity with the impulse response of linear discrete time systems. With $\xb_d(t)$ the state, $\ub_d(t)$ the input, and $\yb_d(t)$ the output of a discrete system, the discrete impulse response is in the form of
 \begin{align}
@@ -587,7 +597,7 @@ the situation is different. The feasible post-event mode is determined by the po
 \lambdab^+_{t,\iota}||\Wb_{t,\iota}^T\dot{\qb}^+|| + \mu\lambda^+_{n,\iota}\Wb_{t,\iota}^T\dot{\qb}^+ &= 0, & \forall \iota\in\Ic_{\text{sl}},\nonumber\\
 \Wb^T_{t,\iota}\ddot{\qb}^+ + \dot{\Wb}^T_{t,\iota}\dot{\qb}^+ &= 0. & \forall \iota\in\Ic_{\text{st}},\nonumber
 \end{align}
-From the mode selection we can conclude that the post-event acceleration $\ddot{\qb}$ is directly dependent on the post-event input $\ub^+$. Therefore, the post-event input $\ub^+$ should be chosen in such a way that Assumption~\ref{ass:guardtrans} is met.
+From the mode selection we can conclude that the post-event acceleration $\ddot{\qb}$ is directly dependent on the post-event input $\ub^+$. Therefore, the post-event input $\ub^+$ should be chosen in such a way that Assumption~\ref{ass:guardtrans} is met. Appendix~\ref{app:instantslip} gives an example of an event for which the guard is not necessarily associated with the transition the system goes through.
 \end{myremark}
 \end{sloppypar}
 A state-dependent jump gain for all possible mode sequences associated to a simultaneous event will be defined in the following. This jump gain should consider all growing sequences that can take place for that range of perturbations. Therefore, a state-dependent matrix gain is defined, in the form of
@@ -657,6 +667,12 @@ with
 (\text{II})&:\ls^{^2 S^1}\ab^T\ \ls^{s^0}\zb +\ls^{^2 S^1}\bb^T\ \ls^{s^0}\vb > \ls^{^1 S^1}\ab^T\ \ls^{s^0}\zb +\ls^{^1 S^1}\bb^T\ \ls^{s^0}\vb,\label{eq:4conds}\\
 (\text{III})&:\ls^{^2 S^1}\ab^T\ \ls^{s^0}\zb +\ls^{^2 S^1}\bb^T\ \ls^{s^0}\vb < \ls^{^1 S^1}\ab^T\ \ls^{s^0}\zb +\ls^{^1 S^1}\bb^T\ \ls^{s^0}\vb.\nonumber
 \end{align}
+
+\begin{sloppypar}
+\begin{myremark}
+Note that the jump map \eqref{eq:4H2200} only applies to simultaneous activations in the same manifold. The situation where a single guard activation generates a post-event state that immediately activates another guard in the post-event mode is not what we name a simultaneous event. However, an example that might be worth exploring can be found in the application of this theory to mechanical systems. When a contact point impacts a surface, the post-event state of that event could immediately activate a stick/slip-transition related guard function. We believe that this situation might be worth exploring, because of its association with high performance. Let us consider a running robot. When it places on of his feet, it will want to push that foot as hard as possible while staying in stick. In this situation the reference trajectory might be chosen in such a way, that the post-event state of the impact is at the border of a stick-to-slip transition. We believe that a state-dependent matrix gain can be found, similar to \eqref{eq:4H2200}, which approximates the behavior of such events. This would be a useful addition to the RS control approach. However, this is left for future work.
+\end{myremark}
+\end{sloppypar}
 
 The jump gain in \eqref{eq:4H2200} is called a positively homogeneous jump gain for character-2 events ($c=2$). Due to the behavior of the simultaneous events, the linearity property of the jump gain is lost. This is shown in Appendix~\ref{app:poshom}. Instead, the jump gain is positively homogeneous, which is now formally defined.
  
