@@ -464,9 +464,9 @@ which is equal to
 
 Here we see that \eqref{eq:zkplusfinal} is equal to \eqref{eq:zkplus}. This proves that for any $k$, the first-order approximation of the post-impact state of two simultaneous jumps at $\tau$ can be found by evaluating the two jumps separately. Since $k$ is a variable in this proof, using an induction-like proof, this holds for any amount of jumps as well. This is illustrated in Figure~\ref{fig:kjumps}. 
 
-\begin{figure}[H]
+\begin{figure}[bt!]
 \centering
-\includegraphics[width=.08\textwidth]{kjumps.eps}\caption{}\label{fig:kjumps}
+\includegraphics[width=.08\textwidth]{kjumps.eps}\caption{This figure illustrates how the derivation of the jump gain for two simultaneous jumps can be extended intuitively to a jump gain for an arbitrary number of simultaneous jumps.}\label{fig:kjumps}
 \end{figure}
 
 When we take $k = 1$, we show that the jumps from $0$ to $2$ can be described by evaluating the jump from $0$ to $1$ and the jump $1$ to $2$ in succession. This also holds for $k = 2$. The jump from $0$ to $3$ can be described by evaluating the jump from $0$ to $2$ and the jump from $2$ to $3$ in succession. This indicates that we can use \eqref{eq:zkplusfinal} to find an expression for the approximation of the post-impact state for $l$ simultaneous jumps, with $l\in \mathbb{Z}$. Also, we show that multiple constant jump gains will result in a total jump which can also be described by a constant jump gain.
@@ -534,16 +534,17 @@ If we now look at the solution for $\zb_4(t_0) = \alpha\zb_1(t_0)$ with $\vb_4(t
 %\pagestyle{fancyreport}
 %\chapter{Verification of Assumptions}\label{app:assumptions}
 
-% New chapter %%
-\pagestyle{fancyreport}
-\cleartooddpage
-\pagestyle{fancyreport}
-\chapter{Simulation Design}\label{app:sim}
-This chapter discusses the numerical validation presented in Chapter~\ref{ch:vali}. First the kinematics and dynamics of the considered system will be presented in Section~\ref{app:kindyn}, which is a RRR-robot opening a door in a planar setting \cite{Rijnen2018b}. Then, the design of the reference trajectory is discussed in Section~\ref{app:trajdesign}. Finally, the sensitivity analysis of the considered system is presented in Section~\ref{app:sens}. Note that the work presented in this chapter and Chapter~\ref{ch:vali} are work in progress, and are merely first steps towards achieving a numerical validation of the theory presented in this work.
-
-\section{System kinematics and dynamics}\label{app:kindyn}
-The dynamics of an RRR-robot opening a door will now be presented. These kinematics and dynamics have been derived in \cite{Rijnen2018b}.
-\section{Reference trajectory design}\label{app:trajdesign}
-
-\section{Sensitivity analysis}\label{app:sens}
+%% New chapter %%
+%\pagestyle{fancyreport}
+%\cleartooddpage
+%\pagestyle{fancyreport}
+%\chapter{Simulation Design}\label{app:sim}
+%This chapter discusses the numerical validation presented in Chapter~\ref{ch:vali}. First the kinematics and dynamics of the considered system will be presented in Section~\ref{app:kindyn}, which is a RRR-robot opening a door in a planar setting \cite{Rijnen2018b}. Then, the design of the reference trajectory is discussed in Section~\ref{app:trajdesign}. Finally, the sensitivity analysis of the considered system is presented in Section~\ref{app:sens}. Note that the work presented in this chapter and Chapter~\ref{ch:vali} are work in progress, and are merely first steps towards achieving a numerical validation of the theory presented in this work.
+%
+%\section{Kinematics and dynamics}\label{app:kindyn}
+%In this section, the considered system for the numerical validation is presented. The considered system is a robot arm with three revolute joints opening a door, in a planar setting. The equations of motion for that system will be presented in a concise manner. For a more thorough derivation of the equations of motion, the reader is referred to \cite{Rijnen2018b}.
+%
+%\section{Reference trajectory design}\label{app:trajdesign}
+%
+%\section{Sensitivity analysis}\label{app:sens}
 \end{document}

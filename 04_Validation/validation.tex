@@ -7,14 +7,84 @@
 \cleartooddpage
 \pagestyle{fancyreport}
 \chapter{Numerical Validation}\label{ch:vali}
+To numerically validate the theory presented in this work, some first steps are taken in creating a trajectory tracking simulation for mechanical systems with unilateral constraints and spatial friction. This chapter presents an example of such a system tracking a trajectory with simultaneous impacts. While progress is made in creating the numerical validation, the reader should be aware that it is not yet complete. More work is required to validate the LTTHS and PTTHS presented in Chapter~\ref{ch:order} and Chapter~\ref{ch:simult}, respectively, in the sense that the example discussed in this chapter does not yet contain state-and-input-dependent guards, but merely state-dependent guards.
+
+\section{A planar 4-DOF system: RRR-robot opening a door}
+In this section, an example of a mechanical system with unilateral constraints is presented, which will be simulated to validate the theory presented in this work. The system is a robot arm with three revolute joints opening a door, in a planar setting. The equations of motion for that system will be presented in a concise manner. For a more thorough derivation of the equations of motion, the reader is referred to \cite{Rijnen2018b}. Let us now consider the system in Figure~\ref{fig:5system1}. The robot consists of four links, where link 0 is connected to the fixed world and link 3 is a foot-shaped end effector. Link 4 is a door connected to the fixed world with a torsional spring and damper. Coordinate frames are attached to each link, which are referred to as $\Psi_0$ to $\Psi_4$. The centers of mass of the links are assumed to be halfway the link, except for the center of mass of link 3. A closer look at link 3 can be seen in Figure~\ref{fig:5system2}, where the parameters $c_{3,x}$ and $c_{3,y}$ position the center of mass of link 3. Also, two additional coordinate frames $\Psi_{3a}$ and $\Psi_{3b}$ are depicted, which are attached to the contact points defined in the end effector for contact modeling. The system is modeled without friction and trajectories with releasing motions are not considered. Therefore, the system does not contain input-dependent guard functions.
+
+\nomenclature[G23]{$\Psi$}{A coordinate frame}%
+\nomenclature[RH]{$\Hb^a_b$}{The homogeneous transformation matrix relating frame $\Psi_b$ to $\Psi_a$}%
+\begin{figure}[bt!]
+\centering
+\includegraphics[width=.8\textwidth]{system.PNG}\caption{An RRR-robot and a door in top-down view. This 4-DOF planar system is used to numerically validate the theory presented in this work.}\label{fig:5system1}
+\includegraphics[width=.8\textwidth]{system2.PNG}\caption{A closer look at the foot of the RRR-robot.}
+\label{fig:5system2}
+\end{figure}
+
+The generalized coordinates are defined as 
+\begin{align}
+\qb := \begin{bmatrix}
+q_1\\q_2\\q_3\\q_4
+\end{bmatrix},
+\end{align}
+where $\qb_i$ is the angular displacement related to the $i$-th link, as illustrated in Figure~\ref{fig:5system1}. The state of the system is then defined as
+\begin{align}
+\xb := \begin{bmatrix}
+\qb\\\dot{\qb}
+\end{bmatrix}.
+\end{align}
+The forward kinematics of the system are now described using homogeneous transformation matrices $\Hb^a_b$, where $\Hb^a_b$ relates coordinate frame $\Psi_b$ to coordinate frame $\Psi_a$. Since the system is in a planar setting, the transformation matrices are in the Special Euclidean group SE(2), i.e., $\Hb^a_b\in \textnormal{SE}(2)$. The transformation matrices that relate all coordinate frames to coordinate frame $\Psi_0$ are given by
+
+\begin{align}
+\Hb^0_1 &= \begin{bmatrix}
+\cos(q_1) & -\sin(q_1) & L_1\cos(q_1) \\
+\sin(q_1) & \cos(q_1) & L_1\sin(q_1)\\
+0 & 0 & 1
+\end{bmatrix},\label{eq:H01}\\
+\Hb^0_2 &= \begin{bmatrix}
+\cos(q_1+q_2) & -\sin(q_1+q_2) & L_1\cos(q_1) + L_2\cos(q_1+q_2) \\
+-\sin(q_1+q_2) & \cos(q_1+q_2) & L_1\sin(q_1) + L_2\sin(q_1+q_2)\\
+0 & 0 & 1 
+\end{bmatrix},\label{eq:H02}\\
+\Hb^0_3 &= \begin{bmatrix}
+\cos(q_1+q_2+q_3) & -\sin(q_1+q_2+q_3) & L_1\cos(q_1) + L_2\cos(q_1+q_2) + L_3\cos(q_1+q_2+q_3) \\
+-\sin(q_1+q_2+q_3) & \cos(q_1+q_2+q_3) & L_1\sin(q_1) + L_2\sin(q_1+q_2) + L_3\sin(q_1+q_2+q_3)\\
+0 & 0 & 1 
+\end{bmatrix},\label{eq:H03}\\
+\Hb^0_4 &= \begin{bmatrix}
+\cos(q_4) & -\sin(q_4) & -\Delta x \\
+\sin(q_4) & \cos(q_4) & \Delta y\\
+0 & 0 & 1
+\end{bmatrix},\label{eq:H04}\\
+\Hb^3_{3a} &= \begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & d_3\\
+0 & 0 & 1
+\end{bmatrix},\label{eq:H33a}\\
+\Hb^3_{3b} &= \begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & -w_3 + d_3\\
+0 & 0 & 1
+\end{bmatrix}.\label{eq:H33b}
+\end{align}
+We now denote $x$ and $y$ the coordinates of frame $\Psi_3$ with respect to frame $\Psi_0$ in $x_0$ and $y_0$ direction respectively. We denote $\theta$ the rotation of $\Psi_3$ with respect to frame $\Psi_0$, where a positive rotation is in counterclockwise direction. The configuration of the end effector, i.e. of frame $\Psi_3$, can be obtained from \eqref{eq:H03} as
+\begin{align}
+\Yb:=\begin{bmatrix}
+x\\y\\ \theta
+\end{bmatrix} = \begin{bmatrix}
+L_1\cos(q_1) + L_2\cos(q_1+q_2) + L_3\cos(q_1+q_2+q_3)\\
+L_1\sin(q_1) + L_2\sin(q_1+q_2) + L_3\sin(q_1+q_2+q_3)\\
+q_1+q_2+q_3
+\end{bmatrix}.\label{eq:Y}
+\end{align}
+\nomenclature[RY]{$\Yb$}{End effector configuration}%
+\begin{itemize}
+\item guards and possible transitions
+\item eom
+\end{itemize}
+\section{Trajectory tracking with simultaneous impact}
 \begin{itemize}
 \item Hybrid toolbox
-\item Work in progress
-\item no input-dependent guards
-\end{itemize}
-\section{A planar 4-DOF system: RRR-robot opening a door}
-\begin{itemize}
-\item describe system (ref Mark)
 \item describe trajectory design
 \item discuss attention points in trajectory design: end effector, damping constant door, accelerations around event, velocity at event
 \end{itemize}
