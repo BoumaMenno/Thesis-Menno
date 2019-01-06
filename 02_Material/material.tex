@@ -133,11 +133,11 @@ where the symbol $\bot$ is used to express the orthogonality between the constra
 \end{figure}
 Newton's impact law relates the normal velocities at the contact points after impact to the normal velocities just before the impact using a so-called coefficient of restitution $e$. Mathematically, Newton's impact law can be expressed as
 \begin{align}
-\vrm^+_{n,\iota} = -e_{n,\iota}\vrm^-_{n,\iota},\text{ when }\hrm_{n,\iota}=0,\ \dot{\hrm}_{n,\iota}<0.
+\vrm^+_{n,\iota} = -e_{n,\iota}\vrm^-_{n,\iota},\text{ when }\hrm_{n,\iota}=0,\ \dot{\hrm}_{n,\iota}<0,
 \end{align}
 \nomenclature[Ren]{$e_{n,\iota}$}{The normal restitution coefficient of contact point $\iota$}%
 \nomenclature[Ret]{$e_{t,\iota}$}{The tangential restitution coefficient of contact point $\iota$}%
-In this work, the coefficient of restitution $e_{n,\iota}$ is assumed to be $0$ for all $\iota$, corresponding to a completely inelastic impact. For closed contacts, an impact law can be defined that relates the impulsive contact force $\Lambda_{n,\iota}$ to the post-impact normal velocity $\vrm_{n,\iota}$. Considering multi-contact systems, two situations can occur when a contact is closed:
+where $\vrm^-_{n,\iota}$ and $\vrm^+_{n,\iota}$ are the ante- and post-impact relative normal velocities, respectively, associated with contact point $\iota$. In this work, the coefficient of restitution $e_{n,\iota}$ is assumed to be $0$ for all $\iota$, corresponding to a completely inelastic impact. For closed contacts, an impact law can be defined that relates the impulsive contact force $\Lambda_{n,\iota}$ to the post-impact normal velocity $\vrm_{n,\iota}$. Considering multi-contact systems, two situations can occur when a contact is closed:
 \begin{enumerate}
 \item $\Lambda_{n,\iota} > 0\ \wedge\ \vrm^+_{n,\iota} = 0$ ($\iota$ participating in impact)
 \item $\Lambda_{n,\iota} = 0\ \wedge\ \vrm^+_{n,\iota} \geq 0$ ($\iota$ not participating in impact)
@@ -210,8 +210,8 @@ When the contact and friction laws \eqref{eq:signorini}, \eqref{eq:coulomb1} and
 with 
 \begin{align}
 &\hrm_{n,\iota} := \hrm_{n,\iota}(\qb),\label{eq:h}\\
-&\vrm_{n,\iota}(\qb) := \wb^T_{n,\iota}(\qb) \nub,  \label{eq:zetan}\\
-&\vbf_{t,\iota}(\qb) := \Wb^T_{t,\iota}(\qb) \nub. \label{eq:zetab}
+&\vrm_{n,\iota} := \wb^T_{n,\iota}(\qb) \nub,  \label{eq:zetan}\\
+&\vbf_{t,\iota} := \Wb^T_{t,\iota}(\qb) \nub. \label{eq:zetab}
 \end{align}
 Similarly, incorporating the impulsive contact and friction laws \eqref{eq:newton}, \eqref{eq:coulombimp1}, and \eqref{eq:coulombimp1} in the impact/discrete dynamics \eqref{eq:appimp1} gives a complete model for the impact behavior of the system. It follows that the discrete dynamics that are triggered by the occurrence of an impact event are given by
 \begin{align}
@@ -222,8 +222,8 @@ Similarly, incorporating the impulsive contact and friction laws \eqref{eq:newto
 \end{align}
 with 
 \begin{align}
-\vrm^+_{n,\iota}(\qb) &:= \wb^T_{n,\iota}(\qb) \nub^+,\\
-\vbf^+_{t,\iota}(\qb) &:= \Wb^T_{t,\iota}(\qb) \nub^+.\label{eq:ncpimpactend}
+\vrm^+_{n,\iota} &:= \wb^T_{n,\iota}(\qb) \nub^+,\\
+\vbf^+_{t,\iota} &:= \Wb^T_{t,\iota}(\qb) \nub^+.\label{eq:ncpimpactend}
 \end{align}
 
 \section{Hybrid system formulation}
