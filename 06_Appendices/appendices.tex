@@ -1,4 +1,4 @@
-\documentclass[../DC2017114Bouma.tex]{subfiles}
+\documentclass[../DC2019003Bouma.tex]{subfiles}
 \graphicspath{{06_Appendices/img/}}
 \pagestyle{plain}
 \appendix
@@ -372,9 +372,7 @@ we can write
 \section{Linearized jump gain for simultaneous events}\label{app:multjumps}
 We now assume that we find the first order approximation of the perturbed post-impact state of two simultaneous jumps, by considering these jumps after each other as
 \begin{align}
-\ls^{s^{k+1}}\zb(\tau) &= \Gb^{k+1}\ \ls^{s^{k}}\zb + \Jb^{k+1}\ \ls^{s^{k}}\vb
-\end{align}
-\begin{align}
+\ls^{s^{k+1}}\zb(\tau) &= \Gb^{k+1}\ \ls^{s^{k}}\zb + \Jb^{k+1}\ \ls^{s^{k}}\vb\\
 \ls^{s^{k+1}}\zb(\tau) &= \Gb^{k+1}\left(\Gb^k\ \ls^{s^{k-1}}\zb + \Jb^k\ \ls^{s^{k-1}}\vb\right) + \Gb^{k+1}\ \ls^{s^{k}}\vb,\\
 &= \Gb^{k+1}\Gb^k\ \ls^{s^{k-1}}\zb + \Gb^{k+1}\Jb^k\ \ls^{s^{k-1}}\vb + \Jb^{k+1}\ \ls^{s^{k}}\vb.\label{eq:zkplus}
 \end{align}
@@ -528,6 +526,146 @@ Here we see that the solution of $\ls^{s^{k-1}}\zb_3(t_0) = \ls^{s^{k-1}}\zb_1(t
 \end{align}
 If we now look at the solution for $\zb_4(t_0) = \alpha\zb_1(t_0)$ with $\vb_4(t) = \alpha\vb_1(t)$ jumping with $\Gb^4(\tau)$, and using the fact that $\Gb^4(\tau) = \Gb^1(\tau)$, we find the same solution as \eqref{eq:alphaz1sol}. This shows that the system \eqref{eq:PHdyn} is positively homogeneous of order zero, for any jump gain $^{s^{k}\leftarrow s^{k-1}}\Hb\left(\ls^{s^{k-1}}\zb,\ls^{s^{k-1}}\zb,t\right)$. Hence the name, positively homogeneous jump gain. 
 
+
+%% New chapter %%
+\pagestyle{fancyreport}
+\cleartooddpage
+\pagestyle{fancyreport}
+\chapter{Trajectory Tracking Visualization}\label{app:simulations}
+This chapter visualizes the simulations performed in Section~\ref{sec:5track}. First the reference trajectory is visualized with snapshots of the system performing the nominal motion Figure~\ref{fig:appref}. Then the same visualization is shown in Figure~\ref{fig:apptrack} for a trajectory with an initial state-and-input perturbation, which tracks the reference trajectory.
+\begin{figure}[bt!]
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapsref/frame11.eps}
+	\caption*{$t=0.666$}
+\end{minipage}
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapsref/frame12.eps}
+	\caption*{$t=0.733$}
+\end{minipage}
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapsref/frame13.eps}
+	\caption*{$t=0.800$}
+\end{minipage}
+
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapsref/frame14.eps}
+	\caption*{$t=0.866$}
+\end{minipage}
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapsref/frame15.eps}
+	\caption*{$t=0.933$}
+\end{minipage}
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapsref/frame16.eps}
+	\caption*{$t=1.000$}
+\end{minipage}
+
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapsref/frame17.eps}
+	\caption*{$t=1.066$}
+\end{minipage}
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapsref/frame18.eps}
+	\caption*{$t=1.133$}
+\end{minipage}
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapsref/frame19.eps}
+	\caption*{$t=1.200$}
+\end{minipage}
+
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapsref/frame20.eps}
+	\caption*{$t=1.266$}
+\end{minipage}
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapsref/frame21.eps}
+	\caption*{$t=1.333$}
+\end{minipage}
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapsref/frame22.eps}
+	\caption*{$t=1.400$}
+\end{minipage}
+\caption{Snapshots of the system in Section~\ref{sec:5sys} performing the reference trajectory in Section~\ref{sec:5track}.}\label{fig:appref}
+\end{figure}
+
+\begin{figure}[bt!]
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapspert/frame11.eps}
+	\caption*{$t=0.666$}
+\end{minipage}
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapspert/frame12.eps}
+	\caption*{$t=0.733$}
+\end{minipage}
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapspert/frame13.eps}
+	\caption*{$t=0.800$}
+\end{minipage}
+
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapspert/frame14.eps}
+	\caption*{$t=0.866$}
+\end{minipage}
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapspert/frame15.eps}
+	\caption*{$t=0.933$}
+\end{minipage}
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapspert/frame16.eps}
+	\caption*{$t=1.000$}
+\end{minipage}
+
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapspert/frame17.eps}
+	\caption*{$t=1.066$}
+\end{minipage}
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapspert/frame18.eps}
+	\caption*{$t=1.133$}
+\end{minipage}
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapspert/frame19.eps}
+	\caption*{$t=1.200$}
+\end{minipage}
+
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapspert/frame20.eps}
+	\caption*{$t=1.266$}
+\end{minipage}
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapspert/frame21.eps}
+	\caption*{$t=1.333$}
+\end{minipage}
+\begin{minipage}[c]{.3\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{snapspert/frame22.eps}
+	\caption*{$t=1.400$}
+\end{minipage}
+\caption{Snapshots of the tracking behavior of the system in Section~\ref{sec:5sys}, tracking the reference trajectory in Section~\ref{sec:5track}.}\label{fig:apptrack}
+\end{figure}
 %% New chapter %%
 %\pagestyle{fancyreport}
 %\cleartooddpage

@@ -1,4 +1,4 @@
-\documentclass[../DC2017114Bouma.tex]{subfiles}
+\documentclass[../DC2019003Bouma.tex]{subfiles}
 \begin{document}
 \graphicspath{{01_Introduction/img/}}
 \renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
@@ -9,7 +9,7 @@
 
 \chapter{Introduction}\label{ch:intro}
 \section{High performance physical interaction in robotics}
-In many applications of mechanical systems physical, and particularly in robotics, interaction with the environment is necessary to function. Humanoid robots, quadrupeds, and industrial robots are some examples of robots that repeatedly interact with their environment. Common control strategies that are available for these applications are limiting in performance. To avoid complexity of the controller, they often assume contact with their environment to happen at zero relative speed. This makes the robots less suitable for situations where speed is of significance, e.g., an industrial robot aiming to reach a certain throughput or a quadruped performing a trotting motion. Examples of such robots the SimLab quadruped \cite{VTquad} and the ABB IRB 360 flexpicker \cite{Flexpicker}, which are depicted in Figure~\ref{fig:1examples}. In such cases, performance is severely limited by zero velocity contact constraints. Therefore it is clear that the field of robotics can benefit from control strategies that are capable of handling non-zero relative velocity. Such controllers, however, are more complex than the controllers that require zero velocity contact situations.
+In many applications of mechanical systems physical, and particularly in robotics, interaction with the environment is necessary to function. Humanoid robots, quadrupeds, and industrial robots are some examples of robots that repeatedly interact with their environment. Common control strategies that are available for these applications are limiting in performance. To avoid complexity of the controller, they often assume contact with their environment to happen at zero relative speed. This makes the robots less suitable for situations where speed is of significance, e.g., an industrial robot aiming to reach a certain throughput or a quadruped performing a trotting motion. Examples of such robots the SimLab quadruped \cite{VTquad} and the ABB IRB 360 FlexPicker \cite{Flexpicker}, which are depicted in Figure~\ref{fig:1examples}. In such cases, performance is severely limited by zero velocity contact constraints. Therefore it is clear that the field of robotics can benefit from control strategies that are capable of handling non-zero relative velocity. Such controllers, however, are more complex than the controllers that require zero velocity contact situations.
 
 \begin{figure}[b!]
 \centering
