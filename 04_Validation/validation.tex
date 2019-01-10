@@ -7,13 +7,13 @@
 \cleartooddpage
 \pagestyle{fancyreport}
 \chapter{Numerical Validation}\label{ch:vali}
-To take the first steps towards numerically validating the theory presented in this work, a trajectory tracking simulation for mechanical systems with unilateral constraints and spatial friction is presented in this chapter. While progress is made in creating the numerical validation, the reader should be aware that it is not yet complete. More work is required to validate the LTTHS and PTTHS, presented in Chapter~\ref{ch:order} and Chapter~\ref{ch:simult} respectively, in the sense that the example discussed in this chapter does not yet contain state-and-input-dependent guards but merely state-dependent guards, and is modeled without friction. First an example system is given in Section~\ref{sec:5sys}, which describes the kinematics and dynamics of an RRR-robot opening a door. Then, the tracking behavior of that system is simulated and presented, where in particular the design of a feasible reference trajectory is discussed. The chapter is concluded by a summary.
+To take the first steps towards numerically validating the theory presented in this work, a trajectory tracking simulation for mechanical systems with unilateral constraints and spatial friction is presented in this chapter. While progress is made in creating the numerical validation, the reader should be aware that it is not yet complete. More work is required to validate the LTTHS and PTTHS, presented in Chapter~\ref{ch:order} and Chapter~\ref{ch:simult}, respectively, in the sense that the example discussed in this chapter does not yet contain state-and-input-dependent guards but merely state-dependent guards, and is modeled without friction. First an example system is given in Section~\ref{sec:5sys}, which describes the kinematics and dynamics of an RRR-robot opening a door. Then, the tracking behavior of that system is simulated and presented, where in particular the design of a feasible reference trajectory is discussed. The chapter is concluded by a summary.
 
 \section{A planar 4-DOF system: RRR-robot opening a door}\label{sec:5sys}
 In this section, an example of a mechanical system with unilateral constraints is presented, which will be simulated to validate the theory presented in this work. The system is a robot arm with three revolute joints opening a door, in a planar setting. The forward kinematics and equations of motion for that system will be presented in a concise manner. For a more thorough derivation of the equations of motion, the reader is referred to \cite{Rijnen2018b}. 
 
 \subsection{Forward kinematics}\label{sec:5kin}
-Let us now consider the system in Figure~\ref{fig:5system1}. The robot consists of four links, where link 0 is connected to the fixed world and link 3 is a foot-shaped end effector. Link 4 is a door connected to the fixed world with a torsional spring and damper. Coordinate frames are attached to each link, which are referred to as $\Psi_0$ to $\Psi_4$. The centers of mass of the links are assumed to be halfway the link, except for the center of mass of link 3. A closer look at link 3 can be seen in Figure~\ref{fig:5system2}, where the parameters $c_{3,x}$ and $c_{3,y}$ position the center of mass of link 3. Also, two additional coordinate frames $\Psi_{3a}$ and $\Psi_{3b}$ are depicted, which are attached to the contact points defined in the end effector for contact modeling. The set of contact points is given by $\mathcal{I} = \{1,2\}$, where contact point 1 and 2 are related to coordinate frames $\Psi_{3a}$ and $\Psi_{3b}$ respectively. The set of guard identifiers, which is written in binary form, is given by $\eta = \{01,10\}$, where $\gamma_{01}$ is related to contact point 1 and $\gamma^{10}$ to contact point 2. in The system is modeled without friction and trajectories with releasing motions are not considered. Therefore, the system does not contain input-dependent guard functions.
+Let us now consider the system in Figure~\ref{fig:5system1}. The robot consists of four links, where link 0 is connected to the fixed world and link 3 is a foot-shaped end effector. Link 4 is a door connected to the fixed world with a torsional spring and damper. Coordinate frames are attached to each link, which are referred to as $\Psi_0$ to $\Psi_4$. The centers of mass of the links are assumed to be halfway the link, except for the center of mass of link 3. A closer look at link 3 can be seen in Figure~\ref{fig:5system2}, where the parameters $c_{3,x}$ and $c_{3,y}$ characterize the position of the center of mass of link 3. Also, two additional coordinate frames $\Psi_{3a}$ and $\Psi_{3b}$ are depicted, which are attached to the contact points defined in the end effector for contact modeling. The set of contact points is given by $\mathcal{I} = \{1,2\}$, where contact point 1 and 2 are related to coordinate frames $\Psi_{3a}$ and $\Psi_{3b}$, respectively. The set of guard identifiers, which is written in binary form, is given by $\eta = \{01,10\}$, where $\gamma_{01}$ is related to contact point 1 and $\gamma^{10}$ to contact point 2. in The system is modeled without friction and trajectories with releasing motions are not considered. Therefore, the system does not contain input-dependent guard functions.
 
 \nomenclature[G23]{$\Psi$}{A coordinate frame}%
 \nomenclature[RH]{$\Hb^a_b$}{The homogeneous transformation matrix relating frame $\Psi_b$ to $\Psi_a$}%
@@ -30,7 +30,7 @@ The generalized coordinates are defined as
 q_1\\q_2\\q_3\\q_4
 \end{bmatrix},
 \end{align}
-where $\qb_i$ is the angular displacement related to the $i$-th link, as illustrated in Figure~\ref{fig:5system1}. The state of the system is then defined as
+where $q_i$ is the angular displacement related to the $i$-th link, as illustrated in Figure~\ref{fig:5system1}. The state of the system is then defined as
 \begin{align}
 \xb := \begin{bmatrix}
 \qb\\\dot{\qb}
@@ -70,7 +70,7 @@ The forward kinematics of the system are now described using homogeneous transfo
 0 & 0 & 1
 \end{bmatrix}.\label{eq:H33b}
 \end{align}
-We now denote $x$ and $y$ the coordinates of frame $\Psi_3$ with respect to frame $\Psi_0$ in $x_0$ and $y_0$ direction respectively. We denote $\theta$ the rotation of $\Psi_3$ with respect to frame $\Psi_0$, where a positive rotation is in counterclockwise direction. The configuration of the end effector, i.e. of frame $\Psi_3$, can be obtained from \eqref{eq:H03} as
+We now denote $x$ and $y$ the coordinates of frame $\Psi_3$ with respect to frame $\Psi_0$ in $x_0$ and $y_0$ direction respectively. We denote $\theta$ the rotation of $\Psi_3$ with respect to frame $\Psi_0$, where a positive rotation is in counterclockwise direction. The configuration of the end effector, i.e., of frame $\Psi_3$, can be obtained from \eqref{eq:H03} as
 \begin{align}
 \Yb:=\begin{bmatrix}
 x\\y\\ \theta
@@ -94,31 +94,31 @@ Since we will be considering a trajectory where the end effector makes impact wi
 &\qquad -L_3\sin(q_1+q_2+q_3-q_4) - d_3\cos(q_1+q_2+q_3-q_4) + w_3\cos(q_1+q_2+q_3-q_4) \\ &\qquad-\frac{1}{2}w_4,
 \end{split}
 \end{align}
-respectively. These contact distances are illustrated in Figure~\ref{fig:5guards}.
+respectively, where $\Delta x$ and $\Delta y$ are defined in Figure~\ref{fig:5system1}. These contact distances are illustrated in Figure~\ref{fig:5guards}.
 \begin{figure}[bt!]
 \centering
 \includegraphics[width=.7\textwidth]{guards.eps}\caption{The contact distances $\hrm_{n,1}$ and $\hrm_{n,2}$ related to contact point 1 and 2.}\label{fig:5guards}
 \end{figure}
 
 \subsection{Equations of motion}
-The equations of motion of the system are now presented. Since this chapter is work in progress, the system is modeled without friction. The unilateral constraints are modeled as bilateral for simplicity, and are checked for feasibility during simulation. With $\nub := \qb$ almost everywhere, the continuous dynamics of the system are given by
+The equations of motion of the system are now presented. Since this chapter is work in progress, the system is modeled without friction. The unilateral constraints are modeled as bilateral for simplicity, and are checked for feasibility during simulation. With $\nub := \dot{\qb}$ almost everywhere, the continuous dynamics of the system are given by
 \begin{align}
 &\Mb(\qb)\dot{\nub} + \Cb(\qb,\nub) = \Sb\ub + \sum_{\iota\in\Ic_{\text{cl}}}\wb_{n,\iota}(\qb)\lambda_{n,\iota}, &\forall \iota\in\Ic, \label{eq:5ncpcontact1}\\
-&0\leq \hrm_{n,\iota}\ \bot\ \lambda_{n,\iota} \geq 0,\label{eq:5ncpcontact2}
+&\hrm_{n,\iota} = 0,\label{eq:5ncpcontact2}
 \end{align}
 with 
-\begin{align}
-&\hrm_{n,\iota} := \hrm_{n,\iota}(\qb),\label{eq:5h}
-\end{align}
+\begin{align*}
+&\hrm_{n,\iota} := \hrm_{n,\iota}(\qb).
+\end{align*}
 The discrete dynamics are given by
 \begin{align}
-&\Mb(\qb)(\nub^+ - \nub^-) = \sum_{\iota\in\Ic_{\text{cl}}} \wb_{n,\iota}(\qb)\Lambda_{n,\iota} + \Wb_{t,\iota}(\qb)\Lambdab_{t,\iota}, \label{eq:5ncpimpact1}\\
-&0\leq \vrm_{n,\iota}^+\ \bot\ \Lambda_{n,\iota} \geq 0, &\forall \iota\in\Ic_{\text{cl}},\label{eq:5ncpimpact2}
+&\Mb(\qb)(\nub^+ - \nub^-) = \sum_{\iota\in\Ic_{\text{cl}}} \wb_{n,\iota}(\qb)\Lambda_{n,\iota}, \label{eq:5ncpimpact1}\\
+&\vrm_{n,\iota}^+ = 0, &\forall \iota\in\Ic_{\text{cl}},\label{eq:5ncpimpact2}
 \end{align}
 with 
-\begin{align}
+\begin{align*}
 \vrm^+_{n,\iota}(\qb) &:= \wb^T_{n,\iota}(\qb) \nub^+.
-\end{align}
+\end{align*}
 The mass matrix $\Mb(\qb)$ is given by
 \begin{align}
 \Mb = \begin{bmatrix}
@@ -149,7 +149,7 @@ M_{33} &= \bar{I}_3,\\
 \bar{I}_2 &= I_2 + (\frac{1}{4}m_2 + m_3)L_2^2,\\
 \bar{I}_3 &= I_3 + m_3\left((L_3-c_{3,x})^2 + c_{3,y}^2\right),
 \end{align*}
-where $m_1$, $m_2$, $m_3$ are the masses of link 1 to 3, and $I_1$, $I_2$, $I_3$ are the mass moment of inertia of link 1 to 3. The spring forces, damper forces, and centripetal forces form the generalized forces vector, which is given by
+where $m_1$, $m_2$, $m_3$ are the masses of link 1 to 3, and $I_1$, $I_2$, $I_3$ are the mass moments of inertia of link 1 to 3. The spring forces, damper forces, and centripetal forces form the generalized forces vector, which is given by
 \begin{align}
 \Cb = \begin{bmatrix}
 C_1\\C_2\\C_3\\C_4
@@ -169,7 +169,7 @@ where
 \begin{align*}
 e(q) = m_3\left(c_{3,y}\cos(q) - (L_3-c_{3,x})\sin(q)\right).
 \end{align*}
-The selection matrix is $\Sb = \begin{bmatrix}\Ib_3 & \Zerob_{3 \times 1}\end{bmatrix}$. Finally, the jacobians $\wb_{n,1}^T$ and $\wb_{n,2}^T$ are defined by $\dot{\hrm}_{n,1} = \wb_{n,1}^T \dot{\qb}$ and $\dot{\hrm}_{n,2} = \wb_{n,2}^T \dot{\qb}$, which give
+The selection matrix is $\Sb = \begin{bmatrix}\Ib_3 & \Zerob_{3 \times 1}\end{bmatrix}$. Finally, the jacobians are given by $\wb_{n,i}^T = \partial \hrm_{n,i}/\partial\qb$, which give
 \begin{align}
 \wb_{n,1} &= \begin{bmatrix}
 a(\qb) + b(\qb) + c(\qb) + d(\qb)\\
@@ -191,9 +191,9 @@ b(\qb) &= -L_2\cos(q_1+q_2-q_4),\\
 c(\qb) &= -L_3\cos(q_1+q_2+q_3-q_4),\\
 d(\qb) &= d_3\sin(q_1+q_2+q_3-q_4).
 \end{align*}
-The kinematics presented in Section~\ref{sec:5kin} and the dynamics presented in this section are first derived in \cite{Rijnen2018b}. For a more thorough derivation of the kinematics and dynamics, the reader is referred to that work. In the next section a tracking simulation for the example system is simulated and discussed. 
+The kinematics presented in Section~\ref{sec:5kin} and the dynamics presented in this section are first derived in \cite{Rijnen2018b}. For a more thorough derivation of the kinematics and dynamics, the reader is referred to that work. In the next section, a tracking simulation for the example system is simulated and discussed. 
 \section{Trajectory tracking with simultaneous impact}\label{sec:5track}
-Using the system presented in Section~\ref{sec:5sys}, the results of the trajectory tracking simulation will be discussed in this section. The considered reference trajectory contains a simultaneous impact between the two contact points and the door. First, the design of the reference trajectory will be discussed, where the resulting reference trajectory satisfies the assumptions posed in this work. Then, the simulation results are presented. Here the tracking behavior around the reference trajectory with simultaneous impacts is discussed, and the benefits of the reference spreading error are illustrated. The simulations presented in this section are performed using MATLAB and a hybrid systems toolbox written by the author of \cite{Rijnen2018a}.
+Using the system presented in Section~\ref{sec:5sys}, the results of the trajectory tracking simulation will be discussed in this section. The considered reference trajectory contains a simultaneous impact between the two contact points and the door. First, the design of the reference trajectory will be discussed, where the resulting reference trajectory satisfies the assumptions posed in this work. Then, the simulation results are presented. Here, the tracking behavior around the reference trajectory with simultaneous impacts is discussed, and the benefits of the reference spreading error are illustrated. The simulations presented in this section are performed using MATLAB and a hybrid systems toolbox written by the author of \cite{Rijnen2018a}.
 
 \subsection{Reference trajectory design}
 To design the reference trajectory, a Hermite interpolation is used to interpolate between the desired initial state and input and the desired final state and input. The Hermite interpolation makes use of the quintic polynomial functions
@@ -218,17 +218,17 @@ y_0\\ \dot{y}_0\\ \ddot{y}_0\\y_f\\ \dot{y}_f\\ \ddot{y}_f
 \end{align}
 Here $t_0$ and $t_f$ are the start- and end-time of the trajectory segment, respectively, $y_0$, $\dot{y}_0$, and $\ddot{y}_0$ the position, velocity and acceleration at the start of the trajectory segment, and $y_f$, $\dot{y}_f$, and $\ddot{y}_f$ the position, velocity and acceleration at the end of the trajectory segment.
 
-The Hermite interpolation is now used to define a reference trajectory. The reference is defined on task level, i.e., the configuration of the end effector $\Yb$ is prescribed. Three event times are introduced: $\tau_0=0$ is initial time of the reference, $\tau_1=1$ is the event time of the simultaneous impact, and $\tau_2 = \tau_f=2$ is the final time of the reference. The ante-event segment of the reference, $t \in [\tau_0,\tau_1]$, has the initial and final conditions
+The Hermite interpolation is now used to define a reference trajectory. The reference is defined on task level, i.e., the configuration of the end effector $\Yb$ \eqref{eq:Y} is prescribed. Three event times are introduced: $\tau_0=0$ is initial time of the reference, $\tau_1=1$ is the event time of the simultaneous impact, and $\tau_2 = \tau_f=2$ is the final time of the reference. The ante-event segment of the reference, $t \in [\tau_0,\tau_1]$, has the initial and final conditions
 \begin{align}
 x_0&= 0.650 &x^-_1&= 0.433 &y_0&= 0 &y^-_1&= 0.280 &\theta_0&= \pi/5 &\theta^-_1&= \pi/2\nonumber\\
 \dot{x}_0&= 0 &\dot{x}^-_1&= -0.250 &\dot{y}_0&= 0 &\dot{y}^-_1&= 0.350 &\dot{\theta}_0&= 0 &\dot{\theta}^-_1&= 0\label{eq:5traj01}\\
-\ddot{x}_0&= 0 &\ddot{x}^-_1&= -0.700 &\ddot{y}_0&= 0 &\ddot{y}^-_1&= 2 &\ddot{\theta}_0&= 0 &\ddot{\theta}^-_1&= 0\nonumber
+\ddot{x}_0&= 0 &\ddot{x}^-_1&= -0.700 &\ddot{y}_0&= 0 &\ddot{y}^-_1&= 2 &\ddot{\theta}_0&= 0 &\ddot{\theta}^-_1&= 0\ .\nonumber
 \end{align}
-Note that we only define the left limits for $t=t_1$, because the right limits are defined by the discrete dynamics \eqref{eq:5ncpimpact1}-\eqref{eq:5ncpimpact2}. During the design of the ante-event segment, we assume the door to be closed, i.e., $q_4=\dot{q}_4=\ddot{q}_4$ for all $t\in[\tau_0,\tau_1]$. The conditions \eqref{eq:5traj01} define the trajectory for $t\in[\tau_0,\tau_1]$ using the hermite interpolation \eqref{eq:5hermite}. This trajectory is now extended, where the final conditions of the left extension are
+Note that we only define the left limits for $t=t_1$, because the right limits are defined by the discrete dynamics \eqref{eq:5ncpimpact1}-\eqref{eq:5ncpimpact2}. During the design of the ante-event segment, we assume the door to be closed, i.e., $q_4=\dot{q}_4=\ddot{q}_4=0$ for all $t\in[\tau_0,\tau_1]$. The conditions \eqref{eq:5traj01} define the trajectory for $t\in[\tau_0,\tau_1]$ using the Hermite interpolation \eqref{eq:5hermite}. This trajectory is now extended, where the final conditions of extension on the left limit of the event are
 \begin{align}
 x^-_{\textnormal{ext}}&= 0.353 &y^-_{\textnormal{ext}}&= 0.400 &\theta^-_{\textnormal{ext}}&= \pi/2\nonumber\\
 \dot{x}^-_{\textnormal{ext}}&= -0.580 &\dot{y}^-_{\textnormal{ext}}&= 0.830 &\dot{\theta}^-_{\textnormal{ext}}&= 0\\
-\ddot{x}^-_{\textnormal{ext}}&= -0.700 &\ddot{y}^-_{\textnormal{ext}}&= 2 &\ddot{\theta}^-_{\textnormal{ext}}&= 0\nonumber
+\ddot{x}^-_{\textnormal{ext}}&= -0.700 &\ddot{y}^-_{\textnormal{ext}}&= 2 &\ddot{\theta}^-_{\textnormal{ext}}&= 0\ .\nonumber
 \end{align}
 
 These conditions result in the trajectories illustrated in Figure~\ref{fig:5traj}.
@@ -264,19 +264,23 @@ The post-event segment of the trajectory is now designed in a similar fashion. S
 \begin{align}
 (o_{3,x}^4)^+_{\textnormal{ext}}&= 0.650 &(o_{3,x}^4)_2&= 0.433 &(q_4)^+_{\textnormal{ext}}&= 0 &(q_4)_2&= 0.280\nonumber\\
 (\dot{o}_{3,x}^4)^+_{\textnormal{ext}}&= 0 &(\dot{o}_{3,x}^4)_2&= -0.250 &(\dot{q}_4)^+_{\textnormal{ext}}&= 0 &(\dot{q}_4)_2&= 0.350 \label{eq:5traj12}\\
-(\ddot{o}_{3,x}^4)^+_{\textnormal{ext}}&= 0 &(\ddot{o}_{3,x}^4)_2&= -0.700 &(\ddot{q}_4)^+_{\textnormal{ext}}&= 0 &(\ddot{q}_4)_2&= 2 \nonumber
+(\ddot{o}_{3,x}^4)^+_{\textnormal{ext}}&= 0 &(\ddot{o}_{3,x}^4)_2&= -0.700 &(\ddot{q}_4)^+_{\textnormal{ext}}&= 0 &(\ddot{q}_4)_2&= 2\ .\nonumber
 \end{align}
-where $o_{3,x}^4$ is the position of the $\Psi_3$ frame in the $x$-direction of frame $\Psi_4$, that is the position of the end effector along the door. The conditions in \eqref{eq:5traj12} are used instead of $\Yb$, for a more intuitive design process of the trajectory. The super- and subscript $(\cdot)_ext^+$ indicates the initial condition of the trajectory extension, and the subscript $(\cdot)_2$ indicates the final condition of the post-event trajectory. The post-event reference trajectory resulting from \eqref{eq:5traj12} is illustrated in Figure~\ref{fig:5traj}. The entire reference trajectory shown in Figure~\ref{fig:5traj} satisfies the assumptions applicable to the reference, specifically:
+
+where $o_{3,x}^4$ is the position of the $\Psi_3$ frame in the $x$-direction of frame $\Psi_4$, that is the position of the end effector along the door. The conditions in \eqref{eq:5traj12} are used instead of $\Yb$, for a more intuitive design process of the trajectory. The super- and subscript $(\cdot)_{\textnormal{ext}}^+$ indicates the initial condition of the extension on the right limit of the event, and the subscript $(\cdot)_2$ indicates the final condition of the post-event trajectory. Note that the initial conditions of the post-event trajectory are defined by the right limit of event $1$, i.e., $(o_{3,x}^4)^+_1$ and $(q_4)^+_1$. These post-event states are found by applying the discrete dynamics to the ante-event states $\Yb_1^-$. The post-event reference trajectory resulting from \eqref{eq:5traj12} is illustrated in Figure~\ref{fig:5traj}. The entire reference trajectory shown in Figure~\ref{fig:5traj} satisfies the assumptions applicable to the reference, specifically:
 \begin{itemize}
 \item Assumption~\ref{ass:transversality} (\textit{Transversal guard activations}).
-\item Assumption~\ref{ass:unidirectional} (\textit{Growing mode sequences}).
 \item Assumption~\ref{ass:guardtrans} (\textit{Guard-transition association}).
 \end{itemize}
 Guard-transition association is straightforward in this case, as we only consider position dependent guard functions in this example. We achieve transversality of the guard activations in the reference trajectory by choosing $\dot{y}^-_1>0$, as can be observed in \eqref{eq:5traj01}. 
 
-Since the unilateral constraints are modeled as bilateral constraints, the simulation will return pulling reaction forces when a release occurs. Therefore, to make sure that the mode sequences are growing, the ante-event velocity $\dot{\qb}^-$ should be chosen in such a way that the impulsive dynamics result in feasible impulsive reaction forces $\Lambda_{n,1}$ and $\Lambda_{n,2}$, i.e., $\Lambda_{n,1}>0$ and $\Lambda_{n,2}>0$ for $t = \tau_1$.  Also, since we don't want any releases after the event takes place, the post-event accelerations for $t\in[\tau_1,\tau_2]$ should be chosen in such a way, that the post-event reaction forces $\lambda_{n,1}$ and $\lambda_{n,2}$ are feasible as well. Thus, we should also check that $\lambda_{n,1}>0$ and $\lambda_{n,2}>0$ for $t\in[\tau_1,\tau_2]$. Since we are interested in tracking the designed reference, the trajectories close to $\alphab$ should also satisfy the conditions mentioned above.
+Since the unilateral constraints are modeled as bilateral constraints, the simulation will return pulling reaction forces when a release should occur. Therefore, the ante-event velocity $\dot{\qb}^-$ should be chosen in such a way that the impulsive dynamics result in feasible impulsive reaction forces $\Lambda_{n,1}$ and $\Lambda_{n,2}$, i.e., $\Lambda_{n,1}>0$ and $\Lambda_{n,2}>0$ for $t = \tau_1$.  Also, since we do not want any releases after the event takes place, the post-event accelerations for $t\in[\tau_1,\tau_2]$ should be chosen in such a way, that the post-event reaction forces $\lambda_{n,1}$ and $\lambda_{n,2}$ are feasible as well. Thus, we should also check that $\lambda_{n,1}>0$ and $\lambda_{n,2}>0$ for $t\in[\tau_1,\tau_2]$. Since we are interested in tracking the designed reference, the trajectories close to $\alphab$ should satisfy the conditions mentioned above, additionally to:
+\begin{itemize}
+\item Assumption~\ref{ass:unidirectional} (\textit{Growing mode sequences}).
+\end{itemize} 
+For the perturbed trajectory to have growing mode sequences, the micro-events should have feasible impulsive and continuous reaction forces, indicating that no contact points release during the micro-segments and events.
 
-The reference trajectory plotted in Figure~\ref{fig:5traj} is found by trial and error, where we keep track of both the impulsive reaction forces $\Lambda_{n,1}$ and $\Lambda_{n,2}$, as well as the continuous reaction forces $\lambda_{n,1}$ and $\lambda_{n,2}$. The reference trajectory generates the impulsive event described in Table~\ref{tab:simevent}, and the continuous reaction forces plotted in Figure~\ref{fig:5lambdaref}. Here we observe that both the impulsive event and the post-event trajectory are feasible.
+The reference trajectory plotted in Figure~\ref{fig:5traj} is found by trial and error, where we keep track of both the impulsive reaction forces $\Lambda_{n,1}$ and $\Lambda_{n,2}$, as well as the continuous reaction forces $\lambda_{n,1}$ and $\lambda_{n,2}$. The reference trajectory generates the impulsive event described in Table~\ref{tab:simevent}, and the continuous reaction forces plotted in Figure~\ref{fig:5lambdaref} close to the event at $t=\tau_1$. Here we observe that both the impulsive event and the post-event trajectory are feasible.
 \begin{table}[h!]
 \centering
 \caption{Properties of the simultaneous event in the reference trajectory ($\alphab,\mub$).}\label{tab:simevent}
@@ -287,34 +291,38 @@ $i$ & $s_{i-1}\rightarrow s_i$ & $\tau^i$ {[}s{]} & $\Lambda_{n,1}$ {[}Ns{]} & $
 \end{table}
 \begin{figure}[h!]
 \centering
-\includegraphics[width=.8\textwidth]{lambdaref.eps}\caption{The reaction forces $\lambda_{n,1}$ and $\lambda_{n,2}$ of the reference trajectory $\alphab$ for $t\in [\tau_1,\tau_2]$.}\label{fig:5lambdaref}
+\includegraphics[width=\textwidth]{lambdaref.eps}\caption{The reaction forces $\lambda_{n,1}$ and $\lambda_{n,2}$ of the reference trajectory $\alphab$ close to the event at $t=\tau_1$.}\label{fig:5lambdaref}
 \end{figure}
 
 During the design of the trajectory, some parameters proved to be particularly influential on the feasibility of the trajectory. When considering the impulsive event, the ante-event velocities $\dot{\qb}^-$ should be chosen in such a way that the impulsive dynamics generate feasible reaction forces. Besides the ante-event velocities in the reference trajectory, the feasibility of the impulsive event is mainly governed by the mass distribution of the system. The positions of the centers of mass, and the weights of the links and end-effector have a significant effect on the impulsive reaction forces. The design of the system can therefore make it easier to find feasible impacts.
 
-Considering the post-event trajectory, the input $\mub$ for $t\in[\tau_1,\tau_2]$ should be chosen in such a way that the reaction forces remain positive. Particularly the inputs close to the event should be chosen carefully. The quintic polynomial shape functions used to define the reference trajectory provide little control over the evolution of the accelerations $\ddot{\qb}$, and therefore the inputs $\mub$. Higher order shape functions, that also allow to specify the jerks $\dddot{\qb}$ of the system, can prove beneficial. Also, since we used exact inverse dynamics to relate the end effector configuration $\Yb$ to the joint space configuration $\qb$, the design space of the accelerations is limited. More freedom can be achieved by using loose inverse dynamics, e.g., a QP solver, making the design process of the acceleration profile more intuitive.
+Considering the post-event trajectory, the input $\mub$ for $t\in[\tau_1,\tau_2]$ should be chosen in such a way that the reaction forces remain positive. Particularly the inputs close to the event should be chosen carefully. The quintic polynomial shape functions used to define the reference trajectory provide little control over the evolution of the accelerations $\ddot{\qb}$, and therefore the inputs $\mub$. Higher-order shape functions, that also allow to specify the jerks $\dddot{\qb}$ of the system, can prove beneficial. Also, since we used exact inverse kinematics to relate the end effector configuration $\Yb$ to the joint space configuration $\qb$, the design space of the accelerations is limited. More freedom can be achieved by using non-exact inverse kinematics, e.g., a QP solver, making the design process of the acceleration profile more intuitive.
 
 \subsection{Simulation results}
 A trajectory tracking simulation is performed with the system presented in Section~\ref{sec:5sys}. First, the system performing the reference trajectory ($\alphab,\mub$) will be shown and discussed. After that, an initial state-and-input perturbation is introduced in the system and the tracking of the reference trajectory is presented.
 
-The reference trajectory defined in task space is now transformed to the state reference $\alphab$, defined in joint space. The reference is simulated, and the result is plotted in Figure~\ref{fig:5alphasim}, with its corresponding feedforward $\mub$ plotted in Figure~\ref{fig:5musim}. In Figure~\ref{fig:5alphasim} we notice the nonsmoothness in the position $\qb$ and the jump in the velocity $\dot{\qb}$ at $t=\tau_1=1$. The system only enters two different modes, indicated by the bars $0$ and $1$ above the plots. The ante-event segment $0$ in dark blue indicates that both contact points are not in contact, and the post-event segment $1$ in light blue indicates that both contact points are in contact. Snapshots of the system performing the reference trajectory can be seen in Appendix~\ref{app:simulations}.
+The reference trajectory defined in task space is now transformed to the state reference $\alphab$, defined in joint space. The reference is simulated, and the result is plotted in Figure~\ref{fig:5alphasim}, with its corresponding feedforward $\mub$ plotted in Figure~\ref{fig:5musim}. In Figure~\ref{fig:5alphasim}, we notice the nonsmoothness in the position $\qb$ and the jump in the velocity $\dot{\qb}$ at $t=\tau_1=1$. The system only enters two different modes, indicated by the bars $0$ and $1$ above the plots. The ante-event segment $0$ in dark blue indicates that both contact points are not in contact, and the post-event segment $1$ in light blue indicates that both contact points are in contact. Snapshots of the system performing the reference trajectory can be seen in Appendix~\ref{app:simulations}.
 \begin{figure}[bt!]
 \centering
-\begin{minipage}[c]{.48\textwidth}
+\begin{minipage}[c]{\textwidth}
 \centering
-\includegraphics[width=\textwidth]{alphapos.eps}
+\includegraphics[width=\textwidth]{alphaxpos.eps}
 \end{minipage}
-\begin{minipage}[c]{.48\textwidth}
+
+\begin{minipage}[c]{\textwidth}
 \centering
-\includegraphics[width=\textwidth]{alphavel.eps}
+\includegraphics[width=\textwidth]{alphaxvel.eps}
 \end{minipage}
-\caption{The reference trajectory $\alphab$, which is generated from the trajectory shown in Figure~\ref{fig:5traj}.}\label{fig:5alphasim}
+\caption{In red, the reference trajectory $\alphab$ and its extensions $\bar{\alphab}$, generated from the trajectory shown in Figure~\ref{fig:5traj}. In blue, the tracking trajectory $\xb$, generated by tracking the reference trajectory $\alphab$ with feedback gains $K_1$ and $K_2$ for the ante- and post-event segment, respectively.}\label{fig:5alphasim}
+\end{figure}
+
+\begin{figure}[bt!]
 \centering
-\begin{minipage}[c]{.48\textwidth}
+\begin{minipage}[c]{\textwidth}
 \centering
-\includegraphics[width=\textwidth]{mu.eps}
+\includegraphics[width=\textwidth]{muu.eps}
 \end{minipage}
-\caption{The feedforward $\mub$ used to generate $\alphab$ shown in Figure~\ref{fig:5alphasim}.}\label{fig:5musim}
+\caption{In red, the feedforward $\mub$ and its extensions $\bar{\mub}$, used to generate $\alphab$ and $\bar{\alphab}$ shown in Figure~\ref{fig:5alphasim}. In blue, the input $\ub$ used to generate the tracking trajectory $\xb$ shown in Figure~\ref{fig:5alphasim}, with $\alphab$ as reference.}\label{fig:5musim}
 \end{figure}
 
 Now an initial state-and-input perturbation is introduced into the system. The initial state of the perturbed system is given by
@@ -339,27 +347,27 @@ with $\ls_{\searrow}\mub$ indicating a pushing sequence feedforward and $\Kb_i$ 
 0   & 0   & 0 & 0 & 0  & 0  & 0 & 0
 \end{bmatrix}.
 \end{align}
-This results in the tracking behavior plotted in Figure~\ref{fig:5xsim} and input plotted in Figure~\ref{fig:5usim}. It can be noticed that another mode is present in the trajectory. The ante-event mode is indicated by segment $0$, the post-event mode is indicated by segment $2$, and close to the impact time the micro-segment $1$ can be observed. This is the loss of simultaneity that occurs as a result of the perturbation. Snapshots of the system tracking the reference trajectory can be seen in Appendix~\ref{app:simulations}.
-\begin{figure}[bt!]
-\centering
-\begin{minipage}[c]{.48\textwidth}
-\centering
-\includegraphics[width=\textwidth]{xepos.eps}
-\end{minipage}
-\begin{minipage}[c]{.48\textwidth}
-\centering
-\includegraphics[width=\textwidth]{xevel.eps}
-\end{minipage}
-\caption{The tracking trajectory $\xb$ with initial state-and-input perturbation $\epsilon\zb_0$, which is generated by tracking the reference trajectory $\alphab$ with feedback gains $K_1$ for the ante-event state and $K_2$ for the post-event state.}\label{fig:5xsim}
-\centering
-\begin{minipage}[c]{.48\textwidth}
-\centering
-\includegraphics[width=\textwidth]{u.eps}
-\end{minipage}
-\caption{The input $\ub$ used to generate the tracking trajectory $\xb$ shown in Figure~\ref{fig:5xsim}, with $\alphab$ as reference.}\label{fig:5usim}
-\end{figure}
+This results in the tracking behavior plotted in Figure~\ref{fig:5alphasim} and input plotted in Figure~\ref{fig:5musim}. It can be noticed that another mode is present in the trajectory. The ante-event mode is indicated by segment $0$, the post-event mode is indicated by segment $2$, and close to the impact time the micro-segment $1$ can be observed. This is the loss of simultaneity that occurs as a result of the perturbation. Snapshots of the system tracking the reference trajectory can be seen in Appendix~\ref{app:simulations}.
+%\begin{figure}[bt!]
+%\centering
+%\begin{minipage}[c]{.48\textwidth}
+%\centering
+%\includegraphics[width=\textwidth]{xepos.eps}
+%\end{minipage}
+%\begin{minipage}[c]{.48\textwidth}
+%\centering
+%\includegraphics[width=\textwidth]{xevel.eps}
+%\end{minipage}
+%\caption{The tracking trajectory $\xb$ with initial state-and-input perturbation $\epsilon\zb_0$, which is generated by tracking the reference trajectory $\alphab$ with feedback gains $K_1$ for the ante-event state and $K_2$ for the post-event state.}\label{fig:5xsim}
+%\centering
+%\begin{minipage}[c]{.48\textwidth}
+%\centering
+%\includegraphics[width=\textwidth]{u.eps}
+%\end{minipage}
+%\caption{The input $\ub$ used to generate the tracking trajectory $\xb$ shown in Figure~\ref{fig:5xsim}, with $\alphab$ as reference.}\label{fig:5usim}
+%\end{figure}
 
-To consider the feasibility of the trajectory, we evaluate the generated reaction forces. First the two micro-events are considered. The properties of these micro-events are presented in Table~\ref{tab:pertevent}. Notice that for both events $\Lambda_{n,1}\geq 0$ and $\Lambda_{n,2}\geq 0$, meaning that they are feasible.
+To consider the feasibility of the trajectory, we evaluate the generated reaction forces. First, the two micro-events are considered. The properties of these micro-events are presented in Table~\ref{tab:pertevent}. Notice that for both events $\Lambda_{n,1}\geq 0$ and $\Lambda_{n,2}\geq 0$, meaning that they are feasible.
 \begin{table}[h!]
 \centering
 \caption{Properties of the micro-events in the perturbed trajectory ($\xb^\epsilon,\ub$).}\label{tab:pertevent}
@@ -370,13 +378,13 @@ $k$ & $s^{k-1}\rightarrow s^k$ & $t^k$ {[}s{]} & $\Lambda_{n,1}$ {[}Ns{]} & $\La
 \end{tabular}
 \end{table}
 
-We now evaluate the post-event state, by checking whether $\lambda_{n,1}\geq 0$ and $\lambda_{n,2}\geq 0$ for $t\in [t^1,\tau_2]$, where $t^k$ is the event time of the $k$-th micro-event. The reaction forces $\lambda_{n,1}$ and $\lambda_{n,2}$ are plotted in Figure~\ref{fig:5lambda}. Here we see that for all $t\in [t^1,\tau_2]$, $\lambda_{n,1}> 0$ and $\lambda_{n,2}> 0$, meaning that also the post-event trajectory is feasible.
+We now evaluate the post-event state, by checking whether $\lambda_{n,1}\geq 0$ and $\lambda_{n,2}\geq 0$ for $t\in [t^1,\tau_2]$, where $t^k$ is the event time of the $k$-th micro-event. The reaction forces $\lambda_{n,1}$ and $\lambda_{n,2}$ are plotted in Figure~\ref{fig:5lambda}. Here we see that for all $t\in [t^1,\tau_2]$, $\lambda_{n,1}> 0$ and $\lambda_{n,2}> 0$, meaning that also the post-event trajectory is feasible. For $t\in[t_1,t_2]$, the reaction force $\lambda_{n,2}= 0$ because contact point $2$ has not made contact yet.
 
 \begin{figure}[bt!]
 \centering
-\includegraphics[width=.8\textwidth]{lambda.eps}\caption{The reaction forces $\lambda_{n,1}$ and $\lambda_{n,2}$ of the perturbed trajectory $\xb^\epsilon$ for $t\in [t^1,\tau_2]$.}\label{fig:5lambda}
+\includegraphics[width=\textwidth]{lambda.eps}\caption{The reaction forces $\lambda_{n,1}$ and $\lambda_{n,2}$ of the perturbed trajectory $\xb^\epsilon$ close to the perturbed event at $t=t^1$.}\label{fig:5lambda}
 \end{figure}
 
 \section{Summary}
-This chapter discusses the first steps made towards a numerical validation of the theory presented in this work. First, an example system is presented, in the form of an RRR-robot opening a door. While the system can readily be extended to input-dependent guard functions and spatial friction, this example is modeled without these extensions. For this example, the trajectory tracking behavior of a trajectory with simultaneous impacts is discussed. The design of the reference trajectory is presented, and since finding a feasible trajectory turned out not straightforward, insights are given on the key facets of finding a feasibly trajectory. Our aim is to develop these insights into an algorithm or rule of thumb, suitable to straightforwardly finding a feasible reference trajectory with simultaneous impacts. Finally, the simulation results are shown for the feasible trajectory that was found in this chapter. The simulations performed in this chapter do not validate the theory presented in this work. First the example system should be extended with the modeling of spatial friction, and adding releasing motions to the considered trajectories. Then, the LTTHS and PTTHS associated with the NSITHS should be defined for the example system, and compared to the tracking trajectories for both isolated and simultaneous events. One can then numerically validate whether the approximations generated by the LTTHS and PTTHS are indeed first order.
+This chapter discusses the first steps made towards a numerical validation of the theory presented in this work. First, an example system is presented, in the form of an RRR-robot opening a door. While the system can readily be extended to input-dependent guard functions and spatial friction, this example is modeled without these extensions. For this example, the trajectory tracking behavior of a trajectory with simultaneous impacts is discussed. The design of the reference trajectory is presented, and since finding a feasible trajectory turned out not straightforward, insights are given on the key facets of finding a feasibly trajectory. Our aim is to develop these insights into an algorithm or rule of thumb, suitable to straightforwardly finding a feasible reference trajectory with simultaneous impacts. Finally, the simulation results are shown for the feasible trajectory that was found in this chapter. The simulations performed in this chapter do not validate the theory presented in this work. First, the example system should be extended with the modeling of spatial friction, and adding releasing motions to the considered trajectories. Then, the LTTHS and PTTHS associated with the NSITHS should be defined for the example system, and compared to the tracking trajectories for both isolated and simultaneous events. One can then numerically validate whether the approximations generated by the LTTHS and PTTHS are indeed of first order.
 \end{document}
