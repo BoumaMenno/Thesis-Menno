@@ -6,11 +6,11 @@
 \pagestyle{fancyreport}
 \cleartooddpage
 \pagestyle{fancyreport}
-\chapter{Numerical Validation}\label{ch:vali}
+\chapter{Numerical Simulation}\label{ch:vali}
 To take the first steps towards numerically validating the theory presented in this work, a trajectory tracking simulation for mechanical systems with unilateral constraints and spatial friction is presented in this chapter. While progress is made in creating the numerical validation, the reader should be aware that it is not yet complete. More work is required to validate the LTTHS and PTTHS, presented in Chapter~\ref{ch:order} and Chapter~\ref{ch:simult}, respectively, in the sense that the example discussed in this chapter does not yet contain state-and-input-dependent guards but merely state-dependent guards, and is modeled without friction. First an example system is given in Section~\ref{sec:5sys}, which describes the kinematics and dynamics of an RRR-robot opening a door. Then, the tracking behavior of that system is simulated and presented, where in particular the design of a feasible reference trajectory is discussed. The chapter is concluded by a summary.
 
 \section{A planar 4-DOF system: RRR-robot opening a door}\label{sec:5sys}
-In this section, an example of a mechanical system with unilateral constraints is presented, which will be simulated to validate the theory presented in this work. The system is a robot arm with three revolute joints opening a door, in a planar setting. The forward kinematics and equations of motion for that system will be presented in a concise manner. For a more thorough derivation of the equations of motion, the reader is referred to \cite{Rijnen2018b}. 
+In this section, an example of a mechanical system with unilateral constraints is presented, which is intended to be used for validating the theory presented in this work. The system is a robot arm with three revolute joints opening a door, in a planar setting. The forward kinematics and equations of motion for that system will be presented in a concise manner. For a more thorough derivation of the equations of motion, the reader is referred to \cite{Rijnen2018b}. 
 
 \subsection{Forward kinematics}\label{sec:5kin}
 Let us now consider the system in Figure~\ref{fig:5system1}. The robot consists of four links, where link 0 is connected to the fixed world and link 3 is a foot-shaped end effector. Link 4 is a door connected to the fixed world with a torsional spring and damper. Coordinate frames are attached to each link, which are referred to as $\Psi_0$ to $\Psi_4$. The centers of mass of the links are assumed to be halfway the link, except for the center of mass of link 3. A closer look at link 3 can be seen in Figure~\ref{fig:5system2}, where the parameters $c_{3,x}$ and $c_{3,y}$ characterize the position of the center of mass of link 3. Also, two additional coordinate frames $\Psi_{3a}$ and $\Psi_{3b}$ are depicted, which are attached to the contact points defined in the end effector for contact modeling. The set of contact points is given by $\mathcal{I} = \{1,2\}$, where contact point 1 and 2 are related to coordinate frames $\Psi_{3a}$ and $\Psi_{3b}$, respectively. The set of guard identifiers, which is written in binary form, is given by $\eta = \{01,10\}$, where $\gamma_{01}$ is related to contact point 1 and $\gamma^{10}$ to contact point 2. in The system is modeled without friction and trajectories with releasing motions are not considered. Therefore, the system does not contain input-dependent guard functions.
@@ -19,7 +19,7 @@ Let us now consider the system in Figure~\ref{fig:5system1}. The robot consists 
 \nomenclature[RH]{$\Hb^a_b$}{The homogeneous transformation matrix relating frame $\Psi_b$ to $\Psi_a$}%
 \begin{figure}[bt!]
 \centering
-\includegraphics[width=.7\textwidth]{system.PNG}\caption{An RRR-robot and a door in top-down view. This 4-DOF planar system is used to numerically validate the theory presented in this work.}\label{fig:5system1}
+\includegraphics[width=.7\textwidth]{system.PNG}\caption{An RRR-robot and a door in top-down view. This 4-DOF planar system is intended to be used for numerically validating the theory presented in this work.}\label{fig:5system1}
 \includegraphics[width=.7\textwidth]{system2.PNG}\caption{A closer look at the foot of the RRR-robot.}
 \label{fig:5system2}
 \end{figure}
@@ -169,7 +169,7 @@ where
 \begin{align*}
 e(q) = m_3\left(c_{3,y}\cos(q) - (L_3-c_{3,x})\sin(q)\right).
 \end{align*}
-The selection matrix is $\Sb = \begin{bmatrix}\Ib_3 & \Zerob_{3 \times 1}\end{bmatrix}$. Finally, the jacobians are given by $\wb_{n,i}^T = \partial \hrm_{n,i}/\partial\qb$, which give
+Since the actuated degrees of freedom are $q_1$, $q_2$, and $q_3$, the selection matrix is given by $\Sb = \begin{bmatrix}\Ib_3 & \Zerob_{3 \times 1}\end{bmatrix}$. Finally, the jacobians are given by $\wb_{n,i}^T = \partial \hrm_{n,i}/\partial\qb$, which give
 \begin{align}
 \wb_{n,1} &= \begin{bmatrix}
 a(\qb) + b(\qb) + c(\qb) + d(\qb)\\
@@ -304,15 +304,11 @@ A trajectory tracking simulation is performed with the system presented in Secti
 The reference trajectory defined in task space is now transformed to the state reference $\alphab$, defined in joint space. The reference is simulated, and the result is plotted in Figure~\ref{fig:5alphasim}, with its corresponding feedforward $\mub$ plotted in Figure~\ref{fig:5musim}. In Figure~\ref{fig:5alphasim}, we notice the nonsmoothness in the position $\qb$ and the jump in the velocity $\dot{\qb}$ at $t=\tau_1=1$. The system only enters two different modes, indicated by the bars $0$ and $1$ above the plots. The ante-event segment $0$ in dark blue indicates that both contact points are not in contact, and the post-event segment $1$ in light blue indicates that both contact points are in contact. Snapshots of the system performing the reference trajectory can be seen in Appendix~\ref{app:simulations}.
 \begin{figure}[bt!]
 \centering
-\begin{minipage}[c]{\textwidth}
-\centering
-\includegraphics[width=\textwidth]{alphaxpos.eps}
-\end{minipage}
-
-\begin{minipage}[c]{\textwidth}
-\centering
-\includegraphics[width=\textwidth]{alphaxvel.eps}
-\end{minipage}
+\includegraphics[width=\textwidth]{allstates.eps}
+%\begin{minipage}[c]{\textwidth}
+%\centering
+%\includegraphics[width=\textwidth]{alphaxvel.eps}
+%\end{minipage}
 \caption{In red, the reference trajectory $\alphab$ and its extensions $\bar{\alphab}$, generated from the trajectory shown in Figure~\ref{fig:5traj}. In blue, the tracking trajectory $\xb$, generated by tracking the reference trajectory $\alphab$ with feedback gains $K_1$ and $K_2$ for the ante- and post-event segment, respectively.}\label{fig:5alphasim}
 \end{figure}
 
